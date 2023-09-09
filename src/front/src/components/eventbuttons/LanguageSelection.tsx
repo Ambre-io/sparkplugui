@@ -5,8 +5,10 @@ import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants";
 import {getLanguage, setLanguage} from "../../redux/data/languageSlice";
-import {AmbreAutoComplete} from "../ambre/AmbreAutoComplete";
-import {AmbreTextField} from "../ambre/AmbreTextField";
+import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+
+
+const Languages = constants.availableLanguages.map((lng: string, i: number) => <MenuItem key={`${lng}${i}`} value={lng}>{lng}</MenuItem>);
 
 
 export const LanguageSelection: React.FC = () => {
@@ -16,22 +18,21 @@ export const LanguageSelection: React.FC = () => {
     const dispatch = useDispatch();
     const {t, i18n} = useTranslation();
 
-    const goClickLanguage = (event: any, lng: unknown) => {
-        const newLanguage: string = lng as string;
+    const goClickLanguage = (event: SelectChangeEvent) => {
+        const newLanguage: string = event.target.value;
         i18n.changeLanguage(newLanguage).catch((e) => console.error('Error: fail to change language', e));
         dispatch(setLanguage(newLanguage));
     };
 
     return (
-        <AmbreAutoComplete
-            value={language}
-            onChange={goClickLanguage}
-            options={constants.availableLanguages}
-            disableClearable
-            filterSelectedOptions
-            renderInput={(params) => (
-                <AmbreTextField {...params} label={t('language')} variant="standard"/>
-            )}
-        />
-    )
+        <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+            <InputLabel>{t('language')}</InputLabel>
+            <Select
+                value={language}
+                onChange={goClickLanguage}
+            >
+                {Languages}
+            </Select>
+        </FormControl>
+    );
 }

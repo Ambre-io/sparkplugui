@@ -9,6 +9,7 @@ export const initMQTTDataSlice: MQTTDataType = {
     port: '',
     username: '',
     password: '',
+    topic: ''
 }
 
 const mqttDataSlice = createSlice({
