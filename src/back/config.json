@@ -1,0 +1,7 @@
+{
+    "name": "SparkplugUI",
+    "server": {
+        "host": "localhost",
+        "port": 4000
+    }
+}

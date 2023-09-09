@@ -1,0 +1,50 @@
+{
+  "name": "SparkplugUI front",
+  "version": "1.0.0",
+  "license": "GNU",
+  "private": true,
+  "description": "Frontend for SparkplugUI",
+  "author": "guiklimek",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.3",
+    "@mui/lab": "^5.0.0-alpha.139",
+    "@mui/material": "^5.14.3",
+    "@mui/system": "^5.14.4",
+    "@mui/x-data-grid": "^6.11.2",
+    "@react-spring/web": "^9.7.3",
+    "@reduxjs/toolkit": "^1.9.5",
+    "gatsby": "^5.11.0",
+    "gatsby-plugin-emotion": "^8.11.0",
+    "gatsby-plugin-image": "^3.11.0",
+    "gatsby-plugin-manifest": "^5.11.0",
+    "gatsby-plugin-sharp": "^5.11.0",
+    "gatsby-source-filesystem": "^5.11.0",
+    "gatsby-transformer-sharp": "^5.11.0",
+    "graphql": "^16.7.1",
+    "i18next": "^23.5.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-i18next": "^13.2.2",
+    "react-redux": "^8.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.3",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "typescript": "^5.1.6"
+  }
+}

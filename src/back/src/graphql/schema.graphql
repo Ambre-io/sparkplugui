@@ -1,0 +1,26 @@
+# Server: GraphQL Schema declaration following the SDL: https://spec.graphql.org/ and
+# Apollo server: https://www.apollographql.com/docs/apollo-server/schema/schema
+
+#######################################
+# QUERY DECLARATIONS (GET)
+#######################################
+
+
+# TOP LEVEL QUERY
+type Query {
+    pouet: Int
+}
+
+#######################################
+# MUTATION DECLARATIONS (POST)
+#######################################
+
+# TOP LEVEL MUTATION
+type Mutation {
+    postMQTTData(
+        host: String,
+        port: String,
+        username: String,
+        password: String,
+    ): Boolean
+}
