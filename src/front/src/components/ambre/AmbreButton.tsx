@@ -7,6 +7,6 @@ export const AmbreButton = styled(Button)(({theme}) => ({
     fontWeight: 800,
     '&:hover': {
         background: theme.palette.primary.main,
-        color: theme.palette.primary.light,
+        color: theme.palette.primary.dark,
     }
 }));

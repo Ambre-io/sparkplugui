@@ -20,6 +20,8 @@ body {
     padding: 0;
     overflow-x: hidden;
     /* image is in /static, the builder copy it in /public */
+    /*background: radial-gradient(circle at 100%, #ffc500, #ffde74 50%, #ffe694 75%, #55c6e7 75%);*/
+    background-image: linear-gradient(to right, #9796f0, #fbc7d4);
     /*TODO background-image: url('/images/TODO.png');*/
     /*TODO background-repeat: no-repeat;*/
     /*TODO background-attachment: fixed;*/

@@ -25,7 +25,7 @@ export const LanguageSelection: React.FC = () => {
     };
 
     return (
-        <FormControl variant="standard" sx={{m: 1, minWidth: 120}}>
+        <FormControl variant="standard" sx={{m: 1, minWidth: 80}}>
             <InputLabel>{t('language')}</InputLabel>
             <Select
                 value={language}

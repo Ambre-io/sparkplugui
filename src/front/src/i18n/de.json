@@ -1,3 +1,5 @@
 {
+    "sparkplugui": "SparkplugUI",
+    "sparkpluguiInfo": "Ausführung: {{version}}",
     "language": "Sprache"
 }
