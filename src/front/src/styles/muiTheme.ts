@@ -51,8 +51,8 @@ export const theme = createTheme({
                     '&:hover:not(.Mui-disabled, .Mui-error):before': {
                         borderBottom: `2px solid ${primaryLight}`,
                     }
-                },
-            },
-        },
+                }
+            }
+        }
     }
 });
