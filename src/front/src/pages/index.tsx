@@ -21,7 +21,22 @@ const IndexPage: React.FC<PageProps> = () => {
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <ApolloProvider client={client}>
-                    <App/>
+                    {/*see: https://alvarotrigo.com/blog/animated-backgrounds-css/#3)-floating-squares*/}
+                    <div className="area">
+                        <ul className="circles">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <App/>
+                    </div>
                 </ApolloProvider>
             </ThemeProvider>
         </Provider>
