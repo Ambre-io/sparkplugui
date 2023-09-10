@@ -15,10 +15,10 @@ export const App: React.FC = () => {
                     <SoftCard/>
                 </Grid>
                 <Grid container sx={{flexGrow: 1}}>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item sm={12} md={6}>
                         <Forms/>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item sm={12} md={6}>
 
                     </Grid>
                 </Grid>
