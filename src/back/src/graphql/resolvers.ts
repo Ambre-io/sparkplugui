@@ -1,3 +1,4 @@
+import {mqttActions} from "~/mqtt/mqttActions";
 
 export const resolvers = {
     // Query: {
@@ -5,7 +6,7 @@ export const resolvers = {
     // },
     Mutation: {
         postMQTTData: async (_: any, data: any) => {
-            return true;
+            return mqttActions.subscribe(data);
         },
     }
 };

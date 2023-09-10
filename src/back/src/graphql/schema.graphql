@@ -22,5 +22,6 @@ type Mutation {
         port: String,
         username: String,
         password: String,
+        topic: String,
     ): Boolean
 }

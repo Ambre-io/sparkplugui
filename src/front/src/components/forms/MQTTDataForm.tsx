@@ -1,10 +1,12 @@
-import React, {ChangeEvent, useMemo} from "react";
+import React, {ChangeEvent} from "react";
 
 import {useMutation} from '@apollo/client';
-import {FormControl, FormGroup, FormHelperText, Grid} from "@mui/material";
-import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
+import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
+import {FormControl, FormHelperText, IconButton, InputAdornment} from "@mui/material";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {toast} from 'react-toastify';
 
 import {constants} from "../../utils/constants";
 import {AmbreButton} from "../ambre/AmbreButton";
@@ -16,9 +18,13 @@ import {styles} from "../../styles/styles";
 
 export const MQTTDataForm: React.FC = () => {
 
-    const dispatch = useDispatch();
     const information = useSelector(getMQTTData);
+    const [showPassword, setShowPassword] = React.useState<boolean>(false);
+
+    const dispatch = useDispatch();
     const {t} = useTranslation();
+    const success = () => toast(t('success'));
+    const error = () => toast(t('error'));
 
     const goChange = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
         // let value: string | number = event.target.value
@@ -32,7 +38,7 @@ export const MQTTDataForm: React.FC = () => {
             variables: {...information}
         }).then((res) => {
             const data = res.data.postMQTTData;
-            // if (data !== null)
+            data !== null && data ? success() : error();
         }).catch((e) => {
             console.error('MQTTDataForm: mutation fail', e);
         });
@@ -56,6 +62,7 @@ export const MQTTDataForm: React.FC = () => {
                     label={t('port')}
                     value={information.port}
                     onChange={goChange(constants.port)}
+                    type="number"
                 />
                 <FormHelperText>{t('portHelper')}</FormHelperText>
             </FormControl>
@@ -72,6 +79,20 @@ export const MQTTDataForm: React.FC = () => {
                     label={t('password')}
                     value={information.password}
                     onChange={goChange(constants.password)}
+                    type={showPassword ? 'text' : 'password'}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    onClick={() => setShowPassword((show) => !show)}
+                                    onMouseDown={(event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault()}
+                                    edge="end"
+                                >
+                                    {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                </IconButton>
+                            </InputAdornment>
+                        )
+                    }}
                 />
                 <FormHelperText>{t('passwordHelper')}</FormHelperText>
             </FormControl>
@@ -87,7 +108,7 @@ export const MQTTDataForm: React.FC = () => {
                 <AmbreButton
                     variant="contained"
                     onClick={goMutation}
-                    endIcon={<SaveOutlinedIcon/>}
+                    endIcon={<CloudOutlinedIcon/>}
                 >
                     {t('connect')}
                 </AmbreButton>

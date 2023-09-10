@@ -13,5 +13,7 @@
     "portHelper": "Port du serveur MQTT.",
     "usernameHelper": "Nom d'utilisateur pour se connecter au serveur MQTT.",
     "passwordHelper": "Mot de passe pour se connecter au serveur MQTT.",
-    "topicHelper": "Le client MQTT s'abonnera au topic mentionné, sur le serveur configuré."
+    "topicHelper": "Le client MQTT s'abonnera au topic mentionné, sur le serveur configuré.",
+    "success": "Succès \uD83D\uDC4C",
+    "error": "Erreur ☹\uFE0F"
 }

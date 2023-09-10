@@ -23,8 +23,8 @@ export interface TreeButtonType {
 
 // ******************************************
 // * MQTT Data
+// * TODO @@@ generate it from graphql schema
 // ******************************************
-
 export interface MQTTDataType {
     host: string;
     port: string;

@@ -8,7 +8,9 @@ import {getLanguage, setLanguage} from "../../redux/data/languageSlice";
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
 
-const Languages = constants.availableLanguages.map((lng: string, i: number) => <MenuItem key={`${lng}${i}`} value={lng}>{lng}</MenuItem>);
+const Languages = constants.availableLanguages.map((lng: string, i: number) => (
+    <MenuItem key={`${lng}${i}`} value={lng}>{lng}</MenuItem>
+));
 
 
 export const LanguageSelection: React.FC = () => {

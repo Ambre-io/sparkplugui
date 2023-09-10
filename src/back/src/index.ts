@@ -5,13 +5,6 @@ import {readFileSync} from 'fs';
 import CONFIG from '../config.json';
 import {resolvers} from "~/graphql/resolvers";
 
-
-// Sparkplug client definition
-// TODO move it
-// import {AsyncMqttClient, connect} from "async-mqtt";
-// export const mqttClient: AsyncMqttClient = connect(CONFIG.mqtt.brokerUrl);
-// mqttClient.publish('MQTT/connected/bwoah', 'test');
-
 // GraphQL Schema definition
 const typeDefs = readFileSync('src/graphql/schema.graphql', {encoding: 'utf-8'});
 

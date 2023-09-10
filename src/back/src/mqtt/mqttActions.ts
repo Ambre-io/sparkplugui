@@ -1,6 +1,6 @@
+import {MQTTDataType} from "~/utils/types";
 
-
-export const actions = {
+export const mqttActions = {
     publish: async () => {
         // fresh payload with metrics update
         // const payload: UPayload = utils.sparkplugPayload();
@@ -16,7 +16,11 @@ export const actions = {
         // // publish
         // mqttClient.publish(topic, Buffer.from(encodedPayload));
     },
-    subscribe: async () => {
-
+    subscribe: (MQTTData: MQTTDataType) => {
+        // Sparkplug client definition
+        // import {AsyncMqttClient, connect} from "async-mqtt";
+        // export const mqttClient: AsyncMqttClient = connect(CONFIG.mqtt.brokerUrl);
+        // mqttClient.publish('MQTT/connected/bwoah', 'test');
+        return true
     }
 }

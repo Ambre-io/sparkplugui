@@ -16,9 +16,9 @@ declare module '@mui/material/styles' {
     }
 }
 
-const primaryMain = '#FFCA19';
-const primaryLight = '#D724FF';
-const primaryDark = '#55C6E7';
+const primaryMain = '#55C6E7';
+const primaryLight = '#FFCA19';
+const primaryDark = '#D724FF';
 
 export const theme = createTheme({
     palette: {
@@ -51,6 +51,31 @@ export const theme = createTheme({
                     '&:hover:not(.Mui-disabled, .Mui-error):before': {
                         borderBottom: `2px solid ${primaryLight}`,
                     }
+                }
+            }
+        },
+        MuiSelect: {
+            styleOverrides: {
+                select: {
+                    background: 'transparent',
+                    color: primaryDark
+                }
+            }
+        },
+        MuiPopover: {
+            styleOverrides: {
+                root: {
+                    '& .MuiMenuItem-root:hover': {
+                        background: primaryLight,
+                        color: primaryDark
+                    },
+                    '& .MuiMenuItem-root:focus': {
+                        background: primaryLight,
+                        color: primaryDark
+                    },
+                },
+                paper: {
+                    color: primaryLight,
                 }
             }
         }

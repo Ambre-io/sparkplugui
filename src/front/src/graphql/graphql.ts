@@ -24,12 +24,14 @@ export const POST_MQTTDATA = gql`
         $port: String,
         $username: String,
         $password: String,
+        $topic: String,
     ) {
         postMQTTData(
             host: $host,
             port: $port,
             username: $username,
             password: $password,
+            topic: $topic,
         )
     }
 `;

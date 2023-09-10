@@ -5,11 +5,11 @@ import {constants} from "../../utils/constants";
 import {RootState} from "../store";
 
 export const initMQTTDataSlice: MQTTDataType = {
-    host: '',
-    port: '',
+    host: '127.0.0.1',
+    port: '1883',
     username: '',
     password: '',
-    topic: ''
+    topic: '#'
 }
 
 const mqttDataSlice = createSlice({
