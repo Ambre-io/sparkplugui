@@ -1,5 +1,9 @@
 {
     "serverAddress": "http://127.0.0.1:4000",
     "name": "SparkplugUI",
-    "version": "v0.0.1"
+    "version": "v0.0.1",
+    "creator": {
+        "name": "Ambre.io",
+        "site": "https://ambre.io"
+    }
 }

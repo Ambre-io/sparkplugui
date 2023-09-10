@@ -49,6 +49,11 @@ body {
 /* see: https://alvarotrigo.com/blog/animated-backgrounds-css/#3)-floating-squares*/
 /* ****************************************** */
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 .area {
     width: 100%;
     height: 100vh;

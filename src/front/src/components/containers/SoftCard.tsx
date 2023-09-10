@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {Grid} from "@mui/material";
+import {Grid, Link} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
 import CONFIG from '../../../config.json';
@@ -17,19 +17,23 @@ export const SoftCard: React.FC = () => {
 
     return (
         <Grid container sx={{flexGrow: 1}} justifyContent='center'>
-            <Grid item sm={11}>
-                <Grid sx={{flexGrow: 1}} container>
-                    <Grid item xs={2}>
-                        <Grid sx={styles.softCard} container justifyContent='center'>
-                            <Grid item sx={styles.sparkpluguiLogoContainer}>
-                                <img style={styles.sparkpluguiLogo} alt='SparkplugUI logo' src='/images/logo.svg'/>
-                                <div style={styles.sparkplugui}>{t('sparkplugui')}</div>
-                                <div style={styles.sparkpluguiInfo}>{t('sparkpluguiInfo', SPARKPLUGUI_INFO)}</div>
-                            </Grid>
-                            <Grid item>
-                                <LanguageSelection/>
-                            </Grid>
-                        </Grid>
+            <Grid item xs={11}>
+                <Grid sx={styles.softCard} container justifyContent='center'>
+                    <Grid item sx={styles.sparkpluguiLogoContainer}>
+                        <img style={styles.sparkpluguiLogo} alt='SparkplugUI logo' src='/static/images/logo.svg'/>
+                        <div style={styles.sparkplugui}>{t('sparkplugui')}</div>
+                        <div style={styles.sparkpluguiInfo}>
+                            {t('sparkpluguiInfo', SPARKPLUGUI_INFO)},
+                            <Link // FIXME how it works in electron
+                                href={CONFIG.creator.site}
+                                target="_blank"
+                                underline="none"
+                                sx={{color: (theme) => theme.palette.primary.light}}
+                            > {CONFIG.creator.name}</Link>
+                        </div>
+                    </Grid>
+                    <Grid item>
+                        <LanguageSelection/>
                     </Grid>
                 </Grid>
             </Grid>

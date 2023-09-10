@@ -36,8 +36,8 @@ const IndexPage: React.FC<PageProps> = () => {
                             <li></li>
                             <li></li>
                             <li></li>
+                            <App/>
                         </ul>
-                        <App/>
                     </div>
                 </ApolloProvider>
             </ThemeProvider>
