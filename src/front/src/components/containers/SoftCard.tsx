@@ -1,8 +1,9 @@
 import * as React from 'react';
 
-import {Grid, Link} from "@mui/material";
+import {Grid} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
+import {AmbreLightSpan} from "../ambre/AmbreSpan";
 import CONFIG from '../../../config.json';
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";
 import {styles} from "../../styles/styles";
@@ -20,16 +21,11 @@ export const SoftCard: React.FC = () => {
             <Grid item xs={11}>
                 <Grid sx={styles.softCard} container justifyContent='center'>
                     <Grid item sx={styles.sparkpluguiLogoContainer}>
-                        <img style={styles.sparkpluguiLogo} alt='SparkplugUI logo' src='/static/images/logo.svg'/>
+                        <img style={styles.sparkpluguiLogo} alt='SparkplugUI logo' src='/images/logo.svg'/>
                         <div style={styles.sparkplugui}>{t('sparkplugui')}</div>
                         <div style={styles.sparkpluguiInfo}>
                             {t('sparkpluguiInfo', SPARKPLUGUI_INFO)},
-                            <Link // FIXME how it works in electron
-                                href={CONFIG.creator.site}
-                                target="_blank"
-                                underline="none"
-                                sx={{color: (theme) => theme.palette.primary.light}}
-                            > {CONFIG.creator.name}</Link>
+                            <AmbreLightSpan> {CONFIG.creator.name}</AmbreLightSpan>
                         </div>
                     </Grid>
                     <Grid item>
