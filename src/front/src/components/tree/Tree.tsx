@@ -33,8 +33,8 @@ export const Tree = (props: any) => {
 
     return (
         <Grid sx={{flexGrow: 1}} container justifyContent='center'>
-            <Grid item xs={11} sx={styles.acquisitionTree}>
-                <span style={styles.subtitle}>{t('acquisitionTree')}</span>
+            <Grid item xs={11} sx={styles.tree}>
+                <span style={styles.subtitle}>{t('tree')}</span>
                 <TreeView
                     defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
                     defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}

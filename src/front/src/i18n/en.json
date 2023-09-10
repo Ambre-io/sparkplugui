@@ -1,5 +1,17 @@
 {
     "sparkplugui": "SparkplugUI",
     "sparkpluguiInfo": "Version: {{version}}",
-    "language": "Language"
+    "language": "Language",
+    "mqttInfo": "MQTT Information",
+    "host": "Host",
+    "port": "Port",
+    "username": "Username",
+    "password": "Password",
+    "topic": "Topic",
+    "connect": "Connect",
+    "hostHelper": "MQTT server address or name.",
+    "portHelper": "MQTT server port.",
+    "usernameHelper": "Username to connect to the MQTT server.",
+    "passwordHelper": "Password to connect to the MQTT server.",
+    "topicHelper": "The MQTT client will subscribe to the mentioned topic, on the configured server."
 }

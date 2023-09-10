@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useMemo} from "react";
 
 import {useMutation} from '@apollo/client';
-import {FormControl, FormGroup, FormHelperText} from "@mui/material";
+import {FormControl, FormGroup, FormHelperText, Grid} from "@mui/material";
 import SaveOutlinedIcon from "@mui/icons-material/SaveOutlined";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
@@ -39,17 +39,49 @@ export const MQTTDataForm: React.FC = () => {
     }
 
     return (
-        <FormGroup>
+        <div>
             <FormControl sx={styles.formControl} fullWidth>
-                <span style={styles.subtitle}>{t('blabla')}</span>
+                <span style={styles.subtitle}>{t('mqttInfo')}</span>
             </FormControl>
             <FormControl sx={styles.formControl} fullWidth>
                 <AmbreTextField
-                    label={t('tag')}
-                    // value={information.tag}
-                    // onChange={goChange(constants.tag)}
+                    label={t('host')}
+                    value={information.host}
+                    onChange={goChange(constants.host)}
                 />
-                <FormHelperText>{t('tagHelper')}</FormHelperText>
+                <FormHelperText>{t('hostHelper')}</FormHelperText>
+            </FormControl>
+            <FormControl sx={styles.formControl} fullWidth>
+                <AmbreTextField
+                    label={t('port')}
+                    value={information.port}
+                    onChange={goChange(constants.port)}
+                />
+                <FormHelperText>{t('portHelper')}</FormHelperText>
+            </FormControl>
+            <FormControl sx={styles.formControl} fullWidth>
+                <AmbreTextField
+                    label={t('username')}
+                    value={information.username}
+                    onChange={goChange(constants.username)}
+                />
+                <FormHelperText>{t('usernameHelper')}</FormHelperText>
+            </FormControl>
+            <FormControl sx={styles.formControl} fullWidth>
+                <AmbreTextField
+                    label={t('password')}
+                    value={information.password}
+                    onChange={goChange(constants.password)}
+                />
+                <FormHelperText>{t('passwordHelper')}</FormHelperText>
+            </FormControl>
+            <FormControl sx={styles.formControl} fullWidth>
+                <AmbreTextField
+                    label={t('topic')}
+                    value={information.topic}
+                    onChange={goChange(constants.topic)}
+                />
+                <FormHelperText>{t('topicHelper')}</FormHelperText>
             </FormControl>
             <FormControl sx={styles.formControl} fullWidth>
                 <AmbreButton
@@ -57,9 +89,9 @@ export const MQTTDataForm: React.FC = () => {
                     onClick={goMutation}
                     endIcon={<SaveOutlinedIcon/>}
                 >
-                    {t('send')}
+                    {t('connect')}
                 </AmbreButton>
             </FormControl>
-        </FormGroup>
+        </div>
     )
 }

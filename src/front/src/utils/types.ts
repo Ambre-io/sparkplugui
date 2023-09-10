@@ -26,5 +26,9 @@ export interface TreeButtonType {
 // ******************************************
 
 export interface MQTTDataType {
-    // TODO
+    host: string;
+    port: string;
+    username: string;
+    password: string;
+    topic: string;
 }
