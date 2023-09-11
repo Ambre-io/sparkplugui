@@ -16,6 +16,8 @@ const GraphQLWebSocketLink = new GraphQLWsLink(createClient({
   url: CONFIG.serverWebSocket,
 }));
 
+// TODO https://www.apollographql.com/docs/react/data/subscriptions/#3-split-communication-by-operation-recommended
+
 // ******************************************
 // * QUERIES
 // ******************************************

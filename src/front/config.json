@@ -1,5 +1,5 @@
 {
-    "serverHTTP": "http://127.0.0.1:4000",
+    "serverHTTP": "http://127.0.0.1:4000/graphql",
     "serverWebSocket": "ws://127.0.0.1:4000/subscriptions",
     "name": "SparkplugUI",
     "version": "v0.0.1",
