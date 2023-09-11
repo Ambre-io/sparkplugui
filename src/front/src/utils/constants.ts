@@ -4,6 +4,7 @@
 export const constants = {
     mqttDataSlice: 'mqttDataSlice',
     languageSlice: 'languageSlice',
+    messagesSlice: 'messagesSlice',
     availableLanguages: ['fr', 'en', 'de'].sort(),
     host: 'host',
     port: 'port',

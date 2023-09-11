@@ -35,6 +35,7 @@
     "gatsby-source-filesystem": "^5.11.0",
     "gatsby-transformer-sharp": "^5.11.0",
     "graphql": "^16.7.1",
+    "graphql-ws": "^5.14.0",
     "i18next": "^23.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -32,3 +32,10 @@ export interface MQTTDataType {
     password: string;
     topic: string;
 }
+
+export interface MessageType {
+    topic: string;
+    payload: string;
+}
+
+export type MessagesType = Array<MessageType>;

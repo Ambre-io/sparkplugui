@@ -1,15 +1,20 @@
-// Client: GraphQL Client, Queries and Mutations using Apollo: https://www.apollographql.com/docs/react/
-
 import {ApolloClient, InMemoryCache, gql} from '@apollo/client';
+import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
+import { createClient } from 'graphql-ws';
+
 import CONFIG from '../../config.json';
 
 // ******************************************
 // * CLIENT
 // ******************************************
-export const client = new ApolloClient({
-    uri: CONFIG.serverAddress,
+export const HTTPClient = new ApolloClient({
+    uri: CONFIG.serverHTTP,
     cache: new InMemoryCache(),
 });
+
+const GraphQLWebSocketLink = new GraphQLWsLink(createClient({
+  url: CONFIG.serverWebSocket,
+}));
 
 // ******************************************
 // * QUERIES
