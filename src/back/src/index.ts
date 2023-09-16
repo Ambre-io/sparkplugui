@@ -1,17 +1,23 @@
 import {ApolloServer} from '@apollo/server';
-import {expressMiddleware} from '@apollo/server/express4';
 import {ApolloServerPluginDrainHttpServer} from '@apollo/server/plugin/drainHttpServer';
-import express from 'express';
-import http from 'http';
-import cors from 'cors';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import express from 'express';
+import {expressMiddleware} from '@apollo/server/express4';
+import http from 'http';
 import {makeExecutableSchema} from '@graphql-tools/schema';
-import {WebSocketServer} from 'ws';
-import {useServer} from 'graphql-ws/lib/use/ws';
 import {readFileSync} from 'fs';
+import {useServer} from 'graphql-ws/lib/use/ws';
+import {WebSocketServer} from 'ws';
+
+import { MQTTPubSub } from 'graphql-mqtt-subscriptions';
 
 import CONFIG from '../config.json';
 import {resolvers} from "~/graphql/resolvers";
+
+
+// FIXME @@@ it's the client test for graphql-mqtt-subscriptions package
+export const pubsub = new MQTTPubSub(); // connecting to mqtt://localhost by default
 
 // ******************************************
 // * Prepare instances
@@ -21,8 +27,6 @@ import {resolvers} from "~/graphql/resolvers";
 const typeDefs = readFileSync('src/graphql/schema.graphql', {encoding: 'utf-8'});
 // GraphQLSchema, so HTTP and WebSocket use the same
 const schema = makeExecutableSchema({typeDefs, resolvers});
-const httpPath = '/graphQL';
-const webSocketPath = '/subscriptions';
 
 // Express app
 const app = express();
@@ -35,10 +39,11 @@ const httpServer = http.createServer(app);
 // Creating the WebSocket server
 const webSocketServer = new WebSocketServer({
     server: httpServer,
-    path: webSocketPath,
+    path: CONFIG.server.webSocketPath,
 });
 
 // Start listening
+// options: https://www.apollographql.com/docs/apollo-server/data/subscriptions/#operation-context
 const webSocketListen = useServer({schema}, webSocketServer);
 
 // ******************************************
@@ -68,16 +73,18 @@ const httpApolloServer = new ApolloServer({
     await httpApolloServer.start();
 
     app.use(
-        httpPath,
+        CONFIG.server.apiPath,
         cors<cors.CorsRequest>(),
         bodyParser.json({limit: '50mb'}),
         expressMiddleware(httpApolloServer)
     );
 
+    const serverAddress = `http://${CONFIG.server.host}:${CONFIG.server.port}${CONFIG.server.apiPath}`;
+
     // Customize server startup
     httpServer.listen({
         host: CONFIG.server.host,
         port: CONFIG.server.port
-    }, () => console.log(`🚀 Server ready at: http://${CONFIG.server.host}:${CONFIG.server.port} 😀`));
+    }, () => console.log(`🚀 Server ready at: ${serverAddress} 😀`));
 
 })();
