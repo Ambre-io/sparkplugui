@@ -6,7 +6,7 @@ import {MQTTDataForm} from "../forms/MQTTDataForm";
 import {styles} from "../../styles/styles";
 
 
-export const Forms: React.FC = () => {
+export const Form: React.FC = () => {
 
     return (
         <Grid sx={{flexGrow: 1}} container justifyContent='center'>

@@ -3,5 +3,5 @@
 
 
 export const constants: any = {
-    pubsubTopicTest: '#'
+    pubsubTopicTest: 'OMG/FIRST/TOPIC'
 };
