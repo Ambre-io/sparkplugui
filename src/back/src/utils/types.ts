@@ -9,3 +9,5 @@ export interface MQTTDataType {
     password: string;
     topic: string;
 }
+
+export type SubscriptionsType = Record<number, [string, Function]>;

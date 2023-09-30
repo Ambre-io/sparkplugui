@@ -2,7 +2,7 @@ import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
 import {constants} from "~/utils/constants";
 
 
-const pubsub = new MQTTAsyncIterator();
+const pubsub = new MQTTAsyncIterator('mqtt://localhost:1883');
 
 
 export const resolvers = {
