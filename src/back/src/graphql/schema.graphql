@@ -15,6 +15,10 @@ type Query {
 # MUTATION DECLARATIONS (POST)
 #######################################
 
+type isOK {
+    isOK: Boolean
+}
+
 type Mutation {
     postMQTTData(
         host: String,
@@ -22,7 +26,7 @@ type Mutation {
         username: String,
         password: String,
         topic: String,
-    ): Boolean
+    ): isOK
 }
 
 #######################################

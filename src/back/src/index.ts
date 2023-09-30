@@ -10,14 +10,9 @@ import {readFileSync} from 'fs';
 import {useServer} from 'graphql-ws/lib/use/ws';
 import {WebSocketServer} from 'ws';
 
-import { MQTTPubSub } from 'graphql-mqtt-subscriptions';
-
 import CONFIG from '../config.json';
 import {resolvers} from "~/graphql/resolvers";
 
-
-// FIXME @@@ it's the client test for graphql-mqtt-subscriptions package
-export const pubsub = new MQTTPubSub(); // connecting to mqtt://localhost by default
 
 // ******************************************
 // * Prepare instances
@@ -51,7 +46,8 @@ const webSocketListen = useServer({schema}, webSocketServer);
 // ******************************************
 
 const httpApolloServer = new ApolloServer({
-    schema,
+    typeDefs,
+    resolvers,
     plugins: [
         // Proper shutdown for the HTTP server.
         ApolloServerPluginDrainHttpServer({httpServer: httpServer}),

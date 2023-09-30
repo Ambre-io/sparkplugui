@@ -63,7 +63,9 @@ export const POST_MQTTDATA = gql`
             username: $username,
             password: $password,
             topic: $topic,
-        )
+        ) {
+            isOK
+        }
     }
 `;
 

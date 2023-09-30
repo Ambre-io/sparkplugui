@@ -1,25 +1,21 @@
-import {mqttActions} from "~/mqtt/mqttActions";
-import {pubsub} from "~/index";
+import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
 import {constants} from "~/utils/constants";
+
+
+const pubsub = new MQTTAsyncIterator();
 
 
 export const resolvers = {
     Mutation: {
         postMQTTData: async (_: any, data: any) => {
-            return mqttActions.subscribe(data);
+            console.log('postMQTTData', data);
+            return {isOK: true};
         }
     },
     Subscription: {
         messageReceived: {
-            // The AsyncIterator method will tell the MQTT client to listen for messages from the MQTT broker on the topic provided,
-            // and wraps that listener in an AsyncIterator object.
-            // When messages are received from the topic, those messages can be returned back to connected clients.
-            // subscribe: () => pubsub.asyncIterator(constants.pubsubTopicTest)
-            subscribe: async function* () {
-                for await (const t of ['WAW/E8164/1', 'WAW/E8164/2', 'WAW/E8164/3']) {
-                    yield {topic: t, payload: 'pouet'};
-                }
-            }
+            // https://www.apollographql.com/docs/apollo-server/data/subscriptions#resolving-a-subscription
+            subscribe: () => pubsub.asyncIterator(constants.pubsubTopicTest)
         }
     }
 };

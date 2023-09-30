@@ -7,23 +7,20 @@ import {SoftCard} from "./SoftCard";
 import {MQTTMessages} from "./MQTTMessages";
 
 
-export const App: React.FC = () => {
-
-    return (
-        <main>
+export const App: React.FC = () => (
+    <main>
+        <Grid container sx={{flexGrow: 1}}>
+            <Grid item xs={12}>
+                <SoftCard/>
+            </Grid>
             <Grid container sx={{flexGrow: 1}}>
-                <Grid item xs={12}>
-                    <SoftCard/>
+                <Grid item sm={12} md={6}>
+                    <Form/>
                 </Grid>
-                <Grid container sx={{flexGrow: 1}}>
-                    <Grid item sm={12} md={6}>
-                        <Form/>
-                    </Grid>
-                    <Grid item sm={12} md={6}>
-                        <MQTTMessages/>
-                    </Grid>
+                <Grid item sm={12} md={6}>
+                    <MQTTMessages/>
                 </Grid>
             </Grid>
-        </main>
-    )
-}
+        </Grid>
+    </main>
+);
