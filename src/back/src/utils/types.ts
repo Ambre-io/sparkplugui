@@ -11,3 +11,8 @@ export interface MQTTDataType {
 }
 
 export type SubscriptionsType = Record<number, [string, Function]>;
+
+export interface MessageType {
+    topic: string;
+    payload: string;
+}
