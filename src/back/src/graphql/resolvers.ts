@@ -15,7 +15,10 @@ export const resolvers = {
     Subscription: {
         messageReceived: {
             // https://www.apollographql.com/docs/apollo-server/data/subscriptions#resolving-a-subscription
-            subscribe: () => pubsub.asyncIterator(constants.pubsubTopicTest)
+            subscribe: () => pubsub.asyncIterator(constants.pubsubTopicTest),
+            resolve: (payload: any) => {
+                return {topic: constants.pubsubTopicTest, payload};
+            }
         }
     }
 };

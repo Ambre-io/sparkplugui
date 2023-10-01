@@ -46,8 +46,7 @@ const webSocketListen = useServer({schema}, webSocketServer);
 // ******************************************
 
 const httpApolloServer = new ApolloServer({
-    typeDefs,
-    resolvers,
+    schema,
     plugins: [
         // Proper shutdown for the HTTP server.
         ApolloServerPluginDrainHttpServer({httpServer: httpServer}),

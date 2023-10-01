@@ -67,7 +67,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
     }
 
     // Binded function to the MQTT Client onMessage
-    private onMessage(topic: string, payload: Buffer): MessageType {
+    private onMessage(topic: string, payload: Buffer): void {
         console.log('MQTTAsyncIterator.onMessage');
 
         let decodedMessage: string;
@@ -77,12 +77,8 @@ export class MQTTAsyncIterator implements PubSubEngine {
             decodedMessage = payload.toString();
         }
 
-        console.log('topic', topic, 'payload', decodedMessage);
+        console.log('topic:', topic, 'payload:', decodedMessage);
 
-        Object.values(this.subscriptions).map((value) => {
-            value[1](decodedMessage)
-        });
-
-        return {topic, payload: decodedMessage};
+        Object.values(this.subscriptions).map((value) => value[1](decodedMessage));
     }
 }

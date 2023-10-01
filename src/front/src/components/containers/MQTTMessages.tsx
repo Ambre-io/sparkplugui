@@ -11,7 +11,7 @@ export const MQTTMessages: React.FC = () => {
 
     const {data, loading} = useSubscription(WS_MESSAGE_RECEIVED);
 
-    console.log('MQTTMessages data', data);
+    console.log('MQTTMessages data:', data);
 
     if (loading || data === undefined || data.messageReceived === null) return (
         <Grid sx={{flexGrow: 1}} container justifyContent='center'>
@@ -30,8 +30,8 @@ export const MQTTMessages: React.FC = () => {
             <Grid item xs={11} md={10} sx={styles.commonMarginBottom}>
                 <Grid sx={{flexGrow: 1}} container>
                     <Grid item sx={styles.boxShadowForms}>
-                        <h4>Topic: {!loading && data.messageReceived !== null && data}</h4>;
-                        <p>Message: {!loading && data.messageReceived !== null && data}</p>;
+                        <h4>Topic: {!loading && data.messageReceived !== null && data.messageReceived.topic}</h4>
+                        <p>Message: {!loading && data.messageReceived !== null && data.messageReceived.payload}</p>
                     </Grid>
                 </Grid>
             </Grid>
