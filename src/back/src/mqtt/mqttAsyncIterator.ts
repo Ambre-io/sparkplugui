@@ -33,7 +33,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
     // * PubSubEngine methods implementations
     // ******************************************
 
-    // Main function that wrap this PubSubEngine implementation to return an AsyncIterator (MQTTAsyncIterator)
+    // Main function that wrap this PubSubEngine implementation to return an AsyncIterator
     public asyncIterator<T>(topic: string | string[]): AsyncIterator<T> {
         return new PubSubAsyncIterator<T>(this, topic);
     }
@@ -66,7 +66,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
         if (value === undefined) return;
 
         try {
-            this.mqttClient.unsubscribe(value.topic)
+            this.mqttClient.unsubscribe(value.topic);
             console.log('unsubscribe to', value.topic);
         } catch (e) {
             console.error(`Error: when unsubscribing topic=${value.topic}`, e);
@@ -96,7 +96,6 @@ export class MQTTAsyncIterator implements PubSubEngine {
         } catch {
             decodedMessage = payload.toString();
         }
-
         this.subscriptions.map((subscription: SubscriptionType) => subscription.onMessage(decodedMessage));
     }
 }

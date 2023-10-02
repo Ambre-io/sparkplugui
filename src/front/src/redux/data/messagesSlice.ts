@@ -15,7 +15,7 @@ const messagesSlice = createSlice({
 });
 
 // Export action
-export const { setMessages } = messagesSlice.actions;
+export const {setMessages} = messagesSlice.actions;
 
 // Export value access (useSelector)
 export const getMessages = (state: RootState): MessagesType => state.messagesSlice;
