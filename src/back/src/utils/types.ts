@@ -10,7 +10,13 @@ export interface MQTTDataType {
     topic: string;
 }
 
-export type SubscriptionsType = Record<number, [string, Function]>;
+export interface SubscriptionType {
+    id: number;
+    topic: string;
+    onMessage: Function;
+}
+
+export type SubscriptionsType = Array<SubscriptionType>;
 
 export interface MessageType {
     topic: string;

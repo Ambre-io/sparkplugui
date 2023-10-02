@@ -3,5 +3,8 @@
 
 
 export const constants: any = {
-    pubsubTopicTest: 'OMG/FIRST/TOPIC'
+    pubsubTopicTest: 'OMG/FIRST/TOPIC',
+    topicSparkplugUIInit: 'SPARKPLUGUI/INIT',
+    messageSparkplugUIInit: "Successfully connected to the MQTT broker",
+    message: 'message'
 };
