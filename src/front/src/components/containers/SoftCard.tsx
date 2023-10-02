@@ -18,7 +18,7 @@ export const SoftCard: React.FC = () => {
 
     return (
         <Grid container sx={{flexGrow: 1}} justifyContent='center'>
-            <Grid item xs={11}>
+            <Grid item xs={11} md={10}>
                 <Grid sx={styles.softCard} container justifyContent='center'>
                     <Grid item sx={styles.sparkpluguiLogoContainer}>
                         <img style={styles.sparkpluguiLogo} alt='SparkplugUI logo' src='/images/logo.svg'/>

@@ -26,8 +26,8 @@ export const MQTTMessages: React.FC = () => {
     if (loading || data === undefined || data.messageReceived === null) return (
         <Grid sx={{flexGrow: 1}} container justifyContent='center'>
             <Grid item xs={11} md={10} sx={styles.commonMarginBottom}>
-                <Grid sx={{flexGrow: 1}} container>
-                    <Grid item sx={styles.boxShadowForms}>
+                <Grid sx={styles.mqttMessagesContainer} container justifyContent='center'>
+                    <Grid item>
                         <p>Nothing to display</p>
                     </Grid>
                 </Grid>
@@ -37,12 +37,13 @@ export const MQTTMessages: React.FC = () => {
 
     return (
         <Grid sx={{flexGrow: 1}} container justifyContent='center'>
-            <Grid item xs={11} md={10} sx={styles.commonMarginBottom}>
-                <Grid sx={{flexGrow: 1}} container>
+            <Grid item xs={11} md={10}>
+                <Grid sx={styles.mqttMessagesContainer} container>
                     {information.map(({topic, payload}, i) => (
-                        <Grid key={`to${i}to`} item xs={12} sx={styles.boxShadowForms}>
-                            <h4>{topic}</h4>
-                            <p>{payload}</p>
+                        <Grid key={`to${i}to`} item xs={12} sx={styles.mqttMessages}>
+                            <div>{new Date().toISOString()}</div>
+                            <div>{topic}</div>
+                            <div>{payload}</div>
                         </Grid>
                     ))}
                 </Grid>

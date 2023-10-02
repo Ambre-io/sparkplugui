@@ -51,6 +51,21 @@ export const styles: stylesType = {
     formControl: {
         marginBottom: 1
     },
+    mqttMessagesContainer: {
+        flexGrow: 1,
+        boxShadow: '0px 0px 3px 0px #B7B7B7',
+        borderRadius: 1,
+        padding: 3,
+        background: '#FFFFFF',
+        marginTop: 2,
+        marginBottom: 5
+    },
+    mqttMessages: {
+        border: '1px solid #2A2A2AFF',
+        borderRadius: 1,
+        marginBottom: 1,
+        padding: 1
+    }
     // tree: {
     //     flexGrow: 1,
     //     maxHeight: 650,
