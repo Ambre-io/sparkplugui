@@ -10,7 +10,7 @@ import {readFileSync} from 'fs';
 import {useServer} from 'graphql-ws/lib/use/ws';
 import {WebSocketServer} from 'ws';
 
-import CONFIG from '../config.json';
+import CONFIG from '../../../config.json';
 import {resolvers} from "~/graphql/resolvers";
 
 
@@ -34,7 +34,7 @@ const httpServer = http.createServer(app);
 // Creating the WebSocket server
 const webSocketServer = new WebSocketServer({
     server: httpServer,
-    path: CONFIG.server.webSocketPath,
+    path: `/${CONFIG.server.webSocketPath}`,
 });
 
 // Start listening
@@ -68,13 +68,13 @@ const httpApolloServer = new ApolloServer({
     await httpApolloServer.start();
 
     app.use(
-        CONFIG.server.apiPath,
+        `/${CONFIG.server.apiPath}`,
         cors<cors.CorsRequest>(),
         bodyParser.json({limit: '50mb'}),
         expressMiddleware(httpApolloServer)
     );
 
-    const serverAddress = `http://${CONFIG.server.host}:${CONFIG.server.port}${CONFIG.server.apiPath}`;
+    const serverAddress = `${CONFIG.server.http}://${CONFIG.server.host}:${CONFIG.server.port}/${CONFIG.server.apiPath}`;
 
     // Customize server startup
     httpServer.listen({

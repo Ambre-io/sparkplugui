@@ -4,7 +4,7 @@ import {Grid} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
 import {AmbreLightSpan} from "../ambre/AmbreSpan";
-import CONFIG from '../../../config.json';
+import CONFIG from '../../../../../config.json';
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";
 import {styles} from "../../styles/styles";
 

@@ -22,7 +22,9 @@ export class MQTTAsyncIterator implements PubSubEngine {
     // ******************************************
 
     constructor(brokerUrl: string) {
-        this.initMQTTClient(brokerUrl).catch((e: any) => console.log('Error: MQTT client not initialized', e));
+        this.initMQTTClient(brokerUrl).catch(
+            (e: any) => console.error('Error: MQTT client not initialized', e)
+        );
         this.subscriptions = [];
         this.subId = 0;
     }
@@ -51,17 +53,15 @@ export class MQTTAsyncIterator implements PubSubEngine {
             try {
                 this.mqttClient.subscribe(topic);
                 resolve(id);
-                console.log('subscribed to', topic)
+                console.log('subscribed to', topic);
             } catch (e) {
-                console.log(`Error: when subscribing topic=${topic}`, reject(e));
+                console.error(`Error: when subscribing topic=${topic}`, reject(e));
             }
         });
     }
 
     // Unsubscribe from a MQTT topic
     public unsubscribe(subId: number): any {
-        console.log('MQTTAsyncIterator.unsubscribe');
-
         const value = utils.findID(this.subscriptions, subId);
         if (value === undefined) return;
 
@@ -69,7 +69,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
             this.mqttClient.unsubscribe(value.topic)
             console.log('unsubscribe to', value.topic);
         } catch (e) {
-            console.log(`Error: when unsubscribing topic=${value.topic}`, e);
+            console.error(`Error: when unsubscribing topic=${value.topic}`, e);
         }
     }
 
@@ -84,14 +84,12 @@ export class MQTTAsyncIterator implements PubSubEngine {
             this.mqttClient.publish(constants.topicSparkplugUIInit, constants.messageSparkplugUIInit);
             this.mqttClient.on(constants.message, this.onMessage.bind(this));
         } catch (e) {
-            console.log('Error: publish test', e);
+            console.error('Error: publish test', e);
         }
     }
 
     // MQTT Client onMessage override
     private onMessage(topic: string, payload: Buffer): void {
-        console.log('MQTTAsyncIterator.onMessage');
-
         let decodedMessage: string;
         try {
             decodedMessage = decodePayload(payload).toString();

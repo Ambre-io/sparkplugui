@@ -3,7 +3,10 @@
     "baseUrl": ".",
     "target": "es2020",
     "module": "CommonJS",
-    "lib": ["esnext"],
+    "lib": [
+        "esnext",
+        "dom"
+    ],
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,

@@ -3,7 +3,7 @@ import {getMainDefinition} from "@apollo/client/utilities";
 import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
 import {createClient} from 'graphql-ws';
 
-import CONFIG from '../../config.json';
+import CONFIG from '../../../../config.json';
 
 
 // ******************************************
@@ -11,12 +11,12 @@ import CONFIG from '../../config.json';
 // ******************************************
 // TODO Authenticate
 const httpLink = new HttpLink({
-    uri: CONFIG.serverHTTP
+    uri: `${CONFIG.server.http}://${CONFIG.server.host}:${CONFIG.server.port}/${CONFIG.server.apiPath}`
 });
 
 // TODO Authenticate : https://www.apollographql.com/docs/react/data/subscriptions/#5-authenticate-over-websocket-optional
 const wsLink = new GraphQLWsLink(createClient({
-    url: CONFIG.serverWebSocket,
+    url: `${CONFIG.server.ws}://${CONFIG.server.host}:${CONFIG.server.port}/${CONFIG.server.webSocketPath}`,
 }));
 
 // The split function takes three parameters:
