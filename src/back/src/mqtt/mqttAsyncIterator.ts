@@ -97,8 +97,6 @@ export class MQTTAsyncIterator implements PubSubEngine {
             decodedMessage = payload.toString();
         }
 
-        console.log('topic:', topic, 'payload:', decodedMessage);
-
         this.subscriptions.map((subscription: SubscriptionType) => subscription.onMessage(decodedMessage));
     }
 }

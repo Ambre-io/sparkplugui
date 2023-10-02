@@ -4,12 +4,12 @@ import {Grid} from "@mui/material";
 import {useTranslation} from "react-i18next";
 
 import {AmbreLightSpan} from "../ambre/AmbreSpan";
-import CONFIG from '../../../../../config.json';
+import SETTINGS from '../../../../../settings.json';
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";
 import {styles} from "../../styles/styles";
 
 
-const SPARKPLUGUI_INFO = {version: CONFIG.version};
+const SPARKPLUGUI_INFO = {version: SETTINGS.version};
 
 
 export const SoftCard: React.FC = () => {
@@ -25,7 +25,7 @@ export const SoftCard: React.FC = () => {
                         <div style={styles.sparkplugui}>{t('sparkplugui')}</div>
                         <div style={styles.sparkpluguiInfo}>
                             {t('sparkpluguiInfo', SPARKPLUGUI_INFO)},
-                            <AmbreLightSpan> {CONFIG.creator.name}</AmbreLightSpan>
+                            <AmbreLightSpan> {SETTINGS.creator.name}</AmbreLightSpan>
                         </div>
                     </Grid>
                     <Grid item>

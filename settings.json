@@ -12,5 +12,10 @@
         "webSocketPath": "subscriptions",
         "http": "http",
         "ws": "ws"
+    },
+    "defaultMQTTBroker": {
+        "host": "127.0.0.1",
+        "port": 1883,
+        "mqtt": "mqtt"
     }
 }

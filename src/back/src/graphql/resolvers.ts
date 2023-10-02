@@ -1,8 +1,11 @@
-import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
+import SETTINGS from '../../../../settings.json';
 import {constants} from "~/utils/constants";
+import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
 
 
-const pubsub = new MQTTAsyncIterator('mqtt://localhost:1883');
+const pubsub: MQTTAsyncIterator = new MQTTAsyncIterator(
+    `${SETTINGS.defaultMQTTBroker.mqtt}://${SETTINGS.defaultMQTTBroker.host}:${SETTINGS.defaultMQTTBroker.port}`
+);
 
 
 export const resolvers = {
