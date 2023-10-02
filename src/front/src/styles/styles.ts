@@ -61,7 +61,7 @@ export const styles: stylesType = {
         marginBottom: 5
     },
     mqttMessages: {
-        border: '1px solid #2A2A2AFF',
+        border: '1px solid rgba(0, 0, 0, 0.23)',
         borderRadius: 1,
         marginBottom: 1,
         padding: 1
