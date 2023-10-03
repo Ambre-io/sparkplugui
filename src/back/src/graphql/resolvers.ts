@@ -1,18 +1,25 @@
-import SETTINGS from '../../../../settings.json';
 import {constants} from "~/utils/constants";
+import {queries} from "~/database/queries";
+import SETTINGS from "../../../../settings.json";
 import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
 
 
-const pubsub: MQTTAsyncIterator = new MQTTAsyncIterator(
-    `${SETTINGS.defaultMQTTBroker.mqtt}://${SETTINGS.defaultMQTTBroker.host}:${SETTINGS.defaultMQTTBroker.port}`
-);
+let brokerUrl: string = `${SETTINGS.mqttServer.mqtt}://${SETTINGS.mqttServer.host}:${SETTINGS.mqttServer.port}`;
+const keys = [constants.mqttInformation.host, constants.mqttInformation.port];
+const mqttInformation = queries.select(keys);
+if (Object.keys(mqttInformation).length == keys.length) {
+    brokerUrl = `${SETTINGS.mqttServer.mqtt}://${mqttInformation.host}:${mqttInformation.port}`;
+}
+let pubsub = new MQTTAsyncIterator(brokerUrl);
 
 
 export const resolvers = {
     Mutation: {
         postMQTTData: async (_: any, data: any) => {
-            console.log('postMQTTData', data);
-            return {isOK: true};
+            const isOK: boolean = queries.save(data);
+            // TODO postMQTTData with new different information => restart mqtt client with new info
+            if (isOK) pubsub = new MQTTAsyncIterator(`${SETTINGS.mqttServer.mqtt}://${data.host}:${data.port}`);
+            return {isOK};
         }
     },
     Subscription: {

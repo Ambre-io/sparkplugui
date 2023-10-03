@@ -41,7 +41,7 @@ export const MQTTMessages: React.FC = () => {
                 <Grid sx={styles.mqttMessagesContainer} container>
                     {information.map(({topic, payload}, i) => (
                         <Grid key={`to${i}to`} item xs={12} sx={styles.mqttMessages}>
-                            <div>{new Date().toISOString()}</div>
+                            <div>TODO add date</div>
                             <div>{topic}</div>
                             <div>{payload}</div>
                         </Grid>

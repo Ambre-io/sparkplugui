@@ -55,7 +55,8 @@ export class MQTTAsyncIterator implements PubSubEngine {
                 resolve(id);
                 console.log('subscribed to', topic);
             } catch (e) {
-                console.error(`Error: when subscribing topic=${topic}`, reject(e));
+                reject(id);
+                console.error(`Error: when subscribing topic=${topic}`, e);
             }
         });
     }

@@ -11,3 +11,8 @@
 npm install
 npm run develop
 ```
+
+When SparkplugUI gonna have docker-compose files, put this inside: 
+
+`docker run -p 6379:6379 -it redis/redis-stack-server:latest`
+

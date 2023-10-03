@@ -10,9 +10,15 @@ import {readFileSync} from 'fs';
 import {useServer} from 'graphql-ws/lib/use/ws';
 import {WebSocketServer} from 'ws';
 
-import SETTINGS from '../../../settings.json';
+import {redis} from "~/database/redis";
 import {resolvers} from "~/graphql/resolvers";
+import SETTINGS from '../../../settings.json';
 
+// ******************************************
+// * Redis Client
+// ******************************************
+
+redis.createClient().finally();
 
 // ******************************************
 // * Prepare instances
@@ -74,14 +80,20 @@ const httpApolloServer = new ApolloServer({
         expressMiddleware(httpApolloServer)
     );
 
-    const serverAddress = (
+    const httpServerAddress = (
         `${SETTINGS.server.http}://${SETTINGS.server.host}:${SETTINGS.server.port}/${SETTINGS.server.apiPath}`
+    );
+    const wsServerAddres = (
+        `${SETTINGS.server.ws}://${SETTINGS.server.host}:${SETTINGS.server.port}/${SETTINGS.server.webSocketPath}`
     );
 
     // Customize server startup
     httpServer.listen({
         host: SETTINGS.server.host,
         port: SETTINGS.server.port
-    }, () => console.log(`🚀 Server ready at: ${serverAddress} 😀`));
+    }, () => {
+        console.log(`🚀 HTTP server ready        : 😀 ${httpServerAddress}`);
+        console.log(`🧦 WebSocket server ready   : 😎 ${wsServerAddres}`);
+    });
 
 })();

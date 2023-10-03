@@ -13,7 +13,12 @@
         "http": "http",
         "ws": "ws"
     },
-    "defaultMQTTBroker": {
+    "redisServer": {
+        "host": "127.0.0.1",
+        "port": 6379,
+        "redis": "redis"
+    },
+    "mqttServer": {
         "host": "127.0.0.1",
         "port": 1883,
         "mqtt": "mqtt"

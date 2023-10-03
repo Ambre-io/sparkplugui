@@ -4,8 +4,7 @@
     "target": "es2020",
     "module": "CommonJS",
     "lib": [
-        "esnext",
-        "dom"
+        "esnext"
     ],
     "moduleResolution": "node",
     "esModuleInterop": true,
