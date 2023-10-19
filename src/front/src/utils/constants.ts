@@ -10,5 +10,6 @@ export const constants = {
     port: 'port',
     username: 'username',
     password: 'password',
-    topic: 'topic'
+    topic: 'topic',
+    reloadEventSlice: 'reloadEventSlice'
 };

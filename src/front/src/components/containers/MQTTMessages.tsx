@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Grid} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
@@ -6,6 +6,7 @@ import {useSubscription} from "@apollo/client";
 
 import {AppDispatch} from "../../redux/store";
 import {getMessages, setMessages} from "../../redux/data/messagesSlice";
+import {getReloadEvent, initReloadEventSlice} from "../../redux/events/reloadEventSlice";
 import {MessagesType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {WS_MESSAGE_RECEIVED} from '../../graphql/graphql';
@@ -13,7 +14,14 @@ import {WS_MESSAGE_RECEIVED} from '../../graphql/graphql';
 
 export const MQTTMessages: React.FC = () => {
 
-    const {data, loading} = useSubscription(WS_MESSAGE_RECEIVED);
+    // Reload on save trick (see explanations in src/redux/reloadOnSaveSlice)
+    const reloadOnSave = useSelector(getReloadEvent);
+    const {data, loading} = useSubscription(WS_MESSAGE_RECEIVED, {
+        variables: {
+            reloadOnSave: reloadOnSave,
+            shouldResubscribe: true
+        }
+    });
     const information: MessagesType = useSelector(getMessages);
     const dispatch: AppDispatch = useDispatch();
 

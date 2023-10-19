@@ -3,6 +3,7 @@ import {configureStore} from '@reduxjs/toolkit'
 import languageSlice from "./data/languageSlice";
 import mqttDataSlice from "./data/mqttDataSlice";
 import messagesSlice from "./data/messagesSlice";
+import reloadEventSlice from "./events/reloadEventSlice";
 
 
 export const store = configureStore({
@@ -10,7 +11,9 @@ export const store = configureStore({
         // Data
         languageSlice: languageSlice,
         mqttDataSlice: mqttDataSlice,
-        messagesSlice: messagesSlice
+        messagesSlice: messagesSlice,
+        // Events
+        reloadEventSlice: reloadEventSlice
     },
 });
 

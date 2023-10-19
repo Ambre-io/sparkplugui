@@ -13,6 +13,7 @@ import {AmbreButton} from "../ambre/AmbreButton";
 import {AmbreTextField} from "../ambre/AmbreTextField";
 import {POST_MQTTDATA} from "../../graphql/graphql";
 import {getMQTTData, setMQTTData} from "../../redux/data/mqttDataSlice";
+import {setReloadEvent} from "../../redux/events/reloadEventSlice";
 import {styles} from "../../styles/styles";
 
 
@@ -38,7 +39,12 @@ export const MQTTDataForm: React.FC = () => {
             variables: {...information}
         }).then((res) => {
             const data = res.data.postMQTTData;
-            data !== null && data ? success() : error();
+            if (data !== null && data) {
+                dispatch(setReloadEvent()); // reload MQTT messages subscription
+                success();
+            } else {
+                error();
+            }
         }).catch((e) => {
             console.error('MQTTDataForm: mutation fail', e);
         });
