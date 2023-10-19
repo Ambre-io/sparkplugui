@@ -99,4 +99,10 @@ export class MQTTAsyncIterator implements PubSubEngine {
         }
         this.subscriptions.map((subscription: SubscriptionType) => subscription.onMessage(decodedMessage));
     }
+
+    public unsub(topic: string): any {
+        const sub = this.subscriptions.find((subscription: SubscriptionType) => subscription.topic === topic);
+        if (sub === undefined) return;
+        this.unsubscribe(sub.id);
+    }
 }
