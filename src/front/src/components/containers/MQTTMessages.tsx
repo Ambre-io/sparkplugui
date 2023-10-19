@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
 import {Grid} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
@@ -30,18 +30,6 @@ export const MQTTMessages: React.FC = () => {
             dispatch(setMessages(data.messageReceived));
         }
     }, [data]);
-
-    if (loading || data === undefined || data.messageReceived === null) return (
-        <Grid sx={{flexGrow: 1}} container justifyContent='center'>
-            <Grid item xs={11} md={10} sx={styles.commonMarginBottom}>
-                <Grid sx={styles.mqttMessagesContainer} container justifyContent='center'>
-                    <Grid item>
-                        <p>Nothing to display</p>
-                    </Grid>
-                </Grid>
-            </Grid>
-        </Grid>
-    );
 
     return (
         <Grid sx={{flexGrow: 1}} container justifyContent='center'>

@@ -24,12 +24,9 @@ export const resolvers = {
         postMQTTData: async (_: any, data: any) => {
             const isOK: boolean = queries.save(data);
             if (isOK) {
-                console.log('OMG IS OK');
                 pubsub.unsub(topic);
-                console.log("`${SETTINGS.mqttServer.mqtt}://${data.host}:${data.port}`", `${SETTINGS.mqttServer.mqtt}://${data.host}:${data.port}`);
                 pubsub = new MQTTAsyncIterator(`${SETTINGS.mqttServer.mqtt}://${data.host}:${data.port}`);
                 topic = data.topic;
-                console.log('data.topic', topic);
                 iterator = pubsub.asyncIterator(topic);
             }
             return {isOK};
