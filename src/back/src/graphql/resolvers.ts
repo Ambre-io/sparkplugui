@@ -37,7 +37,7 @@ export const resolvers = {
             // https://www.apollographql.com/docs/apollo-server/data/subscriptions#resolving-a-subscription
             subscribe: () => iterator,
             resolve: (payload: any) => {
-                return {topic, payload};
+                return {topic, payload, timestamp: Date.now()};
             },
         }
     }

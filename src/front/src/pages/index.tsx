@@ -22,7 +22,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <Provider store={store}>
             <ThemeProvider theme={theme}>
                 <ApolloProvider client={HTTPClient}>
-                    <ToastContainer position={toast.POSITION.TOP_CENTER}/>
+                    <ToastContainer position={toast.POSITION.BOTTOM_RIGHT}/>
                     {/*see: https://alvarotrigo.com/blog/animated-backgrounds-css/#3)-floating-squares*/}
                     <div className="area">
                         <ul className="circles">

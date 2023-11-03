@@ -77,6 +77,7 @@ export const WS_MESSAGE_RECEIVED = gql`
         messageReceived {
             topic
             payload
+            timestamp
         }
     }
 `;

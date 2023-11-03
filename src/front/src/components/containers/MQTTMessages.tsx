@@ -35,9 +35,9 @@ export const MQTTMessages: React.FC = () => {
         <Grid sx={{flexGrow: 1}} container justifyContent='center'>
             <Grid item xs={11} md={10}>
                 <Grid sx={styles.mqttMessagesContainer} container>
-                    {information.map(({topic, payload}, i) => (
+                    {information.map(({topic, payload, timestamp}, i) => (
                         <Grid key={`to${i}to`} item xs={12} sx={styles.mqttMessages}>
-                            <div>TODO add date</div>
+                            <div>{new Date(timestamp).toISOString()}</div>
                             <div>{topic}</div>
                             <div>{payload}</div>
                         </Grid>

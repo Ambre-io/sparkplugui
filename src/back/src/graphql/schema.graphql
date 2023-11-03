@@ -35,7 +35,8 @@ type Mutation {
 
 type Message {
     topic: String,
-    payload: String
+    payload: String,
+    timestamp: Float  # float is 64 bit, Int 32, so I use int in float
 }
 
 type Subscription {
