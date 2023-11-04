@@ -2,7 +2,7 @@
     "sparkplugui": "SparkplugUI",
     "sparkpluguiInfo": "Version: {{version}}",
     "language": "Language",
-    "mqttInfo": "MQTT Information",
+    "mqttDataFormTitle": "MQTT Information",
     "host": "Host",
     "port": "Port",
     "username": "Username",
@@ -15,5 +15,6 @@
     "passwordHelper": "Password to connect to the MQTT server.",
     "topicHelper": "The MQTT client will subscribe to the mentioned topic, on the configured server.",
     "success": "Success \uD83D\uDC4C",
-    "error": "Error ☹\uFE0F"
+    "error": "Error ☹\uFE0F",
+    "mqttMessagesTitle": "Messages"
 }

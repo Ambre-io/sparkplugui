@@ -21,5 +21,6 @@ export const utils: any = {
         }
         inTreeItems.push(item);
         return currentNode;
-    }
+    },
+    dateFrom: (timestamp: number): string => new Date(timestamp).toISOString()
 }

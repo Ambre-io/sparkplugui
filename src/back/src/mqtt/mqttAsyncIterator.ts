@@ -67,6 +67,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
         if (value === undefined) return;
 
         try {
+            this.mqttClient.publish(constants.softUP, '0');
             this.mqttClient.unsubscribe(value.topic);
             console.log('unsubscribe to', value.topic);
         } catch (e) {
@@ -82,9 +83,10 @@ export class MQTTAsyncIterator implements PubSubEngine {
     private async initMQTTClient(brokerUrl: string): Promise<void> {
         this.mqttClient = await connectAsync(brokerUrl);
         try {
-            this.mqttClient.publish(constants.topicSparkplugUIInit, constants.messageSparkplugUIInit);
+            this.mqttClient.publish(constants.softUP, '1');
             this.mqttClient.on(constants.message, this.onMessage.bind(this));
         } catch (e) {
+            this.mqttClient.publish(constants.softUP, '0');
             console.error('Error: publish test', e);
         }
     }

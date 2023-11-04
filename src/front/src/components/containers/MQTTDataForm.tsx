@@ -23,12 +23,13 @@ import {styles} from "../../styles/styles";
 export const MQTTDataForm: React.FC = () => {
 
     const information = useSelector(getMQTTData);
+    const dispatch = useDispatch();
+
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
 
-    const [expanded, setExpanded] = React.useState<boolean>(false);
-    const handleExpandClick = () => setExpanded(!expanded);
+    const [expanded, setExpanded] = React.useState<boolean>(true);
+    const goExpand = () => setExpanded(!expanded);
 
-    const dispatch = useDispatch();
     const {t} = useTranslation();
     const success = () => toast(t('success'));
     const error = () => toast(t('error'));
@@ -63,7 +64,7 @@ export const MQTTDataForm: React.FC = () => {
                     <Grid>
                         <AmbreExpandButton
                             expand={expanded}
-                            onClick={handleExpandClick}
+                            onClick={goExpand}
                             aria-expanded={expanded}
                             aria-label="show more"
                         >
@@ -71,7 +72,7 @@ export const MQTTDataForm: React.FC = () => {
                         </AmbreExpandButton>
                     </Grid>
                     <Grid>
-                        <p style={styles.subtitle}>{t('mqttInfo')}</p>
+                        <p style={styles.subtitle}>{t('mqttDataFormTitle')}</p>
                     </Grid>
                 </Grid>
             </Grid>
