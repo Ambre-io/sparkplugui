@@ -1,52 +1,46 @@
 import {stylesType} from "../utils/types";
 
 export const styles: stylesType = {
-    flexMarginBottom: {
+    // ******************************************
+    // * COMMON
+    // ******************************************
+    ambreCard: {
         flexGrow: 1,
-        marginBottom: 2
-    },
-    commonMarginBottom: {
-        marginBottom: 1
-    },
-    softCard: {
-        flexGrow: 1,
-        boxShadow: '0px 0px 3px 0px #B7B7B7',
-        borderRadius: 1,
-        paddingTop: 2,
-        paddingBottom: 2,
-        background: '#FFFFFF',
-        marginTop: 2,
-        width: 190,
-        marginBottom: 5,
-        textAlign: 'center',
-        verticalAlign: 'center'
-    },
-    sparkpluguiLogoContainer: {
-        textAlign: 'center'
-    },
-    sparkpluguiLogo: {
-        width: 150,
-        textAlign: 'center',
-    },
-    sparkplugui: {
-        fontSize: 30,
-        textAlign: 'center',
-        marginTop: -15
-    },
-    sparkpluguiInfo: {
-        fontSize: 12,
-        color: '#a5a5a5',
-        textAlign: 'center'
-    },
-    boxShadowForms: {
         boxShadow: '0px 0px 3px 0px #B7B7B7',
         borderRadius: 1,
         padding: 3,
-        background: '#FFFFFF'
+        background: '#FFFFFF',
+        margin: 2,
     },
-    mqttDataForm: {
-        flexGrow: 1,
+    alignCenter: {
+        textAlign: 'center'
+    },
+    width100: {
+        width: '100%'
+    },
+    marginTop2: {
         marginTop: 2
+    },
+    marginBottom2: {
+        marginBottom: 2
+    },
+    // ******************************************
+    // * SPECIFIC
+    // ******************************************
+    softCard: {
+        width: 190,
+        padding: 2
+    },
+    softLogo: {
+        width: 150,
+    },
+    softTitle: {
+        fontSize: 30,
+        marginTop: -15
+    },
+    softSubTitle: {
+        fontSize: 12,
+        color: '#a5a5a5',
     },
     subtitle: {
         marginLeft: 10,
@@ -58,15 +52,6 @@ export const styles: stylesType = {
     },
     formControl: {
         marginBottom: 1
-    },
-    mqttMessagesContainer: {
-        flexGrow: 1,
-        boxShadow: '0px 0px 3px 0px #B7B7B7',
-        borderRadius: 1,
-        padding: 3,
-        background: '#FFFFFF',
-        marginTop: 2,
-        marginBottom: 5
     },
     mqttMessages: {
         border: '1px solid rgba(0, 0, 0, 0.23)',

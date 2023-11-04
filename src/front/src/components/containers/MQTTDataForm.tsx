@@ -5,7 +5,8 @@ import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
-import {Collapse, FormControl, FormGroup, FormHelperText, Grid, IconButton, InputAdornment} from "@mui/material";
+import {Collapse, FormControl, FormGroup, FormHelperText, IconButton, InputAdornment} from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {toast} from 'react-toastify';
 
@@ -17,7 +18,6 @@ import {getMQTTData, setMQTTData} from "../../redux/data/mqttDataSlice";
 import {POST_MQTTDATA} from "../../graphql/graphql";
 import {setReloadEvent} from "../../redux/events/reloadEventSlice";
 import {styles} from "../../styles/styles";
-import {height, margin} from "@mui/system";
 
 
 export const MQTTDataForm: React.FC = () => {
@@ -57,99 +57,93 @@ export const MQTTDataForm: React.FC = () => {
     };
 
     return (
-        <Grid sx={styles.mqttDataForm} container justifyContent='center'>
-            <Grid item xs={11} md={10} sx={styles.commonMarginBottom}>
-                <Grid sx={{flexGrow: 1}} container>
-                    <Grid item sx={styles.boxShadowForms}>
-                        <Grid sx={{flexGrow: 1, minWidth: 430}} container>
-                            <Grid item>
-                                <AmbreExpandButton
-                                    expand={expanded}
-                                    onClick={handleExpandClick}
-                                    aria-expanded={expanded}
-                                    aria-label="show more"
-                                >
-                                    <ExpandMoreIcon/>
-                                </AmbreExpandButton>
-                            </Grid>
-                            <Grid item>
-                                <p style={styles.subtitle}>{t('mqttInfo')}</p>
-                            </Grid>
-                        </Grid>
-                        <Grid sx={{flexGrow: 1, width: '100%'}} container>
-                            <Grid item sx={{width: '100%'}}>
-                                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                                    <FormGroup>
-                                        <FormControl sx={styles.formControl} fullWidth>
-                                            <AmbreTextField
-                                                label={t('host')}
-                                                value={information.host}
-                                                onChange={goChange(constants.host)}
-                                            />
-                                            <FormHelperText>{t('hostHelper')}</FormHelperText>
-                                        </FormControl>
-                                        <FormControl sx={styles.formControl} fullWidth>
-                                            <AmbreTextField
-                                                label={t('port')}
-                                                value={information.port}
-                                                onChange={goChange(constants.port)}
-                                                type="number"
-                                            />
-                                            <FormHelperText>{t('portHelper')}</FormHelperText>
-                                        </FormControl>
-                                        <FormControl sx={styles.formControl} fullWidth>
-                                            <AmbreTextField
-                                                label={t('username')}
-                                                value={information.username}
-                                                onChange={goChange(constants.username)}
-                                            />
-                                            <FormHelperText>{t('usernameHelper')}</FormHelperText>
-                                        </FormControl>
-                                        <FormControl sx={styles.formControl} fullWidth>
-                                            <AmbreTextField
-                                                label={t('password')}
-                                                value={information.password}
-                                                onChange={goChange(constants.password)}
-                                                type={showPassword ? 'text' : 'password'}
-                                                InputProps={{
-                                                    endAdornment: (
-                                                        <InputAdornment position="end">
-                                                            <IconButton
-                                                                onClick={() => setShowPassword((show) => !show)}
-                                                                onMouseDown={(event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault()}
-                                                                edge="end"
-                                                            >
-                                                                {showPassword ? <Visibility/> : <VisibilityOff/>}
-                                                            </IconButton>
-                                                        </InputAdornment>
-                                                    )
-                                                }}
-                                            />
-                                            <FormHelperText>{t('passwordHelper')}</FormHelperText>
-                                        </FormControl>
-                                        <FormControl sx={styles.formControl} fullWidth>
-                                            <AmbreTextField
-                                                label={t('topic')}
-                                                value={information.topic}
-                                                onChange={goChange(constants.topic)}
-                                            />
-                                            <FormHelperText>{t('topicHelper')}</FormHelperText>
-                                        </FormControl>
-                                        <FormControl sx={styles.formControl} fullWidth>
-                                            <AmbreButton
-                                                variant="contained"
-                                                onClick={goMutation}
-                                                endIcon={<CloudOutlinedIcon/>}
-                                            >
-                                                {t('connect')}
-                                            </AmbreButton>
-                                        </FormControl>
-                                    </FormGroup>
-                                </Collapse>
-                            </Grid>
-                        </Grid>
+        <Grid container id='MQTTDataForm' sx={styles.ambreCard}>
+            <Grid>
+                <Grid container>
+                    <Grid>
+                        <AmbreExpandButton
+                            expand={expanded}
+                            onClick={handleExpandClick}
+                            aria-expanded={expanded}
+                            aria-label="show more"
+                        >
+                            <ExpandMoreIcon/>
+                        </AmbreExpandButton>
+                    </Grid>
+                    <Grid>
+                        <p style={styles.subtitle}>{t('mqttInfo')}</p>
                     </Grid>
                 </Grid>
+            </Grid>
+            <Grid sx={styles.width100}>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    <FormGroup sx={styles.marginTop2}>
+                        <FormControl sx={styles.formControl} fullWidth>
+                            <AmbreTextField
+                                label={t('host')}
+                                value={information.host}
+                                onChange={goChange(constants.host)}
+                            />
+                            <FormHelperText>{t('hostHelper')}</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={styles.formControl} fullWidth>
+                            <AmbreTextField
+                                label={t('port')}
+                                value={information.port}
+                                onChange={goChange(constants.port)}
+                                type="number"
+                            />
+                            <FormHelperText>{t('portHelper')}</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={styles.formControl} fullWidth>
+                            <AmbreTextField
+                                label={t('username')}
+                                value={information.username}
+                                onChange={goChange(constants.username)}
+                            />
+                            <FormHelperText>{t('usernameHelper')}</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={styles.formControl} fullWidth>
+                            <AmbreTextField
+                                label={t('password')}
+                                value={information.password}
+                                onChange={goChange(constants.password)}
+                                type={showPassword ? 'text' : 'password'}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                onClick={() => setShowPassword((show) => !show)}
+                                                onMouseDown={(event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault()}
+                                                edge="end"
+                                            >
+                                                {showPassword ? <Visibility/> : <VisibilityOff/>}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                            <FormHelperText>{t('passwordHelper')}</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={styles.formControl} fullWidth>
+                            <AmbreTextField
+                                label={t('topic')}
+                                value={information.topic}
+                                onChange={goChange(constants.topic)}
+                            />
+                            <FormHelperText>{t('topicHelper')}</FormHelperText>
+                        </FormControl>
+                        <FormControl sx={styles.formControl} fullWidth>
+                            <AmbreButton
+                                variant="contained"
+                                onClick={goMutation}
+                                endIcon={<CloudOutlinedIcon/>}
+                            >
+                                {t('connect')}
+                            </AmbreButton>
+                        </FormControl>
+                    </FormGroup>
+                </Collapse>
             </Grid>
         </Grid>
     )

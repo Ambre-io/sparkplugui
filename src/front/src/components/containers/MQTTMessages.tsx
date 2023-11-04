@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-import {Grid} from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import {useDispatch, useSelector} from "react-redux";
 import {useSubscription} from "@apollo/client";
 
@@ -32,18 +32,14 @@ export const MQTTMessages: React.FC = () => {
     }, [data]);
 
     return (
-        <Grid sx={{flexGrow: 1}} container justifyContent='center'>
-            <Grid item xs={11} md={10}>
-                <Grid sx={styles.mqttMessagesContainer} container>
-                    {information.map(({topic, payload, timestamp}, i) => (
-                        <Grid key={`to${i}to`} item xs={12} sx={styles.mqttMessages}>
-                            <div>{new Date(timestamp).toISOString()}</div>
-                            <div>{topic}</div>
-                            <div>{payload}</div>
-                        </Grid>
-                    ))}
+        <Grid container id='MQTTMessages' sx={styles.ambreCard}>
+            {information.map(({topic, payload, timestamp}, i) => (
+                <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
+                    <div>{new Date(timestamp).toISOString()}</div>
+                    <div>{topic}</div>
+                    <div>{payload}</div>
                 </Grid>
-            </Grid>
+            ))}
         </Grid>
     );
 };
