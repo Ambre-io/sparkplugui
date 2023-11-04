@@ -37,6 +37,10 @@ export const resolvers = {
             // https://www.apollographql.com/docs/apollo-server/data/subscriptions#resolving-a-subscription
             subscribe: () => iterator,
             resolve: (payload: any) => {
+                // FIXME the topic right here is not the real one
+                //  example: default subscribe is on '#', but messages publish on SUPER/TOPIC is not published
+                //  on #, we need to display SUPER/TOPIC, this is the real topic for the message
+                // TODO find the real topic
                 return {topic, payload, timestamp: Date.now()};
             },
         }
