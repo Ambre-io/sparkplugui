@@ -16,5 +16,6 @@
     "topicHelper": "Le client MQTT s'abonnera au topic mentionné, sur le serveur configuré.",
     "success": "Succès \uD83D\uDC4C",
     "error": "Erreur ☹\uFE0F",
-    "mqttMessagesTitle": "Messages"
+    "mqttMessagesTitle": "Messages",
+    "topicTreeTitle": "Arbre de Topic"
 }
