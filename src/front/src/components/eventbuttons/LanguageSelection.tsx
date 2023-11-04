@@ -28,10 +28,11 @@ export const LanguageSelection: React.FC = () => {
 
     return (
         <FormControl variant="standard" sx={{m: 1, minWidth: 80}}>
-            <InputLabel>{t('language')}</InputLabel>
+            <InputLabel sx={{color: (theme) => theme.palette.primary.main}}>{t('language')}</InputLabel>
             <Select
                 value={language}
                 onChange={goClickLanguage}
+                sx={{'&:before': {borderColor: (theme) => theme.palette.primary.main}}}
             >
                 {Languages}
             </Select>

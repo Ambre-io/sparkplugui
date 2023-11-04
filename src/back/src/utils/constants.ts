@@ -3,7 +3,7 @@
 
 
 export const constants: any = {
-    pubsubTopicTest: 'OMG/FIRST/TOPIC',
+    defaultTopic: '#',
     softUP: 'SPARKPLUGUI/UP',
     message: 'message',
     mqttInformation: {

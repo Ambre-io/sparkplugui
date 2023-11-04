@@ -15,7 +15,7 @@ if (Object.keys(mqttInformation).length == keys.length) {
 // MQTT client through the GraphQL PubSubEngine
 let pubsub = new MQTTAsyncIterator(brokerUrl);
 // MQTT current topic
-let topic = constants.pubsubTopicTest;
+let topic = constants.defaultTopic;
 // the AsyncIterator from MQTTAsyncIterator
 let iterator = pubsub.asyncIterator(topic);
 
