@@ -17,7 +17,9 @@ export const styles: stylesType = {
         background: '#FFFFFF',
         marginTop: 2,
         width: 190,
-        marginBottom: 5
+        marginBottom: 5,
+        textAlign: 'center',
+        verticalAlign: 'center'
     },
     sparkpluguiLogoContainer: {
         textAlign: 'center'
@@ -42,11 +44,17 @@ export const styles: stylesType = {
         padding: 3,
         background: '#FFFFFF'
     },
+    mqttDataForm: {
+        flexGrow: 1,
+        marginTop: 2
+    },
     subtitle: {
         marginLeft: 10,
+        marginTop: 4,
+        marginBottom: 0,
         fontWeight: 800,
         fontSize: 20,
-        textTransform: 'uppercase'
+        textTransform: 'uppercase',
     },
     formControl: {
         marginBottom: 1
