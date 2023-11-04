@@ -15,6 +15,7 @@ import {WS_MESSAGE_RECEIVED} from '../../graphql/graphql';
 import {AmbreExpandButton} from "../ambre/AmbreExpandButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {utils} from "../../utils/utils";
+import {theme} from "../../styles/muiTheme";
 
 
 export const MQTTMessages: React.FC = () => {
@@ -64,10 +65,12 @@ export const MQTTMessages: React.FC = () => {
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Grid container sx={styles.marginTop2}>
                         {information.map(({topic, payload, timestamp}, i) => (
-                            <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
-                                <div>{utils.dateFrom(timestamp)}</div>
-                                <div>{topic}</div>
-                                <div>{payload}</div>
+                            <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages(theme.palette.primary.main, theme.palette.primary.dark)}>
+                                <div>
+                                    <span style={styles.color(theme.palette.primary.light)}>{utils.dateFrom(timestamp)}</span>
+                                    <span style={styles.color(theme.palette.primary.main)}> {topic}</span>
+                                </div>
+                                <div style={styles.color(theme.palette.primary.dark)}>{payload}</div>
                             </Grid>
                         ))}
                     </Grid>

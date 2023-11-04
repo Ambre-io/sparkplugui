@@ -4,6 +4,9 @@ export const styles: stylesType = {
     // ******************************************
     // * COMMON
     // ******************************************
+    color: (color: any) => ({
+        color: color
+    }),
     ambreCard: {
         flexGrow: 1,
         boxShadow: '0px 0px 3px 0px #B7B7B7',
@@ -53,12 +56,12 @@ export const styles: stylesType = {
     formControl: {
         marginBottom: 1
     },
-    mqttMessages: {
-        border: '1px solid rgba(0, 0, 0, 0.23)',
+    mqttMessages: (primaryMain: any) => ({
+        border: `1px solid ${primaryMain}`,
         borderRadius: 1,
         marginBottom: 1,
         padding: 1
-    }
+    })
     // tree: {
     //     flexGrow: 1,
     //     maxHeight: 650,

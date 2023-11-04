@@ -20,6 +20,8 @@ const primaryMain = '#55C6E7';
 const primaryLight = '#FFCA19';
 const primaryDark = '#D724FF';
 
+const muiGrey = 'rgba(0, 0, 0, 0.23)';
+
 export const theme = createTheme({
     palette: {
         primary: {
@@ -51,6 +53,13 @@ export const theme = createTheme({
                     '&:hover:not(.Mui-disabled, .Mui-error):before': {
                         borderBottom: `2px solid ${primaryLight}`,
                     }
+                }
+            }
+        },
+        MuiInputLabel: {
+            styleOverrides: {
+                outlined: {
+                    color: primaryMain
                 }
             }
         },
