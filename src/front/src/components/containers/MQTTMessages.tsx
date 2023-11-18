@@ -43,7 +43,7 @@ export const MQTTMessages: React.FC = () => {
     }, [data]);
 
     return (
-        <Grid container id='MQTTMessages' sx={styles.ambreCard}>
+        <Grid container id='MQTTMessages' sx={{...styles.ambreCard, ...styles.height100}}>
             <Grid>
                 <Grid container>
                     <Grid>
@@ -61,7 +61,7 @@ export const MQTTMessages: React.FC = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid sx={styles.width100}>
+            <Grid sx={{...styles.width100, ...styles.height100, overflow: 'scroll'}}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Grid container sx={styles.marginTop2}>
                         {information.map(({topic, message, timestamp}, i) => (

@@ -7,13 +7,16 @@ export const styles: stylesType = {
     color: (color: any) => ({
         color: color
     }),
+    ambreCardContainer: {
+        padding: 2
+    },
     ambreCard: {
         flexGrow: 1,
         boxShadow: '0px 0px 3px 0px #B7B7B7',
         borderRadius: 1,
         padding: 3,
         background: '#FFFFFF',
-        margin: 2,
+        overflow: 'hidden'
     },
     alignCenter: {
         textAlign: 'center'
@@ -26,6 +29,9 @@ export const styles: stylesType = {
     },
     marginBottom2: {
         marginBottom: 2
+    },
+    height100: {
+        height: '100%'
     },
     // ******************************************
     // * SPECIFIC
