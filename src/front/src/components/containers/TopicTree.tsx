@@ -21,23 +21,6 @@ export const TopicTree: React.FC = () => {
     const goExpand = () => setExpanded(!expanded);
 
     const {t} = useTranslation();
-    //
-    // // Reload on save trick (see explanations in src/redux/reloadOnSaveSlice)
-    // const reloadOnSave = useSelector(getReloadEvent);
-    // const {data, loading} = useSubscription(WS_MESSAGE_RECEIVED, {
-    //     variables: {
-    //         reloadOnSave: reloadOnSave,
-    //         shouldResubscribe: true
-    //     }
-    // });
-    // const information: MessagesType = useSelector(getMessages);
-    // const dispatch: AppDispatch = useDispatch();
-    //
-    // useEffect(() => {
-    //     if (!loading && data !== undefined && data.messageReceived !== null) {
-    //         dispatch(setMessages(data.messageReceived));
-    //     }
-    // }, [data]);
 
     return (
         <Grid container id='MQTTMessages' sx={styles.ambreCard}>
@@ -61,15 +44,7 @@ export const TopicTree: React.FC = () => {
             <Grid sx={styles.width100}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Grid container sx={styles.marginTop2}>
-                        {/*{information.map(({topic, payload, timestamp}, i) => (*/}
-                        {/*    <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages(theme.palette.primary.main, theme.palette.primary.dark)}>*/}
-                        {/*        <div>*/}
-                        {/*            <span style={styles.color(theme.palette.primary.light)}>{utils.dateFrom(timestamp)}</span>*/}
-                        {/*            <span style={styles.color(theme.palette.primary.main)}> {topic}</span>*/}
-                        {/*        </div>*/}
-                        {/*        <div style={styles.color(theme.palette.primary.dark)}>{payload}</div>*/}
-                        {/*    </Grid>*/}
-                        {/*))}*/}
+                        lalalala
                     </Grid>
                 </Collapse>
             </Grid>

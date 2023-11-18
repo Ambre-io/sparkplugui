@@ -1,6 +1,4 @@
 {
-    "sparkplugui": "SparkplugUI",
-    "sparkpluguiInfo": "Version: {{version}}",
     "language": "Langue",
     "mqttDataFormTitle": "Informations MQTT",
     "host": "Hôte",

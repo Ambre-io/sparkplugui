@@ -9,9 +9,6 @@ import {LanguageSelection} from "../eventbuttons/LanguageSelection";
 import {styles} from "../../styles/styles";
 
 
-const SPARKPLUGUI_INFO = {version: SETTINGS.version};
-
-
 export const SoftCard: React.FC = () => {
 
     const {t} = useTranslation();
@@ -22,10 +19,9 @@ export const SoftCard: React.FC = () => {
                 <Grid container sx={{...styles.ambreCard, ...styles.softCard}} justifyContent='center'>
                     <Grid sx={styles.alignCenter} xs={12}>
                         <img style={styles.softLogo} alt='SparkplugUI logo' src='/images/logo.svg'/>
-                        <div style={styles.softTitle}>{t('sparkplugui')}</div>
+                        <div style={styles.softTitle}>SparkplugUI</div>
                         <div style={styles.softSubTitle}>
-                            {t('sparkpluguiInfo', SPARKPLUGUI_INFO)},
-                            <AmbreLightSpan> {SETTINGS.creator.name}</AmbreLightSpan>
+                            {SETTINGS.version} by <AmbreLightSpan>{SETTINGS.creator.name}</AmbreLightSpan>
                         </div>
                     </Grid>
                     <Grid sx={styles.alignCenter} xs={12}>
