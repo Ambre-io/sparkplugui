@@ -76,7 +76,7 @@ export const WS_MESSAGE_RECEIVED = gql`
     subscription MessageReceived {
         messageReceived {
             topic
-            payload
+            message
             timestamp
         }
     }

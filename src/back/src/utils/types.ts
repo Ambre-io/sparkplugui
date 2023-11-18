@@ -16,6 +16,11 @@ export interface SubscriptionType {
     onMessage: Function;
 }
 
+export interface SubscriptionOnMessageType {
+    topic: string;
+    message: string;
+}
+
 export type SubscriptionsType = Array<SubscriptionType>;
 
 export interface MessageType {

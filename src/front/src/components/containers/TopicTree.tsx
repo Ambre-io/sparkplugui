@@ -1,19 +1,10 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {useTranslation} from "react-i18next";
-import {useDispatch, useSelector} from "react-redux";
-import {getReloadEvent} from "../../redux/events/reloadEventSlice";
-import {useSubscription} from "@apollo/client";
-import {WS_MESSAGE_RECEIVED} from "../../graphql/graphql";
-import {MessagesType} from "../../utils/types";
-import {getMessages, setMessages} from "../../redux/data/messagesSlice";
-import {AppDispatch} from "../../redux/store";
 import Grid from "@mui/material/Unstable_Grid2";
 import {styles} from "../../styles/styles";
 import {AmbreExpandButton} from "../ambre/AmbreExpandButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {Collapse} from "@mui/material";
-import {theme} from "../../styles/muiTheme";
-import {utils} from "../../utils/utils";
 
 
 export const TopicTree: React.FC = () => {

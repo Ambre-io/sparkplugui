@@ -1,8 +1,8 @@
 import {constants} from "~/utils/constants";
+import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
 import {queries} from "~/database/queries";
 import SETTINGS from "../../../../settings.json";
-import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
-import * as console from "console";
+import {SubscriptionOnMessageType} from "~/utils/types";
 
 // Default MQTT broker url
 let brokerUrl: string = `${SETTINGS.mqttServer.mqtt}://${SETTINGS.mqttServer.host}:${SETTINGS.mqttServer.port}`;
@@ -36,12 +36,9 @@ export const resolvers = {
         messageReceived: {
             // https://www.apollographql.com/docs/apollo-server/data/subscriptions#resolving-a-subscription
             subscribe: () => iterator,
-            resolve: (payload: any) => {
-                // FIXME the topic right here is not the real one
-                //  example: default subscribe is on '#', but messages publish on SUPER/TOPIC is not published
-                //  on #, we need to display SUPER/TOPIC, this is the real topic for the message
-                // TODO find the real topic
-                return {topic, payload, timestamp: Date.now()};
+            resolve: (payload: SubscriptionOnMessageType) => {
+                const {topic, message} = payload;
+                return {topic, message, timestamp: Date.now()};
             },
         }
     }

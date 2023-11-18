@@ -33,12 +33,12 @@ type Mutation {
 # SUBSCRIPTION DECLARATION (WEBSOCKET)
 #######################################
 
-type Message {
+type Payload {
     topic: String,
-    payload: String,
+    message: String,
     timestamp: Float  # float is 64 bit, Int 32, so I use int in float
 }
 
 type Subscription {
-    messageReceived: Message
+    messageReceived: Payload
 }

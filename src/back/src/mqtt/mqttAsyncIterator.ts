@@ -92,14 +92,15 @@ export class MQTTAsyncIterator implements PubSubEngine {
     }
 
     // MQTT Client onMessage override
-    private onMessage(topic: string, payload: Buffer): void {
+    private onMessage(topic: string, message: Buffer): void {
         let decodedMessage: string;
         try {
-            decodedMessage = decodePayload(payload).toString();
+            decodedMessage = decodePayload(message).toString();
         } catch {
-            decodedMessage = payload.toString();
+            decodedMessage = message.toString();
         }
-        this.subscriptions.map((subscription: SubscriptionType) => subscription.onMessage(decodedMessage));
+        // TODO Maybe add a condition on topic === subscription.topic
+        this.subscriptions.map((subscription: SubscriptionType) => subscription.onMessage({topic, message: decodedMessage}));
     }
 
     public unsub(topic: string): any {

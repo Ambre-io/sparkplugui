@@ -64,13 +64,13 @@ export const MQTTMessages: React.FC = () => {
             <Grid sx={styles.width100}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Grid container sx={styles.marginTop2}>
-                        {information.map(({topic, payload, timestamp}, i) => (
+                        {information.map(({topic, message, timestamp}, i) => (
                             <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages(theme.palette.primary.main, theme.palette.primary.dark)}>
                                 <div>
                                     <span style={styles.color(theme.palette.primary.light)}>{utils.dateFrom(timestamp)}</span>
                                     <span style={styles.color(theme.palette.primary.main)}> {topic}</span>
                                 </div>
-                                <div style={styles.color(theme.palette.primary.dark)}>{payload}</div>
+                                <div style={styles.color(theme.palette.primary.dark)}>{message}</div>
                             </Grid>
                         ))}
                     </Grid>

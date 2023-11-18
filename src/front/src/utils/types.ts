@@ -35,7 +35,7 @@ export interface MQTTDataType {
 
 export interface MessageType {
     topic: string;
-    payload: string;
+    message: string;
     timestamp: number;
 }
 
