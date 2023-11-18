@@ -10,7 +10,7 @@ import {AmbreIconButton} from "../ambre/AmbreIconButton";
 export const ExpandButton = (props: TreeButtonType) => {
     const {expanded, goClick} = props;  // TODO redux it
 
-    if (expanded.length === 3) {
+    if (expanded.length === 1) {
         return <AmbreIconButton onClick={goClick} icon={<ExpandOutlinedIcon/>}/>;
     } else {
         return <AmbreIconButton onClick={goClick} icon={<VerticalAlignCenterOutlinedIcon/>}/>;

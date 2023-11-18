@@ -23,6 +23,10 @@ export const MQTTMessages: React.FC = () => {
     const [expanded, setExpanded] = React.useState<boolean>(true);
     const goExpand = () => setExpanded(!expanded);
 
+    // Messages slice
+    const messages: MessagesType = useSelector(getMessages);
+    const dispatch: AppDispatch = useDispatch();
+
     const {t} = useTranslation();
 
     // Reload on save trick (see explanations in src/redux/reloadOnSaveSlice)
@@ -33,8 +37,6 @@ export const MQTTMessages: React.FC = () => {
             shouldResubscribe: true
         }
     });
-    const information: MessagesType = useSelector(getMessages);
-    const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
         if (!loading && data !== undefined && data.messageReceived !== null) {
@@ -64,7 +66,7 @@ export const MQTTMessages: React.FC = () => {
             <Grid sx={{...styles.width100, ...styles.height100, overflow: 'scroll'}}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Grid container sx={styles.marginTop2}>
-                        {information.map(({topic, message, timestamp}, i) => (
+                        {messages.map(({topic, message, timestamp}, i) => (
                             <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages(theme.palette.primary.main, theme.palette.primary.dark)}>
                                 <div>
                                     <span style={styles.color(theme.palette.primary.light)}>{utils.dateFrom(timestamp)}</span>

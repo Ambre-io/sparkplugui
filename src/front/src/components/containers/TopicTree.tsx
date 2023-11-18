@@ -5,6 +5,9 @@ import {styles} from "../../styles/styles";
 import {AmbreExpandButton} from "../ambre/AmbreExpandButton";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {Collapse} from "@mui/material";
+import {MessagesType, MessageType} from "../../utils/types";
+import {useSelector} from "react-redux";
+import {getMessages} from "../../redux/data/messagesSlice";
 
 
 export const TopicTree: React.FC = () => {
@@ -12,6 +15,20 @@ export const TopicTree: React.FC = () => {
     const goExpand = () => setExpanded(!expanded);
 
     const {t} = useTranslation();
+
+    const messages: MessagesType = useSelector(getMessages);
+
+    // TODO
+    //  - parse messages
+    //  - create a new sub node on each '/' in the topic
+    //  - if node exists go inside
+    //  - the metric name is the leaf
+    //      - ignition style parse over | but idk if its a good idea
+    //      - maybe the good way to do this is to have a single leaf and on click, display last reived decoded metrics
+
+    messages.map((message: MessageType) => {
+        message.topic
+    });
 
     return (
         <Grid container id='MQTTMessages' sx={styles.ambreCard}>

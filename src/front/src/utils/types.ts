@@ -5,13 +5,13 @@ export type stylesType = Record<string, DetailedHTMLProps<any, any>>;  // see: h
 // ******************************************
 // * Tree
 // ******************************************
-export interface treeDataType {
+export interface NodeType {
     id: string;
     tag: string;
-    parcels: Array<any>;
+    subnodes: string[];
 }
 
-export interface ReadyItemType {
+export interface ReadyNodeType {
     id: string;
     isParent: boolean;
 }
