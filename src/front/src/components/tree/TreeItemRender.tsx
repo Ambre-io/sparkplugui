@@ -1,18 +1,19 @@
 import * as React from "react";
 import {TreeItemStyled} from "./TreeItemStyled";
 import {TreeItemBehavior} from "./TreeItemBehavior";
+import {NodeType} from "../../utils/types";
 
 
-export const TreeItemRender = ({node}: { node: any }) => (
+export const TreeItemRender = ({node}: { node: NodeType }) => (
     <TreeItemStyled
         key={'TreeItemStyled' + node.id}
         nodeId={node.id}
-        label={node.tag}
+        label={node.label}
         ContentComponent={TreeItemBehavior}
     >
         {
-            Array.isArray(node.parcels)
-                ? node.parcels.map((n: any) => <TreeItemRender key={'TreeItemRender' + n.id} node={n}/>)
+            Array.isArray(node.subnodes)
+                ? node.subnodes.map((n: any) => <TreeItemRender key={'TreeItemRender' + n.id} node={n}/>)
                 : null
         }
     </TreeItemStyled>

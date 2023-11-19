@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {alpha, styled} from '@mui/material/styles';
-import TreeItem, {TreeItemProps, treeItemClasses} from '@mui/lab/TreeItem';
+import {TreeItem, TreeItemProps, treeItemClasses} from '@mui/x-tree-view';
 import {TreeItemTransition} from "./TreeItemTransition";
 
 

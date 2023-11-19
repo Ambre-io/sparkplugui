@@ -11,5 +11,6 @@ export const constants = {
     username: 'username',
     password: 'password',
     topic: 'topic',
-    reloadEventSlice: 'reloadEventSlice'
+    reloadEventSlice: 'reloadEventSlice',
+    rootID: '-1',
 };

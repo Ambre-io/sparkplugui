@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import clsx from 'clsx';
 import Typography from '@mui/material/Typography';
-import {useTreeItem, TreeItemContentProps} from '@mui/lab/TreeItem';
+import {useTreeItem, TreeItemContentProps} from '@mui/x-tree-view';
 
 
 export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, ref: any) => {

@@ -18,6 +18,9 @@ export const styles: stylesType = {
         background: '#FFFFFF',
         overflow: 'hidden',
     },
+    ambreCardParts: {
+        padding: 3
+    },
     alignCenter: {
         textAlign: 'center'
     },

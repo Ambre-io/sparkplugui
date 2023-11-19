@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import {Grid} from "@mui/material";
-import {TreeView} from "@mui/lab";
+import {TreeView} from "@mui/x-tree-view";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
@@ -9,24 +9,25 @@ import {useTranslation} from "react-i18next";
 
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
+import {NodeType} from "../../utils/types";
 
 
-export const Tree = (props: any) => {
+export const Tree = (props: {data: NodeType}) => {
 
-    const {treeData} = props;
+    const {data} = props;
     const {t} = useTranslation();
     const [expanded, setExpanded] = useState<string[]>([]);
 
     const parents: string[] = []; // TODO calcul for expand button
 
+    // Expand handler
     const goClickTree = () => {
         setExpanded((oldExpanded) =>
             oldExpanded.length === 0 ? parents : []
         );
     };
 
-    // After instanciate the Expand/Collapse button with expanded state
-    // it didn't work anymore, until I rebind onNodeToggle={goToggle}
+    // Node toggle handler rebind to work with the expand handler (should be fixed one day)
     const goToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
         setExpanded(nodeIds);
     };
@@ -42,7 +43,7 @@ export const Tree = (props: any) => {
                     expanded={expanded}
                     onNodeToggle={goToggle}
                 >
-                    <TreeItemRender key="pouet" node={treeData}/>
+                    <TreeItemRender key="pouet" node={data}/>
                 </TreeView>
             </Grid>
         </Grid>
