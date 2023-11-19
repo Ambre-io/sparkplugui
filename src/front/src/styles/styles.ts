@@ -8,7 +8,7 @@ export const styles: stylesType = {
         color: color
     }),
     ambreCardContainer: {
-        padding: 2
+        padding: 2,
     },
     ambreCard: {
         flexGrow: 1,
@@ -16,7 +16,7 @@ export const styles: stylesType = {
         borderRadius: 1,
         padding: 3,
         background: '#FFFFFF',
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     alignCenter: {
         textAlign: 'center'
@@ -30,8 +30,9 @@ export const styles: stylesType = {
     marginBottom2: {
         marginBottom: 2
     },
-    height100: {
-        height: '100%'
+    viewPortSize: {
+        maxHeight: '90.5vh',
+        overflowY: 'auto'
     },
     // ******************************************
     // * SPECIFIC

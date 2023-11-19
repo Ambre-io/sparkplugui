@@ -15,7 +15,7 @@ import {resolvers} from "~/graphql/resolvers";
 import SETTINGS from '../../../settings.json';
 
 // ******************************************
-// * Redis Client
+// * Redis client
 // ******************************************
 
 redis.createClient().finally();

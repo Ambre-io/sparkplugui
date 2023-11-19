@@ -49,7 +49,7 @@ export const TopicTree: React.FC = () => {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid sx={styles.width100}>
+            <Grid>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Grid container sx={styles.marginTop2}>
                         lalalala
