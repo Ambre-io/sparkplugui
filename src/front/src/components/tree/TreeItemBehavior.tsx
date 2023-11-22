@@ -36,6 +36,7 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
     };
 
     const goSelection = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        handleSelection(event);
         // TODO DO SOMETHING
     };
 

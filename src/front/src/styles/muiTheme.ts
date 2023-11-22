@@ -16,11 +16,11 @@ declare module '@mui/material/styles' {
     }
 }
 
-const primaryMain = '#55C6E7';
-const primaryLight = '#FFCA19';
-const primaryDark = '#D724FF';
+export const primaryMain = '#55C6E7';
+export const primaryLight = '#FFCA19';
+export const primaryDark = '#D724FF';
 
-const muiGrey = 'rgba(0, 0, 0, 0.23)';
+export const muiGrey = 'rgba(0, 0, 0, 0.23)';
 
 export const theme = createTheme({
     palette: {

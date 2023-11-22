@@ -11,7 +11,7 @@ export const TreeItemStyled = styled((props: TreeItemProps) => (
     '& .MuiTreeItem-content:hover': {
         background: 'transparent',
         [`& .${treeItemClasses.label}`]: {
-            background: theme.palette.primary.light
+            background: theme.palette.primary.main
         }
     },
     [`& .${treeItemClasses.selected}`]: {
@@ -26,7 +26,7 @@ export const TreeItemStyled = styled((props: TreeItemProps) => (
         '& .MuiTreeItem-content:hover': {
             background: 'transparent',
             [`& .${treeItemClasses.label}`]: {
-                background: theme.palette.primary.light
+                background: theme.palette.primary.main
             }
         },
         [`& .${treeItemClasses.selected}`]: {

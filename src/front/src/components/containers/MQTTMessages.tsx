@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 import {Collapse} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -20,20 +20,28 @@ import {theme} from "../../styles/muiTheme";
 
 export const MQTTMessages: React.FC = () => {
 
+    const {t} = useTranslation();
+
     const [expanded, setExpanded] = React.useState<boolean>(true);
     const goExpand = () => setExpanded(!expanded);
+
+    // Auto scroll to the bottom
+    const mqttMessagesRef = useRef<HTMLDivElement>(null);
+    const scrollToBottom = () => {
+        if (mqttMessagesRef !== null && mqttMessagesRef.current !== null) {
+            mqttMessagesRef.current.scrollTop = mqttMessagesRef.current.scrollHeight;
+        }
+    };
 
     // Messages slice
     const messages: MessagesType = useSelector(getMessages);
     const dispatch: AppDispatch = useDispatch();
 
-    const {t} = useTranslation();
-
     // Reload on save trick (see explanations in src/redux/reloadOnSaveSlice)
-    const reloadOnSave = useSelector(getReloadEvent);
+    const reload = useSelector(getReloadEvent);
     const {data, loading} = useSubscription(WS_MESSAGE_RECEIVED, {
         variables: {
-            reloadOnSave: reloadOnSave,
+            reload,
             shouldResubscribe: true
         }
     });
@@ -42,7 +50,19 @@ export const MQTTMessages: React.FC = () => {
         if (!loading && data !== undefined && data.messageReceived !== null) {
             dispatch(setMessages(data.messageReceived));
         }
+        scrollToBottom(); // stay at bottom
     }, [data]);
+
+    // Reaching the absolute bottom
+    useEffect(() => {
+        const mqttMessages = mqttMessagesRef.current;
+        if (mqttMessages !== null) {
+            mqttMessages.addEventListener('DOMNodeInserted', scrollToBottom);
+            return () => {
+                mqttMessages.removeEventListener('DOMNodeInserted', scrollToBottom);
+            };
+        }
+    }, []);
 
     return (
         <Grid container id='MQTTMessages' sx={styles.ambreCard}>
@@ -58,14 +78,14 @@ export const MQTTMessages: React.FC = () => {
                             <ExpandMoreIcon/>
                         </AmbreExpandButton>
                     </Grid>
-                    <Grid >
+                    <Grid>
                         <p style={styles.subtitle}>{t('mqttMessagesTitle')}</p>
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid sx={{...styles.viewPortSize, ...styles.width100}}>
+            <Grid sx={styles.width100}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <Grid container sx={styles.marginTop2}>
+                    <Grid ref={mqttMessagesRef} container sx={styles.mqttMessagesContainer}>
                         {messages.map(({topic, message, timestamp}, i) => (
                             <Grid
                                 key={`to${i}to`}

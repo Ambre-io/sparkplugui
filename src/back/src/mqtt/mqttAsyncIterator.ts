@@ -53,7 +53,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
             try {
                 this.mqttClient.subscribe(topic);
                 resolve(id);
-                console.log('subscribed to', topic);
+                console.debug('subscribed to', topic);
             } catch (e) {
                 reject(id);
                 console.error(`Error: when subscribing topic=${topic}`, e);
@@ -69,7 +69,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
         try {
             this.mqttClient.publish(constants.softUP, '0');
             this.mqttClient.unsubscribe(value.topic);
-            console.log('unsubscribe to', value.topic);
+            console.debug('unsubscribe to', value.topic);
         } catch (e) {
             console.error(`Error: when unsubscribing topic=${value.topic}`, e);
         }

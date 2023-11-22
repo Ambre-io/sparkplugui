@@ -1,4 +1,5 @@
 import {stylesType} from "../utils/types";
+import {primaryLight} from "./muiTheme";
 
 export const styles: stylesType = {
     // ******************************************
@@ -33,10 +34,6 @@ export const styles: stylesType = {
     marginBottom2: {
         marginBottom: 2
     },
-    viewPortSize: {
-        maxHeight: '90.5vh',
-        overflowY: 'auto'
-    },
     // ******************************************
     // * SPECIFIC
     // ******************************************
@@ -65,6 +62,15 @@ export const styles: stylesType = {
     },
     formControl: {
         marginBottom: 1
+    },
+    mqttMessagesContainer: {
+        maxHeight: '90.5vh', // don't go over screen
+        overflowY: 'auto', // scroll for overflow
+        width: '100%',
+        border: `1px solid ${primaryLight}`,
+        borderRadius: 1,
+        padding: 2,
+        paddingBottom: 1
     },
     mqttMessages: (primaryMain: any) => ({
         border: `1px solid ${primaryMain}`,
