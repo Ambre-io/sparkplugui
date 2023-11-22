@@ -7,9 +7,9 @@ import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/Indeterminate
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
 import {useTranslation} from "react-i18next";
 
+import {NodeType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
-import {NodeType} from "../../utils/types";
 
 
 export const Tree = (props: {data: NodeType}) => {

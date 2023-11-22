@@ -71,16 +71,25 @@ export const styles: stylesType = {
         borderRadius: 1,
         marginBottom: 1,
         padding: 1
-    })
-    // tree: {
-    //     flexGrow: 1,
-    //     maxHeight: 650,
-    //     overflow: 'scroll',
-    //     padding: 3,
-    //     marginBottom: 2,
-    //     boxShadow: '0px 0px 3px 0px #B7B7B7',
-    //     borderRadius: 1,
-    //     background: '#FFFFFF',
-    //     userSelect: 'none'
-    // },
+    }),
+    tree: {
+        userSelect: 'none'
+    },
+    spinOnClick: {
+        padding: '6px',
+        minWidth: '20px',
+        '&:active': {
+            '& .MuiSvgIcon-root': {
+                animation: "spin 1s linear",
+                "@keyframes spin": {
+                    "0%": {
+                        transform: "rotate(360deg)",
+                    },
+                    "100%": {
+                        transform: "rotate(0deg)",
+                    }
+                }
+            }
+        }
+    }
 }
