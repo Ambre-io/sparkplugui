@@ -8,7 +8,7 @@ export type stylesType = Record<string, DetailedHTMLProps<any, any>>;  // see: h
 export interface NodeType {
     id: string;
     label: string;
-    subnodes: string[];
+    subnodes: NodeType[];
 }
 
 export interface ReadyNodeType {

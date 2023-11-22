@@ -36,7 +36,7 @@ const IndexPage: React.FC<PageProps> = () => {
                             <li></li>
                             <li></li>
                             <li></li>
-                            <App/>
+                            <App className="resetCircles"/>
                         </ul>
                     </div>
                 </ApolloProvider>

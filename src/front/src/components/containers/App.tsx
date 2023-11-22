@@ -9,8 +9,8 @@ import {TopicTree} from "./TopicTree";
 import {styles} from "../../styles/styles";
 
 
-export const App: React.FC = () => (
-    <main>
+export const App = ({className}: any) => (
+    <main className={className}>
         <Grid container justifyContent='center'>
             <Grid item xs={7}>
                 <Grid container>

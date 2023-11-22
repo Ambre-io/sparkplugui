@@ -13,7 +13,7 @@ import {getMessages} from "../../redux/data/messagesSlice";
 import {MessagesType, MessageType, NodeType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {Tree} from "../tree/Tree";
-import { constants } from "../../utils/constants";
+import {constants} from "../../utils/constants";
 
 
 export const TopicTree: React.FC = () => {
@@ -37,6 +37,22 @@ export const TopicTree: React.FC = () => {
         label: 'first label',
         subnodes: []
     }
+
+    const firstBranch: NodeType = {
+        id: '-2',
+        label: 'second label',
+        subnodes: [{
+            id: '-3',
+            label: 'lala',
+            subnodes: []
+        }, {
+            id: '-4',
+            label: 'oeeee',
+            subnodes: []
+        }]
+    }
+    topicTreeRoot.subnodes.push(firstBranch);
+
 
     messages.map((message: MessageType) => {
         message.topic

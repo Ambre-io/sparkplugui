@@ -77,7 +77,6 @@ ul {
     background: rgba(255, 202, 25, 0.4);
     animation: animate 25s linear infinite;
     bottom: -150px;
-
 }
 
 .circles li:nth-child(1) {
@@ -86,7 +85,6 @@ ul {
     height: 80px;
     animation-delay: 0s;
 }
-
 
 .circles li:nth-child(2) {
     left: 10%;
@@ -167,4 +165,17 @@ ul {
         opacity: 0;
         border-radius: 100%;
     }
+}
+
+.resetCircles li {
+    position: unset;
+    animation: unset;
+    display: unset;
+    list-style: unset;
+    width: unset;
+    height: unset;
+    background: unset;
+    bottom: unset;
+    animation-delay: unset;
+    animation-duration: unset;
 }

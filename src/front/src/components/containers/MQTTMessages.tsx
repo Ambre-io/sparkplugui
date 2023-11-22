@@ -46,7 +46,7 @@ export const MQTTMessages: React.FC = () => {
 
     return (
         <Grid container id='MQTTMessages' sx={styles.ambreCard}>
-            <Grid>
+            <Grid sx={styles.width100}>
                 <Grid container>
                     <Grid>
                         <AmbreExpandButton
@@ -58,17 +58,20 @@ export const MQTTMessages: React.FC = () => {
                             <ExpandMoreIcon/>
                         </AmbreExpandButton>
                     </Grid>
-                    <Grid>
+                    <Grid >
                         <p style={styles.subtitle}>{t('mqttMessagesTitle')}</p>
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid sx={styles.viewPortSize}>
+            <Grid sx={{...styles.viewPortSize, ...styles.width100}}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Grid container sx={styles.marginTop2}>
                         {messages.map(({topic, message, timestamp}, i) => (
-                            <Grid key={`to${i}to`} xs={12}
-                                  sx={styles.mqttMessages(theme.palette.primary.main, theme.palette.primary.dark)}>
+                            <Grid
+                                key={`to${i}to`}
+                                xs={12}
+                                sx={styles.mqttMessages(theme.palette.primary.main, theme.palette.primary.dark)}
+                            >
                                 <div>
                                     <span
                                         style={styles.color(theme.palette.primary.light)}
