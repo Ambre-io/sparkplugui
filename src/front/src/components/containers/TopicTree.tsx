@@ -14,7 +14,7 @@ import {MessagesType, MessageType, NodeType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {Tree} from "../tree/Tree";
 import {constants} from "../../utils/constants";
-import {Values} from "./Values";
+import {LastMessage} from "./LastMessage";
 
 
 export const TopicTree: React.FC = () => {
@@ -35,7 +35,7 @@ export const TopicTree: React.FC = () => {
 
     const topicTreeRoot: NodeType = {
         id: constants.rootID,
-        label: 'first label',
+        label: t('tree'),
         subnodes: []
     }
 
@@ -74,7 +74,7 @@ export const TopicTree: React.FC = () => {
                         </AmbreExpandButton>
                     </Grid>
                     <Grid item>
-                        <p style={styles.subtitle}>{t('topicTreeTitle')}</p>
+                        <p style={styles.title}>{t('topicTreeTitle')}</p>
                     </Grid>
                 </Grid>
             </Grid>
@@ -85,7 +85,7 @@ export const TopicTree: React.FC = () => {
                             <Tree data={topicTreeRoot}/>
                         </Grid>
                         <Grid item xs={6}>
-                            <Values/>
+                            <LastMessage/>
                         </Grid>
                     </Grid>
                 </Collapse>

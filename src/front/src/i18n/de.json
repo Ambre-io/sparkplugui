@@ -16,5 +16,6 @@
     "error": "Fehler ☹\uFE0F",
     "mqttMessagesTitle": "Mitteilungen",
     "topicTreeTitle": "Themenbaum",
-    "values": "Werte"
+    "tree": "Baum basierend auf den Themen der empfangenen Nachrichten",
+    "lastMessage": "Letzte Nachricht"
 }

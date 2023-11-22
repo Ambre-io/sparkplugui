@@ -72,14 +72,14 @@ export const MQTTDataForm: React.FC = () => {
                         </AmbreExpandButton>
                     </Grid>
                     <Grid>
-                        <p style={styles.subtitle}>{t('mqttDataFormTitle')}</p>
+                        <p style={styles.title}>{t('mqttDataFormTitle')}</p>
                     </Grid>
                 </Grid>
             </Grid>
             <Grid sx={styles.width100}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <FormGroup>
-                        <FormControl sx={styles.formControl} fullWidth>
+                        <FormControl sx={styles.marginBottom1} fullWidth>
                             <AmbreTextField
                                 label={t('host')}
                                 value={information.host}
@@ -87,7 +87,7 @@ export const MQTTDataForm: React.FC = () => {
                             />
                             <FormHelperText>{t('hostHelper')}</FormHelperText>
                         </FormControl>
-                        <FormControl sx={styles.formControl} fullWidth>
+                        <FormControl sx={styles.marginBottom1} fullWidth>
                             <AmbreTextField
                                 label={t('port')}
                                 value={information.port}
@@ -96,7 +96,7 @@ export const MQTTDataForm: React.FC = () => {
                             />
                             <FormHelperText>{t('portHelper')}</FormHelperText>
                         </FormControl>
-                        <FormControl sx={styles.formControl} fullWidth>
+                        <FormControl sx={styles.marginBottom1} fullWidth>
                             <AmbreTextField
                                 label={t('username')}
                                 value={information.username}
@@ -104,7 +104,7 @@ export const MQTTDataForm: React.FC = () => {
                             />
                             <FormHelperText>{t('usernameHelper')}</FormHelperText>
                         </FormControl>
-                        <FormControl sx={styles.formControl} fullWidth>
+                        <FormControl sx={styles.marginBottom1} fullWidth>
                             <AmbreTextField
                                 label={t('password')}
                                 value={information.password}
@@ -126,7 +126,7 @@ export const MQTTDataForm: React.FC = () => {
                             />
                             <FormHelperText>{t('passwordHelper')}</FormHelperText>
                         </FormControl>
-                        <FormControl sx={styles.formControl} fullWidth>
+                        <FormControl sx={styles.marginBottom1} fullWidth>
                             <AmbreTextField
                                 label={t('topic')}
                                 value={information.topic}
@@ -134,7 +134,7 @@ export const MQTTDataForm: React.FC = () => {
                             />
                             <FormHelperText>{t('topicHelper')}</FormHelperText>
                         </FormControl>
-                        <FormControl sx={styles.formControl} fullWidth>
+                        <FormControl sx={styles.marginBottom1} fullWidth>
                             <AmbreButton
                                 variant="contained"
                                 onClick={goMutation}

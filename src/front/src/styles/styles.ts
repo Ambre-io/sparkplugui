@@ -5,6 +5,9 @@ export const styles: stylesType = {
     // ******************************************
     // * COMMON
     // ******************************************
+    TitilliumWebBold: {
+        fontFamily: 'TitilliumWebBold',
+    },
     color: (color: any) => ({
         color: color
     }),
@@ -24,6 +27,9 @@ export const styles: stylesType = {
     },
     width100: {
         width: '100%'
+    },
+    marginBottom1: {
+        marginBottom: 1
     },
     marginBottom2: {
         marginBottom: 2
@@ -46,16 +52,13 @@ export const styles: stylesType = {
         fontSize: 12,
         color: '#a5a5a5',
     },
-    subtitle: {
+    title: {
         marginLeft: 10,
         marginTop: 4,
         marginBottom: 0,
         fontWeight: 800,
         fontSize: 20,
         textTransform: 'uppercase',
-    },
-    formControl: {
-        marginBottom: 1
     },
     mqttMessagesContainer: {
         maxHeight: '90.5vh', // don't go over screen
@@ -74,6 +77,10 @@ export const styles: stylesType = {
     }),
     tree: {
         userSelect: 'none'
+    },
+    lastMessageContainer: {
+        border: `1px solid ${primaryLight}`,
+        borderRadius: 1,
     },
     spinOnClick: {
         padding: '6px',

@@ -11,6 +11,7 @@ export const TreeItemStyled = styled((props: TreeItemProps) => (
     '& .MuiTreeItem-content:hover': {
         background: 'transparent',
         [`& .${treeItemClasses.label}`]: {
+            border: `1px solid ${theme.palette.primary.dark}`,
             background: theme.palette.primary.main
         }
     },
@@ -26,6 +27,7 @@ export const TreeItemStyled = styled((props: TreeItemProps) => (
         '& .MuiTreeItem-content:hover': {
             background: 'transparent',
             [`& .${treeItemClasses.label}`]: {
+                border: `1px solid ${theme.palette.primary.dark}`,
                 background: theme.palette.primary.main
             }
         },
@@ -49,7 +51,7 @@ export const TreeItemStyled = styled((props: TreeItemProps) => (
     },
     [`& .${treeItemClasses.label}`]: {
         margin: 2,
-        border: '1px solid rgba(0, 0, 0, 0.23)',
+        border: `1px solid ${theme.palette.primary.main}`,
         borderRadius: 4,
     },
 }));

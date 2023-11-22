@@ -5,18 +5,17 @@ import {TreeView} from "@mui/x-tree-view";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
-import {useTranslation} from "react-i18next";
 
 import {NodeType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
+import {constants} from "../../utils/constants";
 
 
 export const Tree = (props: {data: NodeType}) => {
 
     const {data} = props;
-    const {t} = useTranslation();
-    const [expanded, setExpanded] = useState<string[]>([]);
+    const [expanded, setExpanded] = useState<string[]>([constants.rootID]);
 
     const parents: string[] = []; // TODO calcul for expand button
 
@@ -35,7 +34,6 @@ export const Tree = (props: {data: NodeType}) => {
     return (
         <Grid container justifyContent='center'>
             <Grid item xs={11} sx={styles.tree}>
-                <span style={styles.subtitle}>{t('tree')}</span>
                 <TreeView
                     defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
                     defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}
