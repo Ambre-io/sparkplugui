@@ -14,6 +14,7 @@ import {MessagesType, MessageType, NodeType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {Tree} from "../tree/Tree";
 import {constants} from "../../utils/constants";
+import {Values} from "./Values";
 
 
 export const TopicTree: React.FC = () => {
@@ -59,7 +60,7 @@ export const TopicTree: React.FC = () => {
     });
 
     return (
-        <Grid container id='MQTTMessages' sx={styles.ambreCard}>
+        <Grid container id='TopicTree' sx={styles.ambreCard}>
             <Grid item xs={12}>
                 <Grid container>
                     <Grid item>
@@ -79,12 +80,12 @@ export const TopicTree: React.FC = () => {
             </Grid>
             <Grid item xs={12}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <Grid container sx={{...styles.marginTop2}}>
-                        <Grid item xs={6} sx={styles.ambreCardParts}>
+                    <Grid container>
+                        <Grid item xs={6}>
                             <Tree data={topicTreeRoot}/>
                         </Grid>
-                        <Grid item xs={6} sx={styles.ambreCardParts}>
-                            values
+                        <Grid item xs={6}>
+                            <Values/>
                         </Grid>
                     </Grid>
                 </Collapse>

@@ -15,5 +15,6 @@
     "success": "Success \uD83D\uDC4C",
     "error": "Error ☹\uFE0F",
     "mqttMessagesTitle": "Messages",
-    "topicTreeTitle": "Topic Tree"
+    "topicTreeTitle": "Topic Tree",
+    "values": "Values"
 }

@@ -16,10 +16,10 @@ export const TreeItemStyled = styled((props: TreeItemProps) => (
     },
     [`& .${treeItemClasses.selected}`]: {
         background: 'transparent',
-        color: theme.palette.primary.main,
+        color: theme.palette.primary.dark,
         [`& .${treeItemClasses.label}`]: {
             background: theme.palette.primary.light,
-            border: `1px solid ${theme.palette.primary.main}`
+            border: `1px solid ${theme.palette.primary.dark}`
         }
     },
     [`& .${treeItemClasses.root}`]: {
@@ -31,10 +31,10 @@ export const TreeItemStyled = styled((props: TreeItemProps) => (
         },
         [`& .${treeItemClasses.selected}`]: {
             background: 'transparent',
-            color: theme.palette.primary.main,
+            color: theme.palette.primary.dark,
             [`& .${treeItemClasses.label}`]: {
                 background: theme.palette.primary.light,
-                border: `1px solid ${theme.palette.primary.main}`,
+                border: `1px solid ${theme.palette.primary.dark}`,
             }
         },
     },

@@ -33,7 +33,7 @@ export const Tree = (props: {data: NodeType}) => {
     };
 
     return (
-        <Grid sx={{flexGrow: 1}} container justifyContent='center'>
+        <Grid container justifyContent='center'>
             <Grid item xs={11} sx={styles.tree}>
                 <span style={styles.subtitle}>{t('tree')}</span>
                 <TreeView

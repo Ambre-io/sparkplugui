@@ -78,7 +78,7 @@ export const MQTTDataForm: React.FC = () => {
             </Grid>
             <Grid sx={styles.width100}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <FormGroup sx={styles.marginTop2}>
+                    <FormGroup>
                         <FormControl sx={styles.formControl} fullWidth>
                             <AmbreTextField
                                 label={t('host')}
