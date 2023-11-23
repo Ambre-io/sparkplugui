@@ -1,5 +1,5 @@
 import {stylesType} from "../utils/types";
-import {ambreCardBoxGrey, primaryLight, primaryMain} from "./muiTheme";
+import {ambreCardBoxGrey, primaryDark, primaryLight, primaryMain} from "./muiTheme";
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
 
@@ -14,6 +14,9 @@ export const styles: stylesType = {
     // ******************************************
     TitilliumWebBold: {
         fontFamily: 'TitilliumWebBold',
+    },
+    TitilliumWeb: {
+        fontFamily: 'TitilliumWeb',
     },
     color: (color: any) => ({
         color: color
@@ -84,7 +87,7 @@ export const styles: stylesType = {
         userSelect: 'none'
     },
     lastMessageContainer: {
-        ...ambreBorder(primaryLight, 2),
+        ...ambreBorder(primaryDark, 2),
         marginTop: '2px'
     },
     spinOnClick: {

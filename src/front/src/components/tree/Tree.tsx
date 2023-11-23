@@ -15,6 +15,8 @@ import {useSelector} from "react-redux";
 import {getMessages} from "../../redux/data/messagesSlice";
 
 
+const initExpanded: string[] = [constants.rootID];
+
 export const Tree: React.FC = () => {
 
     const {t} = useTranslation();
@@ -37,32 +39,16 @@ export const Tree: React.FC = () => {
         subnodes: []
     }
 
-    const firstBranch: NodeType = {
-        id: '-2',
-        label: 'second label',
-        subnodes: [{
-            id: '-3',
-            label: 'lala',
-            subnodes: []
-        }, {
-            id: '-4',
-            label: 'oeeee',
-            subnodes: []
-        }]
-    }
-    nodeRoot.subnodes.push(firstBranch);
-
-
     messages.map((message: MessageType) => {
         message.topic
     });
 
-
-
     const parents: string[] = []; // TODO calcul for expand button
 
     // Expand handler
-    const goClickTree = () => setExpanded((oldExpanded) => oldExpanded.length === 0 ? parents : []);
+    const goClickTree = () => setExpanded((oldExpanded) => (
+        oldExpanded.length === initExpanded.length ? parents : initExpanded
+    ));
 
     // Node toggle handler rebind to work with the expand handler (should be fixed one day)
     const goToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
