@@ -90,7 +90,7 @@ export const MQTTMessages: React.FC = () => {
                             <Grid
                                 key={`to${i}to`}
                                 xs={12}
-                                sx={styles.mqttMessages(theme.palette.primary.main, theme.palette.primary.dark)}
+                                sx={styles.mqttMessages}
                             >
                                 <div>
                                     <span

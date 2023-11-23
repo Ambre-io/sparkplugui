@@ -56,13 +56,8 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
             <div onClick={goExpansion} className={classes.iconContainer}>
                 {icon}
             </div>
-            <Typography
-                onClick={goSelection}
-                component="div"
-                className={classes.label}
-                sx={nodeId === constants.rootID ? styles.TitilliumWebBold : {}}
-            >
-                {label}
+            <Typography onClick={goSelection} component="div" className={classes.label}>
+                <span style={nodeId === constants.rootID ? styles.TitilliumWebBold : {}}>{label}</span>
             </Typography>
         </div>
     );

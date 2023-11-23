@@ -1,5 +1,12 @@
 import {stylesType} from "../utils/types";
-import {primaryLight} from "./muiTheme";
+import {ambreCardBoxGrey, primaryMain} from "./muiTheme";
+
+const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
+
+export const ambreBorder = (color: string) => ({
+    border: `1px solid ${color}`,
+    borderRadius: 1,
+});
 
 export const styles: stylesType = {
     // ******************************************
@@ -16,7 +23,7 @@ export const styles: stylesType = {
     },
     ambreCard: {
         flexGrow: 1,
-        boxShadow: '0px 0px 3px 0px #B7B7B7',
+        boxShadow: ambreCardBoxShadow,
         borderRadius: 1,
         padding: 3,
         background: '#FFFFFF',
@@ -62,25 +69,23 @@ export const styles: stylesType = {
     },
     mqttMessagesContainer: {
         maxHeight: '90.5vh', // don't go over screen
-        overflowY: 'auto', // scroll for overflow
+        overflowY: 'auto', // overflow as scroll
         width: '100%',
-        border: `1px solid ${primaryLight}`,
-        borderRadius: 1,
+        ...ambreBorder(primaryMain),
         padding: 2,
         paddingBottom: 1
     },
-    mqttMessages: (primaryMain: any) => ({
-        border: `1px solid ${primaryMain}`,
-        borderRadius: 1,
+    mqttMessages: {
+        ...ambreBorder(primaryMain),
         marginBottom: 1,
         padding: 1
-    }),
+    },
     tree: {
         userSelect: 'none'
     },
     lastMessageContainer: {
-        border: `1px solid ${primaryLight}`,
-        borderRadius: 1,
+        ...ambreBorder(primaryMain),
+        marginTop: '2px'
     },
     spinOnClick: {
         padding: '6px',

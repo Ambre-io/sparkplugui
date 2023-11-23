@@ -20,6 +20,8 @@ export const primaryMain = '#55C6E7';
 export const primaryLight = '#FFCA19';
 export const primaryDark = '#D724FF';
 
+export const ambreCardBoxGrey = '#B7B7B7';
+
 export const muiGrey = 'rgba(0, 0, 0, 0.23)';
 
 export const theme = createTheme({

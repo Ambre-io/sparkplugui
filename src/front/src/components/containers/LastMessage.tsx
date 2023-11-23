@@ -12,13 +12,13 @@ export const LastMessage: React.FC = () => {
 
     return (
         <Grid container sx={styles.lastMessageContainer} justifyContent='center'>
-            <Grid item xs={11} sx={styles.tree}>
+            <Grid item xs={11}>
                 <Grid container justifyContent='center'>
                     <Grid item xs={12}>
                         <span>{t('lastMessage')}</span>
                     </Grid>
                     <Grid item xs={12}>
-                        TODO
+
                     </Grid>
                 </Grid>
             </Grid>
