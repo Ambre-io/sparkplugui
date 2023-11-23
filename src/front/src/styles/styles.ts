@@ -1,10 +1,10 @@
 import {stylesType} from "../utils/types";
-import {ambreCardBoxGrey, primaryMain} from "./muiTheme";
+import {ambreCardBoxGrey, primaryLight, primaryMain} from "./muiTheme";
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
 
-export const ambreBorder = (color: string) => ({
-    border: `1px solid ${color}`,
+export const ambreBorder = (color: string, size: number=1) => ({
+    border: `${size}px solid ${color}`,
     borderRadius: 1,
 });
 
@@ -71,7 +71,7 @@ export const styles: stylesType = {
         maxHeight: '90.5vh', // don't go over screen
         overflowY: 'auto', // overflow as scroll
         width: '100%',
-        ...ambreBorder(primaryMain),
+        ...ambreBorder(primaryLight, 2),
         padding: 2,
         paddingBottom: 1
     },
@@ -84,7 +84,7 @@ export const styles: stylesType = {
         userSelect: 'none'
     },
     lastMessageContainer: {
-        ...ambreBorder(primaryMain),
+        ...ambreBorder(primaryLight, 2),
         marginTop: '2px'
     },
     spinOnClick: {

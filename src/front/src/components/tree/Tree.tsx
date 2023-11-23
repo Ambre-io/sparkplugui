@@ -5,26 +5,64 @@ import {TreeView} from "@mui/x-tree-view";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
+import {useTranslation} from "react-i18next";
 
-import {NodeType} from "../../utils/types";
+import {MessagesType, MessageType, NodeType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
 import {constants} from "../../utils/constants";
+import {useSelector} from "react-redux";
+import {getMessages} from "../../redux/data/messagesSlice";
 
 
-export const Tree = (props: {data: NodeType}) => {
+export const Tree: React.FC = () => {
 
-    const {data} = props;
+    const {t} = useTranslation();
+
     const [expanded, setExpanded] = useState<string[]>([constants.rootID]);
+
+    const messages: MessagesType = useSelector(getMessages);
+
+    // TODO
+    //  - parse messages
+    //  - create a new sub node on each '/' in the topic
+    //  - if node exists go inside
+    //  - the metric name is the leaf
+    //      - ignition style parse over | but idk if its a good idea
+    //      - maybe the good way to do this is to have a single leaf and on click, display last reived decoded metrics
+
+    const nodeRoot: NodeType = {
+        id: constants.rootID,
+        label: t('tree'),
+        subnodes: []
+    }
+
+    const firstBranch: NodeType = {
+        id: '-2',
+        label: 'second label',
+        subnodes: [{
+            id: '-3',
+            label: 'lala',
+            subnodes: []
+        }, {
+            id: '-4',
+            label: 'oeeee',
+            subnodes: []
+        }]
+    }
+    nodeRoot.subnodes.push(firstBranch);
+
+
+    messages.map((message: MessageType) => {
+        message.topic
+    });
+
+
 
     const parents: string[] = []; // TODO calcul for expand button
 
     // Expand handler
-    const goClickTree = () => {
-        setExpanded((oldExpanded) =>
-            oldExpanded.length === 0 ? parents : []
-        );
-    };
+    const goClickTree = () => setExpanded((oldExpanded) => oldExpanded.length === 0 ? parents : []);
 
     // Node toggle handler rebind to work with the expand handler (should be fixed one day)
     const goToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
@@ -41,7 +79,7 @@ export const Tree = (props: {data: NodeType}) => {
                     expanded={expanded}
                     onNodeToggle={goToggle}
                 >
-                    <TreeItemRender key="pouet" node={data}/>
+                    <TreeItemRender key="pouet" node={nodeRoot}/>
                 </TreeView>
             </Grid>
         </Grid>
