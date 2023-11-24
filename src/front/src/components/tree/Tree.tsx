@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
@@ -14,6 +14,7 @@ import {getMessages} from "../../redux/data/messagesSlice";
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
 import {utils} from '../../utils/utils';
+import {setLastMessages} from "../../redux/data/lastMessagesSlice";
 
 
 const initExpanded: string[] = [constants.rootID];
@@ -26,7 +27,7 @@ export const Tree: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'));
+    let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'), [], {nodeTopic: ''});
 
     messages.map((msg: MessageType) => {
         const {topic, message} = msg;
@@ -34,27 +35,24 @@ export const Tree: React.FC = () => {
         const splitedTopic = topic.split(constants.topicSeparator);
         if (splitedTopic.length < 1) return;
 
-        // TODO
-        //  - create a lastMessages slice
-        //  - save and update last message
-        //  - select the displayed last message
-
-        let lastNode: NodeType = utils.createNode(splitedTopic[0], splitedTopic[0]);
+        let lastNode: NodeType = nodeRoot;
         splitedTopic.map((str: string, i: number) => {
-            const node: NodeType = utils.createNode(str, str);
-            if (i === 0 && !nodeRoot.subnodes.in(node, 'id')) {
-                nodeRoot.subnodes.push(node);
-                // TODO update last message
-                if (splitedTopic.length - 1 === i) {
-                    node.label = `${node.label}: ${utils.shortWord(message, 30)}`;
-                }
-            } else if (!lastNode.subnodes.in(node, 'id')) {
-                lastNode.subnodes.push(node);
-                // TODO update last message
-                if (splitedTopic.length - 1 === i) {
-                    node.label = `${node.label}: ${utils.shortWord(message, 30)}`;
-                }
+
+            // create node with the node topic
+            const lastNodeTopic = lastNode.options?.nodeTopic ?? '';
+            const nodeTopic = `${lastNodeTopic}/${str}`;
+            const node: NodeType = utils.createNode(str, str, [], {nodeTopic});
+
+            // if not already in the parent, add it
+            if (!lastNode.subnodes.in(node, constants.id)) lastNode.subnodes.push(node);
+
+            // Leaf: last part of the topic
+            if (splitedTopic.length - 1 === i) {
+                setLastMessages({topic: message});
+                node.label = `${node.label}: ${utils.shortWord(message, 30)}`;
             }
+
+            // update the parent node
             lastNode = node;
         });
     });
@@ -75,15 +73,17 @@ export const Tree: React.FC = () => {
         <Grid container justifyContent='center'>
             <Grid item xs={12} sx={styles.tree}>
                 <span style={styles.subtitle}>{t('tree')}</span>
-                <TreeView
-                    defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
-                    defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}
-                    defaultEndIcon={<DisabledByDefaultOutlinedIcon sx={{color: '#CECECE'}}/>}
-                    expanded={expanded}
-                    onNodeToggle={goToggle}
-                >
-                    <TreeItemRender key="pouet" node={nodeRoot}/>
-                </TreeView>
+                {messages.length > 0 && (
+                    <TreeView
+                        defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
+                        defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}
+                        defaultEndIcon={<DisabledByDefaultOutlinedIcon sx={{color: '#CECECE'}}/>}
+                        expanded={expanded}
+                        onNodeToggle={goToggle}
+                    >
+                        <TreeItemRender key="pouet" node={nodeRoot}/>
+                    </TreeView>
+                )}
             </Grid>
         </Grid>
     );

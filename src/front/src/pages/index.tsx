@@ -11,6 +11,7 @@ import {App} from "../components/containers/App";
 import {HTTPClient} from '../graphql/graphql';
 import {store} from "../redux/store";
 import {theme} from '../styles/muiTheme';
+import '../utils/TSOverload';
 import '../i18n/i18next';
 import '../styles/index.css';
 

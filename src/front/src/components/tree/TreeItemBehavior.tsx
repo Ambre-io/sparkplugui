@@ -3,8 +3,8 @@ import * as React from 'react';
 import clsx from 'clsx';
 import Typography from '@mui/material/Typography';
 import {useTreeItem, TreeItemContentProps} from '@mui/x-tree-view';
-import {constants} from '../../utils/constants';
-import {styles} from "../../styles/styles";
+
+import {setSelectedTopic} from "../../redux/data/selectedTopicSlice";
 
 
 export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, ref: any) => {
@@ -16,6 +16,7 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
         icon: iconProp,
         expansionIcon,
         displayIcon,
+        options
     } = props;
 
     const {
@@ -39,7 +40,7 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
 
     const goSelection = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         handleSelection(event);
-        // TODO DO SOMETHING
+        if (options !== undefined) setSelectedTopic(options.nodeTopic);
     };
 
     return (

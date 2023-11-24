@@ -9,6 +9,11 @@ export interface NodeType {
     id: string;
     label: string;
     subnodes: NodeType[];
+    options?: NodeOptionsType;
+}
+
+export interface NodeOptionsType {
+    nodeTopic: string;
 }
 
 export interface ReadyNodeType {
@@ -23,7 +28,6 @@ export interface TreeButtonType {
 
 // ******************************************
 // * MQTT Data
-// * TODO @@@ generate it from graphql schema
 // ******************************************
 export interface MQTTDataType {
     host: string;
@@ -40,3 +44,24 @@ export interface MessageType {
 }
 
 export type MessagesType = Array<MessageType>;
+
+// ******************************************
+// * MUI Overload
+// ******************************************
+declare module "@mui/x-tree-view/TreeItem" {
+    interface TreeItemContentProps extends NodeType {}
+}
+
+// ******************************************
+// * TypeScript Overload
+// ******************************************
+declare global {
+    interface Array<T> {
+
+        last(): T;
+
+        remove(element: T): Array<T>;
+
+        in(element: T, field?: string): boolean;
+    }
+}

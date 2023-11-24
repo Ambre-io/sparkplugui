@@ -5,7 +5,8 @@ export const constants = {
     mqttDataSlice: 'mqttDataSlice',
     languageSlice: 'languageSlice',
     messagesSlice: 'messagesSlice',
-    lastMessageSlice: 'lastMessageSlice',
+    selectedTopicSlice: 'lastMessageSlice',
+    lastMessagesSlice: 'lastMessagesSlice',
     availableLanguages: ['fr', 'en', 'de'].sort(),
     host: 'host',
     port: 'port',
@@ -14,5 +15,6 @@ export const constants = {
     topic: 'topic',
     reloadEventSlice: 'reloadEventSlice',
     rootID: '-1',
-    topicSeparator: '/'
+    topicSeparator: '/',
+    id: 'id'
 };
