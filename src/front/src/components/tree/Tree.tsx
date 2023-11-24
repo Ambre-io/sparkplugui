@@ -17,6 +17,8 @@ import {getMessages} from "../../redux/data/messagesSlice";
 
 const initExpanded: string[] = [constants.rootID];
 
+const createNode = (id: string, label: string, subnodes: NodeType[] = []): NodeType => ({id, label, subnodes});
+
 export const Tree: React.FC = () => {
 
     const {t} = useTranslation();
@@ -25,22 +27,27 @@ export const Tree: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    // TODO
-    //  - parse messages
-    //  - create a new sub node on each '/' in the topic
-    //  - if node exists go inside
-    //  - the metric name is the leaf
-    //      - ignition style parse over | but idk if its a good idea
-    //      - maybe the good way to do this is to have a single leaf and on click, display last reived decoded metrics
+    const nodeRoot: NodeType = createNode(constants.rootID, t('tree'));
 
-    const nodeRoot: NodeType = {
-        id: constants.rootID,
-        label: t('tree'),
-        subnodes: []
-    }
+    messages.map((msg: MessageType) => {
+        const {topic, message} = msg;
 
-    messages.map((message: MessageType) => {
-        message.topic
+        const splitedTopic = topic.split(constants.topicSeparator);
+        if (splitedTopic.length < 1) return;
+
+        let lastNode: NodeType = createNode(splitedTopic[0], splitedTopic[0]);
+        splitedTopic.map((str: string, i: number) => {
+            const node = createNode(str, str);
+            if (i === 0 && !nodeRoot.subnodes.in(node)) {
+                nodeRoot.subnodes.push(node);
+                if(splitedTopic.length - 1 === i) node.subnodes.push(createNode(`${str}-${i}`, message));
+            } else if (!lastNode.subnodes.in(node)) {
+                lastNode.subnodes.push(node);
+                if(splitedTopic.length - 1 === i) node.subnodes.push(createNode(`${str}-${i}`, message));
+            }
+            lastNode = node;
+        });
+
     });
 
     const parents: string[] = []; // TODO calcul for expand button

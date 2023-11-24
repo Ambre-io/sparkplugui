@@ -13,4 +13,5 @@ export const constants = {
     topic: 'topic',
     reloadEventSlice: 'reloadEventSlice',
     rootID: '-1',
+    topicSeparator: '/'
 };
