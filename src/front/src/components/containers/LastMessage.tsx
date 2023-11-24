@@ -21,7 +21,7 @@ export const LastMessage: React.FC = () => {
                     <Grid item xs={12}>
                         <span style={styles.subtitle}>{t('lastMessage')}</span>
                     </Grid>
-                    <Grid item xs={12} sx={message !== null && styles.lastMessageContainer}>
+                    <Grid item xs={12} sx={message !== null ? styles.lastMessageContainer : undefined}>
                         {message}
                     </Grid>
                 </Grid>

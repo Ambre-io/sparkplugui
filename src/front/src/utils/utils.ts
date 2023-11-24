@@ -2,11 +2,14 @@
 // * Utils
 // ******************************************
 
+import {NodeType} from "./types";
+
 export const utils: any = {
     // This should be array.includes('value') but it's to early to use (ES7)
     // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
     includes: (value: any, array: Array<any>) => array.indexOf(value) !== -1,
-    dateFrom: (timestamp: number): string => new Date(timestamp).toISOString()
+    dateFrom: (timestamp: number): string => new Date(timestamp).toISOString(),
+    createNode: (id: string, label: string, subnodes: NodeType[] = []): NodeType => ({id, label, subnodes})
 }
 
 // ******************************************
@@ -20,7 +23,7 @@ declare global {
 
         remove(element: T): Array<T>;
 
-        in(element: T): boolean;
+        in(element: T, field?: string): boolean;
     }
 }
 
@@ -35,6 +38,7 @@ Array.prototype.remove = function <T>(this: T[], element: T): T[] {
 }
 
 // element in?
-Array.prototype.in = function <T>(this: T[], element: T): boolean {
-    return this.find(e => e === element) !== undefined;
+Array.prototype.in = function <T>(this: T[], element: T, field: string|undefined): boolean {
+    if (field !== undefined) return this.find(e => (e as Record<any, any>)[field] === (element as Record<any, any>)[field]) !== undefined;
+    else return this.find(e => e === element) !== undefined;
 }

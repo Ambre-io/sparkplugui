@@ -1,23 +1,22 @@
 import React, {useState} from 'react';
 
-import {Grid} from "@mui/material";
-import {TreeView} from "@mui/x-tree-view";
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
-import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
+import {Grid} from "@mui/material";
+import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
+import {TreeView} from "@mui/x-tree-view";
+import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
+import {constants} from "../../utils/constants";
 import {MessagesType, MessageType, NodeType} from "../../utils/types";
+import {getMessages} from "../../redux/data/messagesSlice";
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
-import {constants} from "../../utils/constants";
-import {useSelector} from "react-redux";
-import {getMessages} from "../../redux/data/messagesSlice";
+import {utils} from '../../utils/utils';
 
 
 const initExpanded: string[] = [constants.rootID];
-
-const createNode = (id: string, label: string, subnodes: NodeType[] = []): NodeType => ({id, label, subnodes});
 
 export const Tree: React.FC = () => {
 
@@ -27,7 +26,7 @@ export const Tree: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    const nodeRoot: NodeType = createNode(constants.rootID, t('root'));
+    const nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'));
 
     messages.map((msg: MessageType) => {
         const {topic, message} = msg;
@@ -35,15 +34,15 @@ export const Tree: React.FC = () => {
         const splitedTopic = topic.split(constants.topicSeparator);
         if (splitedTopic.length < 1) return;
 
-        let lastNode: NodeType = createNode(splitedTopic[0], splitedTopic[0]);
+        let lastNode: NodeType = utils.createNode(splitedTopic[0], splitedTopic[0]);
         splitedTopic.map((str: string, i: number) => {
-            const node = createNode(str, str);
-            if (i === 0 && !nodeRoot.subnodes.in(node)) {
+            const node: NodeType = utils.createNode(str, str);
+            if (i === 0 && !nodeRoot.subnodes.in(node, 'id')) {
                 nodeRoot.subnodes.push(node);
-                if(splitedTopic.length - 1 === i) node.subnodes.push(createNode(`${str}-${i}`, message));
-            } else if (!lastNode.subnodes.in(node)) {
+                if (splitedTopic.length - 1 === i) node.subnodes.push(utils.createNode(`${str}-${i}`, message));
+            } else if (!lastNode.subnodes.in(node, 'id')) {
                 lastNode.subnodes.push(node);
-                if(splitedTopic.length - 1 === i) node.subnodes.push(createNode(`${str}-${i}`, message));
+                if (splitedTopic.length - 1 === i) node.subnodes.push(utils.createNode(`${str}-${i}`, message));
             }
             lastNode = node;
         });
