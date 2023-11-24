@@ -4,6 +4,7 @@ import languageSlice from "./data/languageSlice";
 import mqttDataSlice from "./data/mqttDataSlice";
 import messagesSlice from "./data/messagesSlice";
 import reloadEventSlice from "./events/reloadEventSlice";
+import lastMessageSlice from "./data/lastMessageSlice";
 
 
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
         languageSlice: languageSlice,
         mqttDataSlice: mqttDataSlice,
         messagesSlice: messagesSlice,
+        lastMessageSlice: lastMessageSlice,
         // Events
         reloadEventSlice: reloadEventSlice
     },

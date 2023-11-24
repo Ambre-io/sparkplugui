@@ -16,6 +16,7 @@
     "error": "Error ☹\uFE0F",
     "mqttMessagesTitle": "Messages",
     "topicTreeTitle": "Topic Tree",
-    "tree": "Tree based on topics of received messages",
-    "lastMessage": "Last Message"
+    "tree": "Topics of messages received",
+    "lastMessage": "Last Message",
+    "root": "Root"
 }

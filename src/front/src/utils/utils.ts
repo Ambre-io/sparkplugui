@@ -35,6 +35,6 @@ Array.prototype.remove = function <T>(this: T[], element: T): T[] {
 }
 
 // element in?
-Array.prototype.in = function <T>(element: T): boolean {
+Array.prototype.in = function <T>(this: T[], element: T): boolean {
     return this.find(e => e === element) !== undefined;
 }

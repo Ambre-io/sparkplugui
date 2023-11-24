@@ -57,7 +57,7 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
                 {icon}
             </div>
             <Typography onClick={goSelection} component="div" className={classes.label}>
-                <span style={nodeId === constants.rootID ? styles.TitilliumWebBold : {}}>{label}</span>
+                {label}
             </Typography>
         </div>
     );

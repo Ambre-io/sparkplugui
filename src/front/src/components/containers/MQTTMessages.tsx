@@ -85,7 +85,7 @@ export const MQTTMessages: React.FC = () => {
             </Grid>
             <Grid sx={styles.width100}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <Grid ref={mqttMessagesRef} container sx={styles.mqttMessagesContainer}>
+                    <Grid ref={mqttMessagesRef} container sx={messages.length > 0 && styles.mqttMessagesContainer}>
                         {messages.map(({topic, message, timestamp}, i) => (
                             <Grid
                                 key={`to${i}to`}

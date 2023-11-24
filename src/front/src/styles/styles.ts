@@ -3,7 +3,7 @@ import {ambreCardBoxGrey, primaryDark, primaryLight, primaryMain} from "./muiThe
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
 
-export const ambreBorder = (color: string, size: number=1) => ({
+const ambreBorder = (color: string, size: number=1) => ({
     border: `${size}px solid ${color}`,
     borderRadius: 1,
 });
@@ -70,6 +70,9 @@ export const styles: stylesType = {
         fontSize: 20,
         textTransform: 'uppercase',
     },
+    subtitle: {
+        textTransform: 'uppercase',
+    },
     mqttMessagesContainer: {
         maxHeight: '90.5vh', // don't go over screen
         overflowY: 'auto', // overflow as scroll
@@ -88,7 +91,8 @@ export const styles: stylesType = {
     },
     lastMessageContainer: {
         ...ambreBorder(primaryDark, 2),
-        marginTop: '2px'
+        marginTop: '2px',
+        padding: 2,
     },
     spinOnClick: {
         padding: '6px',

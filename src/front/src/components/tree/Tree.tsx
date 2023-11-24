@@ -27,7 +27,7 @@ export const Tree: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    const nodeRoot: NodeType = createNode(constants.rootID, t('tree'));
+    const nodeRoot: NodeType = createNode(constants.rootID, t('root'));
 
     messages.map((msg: MessageType) => {
         const {topic, message} = msg;
@@ -47,7 +47,6 @@ export const Tree: React.FC = () => {
             }
             lastNode = node;
         });
-
     });
 
     const parents: string[] = []; // TODO calcul for expand button
@@ -65,6 +64,7 @@ export const Tree: React.FC = () => {
     return (
         <Grid container justifyContent='center'>
             <Grid item xs={11} sx={styles.tree}>
+                <span style={styles.subtitle}>{t('tree')}</span>
                 <TreeView
                     defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
                     defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}
