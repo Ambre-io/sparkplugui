@@ -51,7 +51,6 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
             })}
             onMouseDown={goMouseDown}
             ref={ref as React.Ref<HTMLDivElement>}
-            style={nodeId === constants.rootID ? styles.TitilliumWebBold : {}}
         >
             <div onClick={goExpansion} className={classes.iconContainer}>
                 {icon}

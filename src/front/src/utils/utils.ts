@@ -9,7 +9,8 @@ export const utils: any = {
     // https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/includes
     includes: (value: any, array: Array<any>) => array.indexOf(value) !== -1,
     dateFrom: (timestamp: number): string => new Date(timestamp).toISOString(),
-    createNode: (id: string, label: string, subnodes: NodeType[] = []): NodeType => ({id, label, subnodes})
+    createNode: (id: string, label: string, subnodes: NodeType[] = []): NodeType => ({id, label, subnodes}),
+    shortWord: (word: string, len: number): string => `${word.slice(0, len)}${word.length > len ? '...' : ''}`
 }
 
 // ******************************************

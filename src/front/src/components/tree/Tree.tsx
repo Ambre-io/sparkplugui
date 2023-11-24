@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
@@ -26,7 +26,7 @@ export const Tree: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    const nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'));
+    let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'));
 
     messages.map((msg: MessageType) => {
         const {topic, message} = msg;
@@ -34,15 +34,26 @@ export const Tree: React.FC = () => {
         const splitedTopic = topic.split(constants.topicSeparator);
         if (splitedTopic.length < 1) return;
 
+        // TODO
+        //  - create a lastMessages slice
+        //  - save and update last message
+        //  - select the displayed last message
+
         let lastNode: NodeType = utils.createNode(splitedTopic[0], splitedTopic[0]);
         splitedTopic.map((str: string, i: number) => {
             const node: NodeType = utils.createNode(str, str);
             if (i === 0 && !nodeRoot.subnodes.in(node, 'id')) {
                 nodeRoot.subnodes.push(node);
-                if (splitedTopic.length - 1 === i) node.subnodes.push(utils.createNode(`${str}-${i}`, message));
+                // TODO update last message
+                if (splitedTopic.length - 1 === i) {
+                    node.label = `${node.label}: ${utils.shortWord(message, 30)}`;
+                }
             } else if (!lastNode.subnodes.in(node, 'id')) {
                 lastNode.subnodes.push(node);
-                if (splitedTopic.length - 1 === i) node.subnodes.push(utils.createNode(`${str}-${i}`, message));
+                // TODO update last message
+                if (splitedTopic.length - 1 === i) {
+                    node.label = `${node.label}: ${utils.shortWord(message, 30)}`;
+                }
             }
             lastNode = node;
         });
@@ -62,7 +73,7 @@ export const Tree: React.FC = () => {
 
     return (
         <Grid container justifyContent='center'>
-            <Grid item xs={11} sx={styles.tree}>
+            <Grid item xs={12} sx={styles.tree}>
                 <span style={styles.subtitle}>{t('tree')}</span>
                 <TreeView
                     defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}

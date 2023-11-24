@@ -16,15 +16,11 @@ export const LastMessage: React.FC = () => {
 
     return (
         <Grid container justifyContent='center'>
-            <Grid item xs={11}>
-                <Grid container justifyContent='center'>
-                    <Grid item xs={12}>
-                        <span style={styles.subtitle}>{t('lastMessage')}</span>
-                    </Grid>
-                    <Grid item xs={12} sx={message !== null ? styles.lastMessageContainer : undefined}>
-                        {message}
-                    </Grid>
-                </Grid>
+            <Grid item xs={12}>
+                <span style={styles.subtitle}>{t('lastMessage')}</span>
+            </Grid>
+            <Grid item xs={12} sx={message !== null ? styles.lastMessageContainer : undefined}>
+                {message}
             </Grid>
         </Grid>
     );

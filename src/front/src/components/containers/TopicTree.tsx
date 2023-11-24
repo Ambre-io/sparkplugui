@@ -39,10 +39,10 @@ export const TopicTree: React.FC = () => {
             <Grid item xs={12}>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <Grid container>
-                        <Grid item xs={6}>
+                        <Grid item xs={7}>
                             <Tree/>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={5}>
                             <LastMessage/>
                         </Grid>
                     </Grid>
