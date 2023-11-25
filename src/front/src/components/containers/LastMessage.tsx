@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {Grid} from "@mui/material";
 import {useTranslation} from "react-i18next";
@@ -13,18 +13,25 @@ export const LastMessage: React.FC = () => {
 
     const {t} = useTranslation();
 
+    const [message, setMessage] = useState<string>('');
+
     const topic = useSelector(getSelectedTopic);
     const messages = useSelector(getLastMessages);
-    let message: string = messages[topic] ?? '';
+
+    useEffect(() => {
+        setMessage(messages[topic] !== undefined ? messages[topic] : '');
+    }, [topic]);
 
     return (
         <Grid container justifyContent='center'>
             <Grid item xs={12}>
                 <span style={styles.subtitle}>{t('lastMessage')}</span>
             </Grid>
-            <Grid item xs={12} sx={message !== '' ? styles.lastMessageContainer : undefined}>
-                {message}
-            </Grid>
+            {message !== '' && (
+                <Grid item xs={12} sx={styles.lastMessageContainer}>
+                    {message}
+                </Grid>
+            )}
         </Grid>
     );
 }

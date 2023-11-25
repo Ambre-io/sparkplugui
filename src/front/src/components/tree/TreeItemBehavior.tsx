@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import {useTreeItem, TreeItemContentProps} from '@mui/x-tree-view';
 
 import {setSelectedTopic} from "../../redux/data/selectedTopicSlice";
+import {useDispatch} from "react-redux";
 
 
 export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, ref: any) => {
@@ -28,6 +29,8 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
         preventSelection,
     } = useTreeItem(nodeId);
 
+    const dispatch = useDispatch();
+
     const icon = iconProp || expansionIcon || displayIcon;
 
     const goMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -40,7 +43,7 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
 
     const goSelection = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         handleSelection(event);
-        if (options !== undefined) setSelectedTopic(options.nodeTopic);
+        if (options !== undefined) dispatch(setSelectedTopic(options.nodeTopic));
     };
 
     return (

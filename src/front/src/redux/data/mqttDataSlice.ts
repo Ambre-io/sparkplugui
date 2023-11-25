@@ -23,7 +23,7 @@ const mqttDataSlice = createSlice({
 });
 
 // Export action
-export const { setMQTTData } = mqttDataSlice.actions;
+export const {setMQTTData} = mqttDataSlice.actions;
 
 // Export value access (useSelector)
 export const getMQTTData = (state: RootState): MQTTDataType => state.mqttDataSlice;

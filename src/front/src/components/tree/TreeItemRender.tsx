@@ -10,6 +10,7 @@ export const TreeItemRender = ({node}: { node: NodeType }) => (
         nodeId={node.id}
         label={node.label}
         ContentComponent={TreeItemBehavior}
+        ContentProps={{options: node.options} as any}
     >
         {
             Array.isArray(node.subnodes)

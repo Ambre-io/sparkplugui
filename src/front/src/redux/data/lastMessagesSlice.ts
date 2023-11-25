@@ -9,7 +9,9 @@ const lastMessagesSlice = createSlice({
     name: constants.lastMessagesSlice,
     initialState: initLastMessagesSlice,
     reducers: {
-        setLastMessages: (state: any, action: PayloadAction<Record<string, string>>) => ({...state, ...action.payload})
+        setLastMessages: (state: any, action: PayloadAction<Record<string, string>>) => {
+            Object.assign(state, action.payload);
+        }
     },
 });
 

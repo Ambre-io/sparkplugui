@@ -5,7 +5,7 @@ import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefault
 import {Grid} from "@mui/material";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import {TreeView} from "@mui/x-tree-view";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants";
@@ -22,6 +22,7 @@ const initExpanded: string[] = [constants.rootID];
 export const Tree: React.FC = () => {
 
     const {t} = useTranslation();
+    const dispatch = useDispatch();
 
     const [expanded, setExpanded] = useState<string[]>([constants.rootID]);
 
@@ -40,15 +41,15 @@ export const Tree: React.FC = () => {
 
             // create node with the node topic
             const lastNodeTopic = lastNode.options?.nodeTopic ?? '';
-            const nodeTopic = `${lastNodeTopic}/${str}`;
+            const nodeTopic = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${str}`;
             const node: NodeType = utils.createNode(str, str, [], {nodeTopic});
 
             // if not already in the parent, add it
-            if (!lastNode.subnodes.in(node, constants.id)) lastNode.subnodes.push(node);
+            if (!lastNode.subnodes.in(node, constants.label)) lastNode.subnodes.push(node);
 
             // Leaf: last part of the topic
             if (splitedTopic.length - 1 === i) {
-                setLastMessages({topic: message});
+                dispatch(setLastMessages({[topic]: message}));
                 node.label = `${node.label}: ${utils.shortWord(message, 30)}`;
             }
 

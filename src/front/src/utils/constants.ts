@@ -16,5 +16,5 @@ export const constants = {
     reloadEventSlice: 'reloadEventSlice',
     rootID: '-1',
     topicSeparator: '/',
-    id: 'id'
+    label: 'label'
 };
