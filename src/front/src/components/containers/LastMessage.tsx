@@ -20,7 +20,7 @@ export const LastMessage: React.FC = () => {
 
     useEffect(() => {
         setMessage(messages[topic] !== undefined ? messages[topic] : '');
-    }, [topic]);
+    }, [topic, messages]);
 
     return (
         <Grid container justifyContent='center'>

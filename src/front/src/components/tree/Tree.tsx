@@ -44,10 +44,15 @@ export const Tree: React.FC = () => {
                 // create node with the node topic
                 const lastNodeTopic = lastNode.options?.nodeTopic ?? '';
                 const nodeTopic = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${str}`;
-                const node: NodeType = utils.createNode(nodeTopic, str, [], {nodeTopic});
-                
-                // if not already in the parent, add it
-                if (!lastNode.subnodes.in(node, constants.label)) lastNode.subnodes.push(node);
+                let node: NodeType = utils.createNode(nodeTopic, str, [], {nodeTopic});
+
+                // get or create node
+                const inTreeNode = lastNode.subnodes.find((n: NodeType) => n.label === str);
+                if (inTreeNode !== undefined) {
+                    node = inTreeNode;
+                } else {
+                    lastNode.subnodes.push(node);
+                }
 
                 // Leaf: last part of the topic
                 if (splitedTopic.length - 1 === i) dispatch(setLastMessages({[topic]: message}));

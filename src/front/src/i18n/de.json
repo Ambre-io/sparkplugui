@@ -1,6 +1,6 @@
 {
     "language": "Sprache",
-    "mqttDataFormTitle": "MQTT-Informationen",
+    "mqttDataFormTitle": "MQTT",
     "host": "Gastgeber",
     "port": "Hafen",
     "username": "Benutzername",

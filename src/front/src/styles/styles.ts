@@ -93,6 +93,7 @@ export const styles: stylesType = {
         ...ambreBorder(primaryDark, 1),
         marginTop: '2px',
         padding: 2,
+        fontFamily: 'TitilliumWeb',
     },
     spinOnClick: {
         padding: '6px',
