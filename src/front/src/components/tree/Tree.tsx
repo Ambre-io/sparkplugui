@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
@@ -30,30 +30,34 @@ export const Tree: React.FC = () => {
 
     let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'), [], {nodeTopic: ''});
 
-    messages.map((msg: MessageType) => {
-        const {topic, message} = msg;
+    const [tree, setTree] = useState<NodeType>(nodeRoot);
 
-        const splitedTopic = topic.split(constants.topicSeparator);
-        if (splitedTopic.length < 1) return;
+    useEffect(() => {
+        messages.map((msg: MessageType) => {
+            const {topic, message} = msg;
 
-        let lastNode: NodeType = nodeRoot;
-        splitedTopic.map((str: string, i: number) => {
+            const splitedTopic = topic.split(constants.topicSeparator);
 
-            // create node with the node topic
-            const lastNodeTopic = lastNode.options?.nodeTopic ?? '';
-            const nodeTopic = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${str}`;
-            const node: NodeType = utils.createNode(nodeTopic, str, [], {nodeTopic});
+            let lastNode: NodeType = nodeRoot;
+            splitedTopic.map((str: string, i: number) => {
 
-            // if not already in the parent, add it
-            if (!lastNode.subnodes.in(node, constants.label)) lastNode.subnodes.push(node);
+                // create node with the node topic
+                const lastNodeTopic = lastNode.options?.nodeTopic ?? '';
+                const nodeTopic = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${str}`;
+                const node: NodeType = utils.createNode(nodeTopic, str, [], {nodeTopic});
+                
+                // if not already in the parent, add it
+                if (!lastNode.subnodes.in(node, constants.label)) lastNode.subnodes.push(node);
 
-            // Leaf: last part of the topic
-            if (splitedTopic.length - 1 === i) dispatch(setLastMessages({[topic]: message}));
+                // Leaf: last part of the topic
+                if (splitedTopic.length - 1 === i) dispatch(setLastMessages({[topic]: message}));
 
-            // update the parent node
-            lastNode = node;
+                // update the parent node
+                lastNode = node;
+            });
         });
-    });
+        setTree(nodeRoot);
+    }, [messages]);
 
     const parents: string[] = []; // TODO calcul for expand button
 
@@ -71,7 +75,7 @@ export const Tree: React.FC = () => {
         <Grid container justifyContent='center'>
             <Grid item xs={12} sx={styles.tree}>
                 <span style={styles.subtitle}>{t('tree')}</span>
-                {messages.length > 0 && (
+                {tree.subnodes.length > 0 && (
                     <TreeView
                         defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
                         defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}
@@ -79,7 +83,7 @@ export const Tree: React.FC = () => {
                         expanded={expanded}
                         onNodeToggle={goToggle}
                     >
-                        <TreeItemRender key="pouet" node={nodeRoot}/>
+                        <TreeItemRender key="pouet" node={tree}/>
                     </TreeView>
                 )}
             </Grid>
