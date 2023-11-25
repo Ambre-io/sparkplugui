@@ -90,7 +90,7 @@ export const styles: stylesType = {
         userSelect: 'none'
     },
     lastMessageContainer: {
-        ...ambreBorder(primaryDark, 2),
+        ...ambreBorder(primaryDark, 1),
         marginTop: '2px',
         padding: 2,
     },
