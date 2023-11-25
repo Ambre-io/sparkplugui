@@ -22,16 +22,16 @@ export const LastMessage: React.FC = () => {
         setMessage(messages[topic] !== undefined ? messages[topic] : '');
     }, [topic, messages]);
 
+    if (message === '') return (<div></div>);
+
     return (
         <Grid container justifyContent='center'>
             <Grid item xs={12}>
                 <span style={styles.subtitle}>📄 {t('lastMessage')}</span>
             </Grid>
-            {message !== '' && (
-                <Grid item xs={12} sx={styles.lastMessageContainer}>
-                    {message}
-                </Grid>
-            )}
+            <Grid item xs={12} sx={styles.lastMessageContainer}>
+                {message}
+            </Grid>
         </Grid>
     );
 }
