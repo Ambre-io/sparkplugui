@@ -51,11 +51,14 @@ export const Tree: React.FC = () => {
                 if (inTreeNode !== undefined) {
                     node = inTreeNode;
                 } else {
-                    lastNode.subnodes.push(node);
+                    if (!lastNode.subnodes.in(node, 'id')) lastNode.subnodes.push(node);
                 }
 
                 // Leaf: last part of the topic
-                if (splitedTopic.length - 1 === i) dispatch(setLastMessages({[topic]: message}));
+                if (splitedTopic.length - 1 === i) {
+                    dispatch(setLastMessages({[topic]: message}));
+                    node.label = `${node.label} 📄`
+                }
 
                 // update the parent node
                 lastNode = node;
@@ -79,7 +82,7 @@ export const Tree: React.FC = () => {
     return (
         <Grid container justifyContent='center'>
             <Grid item xs={12} sx={styles.tree}>
-                <span style={styles.subtitle}>{t('tree')}</span>
+                <span style={styles.subtitle}>🗂️ {t('tree')}</span>
                 {tree.subnodes.length > 0 && (
                     <TreeView
                         defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}

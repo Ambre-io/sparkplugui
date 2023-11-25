@@ -25,7 +25,7 @@ export const LastMessage: React.FC = () => {
     return (
         <Grid container justifyContent='center'>
             <Grid item xs={12}>
-                <span style={styles.subtitle}>{t('lastMessage')}</span>
+                <span style={styles.subtitle}>📄 {t('lastMessage')}</span>
             </Grid>
             {message !== '' && (
                 <Grid item xs={12} sx={styles.lastMessageContainer}>
