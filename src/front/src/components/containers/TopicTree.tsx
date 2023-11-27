@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import {Collapse} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -9,13 +9,18 @@ import {AmbreExpandButton} from "../ambre/AmbreExpandButton";
 import {styles} from "../../styles/styles";
 import {Tree} from "../tree/Tree";
 import {LastMessage} from "./LastMessage";
+import {MessagesType} from "../../utils/types";
+import {useSelector} from "react-redux";
+import {getMessages} from "../../redux/data/messagesSlice";
 
 
 export const TopicTree: React.FC = () => {
+    const {t} = useTranslation();
+
     const [expanded, setExpanded] = React.useState<boolean>(true);
     const goExpand = () => setExpanded(!expanded);
 
-    const {t} = useTranslation();
+    const messages: MessagesType = useSelector(getMessages);
 
     return (
         <Grid container id='TopicTree' sx={styles.ambreCard}>
@@ -32,22 +37,21 @@ export const TopicTree: React.FC = () => {
                         </AmbreExpandButton>
                     </Grid>
                     <Grid item>
-                        <p style={styles.title}>{t('topicTreeTitle')}</p>
+                        <p style={styles.title}>🌳 {t('tree')}</p>
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={12}>
-                <Collapse in={expanded} timeout="auto">
-                    <Grid container>
-                        <Grid item xs={6}>
-                            <Tree/>
+            {(messages.length > 0) && (
+                <Grid item xs={12}>
+                    <Collapse in={expanded} timeout="auto">
+                        <Grid container sx={styles.topicTreeContainer}>
+                            <Grid item xs={12}>
+                                <Tree messages={messages}/>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={6}>
-                            <LastMessage/>
-                        </Grid>
-                    </Grid>
-                </Collapse>
-            </Grid>
+                    </Collapse>
+                </Grid>
+            )}
         </Grid>
     );
-}
+};

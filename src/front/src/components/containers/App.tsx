@@ -2,6 +2,7 @@ import React from 'react';
 
 import Grid from "@mui/material/Grid";
 
+import {LastMessage} from "./LastMessage";
 import {MQTTDataForm} from "./MQTTDataForm";
 import {MQTTMessages} from "./MQTTMessages";
 import {SoftCard} from "./SoftCard";
@@ -20,8 +21,11 @@ export const App = ({className}: any) => (
                     <Grid item xs={6} sx={styles.ambreCardContainer}>
                         <MQTTDataForm/>
                     </Grid>
-                    <Grid item xs={12} sx={styles.ambreCardContainer}>
+                    <Grid item xs={7} sx={styles.ambreCardContainer}>
                         <TopicTree/>
+                    </Grid>
+                    <Grid item xs={5} sx={styles.ambreCardContainer}>
+                        <LastMessage/>
                     </Grid>
                 </Grid>
             </Grid>

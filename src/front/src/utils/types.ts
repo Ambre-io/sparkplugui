@@ -46,10 +46,18 @@ export interface MessageType {
 export type MessagesType = Array<MessageType>;
 
 // ******************************************
+// * Tree & Last message
+// ******************************************
+export interface TreeType {
+    messages: MessagesType;
+}
+
+// ******************************************
 // * MUI Overload
 // ******************************************
 declare module "@mui/x-tree-view/TreeItem" {
-    interface TreeItemContentProps extends NodeType {}
+    interface TreeItemContentProps extends NodeType {
+    }
 }
 
 // ******************************************

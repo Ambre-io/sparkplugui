@@ -3,7 +3,7 @@ import {ambreCardBoxGrey, primaryDark, primaryLight, primaryMain} from "./muiThe
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
 
-const ambreBorder = (color: string, size: number=1) => ({
+const ambreBorder = (color: string, size: number = 1) => ({
     border: `${size}px solid ${color}`,
     borderRadius: 1,
 });
@@ -79,12 +79,17 @@ export const styles: stylesType = {
         width: '100%',
         ...ambreBorder(primaryLight, 2),
         padding: 2,
-        paddingBottom: 1
+        paddingBottom: 1,
+        fontFamily: 'TitilliumWeb',
     },
     mqttMessages: {
         ...ambreBorder(primaryMain),
         marginBottom: 1,
         padding: 1
+    },
+    topicTreeContainer: {
+        maxHeight: '100%',
+        overflowY: 'auto',
     },
     tree: {
         userSelect: 'none'
@@ -95,6 +100,9 @@ export const styles: stylesType = {
         padding: 2,
         fontFamily: 'TitilliumWeb',
     },
+    // ******************************************
+    // * OTHER
+    // ******************************************
     spinOnClick: {
         padding: '6px',
         minWidth: '20px',

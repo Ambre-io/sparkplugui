@@ -5,12 +5,11 @@ import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefault
 import {Grid} from "@mui/material";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import {TreeView} from "@mui/x-tree-view";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants";
-import {MessagesType, MessageType, NodeType} from "../../utils/types";
-import {getMessages} from "../../redux/data/messagesSlice";
+import {MessageType, NodeType, TreeType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
 import {utils} from '../../utils/utils';
@@ -19,17 +18,15 @@ import {setLastMessages} from "../../redux/data/lastMessagesSlice";
 
 const initExpanded: string[] = [constants.rootID];
 
-export const Tree: React.FC = () => {
-
+export const Tree = (props: TreeType) => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
 
+    const {messages} = props;
+
     const [expanded, setExpanded] = useState<string[]>([constants.rootID]);
 
-    const messages: MessagesType = useSelector(getMessages);
-
     let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'), [], {nodeTopic: ''});
-
     const [tree, setTree] = useState<NodeType>(nodeRoot);
 
     useEffect(() => {
@@ -67,8 +64,6 @@ export const Tree: React.FC = () => {
         setTree(nodeRoot);
     }, [messages]);
 
-    if (tree.subnodes.length === 0) return (<div></div>);
-
     const parents: string[] = []; // TODO calcul for expand button
 
     // Expand handler
@@ -84,7 +79,6 @@ export const Tree: React.FC = () => {
     return (
         <Grid container justifyContent='center'>
             <Grid item xs={12} sx={styles.tree}>
-                <span style={styles.subtitle}>🌳 {t('tree')}</span>
                 <TreeView
                     defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
                     defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}
@@ -97,4 +91,4 @@ export const Tree: React.FC = () => {
             </Grid>
         </Grid>
     );
-}
+};
