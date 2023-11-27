@@ -72,7 +72,7 @@ export const MQTTDataForm: React.FC = () => {
                         </AmbreExpandButton>
                     </Grid>
                     <Grid>
-                        <p style={styles.title}>{t('mqttDataFormTitle')}</p>
+                        <p style={styles.title}>📡 {t('mqttDataFormTitle')}</p>
                     </Grid>
                 </Grid>
             </Grid>

@@ -79,7 +79,7 @@ export const MQTTMessages: React.FC = () => {
                         </AmbreExpandButton>
                     </Grid>
                     <Grid>
-                        <p style={styles.title}>{t('mqttMessagesTitle')}</p>
+                        <p style={styles.title}>📨 {t('mqttMessagesTitle')}</p>
                     </Grid>
                 </Grid>
             </Grid>
