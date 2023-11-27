@@ -15,7 +15,6 @@
     "success": "Succès \uD83D\uDC4C",
     "error": "Erreur ☹\uFE0F",
     "mqttMessagesTitle": "Messages",
-    "topicTreeTitle": "Arbre des topics",
     "tree": "Topics des messages reçus",
     "lastMessage": "Dernier Message",
     "root": "Racine"

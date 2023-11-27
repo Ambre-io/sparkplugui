@@ -77,7 +77,7 @@ export const styles: stylesType = {
         maxHeight: '90.5vh', // don't go over screen
         overflowY: 'auto', // overflow as scroll
         width: '100%',
-        ...ambreBorder(primaryLight, 2),
+        ...ambreBorder(primaryLight),
         padding: 2,
         paddingBottom: 1,
         fontFamily: 'TitilliumWeb',
@@ -95,7 +95,8 @@ export const styles: stylesType = {
         userSelect: 'none'
     },
     lastMessageContainer: {
-        ...ambreBorder(primaryDark, 1),
+        ...ambreBorder(primaryLight),
+        color: primaryDark,
         marginTop: '2px',
         padding: 2,
         fontFamily: 'TitilliumWeb',
