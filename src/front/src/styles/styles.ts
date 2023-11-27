@@ -78,16 +78,29 @@ export const styles: stylesType = {
         overflowY: 'auto', // overflow as scroll
         width: '100%',
         ...ambreBorder(primaryLight),
-        padding: 2,
-        paddingBottom: 1,
+        padding: 1,
+        paddingBottom: 0,
         fontFamily: 'TitilliumWeb',
     },
     mqttMessages: {
         ...ambreBorder(primaryMain),
         marginBottom: 1,
-        padding: 1
+        paddingLeft: 1,
+        paddingRight: 1
     },
-    topicTreeContainer: {
+    mqttDateTime: {
+        color: primaryLight,
+        ...ambreBorder(primaryLight),
+        fontSize: 11
+    },
+    mqttMoment: {
+        padding: 4
+    },
+    mqttTopic: {
+        color: primaryMain,
+        fontFamily: 'TitilliumWebBold'
+    },
+    noOverflowContainer: {
         maxHeight: '100%',
         overflowY: 'auto',
     },
@@ -98,7 +111,7 @@ export const styles: stylesType = {
         ...ambreBorder(primaryLight),
         color: primaryDark,
         marginTop: '2px',
-        padding: 2,
+        padding: 1,
         fontFamily: 'TitilliumWeb',
     },
     // ******************************************

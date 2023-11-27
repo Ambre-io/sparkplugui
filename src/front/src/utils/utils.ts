@@ -6,7 +6,6 @@ import {NodeOptionsType, NodeType} from "./types";
 
 export const utils: any = {
     includes: (value: any, array: Array<any>) => array.indexOf(value) !== -1,
-    dateFrom: (timestamp: number): string => new Date(timestamp).toISOString(),
     createNode: (id: string, label: string, subnodes: NodeType[] = [], options?: NodeOptionsType): NodeType => ({id, label, subnodes, options}),
     shortWord: (word: string, len: number): string => `${word.slice(0, len)}${word.length > len ? '...' : ''}`,
     mulberry32: (a: number) =>  {

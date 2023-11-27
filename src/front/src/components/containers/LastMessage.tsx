@@ -49,7 +49,7 @@ export const LastMessage: React.FC = () => {
             {(message !== '') && (
                 <Grid item xs={12}>
                     <Collapse in={expanded} timeout="auto">
-                        <Grid container sx={styles.topicTreeContainer}>
+                        <Grid container sx={styles.noOverflowContainer}>
                             <Grid item xs={12} sx={styles.lastMessageContainer}>
                                 {message}
                             </Grid>

@@ -2,6 +2,7 @@ import React, {useEffect, useRef} from 'react';
 
 import {Collapse} from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import Moment from "react-moment";
 import {useDispatch, useSelector} from "react-redux";
 import {useSubscription} from "@apollo/client";
 import {useTranslation} from "react-i18next";
@@ -93,12 +94,11 @@ export const MQTTMessages: React.FC = () => {
                                 sx={styles.mqttMessages}
                             >
                                 <div>
-                                    <span
-                                        style={styles.color(theme.palette.primary.light)}
-                                    >
-                                        {utils.dateFrom(timestamp)}
+                                    <span style={styles.mqttDateTime}>
+                                        <Moment style={styles.mqttMoment}>{timestamp}</Moment>
                                     </span>
-                                    <span style={styles.color(theme.palette.primary.main)}> {topic}</span>
+                                </div>
+                                <div style={styles.mqttTopic}>{topic}
                                 </div>
                                 <div style={styles.color(theme.palette.primary.dark)}>{message}</div>
                             </Grid>

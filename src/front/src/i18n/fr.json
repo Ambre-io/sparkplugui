@@ -17,5 +17,6 @@
     "mqttMessagesTitle": "Messages",
     "tree": "Topics des messages reçus",
     "lastMessage": "Dernier Message",
-    "root": "Racine"
+    "root": "Racine",
+    "Setting": "Paramètrage"
 }

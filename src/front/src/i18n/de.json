@@ -17,5 +17,6 @@
     "mqttMessagesTitle": "Mitteilungen",
     "tree": "Themen der empfangenen Nachrichten",
     "lastMessage": "Letzte Nachricht",
-    "root": "Wurzel"
+    "root": "Wurzel",
+    "Setting": "Einstellung"
 }

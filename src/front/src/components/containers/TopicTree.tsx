@@ -44,7 +44,7 @@ export const TopicTree: React.FC = () => {
             {(messages.length > 0) && (
                 <Grid item xs={12}>
                     <Collapse in={expanded} timeout="auto">
-                        <Grid container sx={styles.topicTreeContainer}>
+                        <Grid container sx={styles.noOverflowContainer}>
                             <Grid item xs={12}>
                                 <Tree messages={messages}/>
                             </Grid>
