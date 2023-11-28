@@ -51,15 +51,17 @@ export const styles: stylesType = {
         paddingRight: 3
     },
     softLogo: {
-        width: 100
+        width: 100,
+        filter: 'invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)'
     },
     softTitle: {
         fontSize: 26,
-        marginTop: -20
+        marginTop: -20,
+        color: primaryMain,
     },
     softSubTitle: {
         fontSize: 12,
-        color: '#a5a5a5',
+        color: primaryLight,
         marginTop: -7
     },
     title: {
@@ -77,7 +79,7 @@ export const styles: stylesType = {
         maxHeight: '90.5vh', // don't go over screen
         overflowY: 'auto', // overflow as scroll
         width: '100%',
-        ...ambreBorder(primaryLight),
+        ...ambreBorder(primaryLight, 2  ),
         padding: 1,
         paddingBottom: 0,
         fontFamily: 'TitilliumWeb',
@@ -105,7 +107,7 @@ export const styles: stylesType = {
         paddingRight: 3
     },
     lastMessageContainer: {
-        ...ambreBorder(primaryLight),
+        ...ambreBorder(primaryLight, 2),
         color: primaryDark,
         marginTop: '2px',
         padding: 1,

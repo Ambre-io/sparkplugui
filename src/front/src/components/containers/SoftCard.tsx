@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import {Grid} from "@mui/material";
 
-import {AmbreLightSpan} from "../ambre/AmbreSpan";
-import SETTINGS from '../../../../../settings.json';
-import {LanguageSelection} from "../eventbuttons/LanguageSelection";
-import {styles} from "../../styles/styles";
 import {AmbreCard} from "../ambre/AmbreCard";
 import {ExpandButton} from "../eventbuttons/ExpandButton";
+import {LanguageSelection} from "../eventbuttons/LanguageSelection";
+import {primaryDark, primaryLight} from "../../styles/muiTheme";
+import SETTINGS from '../../../../../settings.json';
+import {styles} from "../../styles/styles";
 
 
 export const SoftCard: React.FC = () => {
@@ -19,7 +19,7 @@ export const SoftCard: React.FC = () => {
                     <img style={styles.softLogo} alt='SparkplugUI logo' src='/images/logo.svg'/>
                     <div style={styles.softTitle}>SparkplugUI</div>
                     <div style={styles.softSubTitle}>
-                        {SETTINGS.version} by <AmbreLightSpan>{SETTINGS.creator.name}</AmbreLightSpan>
+                        {SETTINGS.version} by <span style={styles.color(primaryDark)}>{SETTINGS.creator.name}</span>
                     </div>
                 </Grid>
                 <Grid item>
