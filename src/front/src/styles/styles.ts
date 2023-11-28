@@ -12,15 +12,6 @@ export const styles: stylesType = {
     // ******************************************
     // * COMMON
     // ******************************************
-    TitilliumWebBold: {
-        fontFamily: 'TitilliumWebBold',
-    },
-    TitilliumWeb: {
-        fontFamily: 'TitilliumWeb',
-    },
-    color: (color: any) => ({
-        color: color
-    }),
     ambreCardContainer: {
         padding: 2,
     },
@@ -32,6 +23,13 @@ export const styles: stylesType = {
         background: '#FFFFFF',
         overflow: 'hidden',
     },
+    noOverflowContainer: {
+        maxHeight: '100%',
+        overflowY: 'auto',
+    },
+    color: (color: any) => ({
+        color: color
+    }),
     alignCenter: {
         textAlign: 'center'
     },
@@ -99,10 +97,6 @@ export const styles: stylesType = {
     mqttTopic: {
         color: primaryMain,
         fontFamily: 'TitilliumWebBold'
-    },
-    noOverflowContainer: {
-        maxHeight: '100%',
-        overflowY: 'auto',
     },
     tree: {
         userSelect: 'none'

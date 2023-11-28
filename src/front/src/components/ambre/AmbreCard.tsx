@@ -8,7 +8,7 @@ import {AmbreExpandButton} from "./AmbreExpandButton";
 import {styles} from "../../styles/styles";
 
 
-export const AmbreCard = (props: any) => {
+export const AmbreCard = (props: {title: string, children?: any}) => {
 
     const [expanded, setExpanded] = React.useState<boolean>(true);
     const goExpand = () => setExpanded(!expanded);

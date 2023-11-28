@@ -2,13 +2,13 @@ import React from 'react';
 
 import Grid from "@mui/material/Grid";
 
-import {LastMessage} from "./LastMessage";
-import {MQTTDataForm} from "./MQTTDataForm";
-import {MQTTMessages} from "./MQTTMessages";
-import {Setting} from "./Setting";
+import {FormCard} from "./FormCard";
+import {LastMessageCard} from "./LastMessageCard";
+import {MessagesCard} from "./MessagesCard";
+import {SettingCard} from "./SettingCard";
 import {SoftCard} from "./SoftCard";
-import {TopicTree} from "./TopicTree";
 import {styles} from "../../styles/styles";
+import {TreeCard} from "./TreeCard";
 
 
 export const App = ({className}: any) => (
@@ -20,21 +20,21 @@ export const App = ({className}: any) => (
                         <SoftCard/>
                     </Grid>
                     <Grid item xs={6} sx={styles.ambreCardContainer}>
-                        <MQTTDataForm/>
+                        <FormCard/>
                     </Grid>
                     <Grid item xs={3} sx={styles.ambreCardContainer}>
-                        <Setting/>
+                        <SettingCard/>
                     </Grid>
                     <Grid item xs={7} sx={styles.ambreCardContainer}>
-                        <TopicTree/>
+                        <TreeCard/>
                     </Grid>
                     <Grid item xs={5} sx={styles.ambreCardContainer}>
-                        <LastMessage/>
+                        <LastMessageCard/>
                     </Grid>
                 </Grid>
             </Grid>
             <Grid item xs={5} sx={styles.ambreCardContainer}>
-                <MQTTMessages/>
+                <MessagesCard/>
             </Grid>
         </Grid>
     </main>
