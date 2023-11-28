@@ -12,9 +12,6 @@ export const styles: stylesType = {
     // ******************************************
     // * COMMON
     // ******************************************
-    ambreCardContainer: {
-        padding: 2,
-    },
     ambreCard: {
         flexGrow: 1,
         boxShadow: ambreCardBoxShadow,
@@ -27,12 +24,15 @@ export const styles: stylesType = {
         maxHeight: '100%',
         overflowY: 'auto',
     },
-    color: (color: any) => ({
+    ambreEventButton: {
+        padding: 1
+    },
+    color: (color: string) => ({
         color: color
     }),
-    alignCenter: {
-        textAlign: 'center'
-    },
+    padding: (p: number) => ({
+        padding: p
+    }),
     width100: {
         width: '100%'
     },
@@ -45,20 +45,22 @@ export const styles: stylesType = {
     // ******************************************
     // * SPECIFIC
     // ******************************************
-    softCard: {
-        width: 190,
-        padding: 2
+    softContainer: {
+        textAlign: 'center',
+        paddingLeft: 1,
+        paddingRight: 3
     },
     softLogo: {
-        width: 150,
+        width: 100
     },
     softTitle: {
-        fontSize: 30,
-        marginTop: -15
+        fontSize: 26,
+        marginTop: -20
     },
     softSubTitle: {
         fontSize: 12,
         color: '#a5a5a5',
+        marginTop: -7
     },
     title: {
         marginLeft: 10,
@@ -99,7 +101,8 @@ export const styles: stylesType = {
         fontFamily: 'TitilliumWebBold'
     },
     tree: {
-        userSelect: 'none'
+        userSelect: 'none',
+        paddingRight: 3
     },
     lastMessageContainer: {
         ...ambreBorder(primaryLight),

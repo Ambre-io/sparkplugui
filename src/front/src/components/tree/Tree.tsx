@@ -16,7 +16,7 @@ import {utils} from '../../utils/utils';
 import {setLastMessages} from "../../redux/data/lastMessagesSlice";
 
 
-const initExpanded: string[] = [constants.rootID];
+export const initExpanded: string[] = [constants.rootID];
 
 export const Tree = (props: TreeType) => {
     const {t} = useTranslation();

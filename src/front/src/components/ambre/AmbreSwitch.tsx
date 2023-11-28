@@ -5,7 +5,7 @@ import {AmbreSwitchStyled} from "./AmbreSwitchStyled";
 
 
 export const AmbreSwitch = (props: any) => {
-    const {label, helper, ...switchProps}:{label: React.ReactNode, helper: string} = props;
+    const {label, helper, ...switchProps}: { label: React.ReactNode, helper: string } = props;
     return (
         <div>
             <FormControlLabel
@@ -17,4 +17,4 @@ export const AmbreSwitch = (props: any) => {
             <FormHelperText>{helper}</FormHelperText>
         </div>
     )
-}
+};
