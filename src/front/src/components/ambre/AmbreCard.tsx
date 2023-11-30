@@ -4,7 +4,7 @@ import {Collapse} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 
-import {AmbreExpandButton} from "./AmbreExpandButton";
+import {AmbreExpandCardButton} from "./AmbreExpandCardButton";
 import {styles} from "../../styles/styles";
 
 
@@ -18,14 +18,14 @@ export const AmbreCard = (props: {title: string, children?: any}) => {
             <Grid item xs={12}>
                 <Grid container>
                     <Grid item>
-                        <AmbreExpandButton
+                        <AmbreExpandCardButton
                             expand={expanded}
                             onClick={goExpand}
                             aria-expanded={expanded}
                             aria-label="show more"
                         >
                             <ExpandMoreIcon/>
-                        </AmbreExpandButton>
+                        </AmbreExpandCardButton>
                     </Grid>
                     <Grid item>
                         <p style={styles.title}>{props.title}</p>

@@ -16,12 +16,12 @@ export const LastMessageCard: React.FC = () => {
 
     const [message, setMessage] = useState<string>('');
 
-    const topic = useSelector(getSelectedTopic);
+    const selectedTopic = useSelector(getSelectedTopic);
     const messages = useSelector(getLastMessages);
 
     useEffect(() => {
-        setMessage(messages[topic] !== undefined ? messages[topic] : '');
-    }, [topic, messages]);
+        setMessage(messages[selectedTopic] !== undefined ? messages[selectedTopic] : '');
+    }, [selectedTopic, messages]);
 
     return (
         <AmbreCard title={`📄 ${t('lastMessage')}`}>

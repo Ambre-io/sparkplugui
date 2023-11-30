@@ -3,7 +3,8 @@ import type {PayloadAction} from '@reduxjs/toolkit'
 import {constants} from "../../utils/constants";
 import {RootState} from "../store";
 
-export const initLastMessagesSlice: Record<string, string> = {};
+
+export const initLastMessagesSlice: Record<string, string> = {}; // Record<topic, message>
 
 const lastMessagesSlice = createSlice({
     name: constants.lastMessagesSlice,

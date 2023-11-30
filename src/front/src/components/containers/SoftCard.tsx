@@ -3,9 +3,9 @@ import * as React from 'react';
 import {Grid} from "@mui/material";
 
 import {AmbreCard} from "../ambre/AmbreCard";
-import {ExpandButton} from "../eventbuttons/ExpandButton";
+import {ExpandNodesButton} from "../eventbuttons/ExpandNodesButton";
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";
-import {primaryDark, primaryLight} from "../../styles/muiTheme";
+import {primaryDark} from "../../styles/muiTheme";
 import SETTINGS from '../../../../../settings.json';
 import {styles} from "../../styles/styles";
 
@@ -28,7 +28,7 @@ export const SoftCard: React.FC = () => {
                             <LanguageSelection/>
                         </Grid>
                         <Grid item sx={styles.padding(1)}>
-                            <ExpandButton expanded={[]} goClick={() => {}}/>
+                            <ExpandNodesButton/>
                         </Grid>
                     </Grid>
                 </Grid>

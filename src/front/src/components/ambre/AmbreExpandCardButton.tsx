@@ -8,7 +8,7 @@ interface AmbreExpandButtonProps extends IconButtonProps {
     expand: boolean;
 }
 
-export const AmbreExpandButton = styled((props: AmbreExpandButtonProps) => {
+export const AmbreExpandCardButton = styled((props: AmbreExpandButtonProps) => {
     const {expand, ...other} = props;
     return <IconButton {...other} />;
 })(({theme, expand}) => ({

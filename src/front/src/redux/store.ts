@@ -1,21 +1,25 @@
 import {configureStore} from '@reduxjs/toolkit'
 
+import expandedNodesSlice from "./data/expandedNodesSlice";
 import languageSlice from "./data/languageSlice";
-import mqttDataSlice from "./data/mqttDataSlice";
-import messagesSlice from "./data/messagesSlice";
-import reloadEventSlice from "./events/reloadEventSlice";
-import selectedTopicSlice from "./data/selectedTopicSlice";
 import lastMessagesSlice from "./data/lastMessagesSlice";
+import messagesSlice from "./data/messagesSlice";
+import mqttDataSlice from "./data/mqttDataSlice";
+import parentNodesSlice from "./data/parentNodesSlice";
+import selectedTopicSlice from "./data/selectedTopicSlice";
+import reloadEventSlice from "./events/reloadEventSlice";
 
 
 export const store = configureStore({
     reducer: {
         // Data
+        expandedNodesSlice: expandedNodesSlice,
         languageSlice: languageSlice,
-        mqttDataSlice: mqttDataSlice,
-        messagesSlice: messagesSlice,
-        selectedTopicSlice: selectedTopicSlice,
         lastMessagesSlice: lastMessagesSlice,
+        messagesSlice: messagesSlice,
+        mqttDataSlice: mqttDataSlice,
+        parentNodesSlice: parentNodesSlice,
+        selectedTopicSlice: selectedTopicSlice,
         // Events
         reloadEventSlice: reloadEventSlice
     },

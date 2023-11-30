@@ -1,10 +1,14 @@
-import {DetailedHTMLProps} from "react";
+import React from "react";
 
-export type stylesType = Record<string, DetailedHTMLProps<any, any>>;  // see: https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type
+export type stylesType = Record<string, React.DetailedHTMLProps<any, any>>;  // see: https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type
 
 // ******************************************
 // * Tree
 // ******************************************
+export interface TreeType {
+    messages: MessagesType;
+}
+
 export interface NodeType {
     id: string;
     label: string;
@@ -14,16 +18,6 @@ export interface NodeType {
 
 export interface NodeOptionsType {
     nodeTopic: string;
-}
-
-export interface ReadyNodeType {
-    id: string;
-    isParent: boolean;
-}
-
-export interface TreeButtonType {
-    expanded: string[];
-    goClick: () => void;
 }
 
 // ******************************************
@@ -46,10 +40,15 @@ export interface MessageType {
 export type MessagesType = Array<MessageType>;
 
 // ******************************************
-// * Tree & Last message
+// * Dialog
 // ******************************************
-export interface TreeType {
-    messages: MessagesType;
+export interface AmbreDialogType {
+    title: string;
+    content: string;
+    goAgree: () => void;
+    goDisagree?: () => void;
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // ******************************************

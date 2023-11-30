@@ -4,11 +4,11 @@ import {MessagesType} from "../../utils/types";
 import {constants} from "../../utils/constants";
 import {RootState} from "../store";
 
-export const initMQTTDataSlice: MessagesType = [];
+const initMessagesSlice: MessagesType = [];
 
 const messagesSlice = createSlice({
     name: constants.messagesSlice,
-    initialState: initMQTTDataSlice,
+    initialState: initMessagesSlice,
     reducers: {
         setMessages: (state: any, action: PayloadAction<MessagesType>) => [...state, action.payload]
     },

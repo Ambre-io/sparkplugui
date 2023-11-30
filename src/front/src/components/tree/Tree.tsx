@@ -5,18 +5,18 @@ import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefault
 import {Grid} from "@mui/material";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import {TreeView} from "@mui/x-tree-view";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants";
+import {getExpandedNodes, setExpandedNodes} from "../../redux/data/expandedNodesSlice";
+import {initParentNodes, setParentNodes} from "../../redux/data/parentNodesSlice";
 import {MessageType, NodeType, TreeType} from "../../utils/types";
+import {setLastMessages} from "../../redux/data/lastMessagesSlice";
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
 import {utils} from '../../utils/utils';
-import {setLastMessages} from "../../redux/data/lastMessagesSlice";
 
-
-export const initExpanded: string[] = [constants.rootID];
 
 export const Tree = (props: TreeType) => {
     const {t} = useTranslation();
@@ -24,17 +24,20 @@ export const Tree = (props: TreeType) => {
 
     const {messages} = props;
 
-    const [expanded, setExpanded] = useState<string[]>([constants.rootID]);
+    const expandedNodes = useSelector(getExpandedNodes);
 
     let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'), [], {nodeTopic: ''});
     const [tree, setTree] = useState<NodeType>(nodeRoot);
 
     useEffect(() => {
+        // Create tree
+        // FIXME known bug: if I publish on SUPER then on SUPER/TOPIC/TO/PUBLISH
+        //  subnodes TOPIC, TO and PUBLISH are not created
+        const parents: string[] = [...initParentNodes];
         messages.map((msg: MessageType) => {
             const {topic, message} = msg;
 
             const splitedTopic = topic.split(constants.topicSeparator);
-
             let lastNode: NodeType = nodeRoot;
             splitedTopic.map((str: string, i: number) => {
 
@@ -55,25 +58,25 @@ export const Tree = (props: TreeType) => {
                 if (splitedTopic.length - 1 === i) {
                     dispatch(setLastMessages({[topic]: message}));
                     node.label = `${node.label} 📄`;
+                } else {
+                    parents.push(node.id);
                 }
 
                 // update the parent node
                 lastNode = node;
             });
         });
+
+        // Update the tree state
         setTree(nodeRoot);
+        // Update parents for expand/collapse button
+        dispatch(setParentNodes(parents));
+
     }, [messages]);
-
-    const parents: string[] = []; // TODO calcul for expand button
-
-    // Expand handler
-    const goClickTree = () => setExpanded((oldExpanded) => (
-        oldExpanded.length === initExpanded.length ? parents : initExpanded
-    ));
 
     // Node toggle handler rebind to work with the expand handler (should be fixed one day)
     const goToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
-        setExpanded(nodeIds);
+        dispatch(setExpandedNodes(nodeIds));
     };
 
     return (
@@ -83,7 +86,7 @@ export const Tree = (props: TreeType) => {
                     defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
                     defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}
                     defaultEndIcon={<DisabledByDefaultOutlinedIcon sx={{color: '#CECECE'}}/>}
-                    expanded={expanded}
+                    expanded={expandedNodes}
                     onNodeToggle={goToggle}
                 >
                     <TreeItemRender key="pouet" node={tree}/>
