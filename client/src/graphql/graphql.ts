@@ -3,7 +3,7 @@ import {getMainDefinition} from "@apollo/client/utilities";
 import {GraphQLWsLink} from '@apollo/client/link/subscriptions';
 import {createClient} from 'graphql-ws';
 
-import SETTINGS from '../../../../settings.json';
+import SETTINGS from '../../../settings.json';
 
 
 // ******************************************

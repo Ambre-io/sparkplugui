@@ -1,6 +1,6 @@
 import {createClient} from 'redis';
 
-import SETTINGS from '../../../../settings.json';
+import SETTINGS from '../../../settings.json';
 
 
 let redisClient: any = undefined;

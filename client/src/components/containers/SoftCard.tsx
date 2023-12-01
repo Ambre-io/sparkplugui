@@ -7,7 +7,7 @@ import {constants} from '../../utils/constants';
 import {ExpandNodesButton} from "../eventbuttons/ExpandNodesButton";
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";
 import {primaryDark} from "../../styles/muiTheme";
-import SETTINGS from '../../../../../settings.json';
+import SETTINGS from '../../../../settings.json';
 import {styles} from "../../styles/styles";
 
 

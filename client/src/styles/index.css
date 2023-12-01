@@ -2,14 +2,14 @@
     font-family: 'TitilliumWeb';
     font-style: normal;
     font-weight: normal;
-    src: url('./fonts/TitilliumWeb-Regular.ttf') format('truetype');
+    src: url('fonts/TitilliumWeb-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'TitilliumWebBold';
     font-style: normal;
     font-weight: normal;
-    src: url('./fonts/TitilliumWeb-Bold.ttf') format('truetype');
+    src: url('fonts/TitilliumWeb-Bold.ttf') format('truetype');
 }
 
 html,

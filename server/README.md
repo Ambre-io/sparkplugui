@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Gatsby" src="../front/static/images/logo.svg" width="60" />
+    <img alt="Gatsby" src="../client/static/images/logo.svg" width="60" />
 </p>
 <h1 align="center">
     SparkplugUI

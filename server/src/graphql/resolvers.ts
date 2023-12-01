@@ -1,7 +1,7 @@
 import {constants} from "~/utils/constants";
 import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
 import {queries} from "~/database/queries";
-import SETTINGS from "../../../../settings.json";
+import SETTINGS from "../../../settings.json";
 import {SubscriptionOnMessageType} from "~/utils/types";
 
 // Default MQTT broker url
