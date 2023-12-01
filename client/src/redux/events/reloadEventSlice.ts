@@ -15,7 +15,7 @@ const reloadEventSlice = createSlice({
 });
 
 // Export action
-export const { setReloadEvent } = reloadEventSlice.actions;
+export const {setReloadEvent} = reloadEventSlice.actions;
 
 // Export value access (useSelector)
 export const getReloadEvent = (state: RootState): boolean => state.reloadEventSlice;

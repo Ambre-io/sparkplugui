@@ -1,55 +1,28 @@
 import React, {ChangeEvent} from "react";
 
-import {useMutation} from '@apollo/client';
-import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 import {FormControl, FormGroup, FormHelperText, IconButton, InputAdornment} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {toast} from 'react-toastify';
 
-import {AmbreButton} from "../ambre/AmbreButton";
 import {AmbreCard} from "../ambre/AmbreCard";
 import {AmbreTextField} from "../ambre/AmbreTextField";
 import {constants} from "../../utils/constants";
 import {getMQTTData, setMQTTData} from "../../redux/data/mqttDataSlice";
-import {POST_MQTTDATA} from "../../graphql/graphql";
-import {setReloadEvent} from "../../redux/events/reloadEventSlice";
 import {styles} from "../../styles/styles";
 
 
 export const FormCard: React.FC = () => {
+    const dispatch = useDispatch();
+    const {t} = useTranslation();
 
     const information = useSelector(getMQTTData);
-    const dispatch = useDispatch();
-
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
-
-    const {t} = useTranslation();
-    const success = () => toast(t('success'));
-    const error = () => toast(t('error'));
 
     const goChange = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
         // let value: string | number = event.target.value
         // if (prop === constants.) value = event.target.valueAsNumber;
         dispatch(setMQTTData({...information, [prop]: event.target.value}));
-    };
-
-    const [postMQTTData] = useMutation(POST_MQTTDATA);
-    const goMutation = () => {
-        postMQTTData({
-            variables: {...information}
-        }).then((res) => {
-            const data = res.data.postMQTTData;
-            if (data !== null && data) {
-                dispatch(setReloadEvent()); // reload MQTT messages subscription
-                success();
-            } else {
-                error();
-            }
-        }).catch((e) => {
-            console.error('FormCard: mutation fail', e);
-        });
     };
 
     return (
@@ -109,15 +82,6 @@ export const FormCard: React.FC = () => {
                         onChange={goChange(constants.topic)}
                     />
                     <FormHelperText>{t('topicHelper')}</FormHelperText>
-                </FormControl>
-                <FormControl sx={styles.marginBottom1} fullWidth>
-                    <AmbreButton
-                        variant="contained"
-                        onClick={goMutation}
-                        endIcon={<CloudOutlinedIcon/>}
-                    >
-                        {t('connect')}
-                    </AmbreButton>
                 </FormControl>
             </FormGroup>
         </AmbreCard>
