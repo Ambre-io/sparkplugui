@@ -3,10 +3,11 @@ import React from "react";
 import {useTranslation} from "react-i18next";
 
 import {AmbreCard} from "../ambre/AmbreCard";
-import {Tree} from "../tree/Tree";
-import {MessagesType} from "../../utils/types";
-import {useSelector} from "react-redux";
+import {constants} from "../../utils/constants";
 import {getMessages} from "../../redux/data/messagesSlice";
+import {MessagesType} from "../../utils/types";
+import {Tree} from "../tree/Tree";
+import {useSelector} from "react-redux";
 
 
 export const TreeCard: React.FC = () => {
@@ -15,7 +16,7 @@ export const TreeCard: React.FC = () => {
     const messages: MessagesType = useSelector(getMessages);
 
     return (
-        <AmbreCard title={`🌳 ${t('tree')}`}>
+        <AmbreCard title={`${constants.emojiTree} ${t('tree')}`}>
             {(messages.length > 0) && (<Tree messages={messages}/>)}
         </AmbreCard>
     );

@@ -31,8 +31,8 @@ export const Tree = (props: TreeType) => {
 
     useEffect(() => {
         // Create tree
-        // FIXME known bug: if I publish on SUPER then on SUPER/TOPIC/TO/PUBLISH
-        //  subnodes TOPIC, TO and PUBLISH are not created
+        // FIXME known bug: When first messages arrive, the root tree appear but the first node is hide
+        //  if you click the expand button the first node appear...
         const parents: string[] = [...initParentNodes];
         messages.map((msg: MessageType) => {
             const {topic, message} = msg;
@@ -47,7 +47,7 @@ export const Tree = (props: TreeType) => {
                 let node: NodeType = utils.createNode(nodeTopic, str, [], {nodeTopic});
 
                 // get or create node
-                const inTreeNode = lastNode.subnodes.find((n: NodeType) => n.label === str);
+                const inTreeNode = lastNode.subnodes.find((n: NodeType) => n.id === nodeTopic);
                 if (inTreeNode !== undefined) {
                     node = inTreeNode;
                 } else {
@@ -57,7 +57,7 @@ export const Tree = (props: TreeType) => {
                 // Leaf: last part of the topic
                 if (splitedTopic.length - 1 === i) {
                     dispatch(setLastMessages({[topic]: message}));
-                    node.label = `${node.label} 📄`;
+                    if (!node.label.includes(constants.emojiFile)) node.label = `${node.label} ${constants.emojiFile}`;
                 } else {
                     parents.push(node.id);
                 }

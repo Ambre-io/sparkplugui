@@ -18,5 +18,10 @@ export const constants = {
     reloadEventSlice: 'reloadEventSlice',
     rootID: '-1',
     topicSeparator: '/',
-    label: 'label'
+    label: 'label',
+    emojiFile: '📄',
+    emojiTree: '🌳',
+    emojiSunglasses: '🕶️',
+    emojiConnection: '📡',
+    emojiEnvelop: '📨'
 };

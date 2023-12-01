@@ -3,6 +3,7 @@ import * as React from 'react';
 import {Grid} from "@mui/material";
 
 import {AmbreCard} from "../ambre/AmbreCard";
+import {constants} from '../../utils/constants';
 import {ExpandNodesButton} from "../eventbuttons/ExpandNodesButton";
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";
 import {primaryDark} from "../../styles/muiTheme";
@@ -13,7 +14,7 @@ import {styles} from "../../styles/styles";
 export const SoftCard: React.FC = () => {
 
     return (
-        <AmbreCard title="🕶️ SparkPlugUI">
+        <AmbreCard title={`${constants.emojiSunglasses} SparkPlugUI`}>
             <Grid container>
                 <Grid item sx={styles.softContainer}>
                     <img style={styles.softLogo} alt='SparkplugUI logo' src='/images/logo.svg'/>

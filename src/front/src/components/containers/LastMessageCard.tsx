@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {AmbreCard} from "../ambre/AmbreCard";
+import {constants} from "../../utils/constants";
 import {getLastMessages} from "../../redux/data/lastMessagesSlice";
 import {getSelectedTopic} from "../../redux/data/selectedTopicSlice";
 import {styles} from "../../styles/styles";
@@ -24,7 +25,7 @@ export const LastMessageCard: React.FC = () => {
     }, [selectedTopic, messages]);
 
     return (
-        <AmbreCard title={`📄 ${t('lastMessage')}`}>
+        <AmbreCard title={`${constants.emojiFile} ${t('lastMessage')}`}>
             {(message !== '') && (
                 <Grid container>
                     <Grid item xs={12} sx={styles.lastMessageContainer}>

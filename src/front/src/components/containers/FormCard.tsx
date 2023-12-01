@@ -53,7 +53,7 @@ export const FormCard: React.FC = () => {
     };
 
     return (
-        <AmbreCard title={`📡 ${t('connection')}`}>
+        <AmbreCard title={`${constants.emojiConnection} ${t('connection')}`}>
             <FormGroup>
                 <FormControl sx={styles.marginBottom1} fullWidth>
                     <AmbreTextField

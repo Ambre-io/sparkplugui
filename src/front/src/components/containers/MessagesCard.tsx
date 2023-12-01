@@ -14,6 +14,7 @@ import {MessagesType} from "../../utils/types";
 import {styles} from "../../styles/styles";
 import {WS_MESSAGE_RECEIVED} from '../../graphql/graphql';
 import {theme} from "../../styles/muiTheme";
+import { constants } from '../../utils/constants';
 
 
 export const MessagesCard: React.FC = () => {
@@ -59,7 +60,7 @@ export const MessagesCard: React.FC = () => {
     }, []);
 
     return (
-        <AmbreCard title={`📨 ${t('mqttMessagesTitle')}`}>
+        <AmbreCard title={`${constants.emojiEnvelop} ${t('mqttMessagesTitle')}`}>
             <Grid ref={mqttMessagesRef} container sx={messages.length > 0 ? styles.mqttMessagesContainer : undefined}>
                 {messages.map(({topic, message, timestamp}, i) => (
                     <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
