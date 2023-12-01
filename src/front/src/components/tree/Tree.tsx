@@ -10,19 +10,20 @@ import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants";
 import {getExpandedNodes, setExpandedNodes} from "../../redux/data/expandedNodesSlice";
+import {getMessages} from "../../redux/data/messagesSlice";
 import {initParentNodes, setParentNodes} from "../../redux/data/parentNodesSlice";
-import {MessageType, NodeType, TreeType} from "../../utils/types";
+import {MessagesType, MessageType, NodeType} from "../../utils/types";
 import {setLastMessages} from "../../redux/data/lastMessagesSlice";
 import {styles} from "../../styles/styles";
 import {TreeItemRender} from "./TreeItemRender";
 import {utils} from '../../utils/utils';
 
 
-export const Tree = (props: TreeType) => {
+export const Tree: React.FC = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
 
-    const {messages} = props;
+    const messages: MessagesType = useSelector(getMessages);
 
     const expandedNodes = useSelector(getExpandedNodes);
 
@@ -39,12 +40,12 @@ export const Tree = (props: TreeType) => {
 
             const splitedTopic = topic.split(constants.topicSeparator);
             let lastNode: NodeType = nodeRoot;
-            splitedTopic.map((str: string, i: number) => {
+            splitedTopic.map((subTopic: string, i: number) => {
 
                 // create node with the node topic
                 const lastNodeTopic = lastNode.options?.nodeTopic ?? '';
-                const nodeTopic = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${str}`;
-                let node: NodeType = utils.createNode(nodeTopic, str, [], {nodeTopic});
+                const nodeTopic = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${subTopic}`;
+                let node: NodeType = utils.createNode(nodeTopic, subTopic, [], {nodeTopic});
 
                 // get or create node
                 const inTreeNode = lastNode.subnodes.find((n: NodeType) => n.id === nodeTopic);
@@ -69,6 +70,7 @@ export const Tree = (props: TreeType) => {
 
         // Update the tree state
         setTree(nodeRoot);
+
         // Update parents for expand/collapse button
         dispatch(setParentNodes(parents));
 
@@ -89,7 +91,7 @@ export const Tree = (props: TreeType) => {
                     expanded={expandedNodes}
                     onNodeToggle={goToggle}
                 >
-                    <TreeItemRender key="pouet" node={tree}/>
+                    {(tree.subnodes.length > 0) && (<TreeItemRender key="pouet" node={tree}/>)}
                 </TreeView>
             </Grid>
         </Grid>

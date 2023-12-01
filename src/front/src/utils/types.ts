@@ -5,10 +5,6 @@ export type stylesType = Record<string, React.DetailedHTMLProps<any, any>>;  // 
 // ******************************************
 // * Tree
 // ******************************************
-export interface TreeType {
-    messages: MessagesType;
-}
-
 export interface NodeType {
     id: string;
     label: string;
