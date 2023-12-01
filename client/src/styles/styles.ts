@@ -1,5 +1,5 @@
 import {stylesType} from "../utils/types";
-import {ambreCardBoxGrey, primaryDark, primaryLight, primaryMain} from "./muiTheme";
+import {ambreCardBoxGrey, muiMiddleGrey, primaryDark, primaryLight, primaryMain} from "./muiTheme";
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
 
@@ -91,12 +91,9 @@ export const styles: stylesType = {
         paddingRight: 1
     },
     mqttDateTime: {
-        color: primaryLight,
-        ...ambreBorder(primaryLight),
-        fontSize: 11
-    },
-    mqttMoment: {
-        padding: 4
+        color: muiMiddleGrey,
+        paddingLeft: 1,
+        fontSize: 12
     },
     mqttTopic: {
         color: primaryMain,

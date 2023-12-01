@@ -64,11 +64,8 @@ export const MessagesCard: React.FC = () => {
             <Grid ref={mqttMessagesRef} container sx={messages.length > 0 ? styles.mqttMessagesContainer : undefined}>
                 {messages.map(({topic, message, timestamp}, i) => (
                     <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
-                        <span style={styles.mqttDateTime}>
-                            <Moment style={styles.mqttMoment}>{timestamp}</Moment>
-                        </span>
-                        <div style={styles.mqttTopic}>{topic}
-                        </div>
+                        <span style={styles.mqttDateTime}><Moment>{timestamp}</Moment></span>
+                        <div style={styles.mqttTopic}>{topic}</div>
                         <div style={styles.color(theme.palette.primary.dark)}>{message}</div>
                     </Grid>
                 ))}
