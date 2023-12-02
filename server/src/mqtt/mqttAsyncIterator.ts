@@ -62,16 +62,18 @@ export class MQTTAsyncIterator implements PubSubEngine {
     }
 
     // Unsubscribe from a MQTT topic
-    public unsubscribe(subId: number): any {
+    public unsubscribe(subId: number): boolean {
         const value = utils.findID(this.subscriptions, subId);
-        if (value === undefined) return;
+        if (value === undefined) return true;
 
         try {
             this.mqttClient.publish(constants.softUP, '0');
             this.mqttClient.unsubscribe(value.topic);
             console.debug('unsubscribe to', value.topic);
+            return true
         } catch (e) {
             console.error(`Error: when unsubscribing topic=${value.topic}`, e);
+            return false
         }
     }
 
@@ -103,11 +105,11 @@ export class MQTTAsyncIterator implements PubSubEngine {
         this.subscriptions.map((subscription: SubscriptionType) => subscription.onMessage({topic, message: decodedMessage}));
     }
 
-    public unsub(topic: string): any {
+    public unsub(topic: string): boolean {
         const sub = this.subscriptions.find(
             (subscription: SubscriptionType) => subscription.topic === topic
         );
-        if (sub === undefined) return;
-        this.unsubscribe(sub.id);
+        if (sub === undefined) return true;
+        return this.unsubscribe(sub.id);
     }
 }

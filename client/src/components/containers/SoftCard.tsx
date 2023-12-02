@@ -5,7 +5,6 @@ import {Grid} from "@mui/material";
 import {AmbreCard} from "../ambre/AmbreCard";
 import {ConnectButton} from "../eventbuttons/ConnectButton";
 import {constants} from '../../utils/constants';
-import {DisconnectButton} from "../eventbuttons/DisconnectButton";
 import {OpenNodesButton} from "../eventbuttons/OpenNodesButton";
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";
 import {primaryDark} from "../../styles/muiTheme";
@@ -33,9 +32,6 @@ export const SoftCard: React.FC = () => (
                     </Grid>
                     <Grid item sx={styles.padding(1)}>
                         <OpenNodesButton/>
-                    </Grid>
-                    <Grid item sx={styles.padding(1)}>
-                        <DisconnectButton/>
                     </Grid>
                 </Grid>
             </Grid>

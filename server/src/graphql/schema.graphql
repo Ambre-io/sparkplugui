@@ -4,11 +4,8 @@
 #######################################
 # QUERY DECLARATIONS (GET)
 #######################################
-
-
-# TOP LEVEL QUERY
 type Query {
-    pouet: Int
+    disconnect: Boolean
 }
 
 #######################################
@@ -20,7 +17,7 @@ type isOK {
 }
 
 type Mutation {
-    postMQTTData(
+    connect(
         host: String,
         port: String,
         username: String,

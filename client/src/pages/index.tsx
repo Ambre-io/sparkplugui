@@ -8,7 +8,7 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import {App} from "../components/containers/App";
-import {HTTPClient} from '../graphql/graphql';
+import {HTTPClient} from '../graphql/client';
 import {store} from "../redux/store";
 import {theme} from '../styles/muiTheme';
 import '../utils/TSOverload';

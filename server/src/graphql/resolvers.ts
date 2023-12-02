@@ -4,6 +4,7 @@ import {queries} from "~/database/queries";
 import SETTINGS from "../../../settings.json";
 import {SubscriptionOnMessageType} from "~/utils/types";
 
+
 // Default MQTT broker url
 let brokerUrl: string = `${SETTINGS.mqttServer.mqtt}://${SETTINGS.mqttServer.host}:${SETTINGS.mqttServer.port}`;
 // Database MQTT broker url
@@ -19,9 +20,15 @@ let topic = constants.defaultTopic;
 // the AsyncIterator from MQTTAsyncIterator
 let iterator = pubsub.asyncIterator(topic);
 
+
 export const resolvers = {
+    Query: {
+        disconnect: () => {
+            return pubsub.unsub(topic);
+        }
+    },
     Mutation: {
-        postMQTTData: async (_: any, data: any) => {
+        connect: async (_: any, data: any) => {
             const isOK: boolean = queries.save(data);
             if (isOK) {
                 pubsub.unsub(topic);
