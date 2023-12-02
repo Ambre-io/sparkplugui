@@ -65,9 +65,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
     public unsubscribe(subId: number): boolean {
         const value = utils.findID(this.subscriptions, subId);
         if (value === undefined) return true;
-
         try {
-            this.mqttClient.publish(constants.softUP, '0');
             this.mqttClient.unsubscribe(value.topic);
             console.debug('unsubscribe to', value.topic);
             return true
@@ -85,10 +83,8 @@ export class MQTTAsyncIterator implements PubSubEngine {
     private async initMQTTClient(brokerUrl: string): Promise<void> {
         this.mqttClient = await connectAsync(brokerUrl);
         try {
-            this.mqttClient.publish(constants.softUP, '1');
             this.mqttClient.on(constants.message, this.onMessage.bind(this));
         } catch (e) {
-            this.mqttClient.publish(constants.softUP, '0');
             console.error('Error: publish test', e);
         }
     }
@@ -102,7 +98,9 @@ export class MQTTAsyncIterator implements PubSubEngine {
             decodedMessage = message.toString();
         }
         // TODO Maybe add a condition on topic === subscription.topic
-        this.subscriptions.map((subscription: SubscriptionType) => subscription.onMessage({topic, message: decodedMessage}));
+        this.subscriptions.map(
+            (subscription: SubscriptionType) => subscription.onMessage({topic, message: decodedMessage})
+        );
     }
 
     public unsub(topic: string): boolean {
