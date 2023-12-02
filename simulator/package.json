@@ -1,8 +1,8 @@
 {
-    "name": "sparkplugui-server",
+    "name": "sparkplugui-simulator",
     "version": "1.0.0",
     "license": "GNU",
-    "description": "SparkplugUI Server",
+    "description": "SparkplugUI Simulator",
     "author": "guiklimek",
     "scripts": {
         "compile": "tsc",
@@ -12,24 +12,11 @@
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
-        "@apollo/server": "^4.9.1",
-        "@graphql-tools/schema": "^10.0.0",
-        "body-parser": "^1.20.2",
-        "cors": "^2.8.5",
-        "express": "^4.18.2",
-        "graphql": "^16.7.1",
-        "graphql-subscriptions": "^2.0.0",
-        "graphql-ws": "^5.14.0",
-        "mongodb": "^5.7.0",
         "mqtt": "^5.0.5",
-        "redis": "^4.6.10",
-        "sparkplug-payload": "^1.0.3",
-        "ws": "^8.14.1"
+        "sparkplug-payload": "^1.0.3"
     },
     "devDependencies": {
-        "@types/cors": "^2.8.14",
-        "@types/node": "^20.4.8",
-        "@types/ws": "^8.5.5",
+        "@types/node": "^18.18.0",
         "nodemon": "^3.0.1",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.2.0",
