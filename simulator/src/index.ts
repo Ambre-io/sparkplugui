@@ -46,9 +46,13 @@ const topicBase: string = 'spBv1.0/GROUPID';
         const payload: UPayload = {
             timestamp: new Date().getTime(),
             metrics: [{
-                name: `Device${i}`,
+                name: `Device${i} Boolean`,
                 type: 'Boolean',
                 value,
+            }, {
+                name: `Device${i} String`,
+                type: 'String',
+                value: `[${i * i + i}]`,
             }]
         };
         value = !value;
