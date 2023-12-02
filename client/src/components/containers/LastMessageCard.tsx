@@ -24,12 +24,19 @@ export const LastMessageCard: React.FC = () => {
         setMessage(messages[selectedTopic] !== undefined ? messages[selectedTopic] : '');
     }, [selectedTopic, messages]);
 
+    let displayedMessage: string;
+    try {
+        displayedMessage = JSON.stringify(JSON.parse(message), null, 4);
+    } catch (_) {
+        displayedMessage = message;
+    }
+
     return (
         <AmbreCard title={`${constants.emojiFile} ${t('lastMessage')}`}>
             {(message !== '') && (
                 <Grid container>
                     <Grid item xs={12} sx={styles.lastMessageContainer}>
-                        {message}
+                        <pre>{displayedMessage}</pre>
                     </Grid>
                 </Grid>
             )}
