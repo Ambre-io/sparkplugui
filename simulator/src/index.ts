@@ -31,6 +31,7 @@ const topicBase: string = 'spBv1.0/GROUPID';
     };
     const encodedPayload: Uint8Array = encodePayload(payload);
 
+    console.log('Publish on', nodeTopic);
     mqttClient.publish(nodeTopic, Buffer.from(encodedPayload));
     await utils.sleep(1000);
 
@@ -58,6 +59,7 @@ const topicBase: string = 'spBv1.0/GROUPID';
         value = !value;
         const encodedPayload: Uint8Array = encodePayload(payload);
 
+        console.log('Publish on', deviceTopic);
         mqttClient.publish(deviceTopic, Buffer.from(encodedPayload));
         await utils.sleep(1000);
     }

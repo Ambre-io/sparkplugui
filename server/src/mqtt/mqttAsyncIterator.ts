@@ -5,6 +5,7 @@ import {PubSubAsyncIterator} from 'graphql-subscriptions/dist/pubsub-async-itera
 import {SubscriptionsType, SubscriptionType} from "~/utils/types";
 import {utils} from "~/utils/utils";
 import {constants} from "~/utils/constants";
+import * as console from "console";
 
 
 export class MQTTAsyncIterator implements PubSubEngine {
@@ -93,11 +94,10 @@ export class MQTTAsyncIterator implements PubSubEngine {
     private onMessage(topic: string, message: Buffer): void {
         let decodedMessage: string;
         try {
-            decodedMessage = decodePayload(message).toString();
+            decodedMessage = JSON.stringify(decodePayload(message));
         } catch {
             decodedMessage = message.toString();
         }
-        // TODO Maybe add a condition on topic === subscription.topic
         this.subscriptions.map(
             (subscription: SubscriptionType) => subscription.onMessage({topic, message: decodedMessage})
         );
