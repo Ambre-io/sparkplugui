@@ -23,12 +23,12 @@ export const ConnectButton: React.FC = () => {
     const success = () => toast(t('success'));
     const error = () => toast(t('error'));
 
-    const [connectMutation] = useMutation(CONNECT);
-    const [disconnectQuery] = useLazyQuery(DISCONNECT, {fetchPolicy: "no-cache"});
+    const [connect] = useMutation(CONNECT);
+    const [disconnect] = useLazyQuery(DISCONNECT, {fetchPolicy: "no-cache"});
 
     const goClick = () => {
         if (!connected) {
-            connectMutation({
+            connect({
                 variables: information
             }).then((res) => {
                 const data = res.data.connect;
@@ -40,15 +40,15 @@ export const ConnectButton: React.FC = () => {
                     error();
                 }
                 if (res.errors !== undefined) {
-                    console.debug('ConnectButton: connectMutation error', res.errors);
+                    console.debug('ConnectButton: connect error', res.errors);
                     error();
                 }
             }).catch((e) => {
-                console.debug('ConnectButton: connectMutation fail', e);
+                console.debug('ConnectButton: connect fail', e);
                 error();
             });
         } else {
-            disconnectQuery().then((res) => {
+            disconnect().then((res) => {
                 const disconnected = res.data.disconnect;
                 if (disconnected !== null) {
                     if (disconnected) {
@@ -59,11 +59,11 @@ export const ConnectButton: React.FC = () => {
                     }
                 }
                 if (res.error !== undefined) {
-                    console.debug('ConnectButton: disconnectQuery error', res.error);
+                    console.debug('ConnectButton: disconnect error', res.error);
                     error();
                 }
             }).catch((e) => {
-                console.debug('ConnectButton: disconnectQuery fail', e);
+                console.debug('ConnectButton: disconnect fail', e);
                 error();
             });
         }
