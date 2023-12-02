@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants";
-import {getExpandedNodes, setExpandedNodes} from "../../redux/data/expandedNodesSlice";
+import {getOpenedNodes, setOpenedNodes} from "../../redux/data/openedNodesSlice";
 import {getMessages} from "../../redux/data/messagesSlice";
 import {initParentNodes, setParentNodes} from "../../redux/data/parentNodesSlice";
 import {MessagesType, MessageType, NodeType} from "../../utils/types";
@@ -25,15 +25,13 @@ export const Tree: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    const expandedNodes = useSelector(getExpandedNodes);
+    const openedNodes = useSelector(getOpenedNodes);
 
     let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'), [], {nodeTopic: ''});
     const [tree, setTree] = useState<NodeType>(nodeRoot);
 
     useEffect(() => {
         // Create tree
-        // FIXME known bug: When first messages arrive, the root tree appear but the first node is hide
-        //  if you click the expand button the first node appear...
         const parents: string[] = [...initParentNodes];
         messages.map((msg: MessageType) => {
             const {topic, message} = msg;
@@ -71,14 +69,14 @@ export const Tree: React.FC = () => {
         // Update the tree state
         setTree(nodeRoot);
 
-        // Update parents for expand/collapse button
+        // Update parents for open/close button
         dispatch(setParentNodes(parents));
 
     }, [messages]);
 
-    // Node toggle handler rebind to work with the expand handler (should be fixed one day)
+    // Node toggle handler rebind to work with the open handler (should be fixed one day)
     const goToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
-        dispatch(setExpandedNodes(nodeIds));
+        dispatch(setOpenedNodes(nodeIds));
     };
 
     return (
@@ -88,7 +86,7 @@ export const Tree: React.FC = () => {
                     defaultExpandIcon={<AddBoxOutlinedIcon sx={{color: '#000000'}}/>}
                     defaultCollapseIcon={<IndeterminateCheckBoxOutlinedIcon sx={{color: '#000000'}}/>}
                     defaultEndIcon={<DisabledByDefaultOutlinedIcon sx={{color: '#CECECE'}}/>}
-                    expanded={expandedNodes}
+                    expanded={openedNodes}
                     onNodeToggle={goToggle}
                 >
                     {(tree.subnodes.length > 0) && (<TreeItemRender key="pouet" node={tree}/>)}

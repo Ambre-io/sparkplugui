@@ -1,15 +1,15 @@
 import React from 'react';
 
 import CloudOutlinedIcon from "@mui/icons-material/CloudOutlined";
+import {toast} from "react-toastify";
+import {useDispatch, useSelector} from "react-redux";
+import {useMutation} from "@apollo/client";
+import {useTranslation} from "react-i18next";
 
 import {AmbreIconButton} from "../ambre/AmbreIconButton";
-import {useMutation} from "@apollo/client";
+import {getMQTTData} from "../../redux/data/mqttDataSlice";
 import {POST_MQTTDATA} from "../../graphql/graphql";
 import {setReloadEvent} from "../../redux/events/reloadEventSlice";
-import {useDispatch, useSelector} from "react-redux";
-import {getMQTTData} from "../../redux/data/mqttDataSlice";
-import {toast} from "react-toastify";
-import {useTranslation} from "react-i18next";
 
 
 export const ConnectButton: React.FC = () => {
@@ -28,7 +28,7 @@ export const ConnectButton: React.FC = () => {
         }).then((res) => {
             const data = res.data.postMQTTData;
             if (data !== null && data) {
-                dispatch(setReloadEvent()); // reload MQTT messages subscription
+                dispatch(setReloadEvent()); // reload Messages subscription
                 success();
             } else {
                 error();
@@ -38,5 +38,5 @@ export const ConnectButton: React.FC = () => {
         });
     };
 
-    return <AmbreIconButton onClick={goClick} icon={<CloudOutlinedIcon/>}/>;
+    return <AmbreIconButton icon={<CloudOutlinedIcon/>} onClick={goClick} tooltipTitle={t('connect')}/>;
 };

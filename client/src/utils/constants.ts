@@ -8,7 +8,7 @@ export const constants = {
     selectedTopicSlice: 'lastMessageSlice',
     lastMessagesSlice: 'lastMessagesSlice',
     parentNodesSlice: 'parentNodesSlice',
-    expandedNodesSlice: 'expandedNodesSlice',
+    openedNodesSlice: 'openedNodesSlice',
     availableLanguages: ['fr', 'en', 'de'],
     host: 'host',
     port: 'port',

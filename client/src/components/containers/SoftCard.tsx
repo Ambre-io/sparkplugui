@@ -6,7 +6,7 @@ import {AmbreCard} from "../ambre/AmbreCard";
 import {ConnectButton} from "../eventbuttons/ConnectButton";
 import {constants} from '../../utils/constants';
 import {DisconnectButton} from "../eventbuttons/DisconnectButton";
-import {ExpandNodesButton} from "../eventbuttons/ExpandNodesButton";
+import {OpenNodesButton} from "../eventbuttons/OpenNodesButton";
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";
 import {primaryDark} from "../../styles/muiTheme";
 import SETTINGS from '../../../../settings.json';
@@ -32,7 +32,7 @@ export const SoftCard: React.FC = () => (
                         <ConnectButton/>
                     </Grid>
                     <Grid item sx={styles.padding(1)}>
-                        <ExpandNodesButton/>
+                        <OpenNodesButton/>
                     </Grid>
                     <Grid item sx={styles.padding(1)}>
                         <DisconnectButton/>

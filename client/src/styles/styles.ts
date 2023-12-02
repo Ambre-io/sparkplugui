@@ -75,6 +75,10 @@ export const styles: stylesType = {
     subtitle: {
         textTransform: 'uppercase',
     },
+    formCardFirstInput: {
+        marginBottom: 1,
+        paddingTop: 1
+    },
     mqttMessagesContainer: {
         maxHeight: '90.5vh', // don't go over screen
         overflowY: 'auto', // overflow as scroll
