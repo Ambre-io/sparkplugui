@@ -1,5 +1,6 @@
 import {configureStore} from '@reduxjs/toolkit'
 
+import cardSlice from "./data/CardSlice";
 import openedNodesSlice from "./data/openedNodesSlice";
 import languageSlice from "./data/languageSlice";
 import lastMessagesSlice from "./data/lastMessagesSlice";
@@ -13,6 +14,7 @@ import reloadEventSlice from "./events/reloadEventSlice";
 export const store = configureStore({
     reducer: {
         // Data
+        cardSlice: cardSlice,
         openedNodesSlice: openedNodesSlice,
         languageSlice: languageSlice,
         lastMessagesSlice: lastMessagesSlice,

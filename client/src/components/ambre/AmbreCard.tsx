@@ -1,17 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import {Collapse} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
+import {useDispatch, useSelector} from "react-redux";
 
 import {AmbreOpenCardButton} from "./AmbreOpenCardButton";
 import {styles} from "../../styles/styles";
+import {getCard, setCard} from "../../redux/data/CardSlice";
 
 
 export const AmbreCard = (props: {title: string, children?: any}) => {
+    const dispatch = useDispatch();
+
+    const openedCards = useSelector(getCard);
 
     const [opened, setOpened] = React.useState<boolean>(true);
     const goOpen = () => setOpened(!opened);
+
+    useEffect(() => {
+        dispatch(setCard({[props.title]: opened}));
+    }, [opened]);
 
     return (
         <Grid container id={props.title} sx={styles.ambreCard}>

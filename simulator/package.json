@@ -6,10 +6,7 @@
     "author": "guiklimek",
     "scripts": {
         "compile": "tsc",
-        "develop": "nodemon --watch src -e js,ts,json --exec \"ts-node src/index.ts\"",
-        "build": "tsup src/index.ts --format cjs --clean",
-        "start": "npm run compile && node ./dist/index.js",
-        "typecheck": "tsc --noEmit"
+        "start": "ts-node src/index.ts"
     },
     "dependencies": {
         "mqtt": "^5.0.5",

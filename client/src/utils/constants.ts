@@ -9,6 +9,7 @@ export const constants = {
     lastMessagesSlice: 'lastMessagesSlice',
     parentNodesSlice: 'parentNodesSlice',
     openedNodesSlice: 'openedNodesSlice',
+    cardSlice: 'cardSlice',
     availableLanguages: ['fr', 'en', 'de'],
     host: 'host',
     port: 'port',
