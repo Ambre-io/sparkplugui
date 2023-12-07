@@ -35,6 +35,8 @@ export interface MessageType {
 
 export type MessagesType = Array<MessageType>;
 
+export type LastMessagesType = Record<string, MessageType>; // string key is topic
+
 // ******************************************
 // * Card
 // ******************************************

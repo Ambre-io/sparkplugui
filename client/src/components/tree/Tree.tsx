@@ -55,7 +55,7 @@ export const Tree: React.FC = () => {
 
                 // Leaf: last part of the topic
                 if (splitedTopic.length - 1 === i) {
-                    dispatch(setLastMessages({[topic]: message}));
+                    dispatch(setLastMessages({[topic]: msg}));
                     if (!node.label.includes(constants.emojiFile)) node.label = `${node.label} ${constants.emojiFile}`;
                 } else {
                     parents.push(node.id);

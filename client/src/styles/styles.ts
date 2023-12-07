@@ -94,7 +94,7 @@ export const styles: stylesType = {
         paddingLeft: 1,
         paddingRight: 1
     },
-    mqttDateTime: {
+    messageDateTime: {
         color: muiMiddleGrey,
         paddingLeft: 1,
         fontSize: 12
