@@ -6,6 +6,7 @@ import UnfoldLessOutlinedIcon from '@mui/icons-material/UnfoldLessOutlined';
 import UnfoldMoreOutlinedIcon from '@mui/icons-material/UnfoldMoreOutlined';
 
 import {AmbreIconButton} from "../ambre/AmbreIconButton";
+import {CardType} from "../../utils/types";
 import {getCard, setCard} from "../../redux/data/CardSlice";
 
 
@@ -13,12 +14,12 @@ export const FoldCardsButton: React.FC = () => {
     const dispatch = useDispatch();
     const {t} = useTranslation();
 
-    const allCards = useSelector(getCard);
-    const opened = Object.keys(allCards).length === 0 ? true : !Object.values(allCards).in(false);
+    const allCards: CardType = useSelector(getCard);
+    const opened: boolean = (Object.keys(allCards).length === 0) ? true : (!Object.values(allCards).in(false));
 
     const goClick = () => {
         let newState = {...allCards};
-        Object.keys(newState).map(k => newState[k] = !opened);
+        Object.keys(newState).map((k: string) => newState[k] = !opened);
         dispatch(setCard(newState));
     };
 

@@ -20,6 +20,13 @@ export const constants = {
     rootID: '-1',
     topicSeparator: '/',
     label: 'label',
+    cards: {
+        softCard: 'softCard',
+        informationCard: 'informationCard',
+        messagesCard: 'messagesCard',
+        treeCard: 'treeCard',
+        lastMessagesCard: 'lastMessagesCard'
+    },
     emojiFile: '📄',
     emojiTree: '🌳',
     emojiSunglasses: '🕶️',

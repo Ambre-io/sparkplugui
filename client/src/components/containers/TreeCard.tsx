@@ -11,7 +11,7 @@ export const TreeCard: React.FC = () => {
     const {t} = useTranslation();
 
     return (
-        <AmbreCard title={`${constants.emojiTree} ${t('tree')}`}>
+        <AmbreCard title={`${constants.emojiTree} ${t('tree')}`} name={constants.cards.treeCard}>
             <Tree/>
         </AmbreCard>
     );

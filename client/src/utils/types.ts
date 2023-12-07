@@ -40,6 +40,11 @@ export type MessagesType = Array<MessageType>;
 // ******************************************
 
 export type CardType = Record<string, boolean>;
+export interface AmbreCardType {
+    title: string,
+    name: string
+    children?: any,
+}
 
 // ******************************************
 // * Dialog

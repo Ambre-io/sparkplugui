@@ -5,25 +5,24 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";
 import {useDispatch, useSelector} from "react-redux";
 
+import {AmbreCardType} from "../../utils/types";
 import {AmbreOpenCardButton} from "./AmbreOpenCardButton";
 import {styles} from "../../styles/styles";
 import {getCard, setCard} from "../../redux/data/CardSlice";
 
 
-export const AmbreCard = (props: {title: string, children?: any}) => {
+export const AmbreCard = (props: AmbreCardType) => {
     const dispatch = useDispatch();
+
+    const {title, name, children} = props;
 
     const openedCards = useSelector(getCard);
 
-    const [opened, setOpened] = React.useState<boolean>(true);
-    const goOpen = () => setOpened(!opened);
-
-    useEffect(() => {
-        dispatch(setCard({[props.title]: opened}));
-    }, [opened]);
+    const opened = openedCards[name];
+    const goOpen = () => dispatch(setCard({[name]: !opened}));
 
     return (
-        <Grid container id={props.title} sx={styles.ambreCard}>
+        <Grid container id={title} sx={styles.ambreCard}>
             <Grid item xs={12}>
                 <Grid container>
                     <Grid item>
@@ -37,7 +36,7 @@ export const AmbreCard = (props: {title: string, children?: any}) => {
                         </AmbreOpenCardButton>
                     </Grid>
                     <Grid item>
-                        <p style={styles.title}>{props.title}</p>
+                        <p style={styles.title}>{title}</p>
                     </Grid>
                 </Grid>
             </Grid>
@@ -45,7 +44,7 @@ export const AmbreCard = (props: {title: string, children?: any}) => {
                 <Collapse in={opened} timeout="auto">
                     <Grid container sx={styles.noOverflowContainer}>
                         <Grid item xs={12}>
-                            {props.children}
+                            {children}
                         </Grid>
                     </Grid>
                 </Collapse>

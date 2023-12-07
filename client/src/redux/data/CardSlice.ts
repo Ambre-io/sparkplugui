@@ -5,7 +5,13 @@ import type {PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from "../store";
 
 
-export const initCardSlice: CardType = {};
+export let initCardSlice: CardType = {
+    [constants.cards.softCard]: true,
+    [constants.cards.informationCard]: true,
+    [constants.cards.messagesCard]: true,
+    [constants.cards.treeCard]: true,
+    [constants.cards.lastMessagesCard]: true,
+};
 
 const cardSlice = createSlice({
     name: constants.cardSlice,
