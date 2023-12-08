@@ -14,31 +14,29 @@ import {styles} from "../../styles/styles";
 
 
 export const SoftCard: React.FC = () => (
-    <AmbreCard title={`${constants.emojiSunglasses} SparkPlugUI`} name={constants.cards.softCard}>
-        <Grid container>
-            <Grid item sx={styles.softContainer}>
-                <img style={styles.softLogo} alt='SparkplugUI logo' src='/images/logo.svg'/>
-                <div style={styles.softTitle}>SparkplugUI</div>
-                <div style={styles.softSubTitle}>
-                    {SETTINGS.version} by <span style={styles.color(primaryDark)}>{SETTINGS.creator.name}</span>
-                </div>
-            </Grid>
-            <Grid item>
-                <Grid container alignItems='center'>
-                    <Grid item sx={styles.padding(1)}>
-                        <LanguageSelection/>
-                    </Grid>
-                    <Grid item sx={styles.padding(1)}>
-                        <ConnectButton/>
-                    </Grid>
-                    <Grid item sx={styles.padding(1)}>
-                        <OpenNodesButton/>
-                    </Grid>
-                    <Grid item sx={styles.padding(1)}>
-                        <FoldCardsButton/>
-                    </Grid>
+    <Grid container sx={styles.ambreCard}>
+        <Grid item sx={styles.softContainer}>
+            <img style={styles.softLogo} alt='SparkplugUI logo' src='/images/logo.svg'/>
+            <div style={styles.softTitle}>SparkplugUI</div>
+            <div style={styles.softSubTitle}>
+                {SETTINGS.version} by <span style={styles.color(primaryDark)}>{SETTINGS.creator.name}</span>
+            </div>
+        </Grid>
+        <Grid item>
+            <Grid container alignItems='center'>
+                <Grid item sx={styles.padding(1)}>
+                    <LanguageSelection/>
+                </Grid>
+                <Grid item sx={styles.padding(1)}>
+                    <ConnectButton/>
+                </Grid>
+                <Grid item sx={styles.padding(1)}>
+                    <FoldCardsButton/>
+                </Grid>
+                <Grid item sx={styles.padding(1)}>
+                    <OpenNodesButton/>
                 </Grid>
             </Grid>
         </Grid>
-    </AmbreCard>
+    </Grid>
 );

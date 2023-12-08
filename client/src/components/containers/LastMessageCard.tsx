@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
 
 import {Grid} from "@mui/material";
+
+import JsonView from '@uiw/react-json-view';
+import {githubLightTheme} from '@uiw/react-json-view/githubLight';
+import Moment from "react-moment";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
@@ -10,10 +14,9 @@ import {getLastMessages} from "../../redux/data/lastMessagesSlice";
 import {getSelectedTopic} from "../../redux/data/selectedTopicSlice";
 import {MessageType} from "../../utils/types";
 import {styles} from "../../styles/styles";
-import Moment from "react-moment";
 
 
-const initMessage = {topic: '', message: '', timestamp: 0}
+const initMessage = {topic: '', message: '', timestamp: 0};
 
 export const LastMessageCard: React.FC = () => {
 
@@ -28,11 +31,13 @@ export const LastMessageCard: React.FC = () => {
         setMessage(messages[selectedTopic] !== undefined ? messages[selectedTopic] : initMessage);
     }, [selectedTopic, messages]);
 
-    let displayedMessage: string;
+    let displayedMessage: any;
+    let isParsable: boolean = true;
     try {
-        displayedMessage = JSON.stringify(JSON.parse(message.message), null, 4);
+        displayedMessage = JSON.parse(message.message);
     } catch (_) {
         displayedMessage = message.message;
+        isParsable = false;
     }
 
     return (
@@ -41,7 +46,11 @@ export const LastMessageCard: React.FC = () => {
                 <Grid container>
                     <Grid item xs={12} sx={styles.lastMessageContainer}>
                         <span style={styles.messageDateTime}><Moment>{message.timestamp}</Moment></span>
-                        <pre>{displayedMessage}</pre>
+                        {isParsable ? (
+                            <JsonView value={displayedMessage} style={{...githubLightTheme, ...styles.jsonView}}/>
+                        ) : (
+                            displayedMessage
+                        )}
                     </Grid>
                 </Grid>
             )}

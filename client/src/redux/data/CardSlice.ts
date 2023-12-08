@@ -6,7 +6,7 @@ import {RootState} from "../store";
 
 
 export let initCardSlice: CardType = {
-    [constants.cards.softCard]: true,
+    // [constants.cards.softCard]: true,
     [constants.cards.informationCard]: true,
     [constants.cards.messagesCard]: true,
     [constants.cards.treeCard]: true,

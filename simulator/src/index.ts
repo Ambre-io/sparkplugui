@@ -33,7 +33,7 @@ const topicBase: string = 'spBv1.0/GROUPID';
         const payload: UPayload = {
             timestamp: new Date().getTime(),
             metrics: [{
-                name: `Node${iNode}}`,
+                name: `Node${iNode}`,
                 type: 'String',
                 value: 'PoUeT pOuEt',
                 properties: {Unit: {value: 'pp', type: 'String'}},
@@ -43,7 +43,7 @@ const topicBase: string = 'spBv1.0/GROUPID';
 
         console.log('Publish on', nodeTopic);
         mqttClient.publish(nodeTopic, Buffer.from(encodedPayload));
-        await utils.sleep(1000);
+        await utils.sleep(250);
 
         // ******************************************
         // * Devices publish
@@ -71,7 +71,7 @@ const topicBase: string = 'spBv1.0/GROUPID';
 
             console.log('Publish on', deviceTopic);
             mqttClient.publish(deviceTopic, Buffer.from(encodedPayload));
-            await utils.sleep(1000);
+            await utils.sleep(250);
         }
     }
     await mqttClient.endAsync();

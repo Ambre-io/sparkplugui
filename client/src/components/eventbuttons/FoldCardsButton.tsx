@@ -15,7 +15,7 @@ export const FoldCardsButton: React.FC = () => {
     const {t} = useTranslation();
 
     const allCards: CardType = useSelector(getCard);
-    const opened: boolean = (Object.keys(allCards).length === 0) ? true : (!Object.values(allCards).in(false));
+    const opened: boolean = Object.values(allCards).in(true);
 
     const goClick = () => {
         let newState = {...allCards};

@@ -42,6 +42,9 @@ export const styles: stylesType = {
     marginBottom2: {
         marginBottom: 2
     },
+    jsonView: {  // https://uiwjs.github.io/react-json-view/#online-editing-theme
+        '--w-rjv-key-string': primaryDark,
+    },
     // ******************************************
     // * SPECIFIC
     // ******************************************
@@ -83,7 +86,7 @@ export const styles: stylesType = {
         maxHeight: '90.5vh', // don't go over screen
         overflowY: 'auto', // overflow as scroll
         width: '100%',
-        ...ambreBorder(primaryLight, 2  ),
+        ...ambreBorder(primaryLight, 2),
         padding: 1,
         paddingBottom: 0,
         fontFamily: 'TitilliumWeb',

@@ -21,7 +21,7 @@ export const constants = {
     topicSeparator: '/',
     label: 'label',
     cards: {
-        softCard: 'softCard',
+        // softCard: 'softCard',
         informationCard: 'informationCard',
         messagesCard: 'messagesCard',
         treeCard: 'treeCard',

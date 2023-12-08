@@ -27,6 +27,7 @@
     "@mui/x-tree-view": "^6.17.0",
     "@react-spring/web": "^9.7.3",
     "@reduxjs/toolkit": "^1.9.7",
+    "@uiw/react-json-view": "^2.0.0-alpha.10",
     "gatsby": "^5.12.9",
     "graphql": "^16.8.1",
     "graphql-ws": "^5.14.2",
