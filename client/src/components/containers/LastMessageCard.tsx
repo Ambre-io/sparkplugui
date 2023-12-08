@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {Grid} from "@mui/material";
 
 import JsonView from '@uiw/react-json-view';
+// @ts-ignore
 import {githubLightTheme} from '@uiw/react-json-view/githubLight';
 import Moment from "react-moment";
 import {useSelector} from "react-redux";
@@ -46,11 +47,13 @@ export const LastMessageCard: React.FC = () => {
                 <Grid container>
                     <Grid item xs={12} sx={styles.lastMessageContainer}>
                         <span style={styles.messageDateTime}><Moment>{message.timestamp}</Moment></span>
-                        {isParsable ? (
-                            <JsonView value={displayedMessage} style={{...githubLightTheme, ...styles.jsonView}}/>
-                        ) : (
-                            displayedMessage
-                        )}
+                        <div>
+                            {isParsable ? (
+                                <JsonView value={displayedMessage} style={{...githubLightTheme, ...styles.jsonView}}/>
+                            ) : (
+                                displayedMessage
+                            )}
+                        </div>
                     </Grid>
                 </Grid>
             )}

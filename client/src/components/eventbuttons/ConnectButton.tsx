@@ -20,21 +20,19 @@ export const ConnectButton: React.FC = () => {
     const information = useSelector(getMQTTData);
     const [connected, setConnected] = React.useState<boolean>(false);
 
-    const success = () => toast(t('success'));
     const error = () => toast(t('error'));
 
     const [connect] = useMutation(CONNECT);
     const [disconnect] = useLazyQuery(DISCONNECT, {fetchPolicy: "no-cache"});
 
-    const goClick = () => {
+    const goClick = async () => {
         if (!connected) {
-            connect({
-                variables: information
-            }).then((res) => {
+            try {
+                const res = await connect({variables: information});
                 const data = res.data.connect;
                 if (data !== null && data) {
                     dispatch(setReloadEvent()); // reload Messages subscription
-                    success();
+                    toast(t('successConnect', {value: information.topic}));
                     setConnected(true);
                 } else {
                     error();
@@ -43,16 +41,17 @@ export const ConnectButton: React.FC = () => {
                     console.debug('ConnectButton: connect error', res.errors);
                     error();
                 }
-            }).catch((e) => {
+            } catch (e) {
                 console.debug('ConnectButton: connect fail', e);
                 error();
-            });
+            }
         } else {
-            disconnect().then((res) => {
+            try {
+                const res = await disconnect();
                 const disconnected = res.data.disconnect;
                 if (disconnected !== null) {
                     if (disconnected) {
-                        success();
+                        toast(t('successDisconnect'));
                         setConnected(false);
                     } else {
                         error();
@@ -62,10 +61,10 @@ export const ConnectButton: React.FC = () => {
                     console.debug('ConnectButton: disconnect error', res.error);
                     error();
                 }
-            }).catch((e) => {
+            } catch (e) {
                 console.debug('ConnectButton: disconnect fail', e);
                 error();
-            });
+            }
         }
     };
 
