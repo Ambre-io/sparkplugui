@@ -16,12 +16,16 @@ declare module '@mui/material/styles' {
     }
 }
 
+// Mains
 export const primaryMain = '#55C6E7';
 export const primaryLight = '#FFCA19';
 export const primaryDark = '#D724FF';
 
-export const ambreCardBoxGrey = '#B7B7B7';
+// Declination
+export const primaryMainDark = '#009cc7';
 
+// Greys
+export const ambreCardBoxGrey = '#B7B7B7';
 export const muiLightGrey = 'rgba(0, 0, 0, 0.23)';
 export const muiMiddleGrey = 'rgba(0, 0, 0, 0.6)';
 

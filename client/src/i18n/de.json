@@ -16,7 +16,7 @@
     "portHelper": "MQTT-Server-Port.",
     "usernameHelper": "Benutzername für die Verbindung zum MQTT-Server.",
     "passwordHelper": "Passwort für die Verbindung zum MQTT-Server.",
-    "topicHelper": "Der MQTT-Client abonniert das genannte Thema auf dem konfigurierten Server.",
+    "topicHelper": "Topic zum MQTT-Server-Abonnement. Es stehen die Platzhalter „#“ und „+“ zur Verfügung.",
     "successConnect": "MQTT-Client verbunden und Thema {{value}} abonniert \uD83D\uDC4C",
     "successDisconnect": "MQTT-Client erfolgreich getrennt \uD83D\uDC4C",
     "error": "Es ist ein Fehler aufgetreten ☹\uFE0F",

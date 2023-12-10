@@ -1,5 +1,13 @@
 import {stylesType} from "../utils/types";
-import {ambreCardBoxGrey, muiMiddleGrey, primaryDark, primaryLight, primaryMain} from "./muiTheme";
+import {
+    ambreCardBoxGrey,
+    muiLightGrey,
+    muiMiddleGrey,
+    primaryDark,
+    primaryLight,
+    primaryMain,
+    primaryMainDark
+} from "./muiTheme";
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
 
@@ -44,6 +52,19 @@ export const styles: stylesType = {
     },
     jsonView: {  // https://uiwjs.github.io/react-json-view/#online-editing-theme
         '--w-rjv-key-string': primaryDark,
+
+        '--w-rjv-curlybraces-color': primaryDark,
+        '--w-rjv-colon-color': primaryDark,
+        '--w-rjv-brackets-color': primaryDark,
+        '--w-rjv-quotes-color': primaryDark,
+        '--w-rjv-quotes-string-color': primaryDark,
+
+        '--w-rjv-color': primaryDark,
+        '--w-rjv-info-color': primaryLight,
+        '--w-rjv-arrow-color': primaryDark,
+        '--w-rjv-update-color': primaryLight,
+        '--w-rjv-copied-color': primaryMainDark,
+        '--w-rjv-copied-success-color': primaryDark
     },
     // ******************************************
     // * SPECIFIC
