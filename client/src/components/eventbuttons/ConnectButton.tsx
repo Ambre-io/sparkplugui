@@ -8,8 +8,9 @@ import {useLazyQuery, useMutation} from "@apollo/client";
 import {useTranslation} from "react-i18next";
 
 import {AmbreIconButton} from "../ambre/AmbreIconButton";
-import {getMQTTData} from "../../redux/data/mqttDataSlice";
 import {CONNECT, DISCONNECT} from "../../graphql/graphql";
+import {constants} from '../../utils/constants';
+import {getMQTTData} from "../../redux/data/mqttDataSlice";
 import {setReloadEvent} from "../../redux/events/reloadEventSlice";
 
 
@@ -20,7 +21,7 @@ export const ConnectButton: React.FC = () => {
     const information = useSelector(getMQTTData);
     const [connected, setConnected] = React.useState<boolean>(false);
 
-    const error = () => toast(t('error'));
+    const error = () => toast.error(`${t('error')} ${constants.emojiSadge}`);
 
     const [connect] = useMutation(CONNECT);
     const [disconnect] = useLazyQuery(DISCONNECT, {fetchPolicy: "no-cache"});
@@ -32,7 +33,7 @@ export const ConnectButton: React.FC = () => {
                 const data = res.data.connect;
                 if (data !== null && data) {
                     dispatch(setReloadEvent()); // reload Messages subscription
-                    toast(t('successConnect', {value: information.topic}));
+                    toast.success(`${t('successConnect')} ${constants.emojiOkg}`);
                     setConnected(true);
                 } else {
                     error();
@@ -51,7 +52,7 @@ export const ConnectButton: React.FC = () => {
                 const disconnected = res.data.disconnect;
                 if (disconnected !== null) {
                     if (disconnected) {
-                        toast(t('successDisconnect'));
+                        toast.success(`${t('successDisconnect')} ${constants.emojiOkg}`);
                         setConnected(false);
                     } else {
                         error();

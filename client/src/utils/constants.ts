@@ -31,5 +31,7 @@ export const constants = {
     emojiTree: '🌳',
     emojiSunglasses: '🕶️',
     emojiConnection: '📡',
-    emojiEnvelop: '📨'
+    emojiEnvelop: '📨',
+    emojiOkg: '👌',
+    emojiSadge: '☹️'
 };
