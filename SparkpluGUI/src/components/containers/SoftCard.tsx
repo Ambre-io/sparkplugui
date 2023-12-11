@@ -2,9 +2,7 @@ import * as React from 'react';
 
 import {Grid} from "@mui/material";
 
-import {AmbreCard} from "../ambre/AmbreCard";
 import {ConnectButton} from "../eventbuttons/ConnectButton";
-import {constants} from '../../utils/constants';
 import {FoldCardsButton} from "../eventbuttons/FoldCardsButton";
 import {OpenNodesButton} from "../eventbuttons/OpenNodesButton";
 import {LanguageSelection} from "../eventbuttons/LanguageSelection";

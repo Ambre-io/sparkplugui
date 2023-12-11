@@ -2,7 +2,7 @@
     "name": "sparkplugui-server",
     "version": "1.0.0",
     "license": "GNU",
-    "description": "SparkplugUI Server",
+    "description": "SparkpluGUI Server",
     "author": "guiklimek",
     "scripts": {
         "compile": "tsc",
