@@ -2,26 +2,24 @@ import * as React from 'react';
 import {createRoot} from 'react-dom/client';
 
 import {ApolloProvider} from '@apollo/client';
-import {ThemeProvider} from "@mui/system";
-import {Provider} from 'react-redux'
-import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
-import {HTTPClient} from './graphql/client';
-import {store} from "./redux/store";
-import {theme} from './styles/muiTheme';
-import './utils/TSOverload';
-import './i18n/i18next';
-import './styles/index.css';
-
 import Grid from "@mui/material/Grid";
+import {Provider} from 'react-redux'
+import 'react-toastify/dist/ReactToastify.css';
+import {ThemeProvider} from "@mui/system";
+import {ToastContainer, toast} from 'react-toastify';
 
 import {FormCard} from "./components/containers/FormCard";
+import {HTTPClient} from './graphql/client';
 import {LastMessageCard} from "./components/containers/LastMessageCard";
 import {MessagesCard} from "./components/containers/MessagesCard";
 import {SoftCard} from "./components/containers/SoftCard";
+import {store} from "./redux/store";
 import {styles} from "./styles/styles";
+import {theme} from './styles/muiTheme';
 import {TreeCard} from "./components/containers/TreeCard";
+import './utils/TSOverload';
+import './i18n/i18next';
+import './styles/index.css';
 
 
 const root = createRoot(document.body);

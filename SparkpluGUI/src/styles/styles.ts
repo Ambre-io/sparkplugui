@@ -1,7 +1,6 @@
 import {stylesType} from "../utils/types";
 import {
     ambreCardBoxGrey,
-    muiLightGrey,
     muiMiddleGrey,
     primaryDark,
     primaryLight,
@@ -11,7 +10,7 @@ import {
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
 
-const ambreBorder = (color: string, size: number = 1) => ({
+const ambreBorder = (color: string, size = 1) => ({
     border: `${size}px solid ${color}`,
     borderRadius: 1,
 });
@@ -24,7 +23,7 @@ export const styles: stylesType = {
         flexGrow: 1,
         boxShadow: ambreCardBoxShadow,
         borderRadius: 1,
-        padding: 3,
+        padding: 2,
         background: '#FFFFFF',
         overflow: 'hidden',
     },
@@ -84,16 +83,16 @@ export const styles: stylesType = {
         color: primaryMain,
     },
     softSubTitle: {
-        fontSize: 12,
+        fontSize: 11,
         color: primaryLight,
         marginTop: -7
     },
     title: {
+        fontSize: 18,
+        fontWeight: 800,
         marginLeft: 10,
         marginTop: 4,
         marginBottom: 0,
-        fontWeight: 800,
-        fontSize: 20,
         textTransform: 'uppercase',
     },
     subtitle: {
