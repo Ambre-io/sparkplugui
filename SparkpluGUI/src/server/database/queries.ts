@@ -1,4 +1,4 @@
-import {redis} from "~/database/redis";
+import {redis} from "./redis";
 
 
 export const queries = {

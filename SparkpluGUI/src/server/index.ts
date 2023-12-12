@@ -10,8 +10,8 @@ import {readFileSync} from 'fs';
 import {useServer} from 'graphql-ws/lib/use/ws';
 import {WebSocketServer} from 'ws';
 
-import {redis} from "~/database/redis";
-import {resolvers} from "~/graphql/resolvers";
+import {redis} from "./database/redis";
+import {resolvers} from "./graphql/resolvers";
 import SETTINGS from '../../settings.json';
 
 // ******************************************

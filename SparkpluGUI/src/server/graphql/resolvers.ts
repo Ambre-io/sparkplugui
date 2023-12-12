@@ -1,12 +1,12 @@
-import {constants} from "~/utils/constants";
-import {MQTTAsyncIterator} from "~/mqtt/mqttAsyncIterator";
-import {queries} from "~/database/queries";
+import {constants} from "../utils/constants";
+import {MQTTAsyncIterator} from "../mqtt/mqttAsyncIterator";
+import {queries} from "../database/queries";
 import SETTINGS from "../../../settings.json";
-import {SubscriptionOnMessageType} from "~/utils/types";
+import {SubscriptionOnMessageType} from "../utils/types";
 
 
 // Default MQTT broker url
-let brokerUrl: string = `${SETTINGS.mqttServer.mqtt}://${SETTINGS.mqttServer.host}:${SETTINGS.mqttServer.port}`;
+let brokerUrl = `${SETTINGS.mqttServer.mqtt}://${SETTINGS.mqttServer.host}:${SETTINGS.mqttServer.port}`;
 // Database MQTT broker url
 const keys = [constants.mqttInformation.host, constants.mqttInformation.port];
 const mqttInformation = queries.select(keys);
