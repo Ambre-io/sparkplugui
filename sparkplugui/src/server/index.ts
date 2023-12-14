@@ -1,4 +1,4 @@
-import {ApolloServer} from '@apollo/server';
+import {ApolloServer} from "@apollo/server";
 import {ApolloServerPluginDrainHttpServer} from '@apollo/server/plugin/drainHttpServer';
 import bodyParser from 'body-parser';
 import cors from 'cors';
@@ -14,6 +14,7 @@ import {redis} from "./database/redis";
 import {resolvers} from "./graphql/resolvers";
 import SETTINGS from '../../settings.json';
 
+
 // ******************************************
 // * Redis client
 // ******************************************
@@ -25,7 +26,7 @@ redis.createClient().finally();
 // ******************************************
 
 // GraphQL Schema
-const typeDefs = readFileSync('src/graphql/schema.graphql', {encoding: 'utf-8'});
+const typeDefs = readFileSync('src/server/graphql/schema.graphql', {encoding: 'utf-8'});
 // GraphQLSchema, so HTTP and WebSocket use the same
 const schema = makeExecutableSchema({typeDefs, resolvers});
 
@@ -51,7 +52,8 @@ const webSocketListen = useServer({schema}, webSocketServer);
 // * Run Express HTTP Server
 // ******************************************
 
-const httpApolloServer = new ApolloServer({
+
+const httpApolloServer: ApolloServer = new ApolloServer({
     schema,
     plugins: [
         // Proper shutdown for the HTTP server.

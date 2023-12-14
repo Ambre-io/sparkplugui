@@ -2,10 +2,10 @@ import {connectAsync, MqttClient} from 'mqtt';
 import {decodePayload} from "sparkplug-payload/lib/sparkplugbpayload";
 import {PubSubEngine} from 'graphql-subscriptions/dist/pubsub-engine';
 import {PubSubAsyncIterator} from 'graphql-subscriptions/dist/pubsub-async-iterator';
-import {SubscriptionsType, SubscriptionType} from "~/utils/types";
-import {utils} from "~/utils/utils";
-import {constants} from "~/utils/constants";
-import * as console from "console";
+
+import {SubscriptionsType, SubscriptionType} from "../utils/types";
+import {utils} from "../utils/utils";
+import {constants} from "../utils/constants";
 
 
 export class MQTTAsyncIterator implements PubSubEngine {
@@ -45,7 +45,7 @@ export class MQTTAsyncIterator implements PubSubEngine {
     }
 
     // Subscribe to a MQTT topic
-    public subscribe(topic: string, onMessage: Function, options: Object): Promise<number> {
+    public subscribe(topic: string, onMessage: any, options: any): Promise<number> {
         const id = this.subId;
         this.subId = this.subId + 1;
         this.subscriptions = [...this.subscriptions, {id, topic, onMessage}];
