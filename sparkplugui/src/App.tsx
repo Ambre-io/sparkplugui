@@ -8,18 +8,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import {ThemeProvider} from "@mui/system";
 import {ToastContainer, toast} from 'react-toastify';
 
-import {FormCard} from "./client/components/containers/FormCard";
-import {HTTPClient} from './client/graphql/client';
-import {LastMessageCard} from "./client/components/containers/LastMessageCard";
-import {MessagesCard} from "./client/components/containers/MessagesCard";
-import {SoftCard} from "./client/components/containers/SoftCard";
-import {store} from "./client/redux/store";
-import {styles} from "./client/styles/styles";
-import {theme} from './client/styles/muiTheme';
-import {TreeCard} from "./client/components/containers/TreeCard";
-import './client/utils/TSOverload';
-import './client/i18n/i18next';
-import './client/styles/index.css';
+import {FormCard} from "./components/containers/FormCard";
+import {HTTPClient} from './graphql/client';
+import {LastMessageCard} from "./components/containers/LastMessageCard";
+import {MessagesCard} from "./components/containers/MessagesCard";
+import {SoftCard} from "./components/containers/SoftCard";
+import {store} from "./redux/store";
+import {styles} from "./styles/styles";
+import {theme} from './styles/muiTheme';
+import {TreeCard} from "./components/containers/TreeCard";
+import './utils/TSOverload';
+import './i18n/i18next';
+import './styles/index.css';
 
 
 const root = createRoot(document.body);
