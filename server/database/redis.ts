@@ -1,6 +1,6 @@
-import {createClient} from 'redis';
+import {createClient} from 'server/database/redis';
 
-import SETTINGS from '../../../settings.json';
+import SETTINGS from '../../sparkplugui/settings.json';
 
 
 let redisClient: any = undefined;
