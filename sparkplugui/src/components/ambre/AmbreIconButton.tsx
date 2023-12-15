@@ -1,5 +1,3 @@
-import React from "react";
-
 import {AmbreButton} from "./AmbreButton.tsx";
 import {AmbreTooltip} from "./AmbreTooltip.tsx";
 

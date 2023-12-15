@@ -1,6 +1,3 @@
-import * as React from 'react';
-import {createRoot} from 'react-dom/client';
-
 import {ApolloProvider} from '@apollo/client';
 import Grid from "@mui/material/Grid";
 import {Provider} from 'react-redux'
@@ -22,8 +19,7 @@ import './i18n/i18next';
 import './styles/index.css';
 
 
-const root = createRoot(document.body);
-root.render(
+export const App = () => (
     <Provider store={store}>
         <ThemeProvider theme={theme}>
             <ApolloProvider client={HTTPClient}>
