@@ -1,5 +1,5 @@
 // Libs
-import i18n from "src/i18n/i18next.ts";
+import i18n from "i18next";
 import {initReactI18next} from "react-i18next";
 
 import {constants} from "../utils/constants.ts";

@@ -17,11 +17,10 @@
 
 
 
-## 3/ Stack: TypeScript, React, GraphQL
+## 3/ Stack: Tauri, Rust, TypeScript, React
 
 Thank you all for the beautiful technologies:
-- apollo
-- babel
+
 - body-parser
 - cors
 - electron
@@ -46,3 +45,9 @@ Thank you all for the beautiful technologies:
 - sparkplug-payload
 - uiw
 - ws
+
+## 4/ Development Rust
+
+```bash
+sudo apt install libsoup2.4-dev libjavascriptcoregtk-4.0-dev libwebkit2gtk-4.0-dev
+```
