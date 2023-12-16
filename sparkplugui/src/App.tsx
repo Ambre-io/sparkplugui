@@ -24,6 +24,7 @@ export const App = () => (
         <ThemeProvider theme={theme}>
             <ApolloProvider client={HTTPClient}>
                 <ToastContainer position={toast.POSITION.BOTTOM_RIGHT}/>
+                coucou
                 {/*see: https://alvarotrigo.com/blog/animated-backgrounds-css/#3)-floating-squares*/}
                 <div className="area">
                     <ul className="circles">
