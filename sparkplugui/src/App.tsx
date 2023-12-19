@@ -24,7 +24,6 @@ export const App = () => (
         <ThemeProvider theme={theme}>
             <ApolloProvider client={HTTPClient}>
                 <ToastContainer position={toast.POSITION.BOTTOM_RIGHT}/>
-                coucou
                 {/*see: https://alvarotrigo.com/blog/animated-backgrounds-css/#3)-floating-squares*/}
                 <div className="area">
                     <ul className="circles">
@@ -52,12 +51,12 @@ export const App = () => (
                                             <TreeCard/>
                                         </Grid>
                                         <Grid item xs={6} sx={styles.padding(2)}>
-                                            <LastMessageCard/>
+                                            {/*<LastMessageCard/>*/}
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={5} sx={styles.padding(2)}>
-                                    <MessagesCard/>
+                                    {/*<MessagesCard/>*/}
                                 </Grid>
                             </Grid>
                         </main>

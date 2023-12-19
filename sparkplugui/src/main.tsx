@@ -1,9 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import {invoke} from '@tauri-apps/api/tauri'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {invoke} from '@tauri-apps/api/tauri';
 
-import {App} from './App.tsx'
-import './index.css'
+import {App} from './App.tsx';
+import './index.css';
 
 
 invoke('greet', { name: 'World' }
@@ -13,7 +13,6 @@ invoke('greet', { name: 'World' }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        {/*<App/>*/}
-        pouet
+        <App/>
     </React.StrictMode>
 );
