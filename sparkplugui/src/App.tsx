@@ -51,12 +51,12 @@ export const App = () => (
                                             <TreeCard/>
                                         </Grid>
                                         <Grid item xs={6} sx={styles.padding(2)}>
-                                            {/*<LastMessageCard/>*/}
+                                            <LastMessageCard/>
                                         </Grid>
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={5} sx={styles.padding(2)}>
-                                    {/*<MessagesCard/>*/}
+                                    <MessagesCard/>
                                 </Grid>
                             </Grid>
                         </main>

@@ -1,5 +1,3 @@
-import React, {useEffect} from "react";
-
 import {Collapse} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Grid from "@mui/material/Grid";

@@ -19,7 +19,6 @@ import {styles} from "../../styles/styles.ts";
 const initMessage = {topic: '', message: '', timestamp: 0};
 
 export const LastMessageCard: React.FC = () => {
-    console.log('LastMessageCard: render');
     const {t} = useTranslation();
 
     const [message, setMessage] = useState<MessageType>(initMessage);
@@ -28,8 +27,6 @@ export const LastMessageCard: React.FC = () => {
     const messages = useSelector(getLastMessages);
 
     useEffect(() => {
-        console.log(`LastMessageCard: useEffect: selectedTopic: ${selectedTopic}`);
-        console.log(`LastMessageCard: useEffect: messages: ${messages}`);
         setMessage(messages[selectedTopic] !== undefined ? messages[selectedTopic] : initMessage);
     }, [selectedTopic, messages]);
 
@@ -47,7 +44,8 @@ export const LastMessageCard: React.FC = () => {
             {(message.topic !== '') && (
                 <Grid container>
                     <Grid item xs={12} sx={styles.lastMessageContainer}>
-                        <span style={styles.messageDateTime}><Moment>{message.timestamp}</Moment></span>
+                        {/*FIXME TypeError: undefined is not an object (evaluating 'e4.duration.format = k')*/}
+                        {/*<span style={styles.messageDateTime}><Moment>{message.timestamp}</Moment></span>*/}
                         <div>
                             {isParsable ? (
                                 <JsonView value={displayedMessage} style={{...githubLightTheme, ...styles.jsonView}}/>
