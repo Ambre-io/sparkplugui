@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import {invoke} from '@tauri-apps/api/tauri';
 
 import {App} from './App.tsx';
-import './index.css';
 
 
 invoke('greet', {name: 'World'}
