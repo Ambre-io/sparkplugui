@@ -34,6 +34,7 @@ export const MessagesCard: React.FC = () => {
         }
     };
 
+    // FIXME change this Apollo websocket subscription to a Tauri one
     const {data, loading} = useSubscription(WS_MESSAGE_RECEIVED, {
         variables: {
             reload,
@@ -46,7 +47,7 @@ export const MessagesCard: React.FC = () => {
             dispatch(setMessages(data.messageReceived));
         }
         scrollToBottom(); // stay at bottom
-    }, [data]);
+    }, [data]); // TODO: IDE says to add both dispatch, loading => see if it doesn't add useless rerenders
 
     // Reaching the absolute bottom
     useEffect(() => {

@@ -5,7 +5,7 @@ import {invoke} from '@tauri-apps/api/tauri';
 import {App} from './App.tsx';
 
 
-invoke('greet', {name: 'World'}
+invoke('greet', {name: 'Petit pouet'}
 ).then((response) => console.log(response)
 ).catch(e => console.error(`Error with the greet invoke: ${e}`));
 
