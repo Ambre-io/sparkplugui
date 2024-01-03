@@ -6,8 +6,8 @@ mod mqtt;
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![mqtt::greet])
         .invoke_handler(tauri::generate_handler![mqtt::connect])
+        .invoke_handler(tauri::generate_handler![mqtt::disconnect])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

@@ -66,6 +66,7 @@ checksum = "ca87830a3e3fb156dc96cfbd31cb620265dd053be734723f22b760d6cc3c3051"
 name = "app"
 version = "0.1.0"
 dependencies = [
+ "lazy_static",
  "paho-mqtt",
  "serde",
  "serde_json",

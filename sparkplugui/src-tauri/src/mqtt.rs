@@ -1,38 +1,56 @@
-use std::process;
 use std::time::Duration;
 
-extern crate paho_mqtt as MQTT;
+extern crate paho_mqtt;
 
+use lazy_static::lazy_static;
+use std::collections::HashMap;
 
-#[tauri::command]
-pub fn greet(name: &str) -> String {
-    format!("Hello, {}!", name)
+// ******************************************
+// Create a client
+// ******************************************
+lazy_static! {
+    static ref MQTT: HashMap<&'static str, paho_mqtt::Client> = {
+        let mut map = HashMap::new();
+        let client = paho_mqtt::Client::new("tcp://localhost:1883").expect("Error creating the client");
+        map.insert("client", client);
+        map
+    };
 }
-
+// ******************************************
+// * Connect to the broker
+// ******************************************
 #[tauri::command]
 pub fn connect() {
     // see: https://crates.io/crates/paho-mqtt
+
     // Create a client & define connect options
-    let client = MQTT::Client::new("tcp://localhost:1883").unwrap_or_else(|err| {
-        println!("Error: creating the client: {:?}", err);
-        process::exit(1);
-    });
-    let connect_options = MQTT::ConnectOptionsBuilder::new()
+    // TODO: make this configurable with args
+    //  if args  == "tcp://localhost:1883"
+    // unsafe {
+    //     MQTT_CLIENT = paho_mqtt::Client::new("tcp://localhost:1883").expect("Error creating the client");
+    // }
+    println!("###### coucou command connect");
+
+    let client = MQTT.get("client").expect("Error getting the client");
+
+    let connect_options = paho_mqtt::ConnectOptionsBuilder::new()
         .keep_alive_interval(Duration::from_secs(20))
         .clean_session(true)
         .finalize();
 
-    // Connect and wait for it to complete or fail
-    client.connect(connect_options).unwrap_or_else(|err| {
-        println!("Error: Unable to connect to the broker: {:?}", err);
-        process::exit(1);
-    });
-
+    // Connect client
+    client.connect(connect_options).expect("Unable to connect to the broker");
     println!("###### MQTT client connected");
+}
 
-    // Publish message
-    let message = MQTT::Message::new("BWOAH/INCR", "Hello from Rust!", 0);
-    client.publish(message).unwrap_or_else(|err| {
-        println!("Error: Unable to publish message: {:?}", err);
-    });
+// ******************************************
+// * Disconnect from the broker
+// ******************************************
+#[tauri::command]
+pub fn disconnect() {
+    println!("###### coucou command disconnect");
+    let client = MQTT.get("client").expect("Error getting the client");
+    let disconnect_options = paho_mqtt::DisconnectOptions::new();
+    client.disconnect(disconnect_options).expect("Unable to disconnect from the broker");
+    println!("###### MQTT client disconnected");
 }
