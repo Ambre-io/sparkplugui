@@ -1,6 +1,6 @@
 <h1 align=center>
     <div>
-        <img alt="Gatsby" src="sparkplugui/src/assets/images/logo.svg" width="240" />
+        <img src="sparkplugui/frontend/src/assets/images/logo.svg" width="240" />
     </div>
     <div>SparkpluGUI</div>
 </h1>

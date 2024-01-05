@@ -1,7 +1,7 @@
 import {constants} from "../utils/constants";
 import {MQTTAsyncIterator} from "../mqtt/mqttAsyncIterator";
 import {queries} from "../database/queries";
-import SETTINGS from "../../sparkplugui/settings.json";
+import SETTINGS from "../../sparkplugui/frontend/settings.json";
 import {SubscriptionOnMessageType} from "../utils/types";
 
 

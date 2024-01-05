@@ -1,7 +1,7 @@
 import {connectAsync, MqttClient} from 'mqtt';
 import {encodePayload, UPayload} from "sparkplug-payload/lib/sparkplugbpayload";
 
-import SETTINGS from "../../sparkplugui/settings.json";
+import SETTINGS from "../../sparkplugui/frontend/settings.json";
 import {utils} from "./utils";
 
 let nbNodes: number = 4;
