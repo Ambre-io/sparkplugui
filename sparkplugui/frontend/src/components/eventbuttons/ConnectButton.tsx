@@ -9,7 +9,8 @@ import {AmbreIconButton} from "../ambre/AmbreIconButton.tsx";
 import {constants} from '../../utils/constants.ts';
 import {getMQTTData} from "../../redux/data/mqttDataSlice.ts";
 import {setReloadEvent} from "../../redux/events/reloadEventSlice.ts";
-import {Greet} from "../../../wailsjs/go/main/App";
+import {Connect, Disconnect} from "../../../wailsjs/go/main/App";
+import {main} from "../../../wailsjs/go/models";
 
 
 export const ConnectButton: React.FC = () => {
@@ -23,27 +24,36 @@ export const ConnectButton: React.FC = () => {
 
     const goClick = async () => {
         if (!connected) {
-
-            Greet('pouet').then(res => console.log('lalala', res));
-
-            // invoke('connect'
-            // ).then((response) => {
-            //     dispatch(setReloadEvent()); // reload Messages subscription
-            //     toast.success(`${t('successConnect')} ${constants.emojiOkg}`);
-            //     setConnected(true);
-            // }).catch(e => {
-            //     console.debug('Error: fail to connect:', e);
-            //     error();
-            // });
+            let mqttData = new main.MQTTClientData();
+            mqttData.host = information.host;
+            mqttData.port = information.port;
+            mqttData.username = information.username;
+            mqttData.password = information.password;
+            mqttData.topic = information.topic;
+            Connect(mqttData).then((connected: boolean) => {
+                if (connected) {
+                    dispatch(setReloadEvent()); // reload Messages subscription
+                    toast.success(`${t('successConnect')} ${constants.emojiOkg}`);
+                    setConnected(true);
+                } else {
+                    error();
+                }
+            }).catch(e => {
+                console.debug('Error: fail to connect:', e);
+                error();
+            });
         } else {
-            // invoke('disconnect'
-            // ).then((response) => {
-            //     toast.success(`${t('successDisconnect')} ${constants.emojiOkg}`);
-            //     setConnected(false);
-            // }).catch(e => {
-            //     console.debug('Error: fail to disconnect', e);
-            //     error();
-            // });
+            Disconnect().then((disconnected) => {
+                if (disconnected) {
+                    toast.success(`${t('successDisconnect')} ${constants.emojiOkg}`);
+                    setConnected(false);
+                } else {
+                    error();
+                }
+            }).catch(e => {
+                console.debug('Error: fail to disconnect', e);
+                error();
+            });
         }
     };
 
