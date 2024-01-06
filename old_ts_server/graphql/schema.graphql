@@ -1,5 +1,5 @@
 # Server: GraphQL Schema declaration following the SDL: https://spec.graphql.org/ and
-# Apollo server: https://www.apollographql.com/docs/apollo-server/schema/schema
+# Apollo old_ts_server: https://www.apollographql.com/docs/apollo-server/schema/schema
 
 #######################################
 # QUERY DECLARATIONS (GET)

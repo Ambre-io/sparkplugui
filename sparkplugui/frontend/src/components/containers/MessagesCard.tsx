@@ -7,17 +7,19 @@ import {useTranslation} from "react-i18next";
 
 import {AmbreCard} from "../ambre/AmbreCard.tsx";
 import {AppDispatch} from "../../redux/store.ts";
+import {constants} from '../../utils/constants.ts';
 import {getMessages, setMessages} from "../../redux/data/messagesSlice.ts";
 import {getReloadEvent} from "../../redux/events/reloadEventSlice.ts";
+import {main} from "../../../wailsjs/go/models.ts";
 import {MessagesType} from "../../utils/types.ts";
+import {MQTTPayload} from "../../../wailsjs/go/main/App";
 import {styles} from "../../styles/styles.ts";
 import {theme} from "../../styles/muiTheme.ts";
-import { constants } from '../../utils/constants.ts';
 
 
 export const MessagesCard: React.FC = () => {
 
-    // const dispatch: AppDispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
     const {t} = useTranslation();
 
     const messages: MessagesType = useSelector(getMessages);
@@ -32,14 +34,19 @@ export const MessagesCard: React.FC = () => {
         }
     };
 
-    // FIXME change this Apollo websocket subscription to a wails one
-
-    // useEffect(() => {
-    //     if (!loading && data !== undefined && data.messageReceived !== null) {
-    //         dispatch(setMessages(data.messageReceived));
-    //     }
-    //     scrollToBottom(); // stay at bottom
-    // }, [data]);
+    useEffect(() => {
+        MQTTPayload().then((payload: main.Payload) => {
+            console.debug('MQTT Payload:', payload);
+            dispatch(setMessages([{
+                topic: payload.topic,
+                message: payload.message,
+                timestamp: payload.timestamp
+            }]));
+        }).catch(e => {
+            console.debug('Error: fail to get MQTT Payload:', e);
+        });
+        scrollToBottom(); // stay at bottom
+    }, []);
 
     // Reaching the absolute bottom
     useEffect(() => {

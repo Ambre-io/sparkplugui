@@ -9,3 +9,7 @@ export function Connect(arg1) {
 export function Disconnect() {
   return window['go']['main']['App']['Disconnect']();
 }
+
+export function MQTTPayload() {
+  return window['go']['main']['App']['MQTTPayload']();
+}

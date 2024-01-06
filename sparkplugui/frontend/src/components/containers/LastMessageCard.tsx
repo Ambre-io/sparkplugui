@@ -5,7 +5,6 @@ import {Grid} from "@mui/material";
 import JsonView from '@uiw/react-json-view';
 // @ts-ignore
 import {githubLightTheme} from '@uiw/react-json-view/githubLight';
-import Moment from "react-moment";
 import {useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 

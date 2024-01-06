@@ -20,6 +20,22 @@ export namespace main {
 	        this.topic = source["topic"];
 	    }
 	}
+	export class Payload {
+	    topic: string;
+	    message: string;
+	    timestamp: number;
+	
+	    static createFrom(source: any = {}) {
+	        return new Payload(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.topic = source["topic"];
+	        this.message = source["message"];
+	        this.timestamp = source["timestamp"];
+	    }
+	}
 
 }
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
+	"time"
 )
 
 // ******************************************
@@ -12,7 +13,7 @@ import (
 
 // App struct
 type App struct {
-	ctx context.Context
+	context context.Context
 }
 
 // NewApp creates a new App application struct
@@ -20,14 +21,23 @@ func NewApp() *App {
 	return &App{}
 }
 
-// startup is called when the app starts. The context is saved so we can call the runtime methods
-func (a *App) startup(ctx context.Context) {
-	a.ctx = ctx
+// startup is called when the app starts. The context is saved, so we can call the runtime methods
+func (a *App) startup(context context.Context) {
+	a.context = context
 }
 
 // ******************************************
-// * SparkpluGUI business
+// * SparkpluGUI logic
+// * TODO tls https://github.com/eclipse/paho.mqtt.golang/blob/master/cmd/ssl/main.go
 // ******************************************
+
+// TYPES
+
+type Payload struct {
+	Topic     string `json:"topic"`
+	Message   string `json:"message"`
+	Timestamp int64  `json:"timestamp"`
+}
 
 type MQTTClientData struct {
 	Host     string `json:"host"`
@@ -37,7 +47,29 @@ type MQTTClientData struct {
 	Topic    string `json:"topic"`
 }
 
+// GLOBALS
+
 var MQTTCLIENT = MQTT.NewClient(MQTT.NewClientOptions())
+
+var queue = make(chan Payload, 100)
+
+// METHODS
+
+func (a *App) MQTTPayload() *Payload {
+	// CONSUME THE QUEUE
+	payload := <-queue
+	return &payload
+}
+
+func onMessageReceived(client MQTT.Client, message MQTT.Message) {
+	fmt.Printf("Received message on topic: %s\nMessage: %s\n", message.Topic(), message.Payload())
+	// FEED THE QUEUE
+	queue <- Payload{
+		Topic:     message.Topic(),
+		Message:   string(message.Payload()),
+		Timestamp: time.Now().Unix(),
+	}
+}
 
 func (a *App) Connect(data MQTTClientData) bool {
 
@@ -56,10 +88,7 @@ func (a *App) Connect(data MQTTClientData) bool {
 		fmt.Printf("Error: %s\n", token.Error())
 	}
 
-	MQTTCLIENT.Subscribe(data.Topic, 0, func(client MQTT.Client, msg MQTT.Message) {
-		fmt.Printf("TOPIC: %s\n", msg.Topic())
-		fmt.Printf("MSG: %s\n", msg.Payload())
-	})
+	MQTTCLIENT.Subscribe(data.Topic, 0, onMessageReceived)
 
 	return connected
 }

@@ -1,4 +1,4 @@
-import {createClient} from 'server/database/redis';
+import {createClient} from 'old_ts_server/database/redis';
 
 import SETTINGS from '../../sparkplugui/frontend/settings.json';
 

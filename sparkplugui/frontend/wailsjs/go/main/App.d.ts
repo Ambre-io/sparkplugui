@@ -5,3 +5,5 @@ import {main} from '../models';
 export function Connect(arg1:main.MQTTClientData):Promise<boolean>;
 
 export function Disconnect():Promise<boolean>;
+
+export function MQTTPayload():Promise<main.Payload>;

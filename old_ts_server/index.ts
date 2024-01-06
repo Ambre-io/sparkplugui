@@ -1,9 +1,9 @@
-import {ApolloServer} from "@apollo/server";
-import {ApolloServerPluginDrainHttpServer} from '@apollo/server/plugin/drainHttpServer';
+import {ApolloServer} from "@apollo/old_ts_server";
+import {ApolloServerPluginDrainHttpServer} from '@apollo/old_ts_server/plugin/drainHttpServer';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import express from 'express';
-import {expressMiddleware} from '@apollo/server/express4';
+import {expressMiddleware} from '@apollo/old_ts_server/express4';
 import http from 'http';
 import {makeExecutableSchema} from '@graphql-tools/schema';
 import {readFileSync} from 'fs';
@@ -26,7 +26,7 @@ redis.createClient().finally();
 // ******************************************
 
 // GraphQL Schema
-const typeDefs = readFileSync('src/server/graphql/schema.graphql', {encoding: 'utf-8'});
+const typeDefs = readFileSync('src/old_ts_server/graphql/schema.graphql', {encoding: 'utf-8'});
 // GraphQLSchema, so HTTP and WebSocket use the same
 const schema = makeExecutableSchema({typeDefs, resolvers});
 
@@ -38,7 +38,7 @@ const httpServer = http.createServer(app);
 // * Run Apollo WebSocket Server
 // ******************************************
 
-// Creating the WebSocket server
+// Creating the WebSocket old_ts_server
 const webSocketServer = new WebSocketServer({
     server: httpServer,
     path: `/${SETTINGS.server.webSocketPath}`,
@@ -56,9 +56,9 @@ const webSocketListen = useServer({schema}, webSocketServer);
 const httpApolloServer: ApolloServer = new ApolloServer({
     schema,
     plugins: [
-        // Proper shutdown for the HTTP server.
+        // Proper shutdown for the HTTP old_ts_server.
         ApolloServerPluginDrainHttpServer({httpServer: httpServer}),
-        // Proper shutdown for the WebSocket server
+        // Proper shutdown for the WebSocket old_ts_server
         {
             async serverWillStart() {
                 return {
@@ -89,7 +89,7 @@ const httpApolloServer: ApolloServer = new ApolloServer({
         `${SETTINGS.server.ws}://${SETTINGS.server.host}:${SETTINGS.server.port}/${SETTINGS.server.webSocketPath}`
     );
 
-    // Customize server startup
+    // Customize old_ts_server startup
     httpServer.listen({
         host: SETTINGS.server.host,
         port: SETTINGS.server.port
