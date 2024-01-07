@@ -51,20 +51,21 @@ type MQTTClientData struct {
 
 var MQTTCLIENT = MQTT.NewClient(MQTT.NewClientOptions())
 
-var queue = make(chan Payload, 100)
+var QUEUE = make(chan Payload)
 
 // METHODS
 
 func (a *App) MQTTPayload() *Payload {
 	// CONSUME THE QUEUE
-	payload := <-queue
+	payload := <-QUEUE
+	fmt.Printf("###### EVENT => topic=%s Message=%s Timestamp=%d\n", payload.Topic, payload.Message, payload.Timestamp)
 	return &payload
 }
 
 func onMessageReceived(client MQTT.Client, message MQTT.Message) {
-	fmt.Printf("Received message on topic: %s\nMessage: %s\n", message.Topic(), message.Payload())
 	// FEED THE QUEUE
-	queue <- Payload{
+	fmt.Printf("###### MQTT CALLBACK => topic=%s Message=%s\n", message.Topic(), message.Payload())
+	QUEUE <- Payload{
 		Topic:     message.Topic(),
 		Message:   string(message.Payload()),
 		Timestamp: time.Now().Unix(),
