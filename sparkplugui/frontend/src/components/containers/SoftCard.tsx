@@ -7,7 +7,7 @@ import {FoldCardsButton} from "../eventbuttons/FoldCardsButton.tsx";
 import {OpenNodesButton} from "../eventbuttons/OpenNodesButton.tsx";
 import {LanguageSelection} from "../eventbuttons/LanguageSelection.tsx";
 import {primaryDark} from "../../styles/muiTheme.ts";
-import SETTINGS from '../../../settings.json';
+import SETTINGS from '../../../../../settings.json';
 import {styles} from "../../styles/styles.ts";
 
 
