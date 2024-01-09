@@ -1,6 +1,10 @@
 # IDE
 .idea
 
+# Vite
+**/build/*
+**/dist/*
+
 # Logs
 logs
 *.log

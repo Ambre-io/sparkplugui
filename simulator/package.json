@@ -2,8 +2,8 @@
     "name": "sparkplugui-simulator",
     "version": "1.0.0",
     "license": "GNU",
-    "description": "SparkplugUI Simulator",
-    "author": "guiklimek",
+    "description": "SparkpluGUI simulator",
+    "author": "Ambre.io",
     "scripts": {
         "compile": "tsc",
         "start": "ts-node src/index.ts"

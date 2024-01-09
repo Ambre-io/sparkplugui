@@ -6,6 +6,7 @@ toolchain go1.21.5
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.4.3
+	github.com/golang/protobuf v1.5.0
 	github.com/wailsapp/wails/v2 v2.7.1
 	google.golang.org/protobuf v1.28.1
 )
