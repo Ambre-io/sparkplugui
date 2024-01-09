@@ -10,9 +10,9 @@ import {AppDispatch} from "../../redux/store.ts";
 import {constants} from '../../utils/constants.ts';
 import {getMessages, setMessages} from "../../redux/data/messagesSlice.ts";
 import {getReloadEvent} from "../../redux/events/reloadEventSlice.ts";
-import {main} from "../../../wailsjs/go/models.ts";
+import {backend} from "../../../wailsjs/go/models.ts";
 import {MessagesType} from "../../utils/types.ts";
-import {MQTTPayload} from "../../../wailsjs/go/main/App";
+import {MQTTPayload} from "../../../wailsjs/go/backend/App";
 import {styles} from "../../styles/styles.ts";
 import {theme} from "../../styles/muiTheme.ts";
 
@@ -35,7 +35,7 @@ export const MessagesCard: React.FC = () => {
     };
 
     useEffect(() => {
-        MQTTPayload().then((payload: main.Payload) => {
+        MQTTPayload().then((payload: backend.Payload) => {
             console.debug('MQTT Payload:', payload);
             dispatch(setMessages([{
                 topic: payload.topic,

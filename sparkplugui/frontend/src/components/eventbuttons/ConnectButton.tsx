@@ -9,8 +9,8 @@ import {AmbreIconButton} from "../ambre/AmbreIconButton.tsx";
 import {constants} from '../../utils/constants.ts';
 import {getMQTTData} from "../../redux/data/mqttDataSlice.ts";
 import {setReloadEvent} from "../../redux/events/reloadEventSlice.ts";
-import {Connect, Disconnect} from "../../../wailsjs/go/main/App";
-import {main} from "../../../wailsjs/go/models";
+import {Connect, Disconnect} from "../../../wailsjs/go/backend/App";
+import {backend} from "../../../wailsjs/go/models";
 
 
 export const ConnectButton: React.FC = () => {
@@ -24,7 +24,7 @@ export const ConnectButton: React.FC = () => {
 
     const goClick = async () => {
         if (!connected) {
-            let mqttData = new main.MQTTClientData();
+            let mqttData = new backend.MQTTClientData();
             mqttData.host = information.host;
             mqttData.port = information.port;
             mqttData.username = information.username;
