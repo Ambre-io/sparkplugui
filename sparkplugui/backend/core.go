@@ -40,7 +40,6 @@ func (a *App) CmdDisconnect() bool {
 }
 
 func (a *App) EvtPayload() *Payload {
-	// CONSUME THE QUEUE
 	p := <-a.QUEUE
 	return &p
 }
@@ -58,7 +57,6 @@ func (a *App) feedTheQueue(message MQTT.Message) {
 	} else {
 		decoded = payload.String()
 	}
-	fmt.Printf("### OnMessageReceived => topic=%s Message=%s\n", message.Topic(), decoded)
 	a.QUEUE <- Payload{
 		Topic:     message.Topic(),
 		Message:   decoded,

@@ -34,15 +34,11 @@ export const MessagesCard: React.FC = () => {
         }
     };
 
-    useEffect(() => {
-        EvtPayload().then((payload: backend.Payload) => {
-            console.debug('MQTT Payload:', payload);
-            dispatch(setMessages(payload));
-        }).catch(e => {
-            console.debug('Error: fail to get MQTT Payload:', e);
-        });
-        scrollToBottom(); // stay at bottom
-    }, []);
+    EvtPayload().then((payload: backend.Payload) => {
+        dispatch(setMessages(payload));
+    }).catch(e => {
+        console.debug('Error: fail to get MQTT Payload:', e);
+    });
 
     // Reaching the absolute bottom
     useEffect(() => {
