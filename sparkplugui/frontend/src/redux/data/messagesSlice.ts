@@ -1,6 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
-import {MessagesType} from "../../utils/types.ts";
+import {MessagesType, MessageType} from "../../utils/types.ts";
 import {constants} from "../../utils/constants.ts";
 import {RootState} from "../store.ts";
 
@@ -10,7 +10,7 @@ const messagesSlice = createSlice({
     name: constants.messagesSlice,
     initialState: initMessagesSlice,
     reducers: {
-        setMessages: (state: any, action: PayloadAction<MessagesType>) => [...state, action.payload]
+        setMessages: (state: any, action: PayloadAction<MessageType>) => [...state, action.payload]
     },
 });
 

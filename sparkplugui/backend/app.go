@@ -4,10 +4,6 @@ import (
 	"context"
 )
 
-// ******************************************
-// * Wails App
-// ******************************************
-
 // App struct
 type App struct {
 	context context.Context
@@ -22,7 +18,3 @@ func NewApp() *App {
 func (a *App) Startup(context context.Context) {
 	a.context = context
 }
-
-// GLOBALS
-
-var QUEUE = make(chan Payload)
