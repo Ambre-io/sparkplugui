@@ -9,7 +9,7 @@ import {AmbreIconButton} from "../ambre/AmbreIconButton.tsx";
 import {constants} from '../../utils/constants.ts';
 import {getMQTTData} from "../../redux/data/mqttDataSlice.ts";
 import {setReloadEvent} from "../../redux/events/reloadEventSlice.ts";
-import {Connect, Disconnect} from "../../../wailsjs/go/backend/App";
+import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/backend/App";
 import {backend} from "../../../wailsjs/go/models";
 
 
@@ -30,7 +30,7 @@ export const ConnectButton: React.FC = () => {
             mqttData.username = information.username;
             mqttData.password = information.password;
             mqttData.topic = information.topic;
-            Connect(mqttData).then((connected: boolean) => {
+            CmdConnect(mqttData).then((connected: boolean) => {
                 if (connected) {
                     dispatch(setReloadEvent()); // reload Messages subscription
                     toast.success(`${t('successConnect')} ${constants.emojiOkg}`);
@@ -43,7 +43,7 @@ export const ConnectButton: React.FC = () => {
                 error();
             });
         } else {
-            Disconnect().then((disconnected) => {
+            CmdDisconnect().then((disconnected) => {
                 if (disconnected) {
                     toast.success(`${t('successDisconnect')} ${constants.emojiOkg}`);
                     setConnected(false);

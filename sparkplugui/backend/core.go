@@ -8,14 +8,18 @@ import (
 	"time"
 )
 
-// GLOBALS
+// ******************************************
+// * GLOBALS
+// ******************************************
 
 var MQTTCLIENT = MQTT.NewClient(MQTT.NewClientOptions())
 var QUEUE = make(chan Payload)
 
-// METHODS
+// ******************************************
+// * METHODS
+// ******************************************
 
-func (a *App) Connect(data MQTTClientData) bool {
+func (a *App) CmdConnect(data MQTTClientData) bool {
 
 	connected := true
 
@@ -32,25 +36,27 @@ func (a *App) Connect(data MQTTClientData) bool {
 		fmt.Printf("Error: %s\n", token.Error())
 	}
 
-	MQTTCLIENT.Subscribe(data.Topic, 0, onMessageReceived)
+	MQTTCLIENT.Subscribe(data.Topic, 1, onMessageReceived)
 
 	return connected
 }
 
-func (a *App) Disconnect() bool {
+func (a *App) CmdDisconnect() bool {
 	//disconnected := true
 	MQTTCLIENT.Disconnect(250)
 	return true
 }
 
-func (a *App) MQTTPayload() *Payload {
+func (a *App) EvtPayload() *Payload {
 	// CONSUME THE QUEUE
 	payload := <-QUEUE
-	fmt.Printf("###### EVENT => topic=%s Message=%s Timestamp=%d\n", payload.Topic, payload.Message, payload.Timestamp)
+	fmt.Printf("###### EventPayload => topic=%s Message=%s Timestamp=%d\n", payload.Topic, payload.Message, payload.Timestamp)
 	return &payload
 }
 
-// PRIVATE METHODS
+// ******************************************
+// * PRIVATE METHODS
+// ******************************************
 
 func onMessageReceived(_ MQTT.Client, message MQTT.Message) {
 	fmt.Printf("### OnMessageReceived => topic=%s Message=%s\n", message.Topic(), message.Payload())
