@@ -10,11 +10,12 @@ import {AppDispatch} from "../../redux/store.ts";
 import {constants} from '../../utils/constants.ts';
 import {getMessages, setMessages} from "../../redux/data/messagesSlice.ts";
 import {getReloadEvent} from "../../redux/events/reloadEventSlice.ts";
-import {backend} from "../../../wailsjs/go/models.ts";
 import {MessagesType} from "../../utils/types.ts";
-import {EvtPayload} from "../../../wailsjs/go/backend/App";
 import {styles} from "../../styles/styles.ts";
 import {theme} from "../../styles/muiTheme.ts";
+
+import {backend} from "../../../wailsjs/go/models.ts";
+import {EvtPayload} from "../../../wailsjs/go/backend/App";
 
 
 export const MessagesCard: React.FC = () => {

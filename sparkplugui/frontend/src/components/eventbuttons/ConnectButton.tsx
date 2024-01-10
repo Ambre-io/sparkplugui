@@ -9,8 +9,9 @@ import {AmbreIconButton} from "../ambre/AmbreIconButton.tsx";
 import {constants} from '../../utils/constants.ts';
 import {getMQTTData} from "../../redux/data/mqttDataSlice.ts";
 import {setReloadEvent} from "../../redux/events/reloadEventSlice.ts";
-import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/backend/App";
+
 import {backend} from "../../../wailsjs/go/models";
+import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/backend/App";
 
 
 export const ConnectButton: React.FC = () => {
