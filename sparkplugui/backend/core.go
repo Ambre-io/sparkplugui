@@ -9,13 +9,6 @@ import (
 )
 
 // ******************************************
-// * GLOBALS
-// ******************************************
-
-var MQTTCLIENT = MQTT.NewClient(MQTT.NewClientOptions())
-var QUEUE = make(chan Payload)
-
-// ******************************************
 // * METHODS
 // ******************************************
 
@@ -24,44 +17,39 @@ func (a *App) CmdConnect(data MQTTClientData) bool {
 	connected := true
 
 	// MQTT client options
-	// TODO get params from front
 	address := fmt.Sprintf("tcp://%s:%s", data.Host, data.Port)
 	options := MQTT.NewClientOptions().AddBroker(address).SetClientID("sparkplugui")
 	options.SetCleanSession(true)
 
 	// MQTT declaration
-	MQTTCLIENT = MQTT.NewClient(options)
-	if token := MQTTCLIENT.Connect(); token.Wait() && token.Error() != nil {
+	a.MQTTCLIENT = MQTT.NewClient(options)
+	if token := a.MQTTCLIENT.Connect(); token.Wait() && token.Error() != nil {
 		connected = false
 		fmt.Printf("Error: %s\n", token.Error())
 	}
 
-	MQTTCLIENT.Subscribe(data.Topic, 1, onMessageReceived)
+	a.MQTTCLIENT.Subscribe(data.Topic, 0, a.onMessageReceived)
 
 	return connected
 }
 
 func (a *App) CmdDisconnect() bool {
 	//disconnected := true
-	MQTTCLIENT.Disconnect(250)
+	a.MQTTCLIENT.Disconnect(250)
 	return true
 }
 
 func (a *App) EvtPayload() *Payload {
 	// CONSUME THE QUEUE
-	payload := <-QUEUE
-	fmt.Printf("###### EventPayload => topic=%s Message=%s Timestamp=%d\n", payload.Topic, payload.Message, payload.Timestamp)
-	return &payload
+	p := <-a.QUEUE
+	return &p
 }
 
 // ******************************************
 // * PRIVATE METHODS
 // ******************************************
 
-func onMessageReceived(_ MQTT.Client, message MQTT.Message) {
-	fmt.Printf("### OnMessageReceived => topic=%s Message=%s\n", message.Topic(), message.Payload())
-
-	// FEED THE QUEUE
+func (a *App) feedTheQueue(message MQTT.Message) {
 	payload := sparkplug.Payload{}
 	err := proto.Unmarshal(message.Payload(), &payload)
 	decoded := ""
@@ -70,9 +58,14 @@ func onMessageReceived(_ MQTT.Client, message MQTT.Message) {
 	} else {
 		decoded = payload.String()
 	}
-	QUEUE <- Payload{
+	fmt.Printf("### OnMessageReceived => topic=%s Message=%s\n", message.Topic(), decoded)
+	a.QUEUE <- Payload{
 		Topic:     message.Topic(),
 		Message:   decoded,
 		Timestamp: time.Now().Unix(),
 	}
+}
+
+func (a *App) onMessageReceived(_ MQTT.Client, message MQTT.Message) {
+	go a.feedTheQueue(message)
 }
