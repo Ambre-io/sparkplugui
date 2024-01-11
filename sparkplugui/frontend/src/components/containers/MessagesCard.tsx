@@ -35,7 +35,7 @@ export const MessagesCard: React.FC = () => {
         }
     };
 
-    EvtPayload().then((payload: backend.Payload) => {
+    EvtPayload().then((payload: backend.MQTTPayload) => {
         dispatch(setMessages(payload));
     }).catch(e => {
         console.debug('Error: fail to get MQTT Payload:', e);

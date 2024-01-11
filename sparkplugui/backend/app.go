@@ -9,7 +9,7 @@ import (
 type App struct {
 	context    context.Context
 	MQTTCLIENT MQTT.Client
-	QUEUE      chan Payload
+	QUEUE      chan MQTTPayload
 }
 
 // NewApp creates a new App application struct
@@ -21,5 +21,5 @@ func NewApp() *App {
 func (a *App) Startup(context context.Context) {
 	a.context = context
 	a.MQTTCLIENT = MQTT.NewClient(MQTT.NewClientOptions())
-	a.QUEUE = make(chan Payload)
+	a.QUEUE = make(chan MQTTPayload)
 }

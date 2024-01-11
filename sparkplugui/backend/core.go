@@ -39,7 +39,7 @@ func (a *App) CmdDisconnect() bool {
 	return true
 }
 
-func (a *App) EvtPayload() *Payload {
+func (a *App) EvtPayload() *MQTTPayload {
 	p := <-a.QUEUE
 	return &p
 }
@@ -51,13 +51,16 @@ func (a *App) EvtPayload() *Payload {
 func (a *App) feedTheQueue(message MQTT.Message) {
 	payload := sparkplug.Payload{}
 	err := proto.Unmarshal(message.Payload(), &payload)
+
 	decoded := ""
 	if err != nil {
 		decoded = string(message.Payload())
 	} else {
+		// TODO find a way to serialize the payload
 		decoded = payload.String()
 	}
-	a.QUEUE <- Payload{
+
+	a.QUEUE <- MQTTPayload{
 		Topic:     message.Topic(),
 		Message:   decoded,
 		Timestamp: time.Now().Unix(),
