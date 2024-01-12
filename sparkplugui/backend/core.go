@@ -1,5 +1,5 @@
 /*
-SparkpluGUI - Clear software that decodes and presents IoT MQTT Sparkplug messages
+SparkpluGUI - Software that displays decoded Sparkplug messages from MQTT IoT.
 @author guiklimek
 
 * This program and the accompanying materials are made available under the

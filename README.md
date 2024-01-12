@@ -5,7 +5,7 @@
     <div>SparkpluGUI</div>
 </h1>
 <h3 align=center>
-<div>Decodes and presents IoT MQTT Sparkplug messages in a clear interface.</div>
+<div>Software that displays decoded Sparkplug messages from MQTT IoT</div>
 </h3>
 
 screenshot
@@ -21,8 +21,9 @@ Install depending on your OS:
 
 Run:
 
-1. Type the broker information in the form
-2. Click on the "Connect" button (Cloud icon)
+1. Launch SparkpluGUI software
+2. Type the broker information in the form
+3. Click on the "Connect" button
 
 Observe:
 
@@ -32,7 +33,7 @@ Observe:
 
 and we're done!
 
-## 2/ Technical stack: Wails, Go, TypeScript, React
+## 2/ Technical stack
 
 Thank you all for the beautiful technologies:
 - [Wails](https://wails.app/) for the Go/TypeScript bridge
