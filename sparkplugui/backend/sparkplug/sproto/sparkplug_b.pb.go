@@ -21,7 +21,7 @@
 // 	protoc        v3.21.11
 // source: sproto/sparkplug_b.proto
 
-package sparkplug
+package sproto
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"

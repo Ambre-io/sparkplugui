@@ -44,7 +44,7 @@ export const LastMessageCard: React.FC = () => {
             {(message.topic !== '') && (
                 <Grid container>
                     <Grid item xs={12} sx={styles.lastMessageContainer}>
-                        {/*FIXME TypeError: undefined is not an object (evaluating 'e4.duration.format = k')*/}
+                        <span style={styles.messageDateTime}>{message.timestamp}</span>
                         {/*<span style={styles.messageDateTime}><Moment>{message.timestamp}</Moment></span>*/}
                         <div>
                             {isParsable ? (

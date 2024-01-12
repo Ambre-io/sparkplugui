@@ -1,4 +1,14 @@
+/*
+SparkpluGUI - Clear software that decodes and presents IoT MQTT Sparkplug messages
+@author guiklimek
+
+* This program and the accompanying materials are made available under the
+* terms of the GNU GENERAL PUBLIC LICENSE which is available at
+* https://ambre.io/
+*/
+
 import Grid from "@mui/material/Grid";
+import GridLayout from "react-grid-layout";
 import {Provider} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
 import {ThemeProvider} from "@mui/system";
@@ -16,6 +26,24 @@ import './utils/TSOverload';
 import './i18n/i18next';
 import './styles/index.css';
 
+// RGL performance tips
+// see: https://github.com/react-grid-layout/react-grid-layout#performance
+
+    // (
+    //     <GridLayout
+    //         className="layout"
+    //         layout={layout}
+    //         cols={12}
+    //         rowHeight={30}
+    //         width={1200}
+    //     >
+    //         <div key="a">SoftCard<SoftCard/></div>
+    //         <div key="b">FormCard<FormCard/></div>
+    //         <div key="c">TreeCard<TreeCard/></div>
+    //         <div key="d">LastMessageCard<LastMessageCard/></div>
+    //         <div key="e">MessagesCard<MessagesCard/></div>
+    //     </GridLayout>
+    // );
 
 export const App = () => (
     <Provider store={store}>

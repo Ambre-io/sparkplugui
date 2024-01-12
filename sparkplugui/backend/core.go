@@ -1,11 +1,19 @@
+/*
+SparkpluGUI - Clear software that decodes and presents IoT MQTT Sparkplug messages
+@author guiklimek
+
+* This program and the accompanying materials are made available under the
+* terms of the GNU GENERAL PUBLIC LICENSE which is available at
+* https://ambre.io/
+*/
+
 package backend
 
 import (
+	"encoding/json"
 	"fmt"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
-	"github.com/golang/protobuf/proto"
 	"sparkplugui/backend/sparkplug"
-	"time"
 )
 
 // ******************************************
@@ -49,21 +57,22 @@ func (a *App) EvtPayload() *MQTTPayload {
 // ******************************************
 
 func (a *App) feedTheQueue(message MQTT.Message) {
-	payload := sparkplug.Payload{}
-	err := proto.Unmarshal(message.Payload(), &payload)
+
+	p := sparkplug.Payload{}
+	err := p.DecodePayload(message.Payload())
 
 	decoded := ""
 	if err != nil {
 		decoded = string(message.Payload())
 	} else {
-		// TODO find a way to serialize the payload
-		decoded = payload.String()
+		pjson, _ := json.Marshal(p.Metrics)
+		decoded = string(pjson)
 	}
 
 	a.QUEUE <- MQTTPayload{
 		Topic:     message.Topic(),
 		Message:   decoded,
-		Timestamp: time.Now().Unix(),
+		Timestamp: p.Timestamp.Unix(),
 	}
 }
 
