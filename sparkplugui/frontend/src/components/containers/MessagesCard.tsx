@@ -35,8 +35,8 @@ export const MessagesCard: React.FC = () => {
         }
     };
 
-    EvtPayload().then((payload: backend.MQTTPayload) => {
-        dispatch(setMessages(payload));
+    EvtPayload().then((message: backend.MQTTMessage) => {
+        dispatch(setMessages(message));
     }).catch(e => {
         console.debug('Error: fail to get MQTT Payload:', e);
     });
@@ -55,12 +55,12 @@ export const MessagesCard: React.FC = () => {
     return (
         <AmbreCard title={`${constants.emojiEnvelop} ${t('mqttMessagesTitle')}`} name={constants.cards.messagesCard}>
             <Grid ref={mqttMessagesRef} container sx={messages.length > 0 ? styles.mqttMessagesContainer : undefined}>
-                {messages.map(({topic, message, timestamp}, i) => (
+                {messages.map(({topic, payload, timestamp}, i) => (
                     <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
                         <span style={styles.messageDateTime}>{timestamp}</span>
                         {/*<span style={styles.messageDateTime}><Moment>{timestamp}</Moment></span>*/}
                         <div style={styles.mqttTopic}>{topic}</div>
-                        <div style={styles.color(theme.palette.primary.dark)}>{message}</div>
+                        <div style={styles.color(theme.palette.primary.dark)}>{payload}</div>
                     </Grid>
                 ))}
             </Grid>

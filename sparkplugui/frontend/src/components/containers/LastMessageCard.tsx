@@ -16,7 +16,7 @@ import {MessageType} from "../../utils/types.ts";
 import {styles} from "../../styles/styles.ts";
 
 
-const initMessage = {topic: '', message: '', timestamp: 0};
+const initMessage = {topic: '', payload: '', timestamp: 0};
 
 export const LastMessageCard: React.FC = () => {
     const {t} = useTranslation();
@@ -33,9 +33,9 @@ export const LastMessageCard: React.FC = () => {
     let displayedMessage: any;
     let isParsable: boolean = true;
     try {
-        displayedMessage = JSON.parse(message.message);
+        displayedMessage = JSON.parse(message.payload);
     } catch (_) {
-        displayedMessage = message.message;
+        displayedMessage = message.payload;
         isParsable = false;
     }
 

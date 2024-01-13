@@ -20,19 +20,19 @@ export namespace backend {
 	        this.topic = source["topic"];
 	    }
 	}
-	export class MQTTPayload {
+	export class MQTTMessage {
 	    topic: string;
-	    message: string;
+	    payload: string;
 	    timestamp: number;
 	
 	    static createFrom(source: any = {}) {
-	        return new MQTTPayload(source);
+	        return new MQTTMessage(source);
 	    }
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.topic = source["topic"];
-	        this.message = source["message"];
+	        this.payload = source["payload"];
 	        this.timestamp = source["timestamp"];
 	    }
 	}

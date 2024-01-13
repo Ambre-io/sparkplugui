@@ -6,4 +6,4 @@ export function CmdConnect(arg1:backend.MQTTClientData):Promise<boolean>;
 
 export function CmdDisconnect():Promise<boolean>;
 
-export function EvtPayload():Promise<backend.MQTTPayload>;
+export function EvtPayload():Promise<backend.MQTTMessage>;

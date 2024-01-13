@@ -34,7 +34,7 @@ export const Tree: React.FC = () => {
         // Create tree
         const parents: string[] = [...initParentNodes];
         messages.map((msg: MessageType) => {
-            const {topic, message} = msg;
+            const {topic} = msg;
 
             const splitedTopic = topic.split(constants.topicSeparator);
             let lastNode: NodeType = nodeRoot;

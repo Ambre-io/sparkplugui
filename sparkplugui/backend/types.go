@@ -17,8 +17,8 @@ type MQTTClientData struct {
 	Topic    string `json:"topic"`
 }
 
-type MQTTPayload struct {
+type MQTTMessage struct {
 	Topic     string `json:"topic"`
-	Message   string `json:"message"`
+	Payload   string `json:"payload"`
 	Timestamp int64  `json:"timestamp"`
 }

@@ -14,6 +14,7 @@ import (
 	"fmt"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"sparkplugui/backend/sparkplug"
+	"time"
 )
 
 // ******************************************
@@ -36,46 +37,57 @@ func (a *App) CmdConnect(data MQTTClientData) bool {
 		fmt.Printf("Error: %s\n", token.Error())
 	}
 
-	a.MQTTCLIENT.Subscribe(data.Topic, 0, a.onMessageReceived)
+	a.MQTTCLIENT.Subscribe(data.Topic, 0, func(_ MQTT.Client, message MQTT.Message) {
+		go func() {
+			decoded, timestamp := a.decode(message.Payload())
+			a.pushMessage(message.Topic(), decoded, timestamp)
+		}()
+	})
 
 	return connected
 }
 
 func (a *App) CmdDisconnect() bool {
-	//disconnected := true
 	a.MQTTCLIENT.Disconnect(250)
 	return true
 }
 
-func (a *App) EvtPayload() *MQTTPayload {
-	p := <-a.QUEUE
-	return &p
+func (a *App) EvtPayload() *MQTTMessage {
+	return a.popMessage()
 }
 
 // ******************************************
 // * PRIVATE METHODS
 // ******************************************
 
-func (a *App) feedTheQueue(message MQTT.Message) {
+func (a *App) decode(payload []byte) (string, int64) {
+	decoded := ""
+	timestamp := int64(0)
 
 	p := sparkplug.Payload{}
-	err := p.DecodePayload(message.Payload())
+	err := p.DecodePayload(payload)
 
-	decoded := ""
-	if err != nil {
-		decoded = string(message.Payload())
-	} else {
+	if err == nil { // sparkplug
 		pjson, _ := json.Marshal(p.Metrics)
 		decoded = string(pjson)
+		timestamp = p.Timestamp.Unix()
+	} else {
+		decoded = string(payload)
+		timestamp = time.Now().Unix()
 	}
 
-	a.QUEUE <- MQTTPayload{
-		Topic:     message.Topic(),
-		Message:   decoded,
-		Timestamp: p.Timestamp.Unix(),
+	return decoded, timestamp
+}
+
+func (a *App) pushMessage(topic string, payload string, timestamp int64) {
+	a.QUEUE <- MQTTMessage{
+		Topic:     topic,
+		Payload:   payload,
+		Timestamp: timestamp,
 	}
 }
 
-func (a *App) onMessageReceived(_ MQTT.Client, message MQTT.Message) {
-	go a.feedTheQueue(message)
+func (a *App) popMessage() *MQTTMessage {
+	p := <-a.QUEUE
+	return &p
 }
