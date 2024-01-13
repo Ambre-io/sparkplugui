@@ -37,7 +37,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 export const App = () => {
 
     const layout = [
-        {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, minW: 2, maxW: 2, fixed: true},
+        {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},
         {i: constants.formCard, x: 2, y: 0, w: 2, h: 3},
         {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 8},
         {i: constants.treeCard, x: 0, y: 2, w: 3, h: 5},
@@ -52,22 +52,12 @@ export const App = () => {
                 {/*see: https://alvarotrigo.com/blog/animated-backgrounds-css/#3)-floating-squares*/}
                 <div className="area">
                     <ul className="circles">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
                         <main className="resetCircles">
                             <ResponsiveGridLayout
                                 className="layout"
                                 layouts={layouts}
-                                breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-                                cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+                                breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+                                cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
                             >
                                 <div key={constants.softCard} style={styles.ambreCard}><SoftCard/></div>
                                 <div key={constants.formCard} style={styles.ambreCard}><FormCard/></div>
@@ -76,6 +66,16 @@ export const App = () => {
                                 <div key={constants.messagesCard} style={styles.ambreCard}><MessagesCard/></div>
                             </ResponsiveGridLayout>
                         </main>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
                     </ul>
                 </div>
             </ThemeProvider>
