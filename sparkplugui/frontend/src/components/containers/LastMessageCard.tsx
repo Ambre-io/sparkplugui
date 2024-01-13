@@ -40,7 +40,7 @@ export const LastMessageCard: React.FC = () => {
     }
 
     return (
-        <AmbreCard title={`${constants.emojiFile} ${t('lastMessage')}`} name={constants.cards.lastMessagesCard}>
+        <AmbreCard title={`${constants.emojiFile} ${t('lastMessage')}`} name={constants.lastMessageCard}>
             {(message.topic !== '') && (
                 <Grid container>
                     <Grid item xs={12} sx={styles.lastMessageContainer}>

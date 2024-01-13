@@ -21,7 +21,7 @@
     "successDisconnect": "Getrennt",
     "error": "Fehler",
     "mqttMessagesTitle": "Mitteilungen",
-    "tree": "Themen der empfangenen Nachrichten",
+    "tree": "Themenbaum",
     "lastMessage": "Letzte Nachricht",
     "root": "Wurzel",
     "setting": "Einstellung"

@@ -7,7 +7,7 @@ SparkpluGUI - Software that displays decoded Sparkplug messages from MQTT IoT
 * https://ambre.io/
 */
 
-import GridLayout from "react-grid-layout";
+import {Responsive, WidthProvider} from "react-grid-layout";
 import '/node_modules/react-grid-layout/css/styles.css';
 import '/node_modules/react-resizable/css/styles.css';
 import {Provider} from 'react-redux'
@@ -26,19 +26,25 @@ import {TreeCard} from "./components/containers/TreeCard";
 import './utils/TSOverload';
 import './i18n/i18next';
 import './styles/index.css';
+import {constants} from "./utils/constants.ts";
 
 // RGL performance tips
 // see: https://github.com/react-grid-layout/react-grid-layout#performance
 
+const ResponsiveGridLayout = WidthProvider(Responsive);
+
 
 export const App = () => {
+
     const layout = [
-        {i: "a", x: 0, y: 0, w: 1, h: 2, static: true},
-        {i: "b", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
-        {i: "c", x: 4, y: 0, w: 1, h: 2},
-        {i: "d", x: 6, y: 0, w: 1, h: 2},
-        {i: "e", x: 0, y: 4, w: 1, h: 2}
+        {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, minW: 2, maxW: 2, fixed: true},
+        {i: constants.formCard, x: 2, y: 0, w: 2, h: 3},
+        {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 8},
+        {i: constants.treeCard, x: 0, y: 2, w: 3, h: 5},
+        {i: constants.lastMessageCard, x: 3, y: 0, w: 3, h: 5}
     ];
+    const layouts = {lg: layout, md: layout, sm: layout, xs: layout, xxs: layout};
+
     return (
         <Provider store={store}>
             <ThemeProvider theme={theme}>
@@ -57,19 +63,18 @@ export const App = () => {
                         <li></li>
                         <li></li>
                         <main className="resetCircles">
-                            <GridLayout
+                            <ResponsiveGridLayout
                                 className="layout"
-                                layout={layout}
-                                cols={12}
-                                rowHeight={30}
-                                width={1200}
+                                layouts={layouts}
+                                breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+                                cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
                             >
-                                <div key="a"><SoftCard/></div>
-                                <div key="b"><FormCard/></div>
-                                <div key="c"><TreeCard/></div>
-                                <div key="d"><LastMessageCard/></div>
-                                <div key="e"><MessagesCard/></div>
-                            </GridLayout>
+                                <div key={constants.softCard} style={styles.ambreCard}><SoftCard/></div>
+                                <div key={constants.formCard} style={styles.ambreCard}><FormCard/></div>
+                                <div key={constants.treeCard} style={styles.ambreCard}><TreeCard/></div>
+                                <div key={constants.lastMessageCard} style={styles.ambreCard}><LastMessageCard/></div>
+                                <div key={constants.messagesCard} style={styles.ambreCard}><MessagesCard/></div>
+                            </ResponsiveGridLayout>
                         </main>
                     </ul>
                 </div>

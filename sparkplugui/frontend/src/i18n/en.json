@@ -21,7 +21,7 @@
     "successDisconnect": "Disconnected",
     "error": "Error",
     "mqttMessagesTitle": "Messages",
-    "tree": "Topics of messages received",
+    "tree": "Topics Tree",
     "lastMessage": "Last Message",
     "root": "Root",
     "setting": "Setting"
