@@ -1,8 +1,8 @@
 {
-    "name": "sparkplugui-simulator",
+    "name": "sparkplugui-iot-simulator",
     "version": "1.0.0",
     "license": "GNU",
-    "description": "SparkpluGUI simulator",
+    "description": "SparkpluGUI IoT Simulator",
     "author": "Ambre.io",
     "scripts": {
         "compile": "tsc",
