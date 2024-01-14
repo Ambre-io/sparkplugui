@@ -59,11 +59,11 @@ export const App = () => {
                                 breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
                                 cols={{lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}}
                             >
-                                <div key={constants.softCard} style={styles.ambreCard}><SoftCard/></div>
-                                <div key={constants.formCard} style={styles.ambreCard}><FormCard/></div>
-                                <div key={constants.treeCard} style={styles.ambreCard}><TreeCard/></div>
-                                <div key={constants.lastMessageCard} style={styles.ambreCard}><LastMessageCard/></div>
-                                <div key={constants.messagesCard} style={styles.ambreCard}><MessagesCard/></div>
+                                <div key={constants.softCard} style={styles.reactGridLayout}><SoftCard/></div>
+                                <div key={constants.formCard} style={styles.reactGridLayout}><FormCard/></div>
+                                <div key={constants.treeCard} style={styles.reactGridLayout}><TreeCard/></div>
+                                <div key={constants.lastMessageCard} style={styles.reactGridLayout}><LastMessageCard/></div>
+                                <div key={constants.messagesCard} style={styles.reactGridLayout}><MessagesCard/></div>
                             </ResponsiveGridLayout>
                         </main>
                         <li></li>

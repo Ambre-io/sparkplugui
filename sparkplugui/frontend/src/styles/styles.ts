@@ -19,20 +19,35 @@ export const styles: stylesType = {
     // ******************************************
     // * COMMON
     // ******************************************
-    ambreCard: {
-        flexGrow: 1,
+    reactGridLayout: {
         boxShadow: ambreCardBoxShadow,
-        borderRadius: 1,
-        padding: 2,
+        borderRadius: 3,
         background: '#FFFFFF',
         overflow: 'hidden',
     },
-    noOverflowContainer: {
-        maxHeight: '100%',
-        overflowY: 'auto',
+    ambreCard: {
+        padding: 2,
+         ...ambreBorder(primaryDark, 2),
+        height: '100%',
     },
-    ambreEventButton: {
-        padding: 1
+    ambreCardTitle: {
+        ...ambreBorder(primaryMain, 2),
+        fontSize: 18,
+        fontWeight: 800,
+        textTransform: 'uppercase',
+        height: 30,
+        maxHeight: 30,
+    },
+    ambreCardContent: {
+        maxHeight: '100vh', // don't go over screen
+        overflowY: 'auto', // overflow as scroll
+        // width: '100%',
+        // height: '100%',
+        ...ambreBorder(primaryLight, 2),
+        padding: 1,
+        paddingBottom: 0,
+        fontFamily: 'TitilliumWeb',
+        userSelect: 'none',
     },
     color: (color: string) => ({
         color: color
@@ -87,29 +102,9 @@ export const styles: stylesType = {
         color: primaryLight,
         marginTop: -7
     },
-    title: {
-        fontSize: 18,
-        fontWeight: 800,
-        marginLeft: 10,
-        marginTop: 4,
-        marginBottom: 0,
-        textTransform: 'uppercase',
-    },
-    subtitle: {
-        textTransform: 'uppercase',
-    },
     formCardFirstInput: {
         marginBottom: 1,
         paddingTop: 1
-    },
-    mqttMessagesContainer: {
-        maxHeight: '90.5vh', // don't go over screen
-        overflowY: 'auto', // overflow as scroll
-        width: '100%',
-        ...ambreBorder(primaryLight, 2),
-        padding: 1,
-        paddingBottom: 0,
-        fontFamily: 'TitilliumWeb',
     },
     mqttMessages: {
         ...ambreBorder(primaryMain),

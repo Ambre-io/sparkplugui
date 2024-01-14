@@ -11,7 +11,7 @@ import {styles} from "../../styles/styles.ts";
 
 
 export const SoftCard: React.FC = () => (
-    <Grid container>
+    <Grid container sx={styles.padding(2)}>
         <Grid item sx={styles.softContainer}>
             <img style={styles.softLogo} alt='SparkplugUI logo' src='src/assets/images/logo.svg'/>
             <div style={styles.softTitle}>SparkplugUI</div>

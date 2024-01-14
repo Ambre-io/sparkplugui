@@ -54,7 +54,7 @@ export const MessagesCard: React.FC = () => {
 
     return (
         <AmbreCard title={`${constants.emojiEnvelop} ${t('mqttMessagesTitle')}`} name={constants.messagesCard}>
-            <Grid ref={mqttMessagesRef} container sx={messages.length > 0 ? styles.mqttMessagesContainer : undefined}>
+            <Grid ref={mqttMessagesRef} container>
                 {messages.map(({topic, payload, timestamp}, i) => (
                     <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
                         <span style={styles.messageDateTime}>{timestamp}</span>
