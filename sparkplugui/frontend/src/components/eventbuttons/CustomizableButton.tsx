@@ -16,8 +16,6 @@ export const CustomizableButton: React.FC = () => {
 
     const customizable = useSelector(getCustomizable);
 
-    const error = () => toast.error(`${t('error')} ${constants.emojiSadge}`);
-
     const goClick = async () => {
         dispatch(setCustomizable(!customizable));
     };

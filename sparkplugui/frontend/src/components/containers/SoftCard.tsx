@@ -12,7 +12,7 @@ import {styles} from "../../styles/styles.ts";
 
 
 export const SoftCard: React.FC = () => (
-    <Grid container sx={styles.padding(2)}>
+    <Grid container>
         <Grid item sx={styles.softContainer}>
             <img style={styles.softLogo} alt='SparkplugUI logo' src='src/assets/images/logo.svg'/>
             <div style={styles.softTitle}>SparkplugUI</div>
@@ -22,7 +22,7 @@ export const SoftCard: React.FC = () => (
         </Grid>
         <Grid item>
             <Grid container alignItems='center'>
-                <Grid item sx={styles.padding(1)}>
+                <Grid item>
                     <LanguageSelection/>
                 </Grid>
                 <Grid item sx={styles.padding(1)}>

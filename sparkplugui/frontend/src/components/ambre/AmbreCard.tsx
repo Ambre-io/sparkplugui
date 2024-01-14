@@ -9,12 +9,12 @@ export const AmbreCard = (props: AmbreCardType) => {
     const {title, name, children} = props;
 
     return (
-        <Grid container id={title} sx={styles.ambreCard}>
+        <Grid container id={title} sx={{height: '100%', p: 1}}>
             <Grid item xs={12} sx={styles.ambreCardTitle}>
                 {title}
             </Grid>
-            <Grid item xs={12} sx={styles.ambreCardContent}>
-                <Grid container>
+            <Grid item xs={12} sx={styles.ambreCardContentContainer}>
+                <Grid container sx={styles.ambreCardContent}>
                     <Grid item xs={12}>
                         {children}
                     </Grid>

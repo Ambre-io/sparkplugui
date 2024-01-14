@@ -25,21 +25,19 @@ export const App = () => (
         <ThemeProvider theme={theme}>
             <ToastContainer position={toast.POSITION.BOTTOM_RIGHT}/>
             {/*see: https://alvarotrigo.com/blog/animated-backgrounds-css/#3)-floating-squares*/}
-            <div className="area">
-                <ul className="circles">
-                    <Amain/>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
-            </div>
+            <ul className="circles">
+                <Amain/>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
         </ThemeProvider>
     </Provider>
 );

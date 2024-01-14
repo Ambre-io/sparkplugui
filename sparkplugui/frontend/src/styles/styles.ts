@@ -2,52 +2,46 @@ import {stylesType} from "../utils/types.ts";
 import {
     ambreCardBoxGrey,
     muiMiddleGrey,
-    primaryDark,
+    primaryDark, primaryDarkLight,
     primaryLight,
     primaryMain,
-    primaryMainDark
+    primaryMainDark, primaryMainSupraLight, white
 } from "./muiTheme.ts";
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
 
-const ambreBorder = (color: string, size = 1) => ({
+const ambreBorder = (color: string, size = 1, radius = 1) => ({
     border: `${size}px solid ${color}`,
-    borderRadius: 1,
+    borderRadius: radius,
 });
 
 export const styles: stylesType = {
     // ******************************************
     // * COMMON
     // ******************************************
-    reactGridLayout: {
+    ambreCard: {
         boxShadow: ambreCardBoxShadow,
         borderRadius: 3,
-        background: '#FFFFFF',
-        overflow: 'hidden',
-    },
-    ambreCard: {
-        padding: 2,
-         ...ambreBorder(primaryDark, 2),
+        background: primaryDarkLight,
         height: '100%',
     },
     ambreCardTitle: {
-        ...ambreBorder(primaryMain, 2),
+        fontFamily: 'TitilliumWebBold',
         fontSize: 18,
         fontWeight: 800,
         textTransform: 'uppercase',
-        height: 30,
-        maxHeight: 30,
     },
-    ambreCardContent: {
-        maxHeight: '100vh', // don't go over screen
-        overflowY: 'auto', // overflow as scroll
-        // width: '100%',
-        // height: '100%',
-        ...ambreBorder(primaryLight, 2),
-        padding: 1,
-        paddingBottom: 0,
-        fontFamily: 'TitilliumWeb',
-        userSelect: 'none',
+    ambreCardContentContainer: {
+        ...ambreBorder(ambreCardBoxGrey, 1, 1),
+        background: primaryMainSupraLight,
+        height: 'calc(100% - 32px)',
+        overflow: 'auto',
+    },
+    ambreCardContent:{
+        paddingLeft: 2,
+        paddingRight: 2,
+        paddingTop: 1,
+        paddingBottom: 1,
     },
     color: (color: string) => ({
         color: color
@@ -93,11 +87,13 @@ export const styles: stylesType = {
         filter: 'invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)'
     },
     softTitle: {
+        fontFamily: 'TitilliumWebBold',
         fontSize: 26,
         marginTop: -20,
         color: primaryMain,
     },
     softSubTitle: {
+        fontFamily: 'TitilliumWebBold',
         fontSize: 11,
         color: primaryLight,
         marginTop: -7
@@ -107,7 +103,7 @@ export const styles: stylesType = {
         paddingTop: 1
     },
     mqttMessages: {
-        ...ambreBorder(primaryMain),
+        ...ambreBorder(primaryLight),
         marginBottom: 1,
         paddingLeft: 1,
         paddingRight: 1
@@ -124,13 +120,6 @@ export const styles: stylesType = {
     tree: {
         userSelect: 'none',
         paddingRight: 3
-    },
-    lastMessageContainer: {
-        ...ambreBorder(primaryLight, 2),
-        color: primaryDark,
-        marginTop: '2px',
-        padding: 1,
-        fontFamily: 'TitilliumWeb',
     },
     // ******************************************
     // * OTHER

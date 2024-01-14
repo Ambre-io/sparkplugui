@@ -22,6 +22,7 @@ import {SoftCard} from "./SoftCard";
 import {styles} from "../../styles/styles";
 import {TreeCard} from "./TreeCard";
 
+
 // RGL performance tips
 // see: https://github.com/react-grid-layout/react-grid-layout#performance
 
@@ -33,9 +34,9 @@ export const Amain = () => {
     const layout = [
         {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},
         {i: constants.formCard, x: 2, y: 0, w: 2, h: 3},
-        {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 8},
-        {i: constants.treeCard, x: 0, y: 2, w: 3, h: 5},
-        {i: constants.lastMessageCard, x: 3, y: 0, w: 3, h: 5}
+        {i: constants.messagesCard, x: 7, y: 0, w: 4, h: 5},
+        {i: constants.treeCard, x: 0, y: 2, w: 3, h: 4},
+        {i: constants.lastMessageCard, x: 3, y: 0, w: 3, h: 4}
     ];
     const layouts = {lg: layout, md: layout, sm: layout, xs: layout, xxs: layout};
 
@@ -51,11 +52,21 @@ export const Amain = () => {
                 isDraggable={customizable}
                 isResizable={customizable}
             >
-                <div key={constants.softCard} style={styles.reactGridLayout}><SoftCard/></div>
-                <div key={constants.formCard} style={styles.reactGridLayout}><FormCard/></div>
-                <div key={constants.treeCard} style={styles.reactGridLayout}><TreeCard/></div>
-                <div key={constants.lastMessageCard} style={styles.reactGridLayout}><LastMessageCard/></div>
-                <div key={constants.messagesCard} style={styles.reactGridLayout}><MessagesCard/></div>
+                <div key={constants.softCard} style={styles.ambreCard}>
+                    <SoftCard/>
+                </div>
+                <div key={constants.formCard} style={styles.ambreCard}>
+                    <FormCard/>
+                </div>
+                <div key={constants.treeCard} style={styles.ambreCard}>
+                    <TreeCard/>
+                </div>
+                <div key={constants.lastMessageCard} style={styles.ambreCard}>
+                    <LastMessageCard/>
+                </div>
+                <div key={constants.messagesCard} style={styles.ambreCard}>
+                    <MessagesCard/>
+                </div>
             </ResponsiveGridLayout>
         </main>
     );

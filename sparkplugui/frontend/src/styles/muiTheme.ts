@@ -20,9 +20,12 @@ declare module '@mui/material/styles' {
 export const primaryMain = '#55C6E7';
 export const primaryLight = '#FFCA19';
 export const primaryDark = '#D724FF';
+export const white = '#FFFFFF';
 
 // Declination
 export const primaryMainDark = '#009cc7';
+    export const primaryMainSupraLight = '#fcfcff'; // '#f7f8ff' '#fafaff'
+export const primaryDarkLight = '#f7ddfd'; // '#f7ddfd'
 
 // Greys
 export const ambreCardBoxGrey = '#B7B7B7';
