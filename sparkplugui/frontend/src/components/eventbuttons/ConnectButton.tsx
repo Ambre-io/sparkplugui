@@ -8,7 +8,6 @@ import {useTranslation} from "react-i18next";
 import {AmbreIconButton} from "../ambre/AmbreIconButton.tsx";
 import {constants} from '../../utils/constants.ts';
 import {getMQTTData} from "../../redux/data/mqttDataSlice.ts";
-import {setReloadEvent} from "../../redux/events/reloadEventSlice.ts";
 
 import {backend} from "../../../wailsjs/go/models";
 import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/backend/App";
@@ -33,7 +32,6 @@ export const ConnectButton: React.FC = () => {
             mqttData.topic = information.topic;
             CmdConnect(mqttData).then((connected: boolean) => {
                 if (connected) {
-                    dispatch(setReloadEvent()); // reload Messages subscription
                     toast.success(`${t('successConnect')} ${constants.emojiOkg}`);
                     setConnected(true);
                 } else {

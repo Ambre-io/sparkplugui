@@ -9,7 +9,6 @@ import {AmbreCard} from "../ambre/AmbreCard.tsx";
 import {AppDispatch} from "../../redux/store.ts";
 import {constants} from '../../utils/constants.ts';
 import {getMessages, setMessages} from "../../redux/data/messagesSlice.ts";
-import {getReloadEvent} from "../../redux/events/reloadEventSlice.ts";
 import {MessagesType} from "../../utils/types.ts";
 import {styles} from "../../styles/styles.ts";
 import {theme} from "../../styles/muiTheme.ts";
@@ -24,8 +23,6 @@ export const MessagesCard: React.FC = () => {
     const {t} = useTranslation();
 
     const messages: MessagesType = useSelector(getMessages);
-    // Reload on save trick (see explanations in src/redux/reloadOnSaveSlice)
-    const reload = useSelector(getReloadEvent);
 
     // Auto scroll to the bottom
     const mqttMessagesRef = useRef<HTMLDivElement>(null);

@@ -122,16 +122,20 @@ func (p *Payload) EncodePayload(isDeathPayload bool) ([]byte, error) {
 }
 
 func (p *Payload) DecodePayload(bytes []byte) error {
+
 	pl := sproto.Payload{}
 	err := proto.Unmarshal(bytes, &pl)
+
 	if err != nil {
 		return err
 	}
-	// fmt.Println("Payload is ", pl.String())
+
 	if pl.Timestamp != nil {
 		p.Timestamp = time.UnixMilli(int64(*pl.Timestamp))
 	}
+
 	p.Metrics = make([]Metric, len(pl.Metrics))
+
 	for i := range pl.Metrics {
 		p.Metrics[i].Name = *pl.Metrics[i].Name
 		p.Metrics[i].DataType = DataType(*pl.Metrics[i].Datatype)
@@ -147,5 +151,6 @@ func (p *Payload) DecodePayload(bytes []byte) error {
 			p.Metrics[i].Value = pl.Metrics[i].GetStringValue()
 		}
 	}
+
 	return nil
 }

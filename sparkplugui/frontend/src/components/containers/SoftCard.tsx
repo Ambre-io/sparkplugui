@@ -3,6 +3,7 @@ import * as React from 'react';
 import {Grid} from "@mui/material";
 
 import {ConnectButton} from "../eventbuttons/ConnectButton.tsx";
+import {CustomizableButton} from "../eventbuttons/CustomizableButton.tsx";
 import {OpenNodesButton} from "../eventbuttons/OpenNodesButton.tsx";
 import {LanguageSelection} from "../eventbuttons/LanguageSelection.tsx";
 import {primaryDark} from "../../styles/muiTheme.ts";
@@ -29,6 +30,9 @@ export const SoftCard: React.FC = () => (
                 </Grid>
                 <Grid item sx={styles.padding(1)}>
                     <OpenNodesButton/>
+                </Grid>
+                <Grid item sx={styles.padding(1)}>
+                    <CustomizableButton/>
                 </Grid>
             </Grid>
         </Grid>
