@@ -15,4 +15,5 @@ export const utils: any = {
       return ((t ^ t >>> 14) >>> 0) / 4294967296;
     },
     simpleGen: (): string => Math.random().toString(36).substring(2, 9),
+    locale: (timestamp: number): string => new Date(timestamp * 1000).toLocaleTimeString(),
 }

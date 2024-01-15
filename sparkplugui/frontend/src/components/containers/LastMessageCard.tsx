@@ -14,6 +14,7 @@ import {getLastMessages} from "../../redux/data/lastMessagesSlice.ts";
 import {getSelectedTopic} from "../../redux/data/selectedTopicSlice.ts";
 import {MessageType} from "../../utils/types.ts";
 import {styles} from "../../styles/styles.ts";
+import {utils} from "../../utils/utils.ts";
 
 
 const initMessage = {topic: '', payload: '', timestamp: 0};
@@ -44,8 +45,7 @@ export const LastMessageCard: React.FC = () => {
             {(message.topic !== '') && (
                 <Grid container sx={styles.lastMessage}>
                     <Grid item xs={12}>
-                        <span style={styles.messageDateTime}>{message.timestamp}</span>
-                        {/*<span style={styles.messageDateTime}><Moment>{message.timestamp}</Moment></span>*/}
+                        <span style={styles.messageDateTime}>{utils.locale(message.timestamp)}</span>
                         <div>
                             {isParsable ? (
                                 <JsonView value={displayedMessage} style={{...githubLightTheme, ...styles.jsonView}}/>
