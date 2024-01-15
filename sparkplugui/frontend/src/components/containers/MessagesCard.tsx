@@ -1,7 +1,7 @@
-import React, {useEffect, useRef} from 'react';
-
+import React from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
-// import Moment from "react-moment";
+import Moment from 'react-moment';
+// import 'moment-timezone';
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
@@ -16,6 +16,8 @@ import {theme} from "../../styles/muiTheme.ts";
 import {backend} from "../../../wailsjs/go/models.ts";
 import {EvtPayload} from "../../../wailsjs/go/backend/App";
 
+
+const getDate = (timestamp: number): Date => new Date(timestamp);
 
 export const MessagesCard: React.FC = () => {
 
@@ -35,8 +37,8 @@ export const MessagesCard: React.FC = () => {
             <Grid container>
                 {messages.map(({topic, payload, timestamp}, i) => (
                     <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
+                        {/*<span style={styles.messageDateTime}><Moment>{getDate(timestamp)}</Moment></span>*/}
                         <span style={styles.messageDateTime}>{timestamp}</span>
-                        {/*<span style={styles.messageDateTime}><Moment>{timestamp}</Moment></span>*/}
                         <div style={styles.mqttTopic}>{topic}</div>
                         <div style={styles.color(theme.palette.primary.dark)}>{payload}</div>
                     </Grid>

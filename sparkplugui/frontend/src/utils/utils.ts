@@ -14,5 +14,5 @@ export const utils: any = {
       t ^= t + Math.imul(t ^ t >>> 7, t | 61);
       return ((t ^ t >>> 14) >>> 0) / 4294967296;
     },
-    simpleGen: (): string => Math.random().toString(36).substring(2, 9)
+    simpleGen: (): string => Math.random().toString(36).substring(2, 9),
 }

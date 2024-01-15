@@ -23,7 +23,7 @@ import (
 
 type Metric struct {
 	Name     string
-	DataType DataType
+	DataType string
 	// IntValue    int
 	// FloatValue  float32
 	// BoolValue   bool
@@ -33,6 +33,7 @@ type Metric struct {
 
 type DataType uint32
 
+// TODO repetitions
 const (
 	TypeInt    DataType = 3
 	TypeFloat  DataType = 9
@@ -40,6 +41,7 @@ const (
 	TypeString DataType = 12
 )
 
+// TODO repetitions: remove this horrible thing and use the sproto definition ones
 func (d *DataType) String() string {
 	switch *d {
 	case TypeInt:
@@ -66,60 +68,61 @@ type Payload struct {
 	Metrics   []Metric
 }
 
-func (p *Payload) EncodePayload(isDeathPayload bool) ([]byte, error) {
-	now := time.Now().UnixMilli()
-	ms := []*sproto.Payload_Metric{}
-
-	for i, m := range p.Metrics {
-		sm := sproto.Payload_Metric{}
-		sm.Name = &p.Metrics[i].Name
-		dt := m.DataType.toUint32()
-		sm.Datatype = &dt
-		/**********************************
-		TypeInt DataType = 10
-		TypeFloat DataType = 12
-		TypeBool DataType = 14
-		TypeString DataType = 15
-		**********************************/
-		switch m.DataType {
-		case TypeInt:
-			iv, err := strconv.ParseUint(m.Value, 10, 64)
-			if err != nil {
-				return nil, err
-			}
-			sm.Value = &sproto.Payload_Metric_IntValue{IntValue: uint32(iv)}
-		case TypeFloat:
-			fv, err := strconv.ParseFloat(m.Value, 32)
-			if err != nil {
-				return nil, err
-			}
-			sm.Value = &sproto.Payload_Metric_FloatValue{FloatValue: float32(fv)}
-		case TypeBool:
-			bv, err := strconv.ParseBool(m.Value)
-			if err != nil {
-				return nil, err
-			}
-			sm.Value = &sproto.Payload_Metric_BooleanValue{BooleanValue: bv}
-		case TypeString:
-			sm.Value = &sproto.Payload_Metric_StringValue{StringValue: m.Value}
-		}
-		//fmt.Println(*sm.Name, "=", sm.Value)
-		ms = append(ms, &sm)
-	}
-	//fmt.Println("---------")
-
-	sp := sproto.Payload{}
-
-	if !isDeathPayload {
-		// Set Payload timestamp
-		tn := uint64(now)
-		sp.Timestamp = &tn
-		// Set Payload sequence
-		sp.Seq = &p.Seq
-	}
-	sp.Metrics = ms
-	return proto.Marshal(&sp)
-}
+// TODO rewrite it with Metric.DataType as string
+//func (p *Payload) EncodePayload(isDeathPayload bool) ([]byte, error) {
+//	now := time.Now().UnixMilli()
+//	ms := []*sproto.Payload_Metric{}
+//
+//	for i, m := range p.Metrics {
+//		sm := sproto.Payload_Metric{}
+//		sm.Name = &p.Metrics[i].Name
+//		dt := m.DataType.toUint32()
+//		sm.Datatype = &dt
+//		/**********************************
+//		TypeInt DataType = 10
+//		TypeFloat DataType = 12
+//		TypeBool DataType = 14
+//		TypeString DataType = 15
+//		**********************************/
+//		switch m.DataType {
+//		case TypeInt:
+//			iv, err := strconv.ParseUint(m.Value, 10, 64)
+//			if err != nil {
+//				return nil, err
+//			}
+//			sm.Value = &sproto.Payload_Metric_IntValue{IntValue: uint32(iv)}
+//		case TypeFloat:
+//			fv, err := strconv.ParseFloat(m.Value, 32)
+//			if err != nil {
+//				return nil, err
+//			}
+//			sm.Value = &sproto.Payload_Metric_FloatValue{FloatValue: float32(fv)}
+//		case TypeBool:
+//			bv, err := strconv.ParseBool(m.Value)
+//			if err != nil {
+//				return nil, err
+//			}
+//			sm.Value = &sproto.Payload_Metric_BooleanValue{BooleanValue: bv}
+//		case TypeString:
+//			sm.Value = &sproto.Payload_Metric_StringValue{StringValue: m.Value}
+//		}
+//		//fmt.Println(*sm.Name, "=", sm.Value)
+//		ms = append(ms, &sm)
+//	}
+//	//fmt.Println("---------")
+//
+//	sp := sproto.Payload{}
+//
+//	if !isDeathPayload {
+//		// Set Payload timestamp
+//		tn := uint64(now)
+//		sp.Timestamp = &tn
+//		// Set Payload sequence
+//		sp.Seq = &p.Seq
+//	}
+//	sp.Metrics = ms
+//	return proto.Marshal(&sp)
+//}
 
 func (p *Payload) DecodePayload(bytes []byte) error {
 
@@ -138,9 +141,12 @@ func (p *Payload) DecodePayload(bytes []byte) error {
 
 	for i := range pl.Metrics {
 		p.Metrics[i].Name = *pl.Metrics[i].Name
-		p.Metrics[i].DataType = DataType(*pl.Metrics[i].Datatype)
+		p.Metrics[i].DataType = sproto.DataType_name[int32(*pl.Metrics[i].Datatype)]
+		currentType := DataType(*pl.Metrics[i].Datatype)
+
 		// Set the Value according to DataType
-		switch p.Metrics[i].DataType {
+		// TODO add forgotten ones
+		switch currentType {
 		case TypeInt:
 			p.Metrics[i].Value = strconv.FormatUint(uint64(pl.Metrics[i].GetIntValue()), 10)
 		case TypeFloat:
