@@ -17,7 +17,6 @@ import (
 	"fmt"
 	"google.golang.org/protobuf/proto"
 	"sparkplugui/backend/sparkplug/sproto"
-	"strconv"
 	"time"
 )
 
@@ -28,7 +27,7 @@ type Metric struct {
 	// FloatValue  float32
 	// BoolValue   bool
 	// StringValue string
-	Value string
+	Value any
 }
 
 type DataType uint32
@@ -41,7 +40,7 @@ const (
 	TypeString DataType = 12
 )
 
-// TODO repetitions: remove this horrible thing and use the sproto definition ones
+// TODO repetitions: remove this and use the sproto definition ones if it's possible
 func (d *DataType) String() string {
 	switch *d {
 	case TypeInt:
@@ -148,11 +147,11 @@ func (p *Payload) DecodePayload(bytes []byte) error {
 		// TODO add forgotten ones
 		switch currentType {
 		case TypeInt:
-			p.Metrics[i].Value = strconv.FormatUint(uint64(pl.Metrics[i].GetIntValue()), 10)
+			p.Metrics[i].Value = uint64(pl.Metrics[i].GetIntValue())
 		case TypeFloat:
-			p.Metrics[i].Value = fmt.Sprintf("%f", pl.Metrics[i].GetFloatValue())
+			p.Metrics[i].Value = pl.Metrics[i].GetFloatValue()
 		case TypeBool:
-			p.Metrics[i].Value = strconv.FormatBool(pl.Metrics[i].GetBooleanValue())
+			p.Metrics[i].Value = pl.Metrics[i].GetBooleanValue()
 		case TypeString:
 			p.Metrics[i].Value = pl.Metrics[i].GetStringValue()
 		}
