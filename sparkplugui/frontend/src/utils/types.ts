@@ -40,11 +40,9 @@ export type LastMessagesType = Record<string, MessageType>; // string key is top
 // ******************************************
 // * Card
 // ******************************************
-
-export type CardType = Record<string, boolean>;
 export interface AmbreCardType {
     title: string,
-    name: string
+    stickToBottom?: boolean,
     children?: any,
 }
 

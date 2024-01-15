@@ -32,7 +32,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 export const Amain = () => {
 
     const layout = [
-        {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},
+        {i: constants.softCard, x: 0, y: 0, w: 2, h: 1.2, static: true},
         {i: constants.formCard, x: 2, y: 0, w: 2, h: 3},
         {i: constants.messagesCard, x: 7, y: 0, w: 4, h: 5},
         {i: constants.treeCard, x: 0, y: 2, w: 3, h: 4},
@@ -52,19 +52,19 @@ export const Amain = () => {
                 isDraggable={customizable}
                 isResizable={customizable}
             >
-                <div key={constants.softCard} style={styles.ambreCard}>
+                <div key={constants.softCard} style={styles.RGLContainer}>
                     <SoftCard/>
                 </div>
-                <div key={constants.formCard} style={styles.ambreCard}>
+                <div key={constants.formCard} style={styles.RGLContainer}>
                     <FormCard/>
                 </div>
-                <div key={constants.treeCard} style={styles.ambreCard}>
+                <div key={constants.treeCard} style={styles.RGLContainer}>
                     <TreeCard/>
                 </div>
-                <div key={constants.lastMessageCard} style={styles.ambreCard}>
+                <div key={constants.lastMessageCard} style={styles.RGLContainer}>
                     <LastMessageCard/>
                 </div>
-                <div key={constants.messagesCard} style={styles.ambreCard}>
+                <div key={constants.messagesCard} style={styles.RGLContainer}>
                     <MessagesCard/>
                 </div>
             </ResponsiveGridLayout>

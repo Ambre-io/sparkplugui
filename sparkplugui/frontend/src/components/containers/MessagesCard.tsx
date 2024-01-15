@@ -24,34 +24,15 @@ export const MessagesCard: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    // Auto scroll to the bottom
-    const mqttMessagesRef = useRef<HTMLDivElement>(null);
-    const scrollToBottom = () => {
-        if (mqttMessagesRef !== null && mqttMessagesRef.current !== null) {
-            mqttMessagesRef.current.scrollTop = mqttMessagesRef.current.scrollHeight;
-        }
-    };
-
     EvtPayload().then((message: backend.MQTTMessage) => {
         dispatch(setMessages(message));
     }).catch(e => {
         console.debug('Error: fail to get MQTT Payload:', e);
     });
 
-    // Reaching the absolute bottom
-    useEffect(() => {
-        const mqttMessages = mqttMessagesRef.current;
-        if (mqttMessages !== null) {
-            mqttMessages.addEventListener('DOMNodeInserted', scrollToBottom);
-            return () => {
-                mqttMessages.removeEventListener('DOMNodeInserted', scrollToBottom);
-            };
-        }
-    }, []);
-
     return (
-        <AmbreCard title={`${constants.emojiEnvelop} ${t('mqttMessagesTitle')}`} name={constants.messagesCard}>
-            <Grid ref={mqttMessagesRef} container>
+        <AmbreCard title={`${constants.emojiEnvelop} ${t('mqttMessagesTitle')}`} stickToBottom>
+            <Grid container>
                 {messages.map(({topic, payload, timestamp}, i) => (
                     <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
                         <span style={styles.messageDateTime}>{timestamp}</span>

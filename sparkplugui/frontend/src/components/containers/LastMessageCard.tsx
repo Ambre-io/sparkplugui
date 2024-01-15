@@ -40,9 +40,9 @@ export const LastMessageCard: React.FC = () => {
     }
 
     return (
-        <AmbreCard title={`${constants.emojiFile} ${t('lastMessage')}`} name={constants.lastMessageCard}>
+        <AmbreCard title={`${constants.emojiFile} ${t('lastMessage')}`}>
             {(message.topic !== '') && (
-                <Grid container>
+                <Grid container sx={styles.lastMessage}>
                     <Grid item xs={12}>
                         <span style={styles.messageDateTime}>{message.timestamp}</span>
                         {/*<span style={styles.messageDateTime}><Moment>{message.timestamp}</Moment></span>*/}

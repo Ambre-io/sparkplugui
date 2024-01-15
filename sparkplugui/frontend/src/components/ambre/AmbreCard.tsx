@@ -2,18 +2,39 @@ import Grid from "@mui/material/Grid";
 
 import {AmbreCardType} from "../../utils/types.ts";
 import {styles} from "../../styles/styles.ts";
+import {useEffect, useRef} from "react";
 
 
 export const AmbreCard = (props: AmbreCardType) => {
 
-    const {title, name, children} = props;
+    const {title, children, stickToBottom = false} = props;
+
+     // Auto scroll to the bottom
+    const scrollToBottomRef = useRef<HTMLDivElement>(null);
+    const scrollToBottom = () => {
+        if (stickToBottom && scrollToBottomRef !== null && scrollToBottomRef.current !== null) {
+            scrollToBottomRef.current.scrollTop = scrollToBottomRef.current.scrollHeight;
+        }
+    };
+
+    // Reaching the absolute bottom
+    useEffect(() => {
+        if (stickToBottom && scrollToBottomRef !== null && scrollToBottomRef.current !== null) {
+            scrollToBottomRef.current.addEventListener('DOMNodeInserted', scrollToBottom);
+            return () => {
+                if (stickToBottom && scrollToBottomRef !== null && scrollToBottomRef.current !== null) {
+                    scrollToBottomRef.current.removeEventListener('DOMNodeInserted', scrollToBottom);
+                }
+            };
+        }
+    }, []);
 
     return (
-        <Grid container id={title} sx={{height: '100%', p: 1}}>
+        <Grid container id={title} sx={styles.ambreCard}>
             <Grid item xs={12} sx={styles.ambreCardTitle}>
                 {title}
             </Grid>
-            <Grid item xs={12} sx={styles.ambreCardContentContainer}>
+            <Grid ref={scrollToBottomRef} item xs={12} sx={styles.ambreCardContentContainer}>
                 <Grid container sx={styles.ambreCardContent}>
                     <Grid item xs={12}>
                         {children}

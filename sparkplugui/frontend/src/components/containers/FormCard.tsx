@@ -26,7 +26,7 @@ export const FormCard: React.FC = () => {
     };
 
     return (
-        <AmbreCard title={`${constants.emojiConnection} ${t('mqttInformation')}`} name={constants.formCard}>
+        <AmbreCard title={`${constants.emojiConnection} ${t('mqttInformation')}`}>
             <FormGroup>
                 <FormControl sx={styles.formCardFirstInput} fullWidth>
                     <AmbreTextField

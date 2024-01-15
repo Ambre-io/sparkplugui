@@ -2,10 +2,12 @@ import {stylesType} from "../utils/types.ts";
 import {
     ambreCardBoxGrey,
     muiMiddleGrey,
-    primaryDark, primaryDarkLight,
+    primaryDark,
+    primaryDarkLight,
     primaryLight,
     primaryMain,
-    primaryMainDark, primaryMainSupraLight, white
+    primaryMainDark,
+    primaryMainSupraLight
 } from "./muiTheme.ts";
 
 const ambreCardBoxShadow = `0px 0px 3px 0px ${ambreCardBoxGrey}`;
@@ -19,11 +21,15 @@ export const styles: stylesType = {
     // ******************************************
     // * COMMON
     // ******************************************
-    ambreCard: {
+    RGLContainer: {
         boxShadow: ambreCardBoxShadow,
         borderRadius: 3,
         background: primaryDarkLight,
         height: '100%',
+    },
+    ambreCard: {
+        height: '100%',
+        p: 1
     },
     ambreCardTitle: {
         fontFamily: 'TitilliumWebBold',
@@ -32,16 +38,16 @@ export const styles: stylesType = {
         textTransform: 'uppercase',
     },
     ambreCardContentContainer: {
-        ...ambreBorder(ambreCardBoxGrey, 1, 1),
+        ...ambreBorder(ambreCardBoxGrey, 1),
         background: primaryMainSupraLight,
-        height: 'calc(100% - 32px)',
+        height: 'calc(100% - 30px)',
         overflow: 'auto',
     },
-    ambreCardContent:{
-        paddingLeft: 2,
+    ambreCardContent: {
+        paddingLeft: 1,
         paddingRight: 2,
         paddingTop: 1,
-        paddingBottom: 1,
+        // paddingBottom: 1,
     },
     color: (color: string) => ({
         color: color
@@ -78,9 +84,10 @@ export const styles: stylesType = {
     // * SPECIFIC
     // ******************************************
     softContainer: {
-        textAlign: 'center',
-        paddingLeft: 1,
-        paddingRight: 3
+        background: primaryMainSupraLight,
+        ...ambreBorder(ambreCardBoxGrey, 1),
+        borderRadius: 1,
+        height: '100%',
     },
     softLogo: {
         width: 100,
@@ -103,23 +110,29 @@ export const styles: stylesType = {
         paddingTop: 1
     },
     mqttMessages: {
-        ...ambreBorder(primaryLight),
+        ...ambreBorder(primaryMain, 1),
         marginBottom: 1,
         paddingLeft: 1,
         paddingRight: 1
     },
     messageDateTime: {
-        color: muiMiddleGrey,
+        color: primaryMain,
         paddingLeft: 1,
-        fontSize: 12
+        fontSize: 12,
+        fontFamily: 'TitilliumWebBold'
     },
     mqttTopic: {
-        color: primaryMain,
+        color: primaryLight,
         fontFamily: 'TitilliumWebBold'
     },
     tree: {
         userSelect: 'none',
-        paddingRight: 3
+        paddingRight: 3,
+        paddingBottom: 1,
+    },
+    lastMessage: {
+        paddingBottom: 1,
+        color: primaryDark
     },
     // ******************************************
     // * OTHER

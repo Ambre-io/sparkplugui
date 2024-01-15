@@ -12,27 +12,31 @@ import {styles} from "../../styles/styles.ts";
 
 
 export const SoftCard: React.FC = () => (
-    <Grid container>
-        <Grid item sx={styles.softContainer}>
-            <img style={styles.softLogo} alt='SparkplugUI logo' src='src/assets/images/logo.svg'/>
-            <div style={styles.softTitle}>SparkplugUI</div>
-            <div style={styles.softSubTitle}>
-                {SETTINGS.version} by <span style={styles.color(primaryDark)}>{SETTINGS.creator.name}</span>
-            </div>
-        </Grid>
-        <Grid item>
-            <Grid container alignItems='center'>
-                <Grid item>
-                    <LanguageSelection/>
+    <Grid container sx={{height: '100%'}} justifyContent='center'>
+        <Grid item xs={10} sx={{p: 1}}>
+            <Grid container sx={styles.softContainer}>
+                <Grid item xs={12} sx={{textAlign: 'center'}}>
+                    <img style={styles.softLogo} alt='SparkplugUI logo' src='src/assets/images/logo.svg'/>
+                    <div style={styles.softTitle}>SparkplugUI</div>
+                    <div style={styles.softSubTitle}>
+                        {SETTINGS.version} by <span style={styles.color(primaryDark)}>{SETTINGS.creator.name}</span>
+                    </div>
                 </Grid>
-                <Grid item sx={styles.padding(1)}>
-                    <ConnectButton/>
-                </Grid>
-                <Grid item sx={styles.padding(1)}>
-                    <OpenNodesButton/>
-                </Grid>
-                <Grid item sx={styles.padding(1)}>
-                    <CustomizableButton/>
+                <Grid item xs={12}>
+                    <Grid container alignItems='center' justifyContent="center">
+                        <Grid item>
+                            <LanguageSelection/>
+                        </Grid>
+                        <Grid item sx={styles.padding(1)}>
+                            <ConnectButton/>
+                        </Grid>
+                        <Grid item sx={styles.padding(1)}>
+                            <OpenNodesButton/>
+                        </Grid>
+                        <Grid item sx={styles.padding(1)}>
+                            <CustomizableButton/>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
