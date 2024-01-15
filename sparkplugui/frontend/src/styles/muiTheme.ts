@@ -13,7 +13,7 @@ export const primaryDarkLight = '#f7ddfd'; // '#f7ddfd'
 // Greys
 export const ambreCardBoxGrey = '#B7B7B7';
 // export const muiLightGrey = 'rgba(0, 0, 0, 0.23)';
-export const muiMiddleGrey = 'rgba(0, 0, 0, 0.6)';
+// export const muiMiddleGrey = 'rgba(0, 0, 0, 0.6)';
 
 export const theme = createTheme({
     palette: {

@@ -36,7 +36,7 @@ export const FormCard: React.FC = () => {
                     />
                     <FormHelperText>{t('hostHelper')}</FormHelperText>
                 </FormControl>
-                <FormControl sx={styles.marginBottom1} fullWidth>
+                <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
                         label={t('port')}
                         value={information.port}
@@ -45,7 +45,7 @@ export const FormCard: React.FC = () => {
                     />
                     <FormHelperText>{t('portHelper')}</FormHelperText>
                 </FormControl>
-                <FormControl sx={styles.marginBottom1} fullWidth>
+                <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
                         label={t('username')}
                         value={information.username}
@@ -53,7 +53,7 @@ export const FormCard: React.FC = () => {
                     />
                     <FormHelperText>{t('usernameHelper')}</FormHelperText>
                 </FormControl>
-                <FormControl sx={styles.marginBottom1} fullWidth>
+                <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
                         label={t('password')}
                         value={information.password}
@@ -75,7 +75,7 @@ export const FormCard: React.FC = () => {
                     />
                     <FormHelperText>{t('passwordHelper')}</FormHelperText>
                 </FormControl>
-                <FormControl sx={styles.marginBottom1} fullWidth>
+                <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
                         label={t('topic')}
                         value={information.topic}

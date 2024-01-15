@@ -1,7 +1,6 @@
 import {stylesType} from "../utils/types.ts";
 import {
     ambreCardBoxGrey,
-    muiMiddleGrey,
     primaryDark,
     primaryDarkLight,
     primaryLight,
@@ -55,30 +54,23 @@ export const styles: stylesType = {
     padding: (p: number) => ({
         padding: p
     }),
-    width100: {
-        width: '100%'
-    },
-    marginBottom1: {
-        marginBottom: 1
-    },
-    marginBottom2: {
-        marginBottom: 2
-    },
+    paddingBottom: (p: number) => ({
+        paddingBottom: p
+    }),
     jsonView: {  // https://uiwjs.github.io/react-json-view/#online-editing-theme
         '--w-rjv-key-string': primaryDark,
-
         '--w-rjv-curlybraces-color': primaryDark,
         '--w-rjv-colon-color': primaryDark,
         '--w-rjv-brackets-color': primaryDark,
         '--w-rjv-quotes-color': primaryDark,
-        '--w-rjv-quotes-string-color': primaryDark,
-
         '--w-rjv-color': primaryDark,
         '--w-rjv-info-color': primaryLight,
         '--w-rjv-arrow-color': primaryDark,
         '--w-rjv-update-color': primaryLight,
         '--w-rjv-copied-color': primaryMainDark,
-        '--w-rjv-copied-success-color': primaryDark
+        '--w-rjv-copied-success-color': primaryDark,
+        '--w-rjv-quotes-string-color': primaryDark,
+        '--w-rjv-type-string-color': primaryMainDark,
     },
     // ******************************************
     // * SPECIFIC
@@ -134,24 +126,21 @@ export const styles: stylesType = {
         paddingBottom: 1,
         color: primaryDark
     },
-    // ******************************************
-    // * OTHER
-    // ******************************************
-    spinOnClick: {
-        padding: '6px',
-        minWidth: '20px',
-        '&:active': {
-            '& .MuiSvgIcon-root': {
-                animation: "spin 1s linear",
-                "@keyframes spin": {
-                    "0%": {
-                        transform: "rotate(360deg)",
-                    },
-                    "100%": {
-                        transform: "rotate(0deg)",
-                    }
-                }
-            }
-        }
-    }
+    // spinOnClick: {
+    //     padding: '6px',
+    //     minWidth: '20px',
+    //     '&:active': {
+    //         '& .MuiSvgIcon-root': {
+    //             animation: "spin 1s linear",
+    //             "@keyframes spin": {
+    //                 "0%": {
+    //                     transform: "rotate(360deg)",
+    //                 },
+    //                 "100%": {
+    //                     transform: "rotate(0deg)",
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }
