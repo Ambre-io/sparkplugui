@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
 import {constants} from "../../utils/constants.ts";
 import {RootState} from "../store.ts";
-import {LastMessagesType, MessagesType, MessageType} from "../../utils/types.ts";
+import {LastMessagesType} from "../../utils/types.ts";
 
 
 export const initLastMessagesSlice: LastMessagesType = {}; // Record<topic, message>

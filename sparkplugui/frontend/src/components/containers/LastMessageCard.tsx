@@ -46,13 +46,16 @@ export const LastMessageCard: React.FC = () => {
                 <Grid container sx={styles.lastMessage}>
                     <Grid item xs={12}>
                         <span style={styles.messageDateTime}>{utils.locale(message.timestamp)}</span>
-                        <div>
-                            {isParsable ? (
-                                <JsonView value={displayedMessage} style={{...githubLightTheme, ...styles.jsonView}}/>
-                            ) : (
-                                displayedMessage
-                            )}
-                        </div>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <span style={styles.mqttTopic}>{message.topic}</span>
+                    </Grid>
+                    <Grid item xs={12}>
+                        {isParsable ? (
+                            <JsonView value={displayedMessage} style={{...githubLightTheme, ...styles.jsonView}}/>
+                        ) : (
+                            displayedMessage
+                        )}
                     </Grid>
                 </Grid>
             )}

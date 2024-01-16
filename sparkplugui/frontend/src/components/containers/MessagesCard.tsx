@@ -16,8 +16,6 @@ import {EvtPayload} from "../../../wailsjs/go/backend/App";
 import {utils} from "../../utils/utils.ts";
 
 
-const getDate = (timestamp: number): Date => new Date(timestamp);
-
 export const MessagesCard: React.FC = () => {
 
     const dispatch: AppDispatch = useDispatch();

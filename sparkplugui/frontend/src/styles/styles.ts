@@ -114,7 +114,8 @@ export const styles: stylesType = {
         ...ambreBorder(primaryMain, 1),
         marginBottom: 1,
         paddingLeft: 1,
-        paddingRight: 1
+        paddingRight: 1,
+        overflowWrap: 'break-word'
     },
     messageDateTime: {
         color: primaryMain,
@@ -124,12 +125,14 @@ export const styles: stylesType = {
     },
     mqttTopic: {
         color: primaryLight,
-        fontFamily: 'TitilliumWebBold'
+        fontFamily: 'TitilliumWebBold',
+        overflowWrap: 'break-word'
     },
     tree: {
         userSelect: 'none',
         paddingRight: 3,
         paddingBottom: 1,
+        overflowWrap: 'break-word'
     },
     lastMessage: {
         paddingBottom: 1,
