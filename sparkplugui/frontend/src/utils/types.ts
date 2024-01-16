@@ -13,7 +13,7 @@ export interface NodeType {
 }
 
 export interface NodeOptionsType {
-    nodeTopic: string;
+    nodeID: string;
 }
 
 // ******************************************

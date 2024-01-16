@@ -27,41 +27,49 @@ export const Tree: React.FC = () => {
 
     const openedNodes = useSelector(getOpenedNodes);
 
-    let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'), [], {nodeTopic: ''});
+    let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'), [], {nodeID: ''});
     const [tree, setTree] = useState<NodeType>(nodeRoot);
 
     useEffect(() => {
         // Create tree
         const parents: string[] = [...initParentNodes];
-        messages.map((msg: MessageType) => {
-            const {topic} = msg;
 
+        // Loop over messages
+        messages.map((msg: MessageType) => {
+
+            // Split the topic: WAW/SUPER/TOPIC => [WAW, SUPER, TOPIC]
+            const {topic} = msg;
             const splitedTopic = topic.split(constants.topicSeparator);
             let lastNode: NodeType = nodeRoot;
+
+            // Loop over the topic parts
             splitedTopic.map((subTopic: string, i: number) => {
 
-                // create node with the node topic
-                const lastNodeTopic = lastNode.options?.nodeTopic ?? '';
-                const nodeTopic = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${subTopic}`;
-                let node: NodeType = utils.createNode(nodeTopic, subTopic, [], {nodeTopic});
+                // Create a tree node using the topic
+                const lastNodeTopic = lastNode.options?.nodeID ?? '';
+                const nodeID = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${subTopic}`;
+                let node: NodeType = utils.createNode(nodeID, subTopic, [], {nodeID});
 
-                // get or create node
-                const inTreeNode = lastNode.subnodes.find((n: NodeType) => n.id === nodeTopic);
+                // Update current node reference if exists or add it to the tree
+                const inTreeNode = lastNode.subnodes.find((n: NodeType) => n.id === nodeID);
                 if (inTreeNode !== undefined) {
                     node = inTreeNode;
                 } else {
                     if (!lastNode.subnodes.in(node, 'id')) lastNode.subnodes.push(node);
                 }
 
-                // Leaf: last part of the topic
-                if (splitedTopic.length - 1 === i) {
+                // Leaf or Parent
+                if (splitedTopic.length - 1 === i) { // Leaf
+                    // Update the last message
                     dispatch(setLastMessages({[topic]: msg}));
+                    // Add the file emoji
                     if (!node.label.includes(constants.emojiFile)) node.label = `${node.label} ${constants.emojiFile}`;
-                } else {
+
+                } else { // Parent
                     parents.push(node.id);
                 }
 
-                // update the parent node
+                // update last node reference
                 lastNode = node;
             });
         });

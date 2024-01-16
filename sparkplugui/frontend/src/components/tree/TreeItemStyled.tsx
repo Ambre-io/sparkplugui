@@ -48,6 +48,7 @@ export const TreeItemStyled = styled((props: TreeItemProps) => (
     [`& .${treeItemClasses.group}`]: {
         paddingLeft: 10,
         borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
+        marginLeft: 10,
     },
     [`& .${treeItemClasses.label}`]: {
         margin: 2,

@@ -43,7 +43,7 @@ export const TreeItemBehavior = React.forwardRef((props: TreeItemContentProps, r
 
     const goSelection = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         handleSelection(event);
-        if (options !== undefined) dispatch(setSelectedTopic(options.nodeTopic));
+        if (options !== undefined) dispatch(setSelectedTopic(options.nodeID));
     };
 
     return (
