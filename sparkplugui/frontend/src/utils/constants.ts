@@ -32,5 +32,10 @@ export const constants = {
     emojiConnection: '📡',
     emojiEnvelop: '📨',
     emojiOkg: '👌',
-    emojiSadge: '☹️'
+    emojiSadge: '☹️',
+    xs: 480,
+    sm: 768,
+    md: 996,
+    lg: 1200,
+    xl: 1920
 };

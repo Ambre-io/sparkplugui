@@ -11,6 +11,7 @@ package main
 
 import (
 	"embed"
+	"github.com/wailsapp/wails/v2/pkg/logger"
 	"sparkplugui/backend"
 
 	"github.com/wailsapp/wails/v2"
@@ -21,19 +22,40 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
+var xs = 480
+var sm = 768
+var md = 996
+var lg = 1200
+var xl = 1920
+
+var popWindowWidth = 1500
+var popWindowHeight = 970
+
+var minWindowWidth = md + 1
+var minWindowHeight = 820
+
+var maxWindowWidth = 2560
+var maxWindowHeight = 1440
+
 func main() {
 	// Create an instance of the app structure
 	app := backend.NewApp()
 
 	// Create application with options
 	err := wails.Run(&options.App{
-		Title:  "SparkpluGUI",
-		Width:  1024,
-		Height: 768,
+		Title:     "SparkpluGUI",
+		Width:     popWindowWidth,
+		Height:    popWindowHeight,
+		MinWidth:  minWindowWidth,
+		MinHeight: minWindowHeight,
+		MaxWidth:  maxWindowWidth,
+		MaxHeight: maxWindowHeight,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		OnStartup: app.Startup,
+		LogLevel:           logger.DEBUG,
+		LogLevelProduction: logger.ERROR,
+		OnStartup:          app.Startup,
 		Bind: []interface{}{
 			app,
 		},

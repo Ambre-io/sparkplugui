@@ -26,7 +26,9 @@ export const App = () => (
             <ToastContainer position={toast.POSITION.BOTTOM_RIGHT}/>
             {/*see: https://alvarotrigo.com/blog/animated-backgrounds-css/#3)-floating-squares*/}
             <ul className="circles">
-                <Amain/>
+                <main className="resetCircles">
+                    <Amain/>
+                </main>
                 <li></li>
                 <li></li>
                 <li></li>

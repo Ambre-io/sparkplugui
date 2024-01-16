@@ -54,6 +54,12 @@ export const styles: stylesType = {
     padding: (p: number) => ({
         padding: p
     }),
+    paddingLeft: (p: number) => ({
+        paddingLeft: p
+    }),
+    paddingRight: (p: number) => ({
+        paddingRight: p
+    }),
     paddingBottom: (p: number) => ({
         paddingBottom: p
     }),
@@ -96,6 +102,9 @@ export const styles: stylesType = {
         fontSize: 11,
         color: primaryLight,
         marginTop: -7
+    },
+    softActions: {
+        overflow: 'auto',
     },
     formCardFirstInput: {
         marginBottom: 1,
