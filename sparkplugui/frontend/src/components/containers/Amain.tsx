@@ -9,8 +9,8 @@ SparkpluGUI - Software that displays decoded Sparkplug messages from MQTT IoT
 import React from "react";
 
 import {Responsive, WidthProvider} from "react-grid-layout";
-import '/node_modules/react-grid-layout/css/styles.css';
-import '/node_modules/react-resizable/css/styles.css';
+import '../../../node_modules/react-grid-layout/css/styles.css';
+import '../../../node_modules/react-resizable/css/styles.css';
 import {useSelector} from 'react-redux'
 import 'react-toastify/dist/ReactToastify.css';
 

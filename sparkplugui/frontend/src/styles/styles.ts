@@ -28,7 +28,8 @@ export const styles: stylesType = {
     },
     ambreCard: {
         height: '100%',
-        p: 1
+        p: 1,
+        userSelect: 'none',
     },
     ambreCardTitle: {
         fontFamily: 'TitilliumWebBold',
@@ -46,7 +47,6 @@ export const styles: stylesType = {
         paddingLeft: 1,
         paddingRight: 2,
         paddingTop: 1,
-        // paddingBottom: 1,
     },
     color: (color: string) => ({
         color: color
@@ -86,6 +86,7 @@ export const styles: stylesType = {
         ...ambreBorder(ambreCardBoxGrey, 1),
         borderRadius: 1,
         height: '100%',
+        userSelect: 'none',
     },
     softLogo: {
         width: 100,
@@ -126,7 +127,6 @@ export const styles: stylesType = {
     mqttTopic: {
         color: primaryLight,
         fontFamily: 'TitilliumWebBold',
-        overflowWrap: 'break-word'
     },
     tree: {
         userSelect: 'none',

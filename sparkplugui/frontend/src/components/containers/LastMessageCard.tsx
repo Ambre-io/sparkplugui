@@ -47,7 +47,7 @@ export const LastMessageCard: React.FC = () => {
                     <Grid item xs={12}>
                         <span style={styles.messageDateTime}>{utils.locale(message.timestamp)}</span>
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={12} sx={{userSelect: 'auto'}}>
                         <span style={styles.mqttTopic}>{message.topic}</span>
                     </Grid>
                     <Grid item xs={12}>

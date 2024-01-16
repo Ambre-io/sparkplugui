@@ -15,6 +15,7 @@ const container = document.getElementById('root');
 
 const root = createRoot(container!);
 
+// see: https://react.dev/reference/react/StrictMode
 root.render(
     <React.StrictMode>
         <App/>
