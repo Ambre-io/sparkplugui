@@ -21,7 +21,6 @@ body {
     overflow-x: hidden;
     background-image: linear-gradient(to right, #9796f0, #fbc7d4);
     font-family: 'TitilliumWeb', sans-serif;
-    user-select: none;
 }
 
 ::selection {

@@ -20,6 +20,14 @@ export const styles: stylesType = {
     // ******************************************
     // * COMMON
     // ******************************************
+    toastContainer: { // https://fkhadra.github.io/react-toastify/how-to-style
+        '--toastify-icon-color-success': primaryLight,
+        '--toastify-icon-color-error': primaryDark,
+        '--toastify-text-color-light': primaryMain, // color
+        '--toastify-color-light': primaryMainSupraLight, // background
+        '--toastify-font-family': 'TitilliumWeb',
+        fontSize: 18,
+    },
     RGLContainer: {
         boxShadow: ambreCardBoxShadow,
         borderRadius: 3,
