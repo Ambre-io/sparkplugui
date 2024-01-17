@@ -32,6 +32,8 @@ export const constants = {
     emojiConnection: '📡',
     emojiEnvelop: '📨',
     emojiOkg: '👌',
+    emojiSmile: '😀',
+    emojiWink: '😉',
     emojiSadge: '☹️',
     xs: 480,
     sm: 768,

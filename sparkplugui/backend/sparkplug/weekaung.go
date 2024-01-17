@@ -141,6 +141,9 @@ func (p *Payload) DecodePayload(bytes []byte) error {
 	for i := range pl.Metrics {
 		p.Metrics[i].Name = *pl.Metrics[i].Name
 		p.Metrics[i].DataType = sproto.DataType_name[int32(*pl.Metrics[i].Datatype)]
+		if *pl.Metrics[i].Datatype >= uint32(len(sproto.DataType_name)) {
+			fmt.Printf("Warning: could not find metric number=%d in sproto.DataType_name\n", *pl.Metrics[i].Datatype)
+		}
 		currentType := DataType(*pl.Metrics[i].Datatype)
 
 		// Set the Value according to DataType

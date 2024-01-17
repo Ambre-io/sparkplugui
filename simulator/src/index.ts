@@ -54,6 +54,7 @@ const topicBase: string = 'spBv1.0/GROUPID';
 
             const deviceTopic: string = `${nodeTopic}/${utils.euidGenerator()}`;
 
+            // TODO publish bytes array and dataset and I get myself in the shit
             const payload: UPayload = {
                 timestamp: new Date().getTime(),
                 metrics: [{

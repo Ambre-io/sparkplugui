@@ -32,7 +32,7 @@ export const ConnectButton: React.FC = () => {
             mqttData.topic = information.topic;
             CmdConnect(mqttData).then((connected: boolean) => {
                 if (connected) {
-                    toast.success(`${t('successConnect')} ${constants.emojiOkg}`);
+                    toast.success(`${t('successConnect')} ${constants.emojiSmile}`);
                     setConnected(true);
                 } else {
                     error();
@@ -44,7 +44,7 @@ export const ConnectButton: React.FC = () => {
         } else {
             CmdDisconnect().then((disconnected) => {
                 if (disconnected) {
-                    toast.success(`${t('successDisconnect')} ${constants.emojiOkg}`);
+                    toast.success(`${t('successDisconnect')} ${constants.emojiWink}`);
                     setConnected(false);
                 } else {
                     error();
