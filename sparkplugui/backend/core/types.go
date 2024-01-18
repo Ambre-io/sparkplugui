@@ -7,7 +7,7 @@ SparkpluGUI - Software that displays decoded Sparkplug messages from MQTT IoT
 * https://ambre.io/
 */
 
-package backend
+package core
 
 type MQTTClientData struct {
 	Host     string `json:"host"`

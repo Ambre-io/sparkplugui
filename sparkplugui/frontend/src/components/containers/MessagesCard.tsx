@@ -11,8 +11,8 @@ import {MessagesType} from "../../utils/types.ts";
 import {styles} from "../../styles/styles.ts";
 import {theme} from "../../styles/muiTheme.ts";
 
-import {backend} from "../../../wailsjs/go/models.ts";
-import {EvtPayload} from "../../../wailsjs/go/backend/App";
+import {core} from "../../../wailsjs/go/models.ts";
+import {EvtPayload} from "../../../wailsjs/go/core/App";
 import {utils} from "../../utils/utils.ts";
 
 
@@ -23,7 +23,7 @@ export const MessagesCard: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    EvtPayload().then((message: backend.MQTTMessage) => {
+    EvtPayload().then((message: core.MQTTMessage) => {
         dispatch(setMessages(message));
     }).catch(e => {
         console.debug('Error: fail to get MQTT Payload:', e);
