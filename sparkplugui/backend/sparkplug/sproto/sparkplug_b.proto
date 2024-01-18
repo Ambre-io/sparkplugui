@@ -9,12 +9,6 @@
 // * Contributors:
 // *   Cirrus Link Solutions - initial implementation
 
-//
-// To compile:
-// cd client_libraries/java
-// protoc --proto_path=../../ --java_out=src/main/java ../../sparkplug_b.proto
-//
-
 syntax = "proto2";
 
 package org.eclipse.tahu.protobuf;

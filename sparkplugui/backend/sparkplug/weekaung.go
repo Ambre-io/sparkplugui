@@ -20,45 +20,13 @@ import (
 	"time"
 )
 
+// see the JavaScipt version to be inspired:
+// https://github.com/eclipse/tahu/blob/master/javascript/core/sparkplug-payload/lib/sparkplugbpayload.ts
+
 type Metric struct {
 	Name     string
 	DataType string
-	// IntValue    int
-	// FloatValue  float32
-	// BoolValue   bool
-	// StringValue string
-	Value any
-}
-
-type DataType uint32
-
-// TODO repetitions
-const (
-	TypeInt    DataType = 3
-	TypeFloat  DataType = 9
-	TypeBool   DataType = 11
-	TypeString DataType = 12
-)
-
-// TODO repetitions: remove this and use the sproto definition ones if it's possible
-func (d *DataType) String() string {
-	switch *d {
-	case TypeInt:
-		return "TypeInt"
-	case TypeFloat:
-		return "TypeFloat"
-	case TypeBool:
-		return "TypeBool"
-	case TypeString:
-		return "TypeString"
-	}
-
-	fmt.Println(int(d.toUint32()))
-	return "error"
-}
-
-func (d DataType) toUint32() uint32 {
-	return uint32(d)
+	Value    any
 }
 
 type Payload struct {
@@ -139,24 +107,35 @@ func (p *Payload) DecodePayload(bytes []byte) error {
 	p.Metrics = make([]Metric, len(pl.Metrics))
 
 	for i := range pl.Metrics {
+
+		// Set the Name and DataType
 		p.Metrics[i].Name = *pl.Metrics[i].Name
-		p.Metrics[i].DataType = sproto.DataType_name[int32(*pl.Metrics[i].Datatype)]
-		if *pl.Metrics[i].Datatype >= uint32(len(sproto.DataType_name)) {
-			fmt.Printf("Warning: could not find metric number=%d in sproto.DataType_name\n", *pl.Metrics[i].Datatype)
+		p.Metrics[i].DataType = sproto.FriendlyDataTypes[sproto.DataType(*pl.Metrics[i].Datatype)]
+		if *pl.Metrics[i].Datatype >= uint32(len(sproto.FriendlyDataTypes)) {
+			fmt.Printf("Warning: could not find metric number=%d in sproto.FriendlyDataTypes\n", *pl.Metrics[i].Datatype)
 		}
-		currentType := DataType(*pl.Metrics[i].Datatype)
 
 		// Set the Value according to DataType
-		// TODO add forgotten ones
+		currentType := sproto.DataType(*pl.Metrics[i].Datatype)
 		switch currentType {
-		case TypeInt:
-			p.Metrics[i].Value = uint64(pl.Metrics[i].GetIntValue())
-		case TypeFloat:
-			p.Metrics[i].Value = pl.Metrics[i].GetFloatValue()
-		case TypeBool:
+		case sproto.Int32:
+			p.Metrics[i].Value = pl.Metrics[i].GetIntValue()
+		case sproto.Int64:
+			p.Metrics[i].Value = pl.Metrics[i].GetLongValue()
+		case sproto.Float:
+			// look THIS 🤓
+			// GetDoubleValue() is for float64
+			// GetFloatValue() is for float32
+			// but the distinction is not represented in the definition
+			p.Metrics[i].Value = pl.Metrics[i].GetDoubleValue()
+		case sproto.Boolean:
 			p.Metrics[i].Value = pl.Metrics[i].GetBooleanValue()
-		case TypeString:
+		case sproto.String:
 			p.Metrics[i].Value = pl.Metrics[i].GetStringValue()
+		case sproto.Bytes:
+			p.Metrics[i].Value = pl.Metrics[i].GetBytesValue()
+		default:
+			p.Metrics[i].Value = pl.Metrics[i].GetValue()
 		}
 	}
 
