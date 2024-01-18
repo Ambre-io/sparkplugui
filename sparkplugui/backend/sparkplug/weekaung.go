@@ -3,7 +3,7 @@ Sparkplug 3.0.0
 Note: Complies to v3.0.0 of the Sparkplug specification
       to the extent needed for Winsonic DataIO and other industrial 4.0 products.
 Copyright (c) 2023 Winsonic Electronics, Taiwan
-@author David Lee
+@author David Lee & guiklimek
 @repository https://github.com/weekaung/sparkplugb-client
 
 * This program and the accompanying materials are made available under the
