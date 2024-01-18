@@ -97,7 +97,7 @@ export const styles: stylesType = {
         userSelect: 'none',
     },
     softLogo: {
-        width: 90,
+        width: 100,
         filter: 'invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)'
     },
     softTitle: {
@@ -113,8 +113,7 @@ export const styles: stylesType = {
         marginTop: -7
     },
     softActions: {
-        overflow: 'auto',
-        marginTop: -1
+        marginTop: '-5px'
     },
     formCardFirstInput: {
         marginBottom: 1,

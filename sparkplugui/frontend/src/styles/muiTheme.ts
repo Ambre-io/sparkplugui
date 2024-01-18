@@ -58,6 +58,10 @@ export const theme = createTheme({
         },
         MuiSelect: {
             styleOverrides: {
+                standard: {
+                    paddingTop: 0,
+                    paddingBottom: 0
+                },
                 select: {
                     background: 'transparent',
                     color: primaryDark
