@@ -24,16 +24,16 @@ export const SoftCard: React.FC = () => (
                 </Grid>
                 <Grid item xs={12}>
                     <Grid container alignItems='center' justifyContent="center" sx={styles.softActions} wrap="nowrap">
-                        <Grid item sx={styles.padding(1)}>
+                        <Grid item sx={styles.paddingLeft(1)}>
                             <LanguageSelection/>
                         </Grid>
-                        <Grid item sx={styles.padding(1)}>
+                        <Grid item sx={styles.paddingLeft(1)}>
                             <ConnectButton/>
                         </Grid>
-                        <Grid item sx={styles.padding(1)}>
+                        <Grid item sx={styles.paddingLeft(1)}>
                             <OpenNodesButton/>
                         </Grid>
-                        <Grid item sx={styles.padding(1)}>
+                        <Grid item sx={styles.paddingLeft(1)}>
                             <CustomizableButton/>
                         </Grid>
                     </Grid>

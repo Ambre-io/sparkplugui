@@ -47,6 +47,14 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
+                        label={t('topic')}
+                        value={information.topic}
+                        onChange={goChange(constants.topic)}
+                    />
+                    <FormHelperText>{t('topicHelper')}</FormHelperText>
+                </FormControl>
+                <FormControl sx={styles.paddingBottom(1)} fullWidth>
+                    <AmbreTextField
                         label={t('username')}
                         value={information.username}
                         onChange={goChange(constants.username)}
@@ -74,14 +82,6 @@ export const FormCard: React.FC = () => {
                         }}
                     />
                     <FormHelperText>{t('passwordHelper')}</FormHelperText>
-                </FormControl>
-                <FormControl sx={styles.paddingBottom(1)} fullWidth>
-                    <AmbreTextField
-                        label={t('topic')}
-                        value={information.topic}
-                        onChange={goChange(constants.topic)}
-                    />
-                    <FormHelperText>{t('topicHelper')}</FormHelperText>
                 </FormControl>
             </FormGroup>
         </AmbreCard>

@@ -28,25 +28,25 @@ import {TreeCard} from "./TreeCard";
 // see: https://github.com/react-grid-layout/react-grid-layout#performance
 
 const mdLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 3, h: 1.2, static: true},
-    {i: constants.formCard, x: 3, y: 0, w: 3, h: 2, minW: 2, minH: 1.2},
-    {i: constants.treeCard, x: 0, y: 2, w: 3, h: 3.8, minW: 3, minH: 1.2},
-    {i: constants.lastMessageCard, x: 3, y: 0, w: 3, h: 3, minW: 3, minH: 1.2},
-    {i: constants.messagesCard, x: 6, y: 0, w: 4, h: 5, minW: 3, minH: 1.2}
+    {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
+    {i: constants.formCard, x: 3, y: 0, w: 3, h: 2, minW: 3, minH: 1},
+    {i: constants.treeCard, x: 0, y: 2, w: 3, h: 4, minW: 3, minH: 1},
+    {i: constants.lastMessageCard, x: 3, y: 0, w: 3, h: 3, minW: 3, minH: 1},
+    {i: constants.messagesCard, x: 6, y: 0, w: 4, h: 5, minW: 3, minH: 1}
 ];
 const lgLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 3, h: 1.2, static: true},
-    {i: constants.formCard, x: 3, y: 0, w: 3, h: 2, minW: 2, minH: 1.2},
-    {i: constants.treeCard, x: 0, y: 2, w: 4, h: 4, minW: 2, minH: 1.2},
-    {i: constants.lastMessageCard, x: 4, y: 0, w: 4, h: 4, minW: 2, minH: 1.2},
-    {i: constants.messagesCard, x: 8, y: 0, w: 4, h: 6, minW: 2, minH: 1.2}
+    {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
+    {i: constants.formCard, x: 3, y: 0, w: 3, h: 2, minW: 2, minH: 1},
+    {i: constants.treeCard, x: 0, y: 2, w: 4, h: 4, minW: 2, minH: 1},
+    {i: constants.lastMessageCard, x: 4, y: 0, w: 4, h: 4, minW: 2, minH: 1},
+    {i: constants.messagesCard, x: 8, y: 0, w: 4, h: 6, minW: 2, minH: 1}
 ];
 const xlLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 2, h: 1.2, static: true},
-    {i: constants.formCard, x: 2, y: 0, w: 3, h: 3, minW: 2, minH: 1.2},
-    {i: constants.treeCard, x: 0, y: 2, w: 3, h: 4, minW: 2, minH: 1.2},
-    {i: constants.lastMessageCard, x: 3, y: 0, w: 4, h: 4, minW: 2, minH: 1.2},
-    {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 7, minW: 2, minH: 1.2}
+    {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},
+    {i: constants.formCard, x: 2, y: 0, w: 3, h: 3, minW: 2, minH: 1},
+    {i: constants.treeCard, x: 0, y: 2, w: 3, h: 4, minW: 2, minH: 1},
+    {i: constants.lastMessageCard, x: 3, y: 0, w: 4, h: 4, minW: 2, minH: 1},
+    {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 7, minW: 2, minH: 1}
 ];
 
 const layouts = {xl: xlLayout, lg: lgLayout, md: mdLayout};
