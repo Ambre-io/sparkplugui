@@ -10,10 +10,10 @@ import {getMessages, setMessages} from "../../redux/data/messagesSlice.ts";
 import {MessagesType} from "../../utils/types.ts";
 import {styles} from "../../styles/styles.ts";
 import {theme} from "../../styles/muiTheme.ts";
+import {utils} from "../../utils/utils.ts";
 
 import {core} from "../../../wailsjs/go/models.ts";
 import {EvtPayload} from "../../../wailsjs/go/core/App";
-import {utils} from "../../utils/utils.ts";
 
 
 export const MessagesCard: React.FC = () => {

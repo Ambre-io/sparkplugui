@@ -12,9 +12,10 @@ import {AmbreCard} from "../ambre/AmbreCard.tsx";
 import {constants} from "../../utils/constants.ts";
 import {getLastMessages} from "../../redux/data/lastMessagesSlice.ts";
 import {getSelectedTopic} from "../../redux/data/selectedTopicSlice.ts";
-import {MessageType} from "../../utils/types.ts";
 import {styles} from "../../styles/styles.ts";
 import {utils} from "../../utils/utils.ts";
+
+import {core} from "../../../wailsjs/go/models.ts";
 
 
 const initMessage = {topic: '', payload: '', timestamp: 0};
@@ -22,7 +23,7 @@ const initMessage = {topic: '', payload: '', timestamp: 0};
 export const LastMessageCard: React.FC = () => {
     const {t} = useTranslation();
 
-    const [message, setMessage] = useState<MessageType>(initMessage);
+    const [message, setMessage] = useState<core.MQTTMessage>(initMessage);
 
     const selectedTopic = useSelector(getSelectedTopic);
     const messages = useSelector(getLastMessages);

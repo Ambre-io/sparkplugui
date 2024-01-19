@@ -10,14 +10,6 @@
 
 package core
 
-type MQTTSetup struct {
-	Host     string `json:"host"`
-	Port     string `json:"port"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Topic    string `json:"topic"`
-}
-
 type MQTTMessage struct {
 	Topic     string `json:"topic"`
 	Payload   string `json:"payload"`
@@ -29,4 +21,13 @@ type MQTTTLSCertificates struct {
 	FQNCACrt     string `json:"fqncacrt"`
 	FQNClientCrt string `json:"fqnclientcrt"`
 	FQNClientKey string `json:"fqnclientkey"`
+}
+
+type MQTTSetup struct {
+	Host         string              `json:"host"`
+	Port         string              `json:"port"`
+	Username     string              `json:"username"`
+	Password     string              `json:"password"`
+	Topic        string              `json:"topic"`
+	Certificates MQTTTLSCertificates `json:"certificates"`
 }

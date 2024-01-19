@@ -21,28 +21,51 @@ import (
 
 func (a *App) CmdConnect(setup MQTTSetup) bool {
 
-	connected := true
+	// Check Host
+	if setup.Host == "" {
+		fmt.Printf("Error: Host is empty\n")
+		return false
+	}
+	// Check Topic
+	if setup.Topic == "" {
+		fmt.Printf("Error: Topic is empty\n")
+		return false
+	}
 
-	isTLS := false
-	tlsCertificates := MQTTTLSCertificates{} // TODO pass it
-	tlsconfig := NewTLSConfig(tlsCertificates)
+	address := ""
+	if setup.Port == "" {
+		address = fmt.Sprintf("tcp://%s", setup.Host)
+	} else {
+		address = fmt.Sprintf("tcp://%s:%s", setup.Host, setup.Port)
+	}
 
-	// MQTT client options
-	address := fmt.Sprintf("tcp://%s:%s", setup.Host, setup.Port)
 	options := MQTT.NewClientOptions()
 	options.AddBroker(address)
-	options.SetClientID("sparkplugui")
+	options.SetClientID("SparkpluGUI")
 	options.SetCleanSession(true)
 
-	if isTLS {
+	if setup.Username != "" {
+		options.SetUsername(setup.Username)
+	}
+	if setup.Password != "" {
+		options.SetPassword(setup.Password)
+	}
+
+	if setup.Certificates.FQNCACrt != "" && setup.Certificates.FQNClientCrt != "" && setup.Certificates.FQNClientKey != "" {
+		// TODO catch error to return false
+		tlsconfig := NewTLSConfig(MQTTTLSCertificates{
+			FQNCACrt:     setup.Certificates.FQNCACrt,
+			FQNClientCrt: setup.Certificates.FQNClientCrt,
+			FQNClientKey: setup.Certificates.FQNClientKey,
+		})
 		options.SetTLSConfig(tlsconfig)
 	}
 
 	// MQTT declaration
 	a.MQTTCLIENT = MQTT.NewClient(options)
 	if token := a.MQTTCLIENT.Connect(); token.Wait() && token.Error() != nil {
-		connected = false
 		fmt.Printf("Error: %s\n", token.Error())
+		return false
 	}
 
 	a.MQTTCLIENT.Subscribe(setup.Topic, 0, func(_ MQTT.Client, message MQTT.Message) {
@@ -52,7 +75,7 @@ func (a *App) CmdConnect(setup MQTTSetup) bool {
 		}()
 	})
 
-	return connected
+	return true
 }
 
 // ******************************************

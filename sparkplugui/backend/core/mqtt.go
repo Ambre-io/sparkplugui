@@ -42,11 +42,14 @@ func NewTLSConfig(tlsCertificates MQTTTLSCertificates) *tls.Config {
 	pemCerts, err := ioutil.ReadFile(tlsCertificates.FQNCACrt)
 	if err == nil {
 		certpool.AppendCertsFromPEM(pemCerts)
+	} else {
+		// TODO find a way to throw error
 	}
 
 	// Import client certificate/key pair
 	cert, err := tls.LoadX509KeyPair(tlsCertificates.FQNClientCrt, tlsCertificates.FQNClientKey)
 	if err != nil {
+		// TODO find a way to throw error
 		panic(err)
 	}
 

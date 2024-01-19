@@ -1,22 +1,29 @@
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
-import {MQTTSetupType} from "../../utils/types.ts";
 import {constants} from "../../utils/constants.ts";
 import {RootState} from "../store.ts";
 
-export const initMQTTSetupSlice: MQTTSetupType = {
+import {core} from "../../../wailsjs/go/models.ts";
+
+
+export const initMQTTSetupSlice: core.MQTTSetup = {
     host: '127.0.0.1',
     port: '1883',
     username: '',
     password: '',
-    topic: '#'
-}
+    topic: '#',
+    certificates: {
+        fqncacrt: '',
+        fqnclientcrt: '',
+        fqnclientkey: '',
+    },
+} as core.MQTTSetup;
 
 const mqttSetupSlice = createSlice({
     name: constants.mqttSetupSlice,
     initialState: initMQTTSetupSlice,
     reducers: {
-        setMQTTSetup: (state: any, action: PayloadAction<MQTTSetupType>) => {
+        setMQTTSetup: (state: any, action: PayloadAction<core.MQTTSetup>) => {
             Object.assign(state, action.payload);
         },
     },
@@ -26,7 +33,7 @@ const mqttSetupSlice = createSlice({
 export const {setMQTTSetup} = mqttSetupSlice.actions;
 
 // Export value access (useSelector)
-export const getMQTTSetup = (state: RootState): MQTTSetupType => state.mqttSetupSlice;
+export const getMQTTSetup = (state: RootState): core.MQTTSetup => state.mqttSetupSlice;
 
 // Export reducer as default for the store
 export default mqttSetupSlice.reducer;

@@ -1,4 +1,5 @@
 import React from "react";
+import {core} from "../../wailsjs/go/models.ts";
 
 export type stylesType = Record<string, React.DetailedHTMLProps<any, any>>;  // see: https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type
 
@@ -19,23 +20,10 @@ export interface NodeOptionsType {
 // ******************************************
 // * MQTT Data
 // ******************************************
-export interface MQTTSetupType {
-    host: string;
-    port: string;
-    username: string;
-    password: string;
-    topic: string;
-}
 
-export interface MessageType {
-    topic: string;
-    payload: string;
-    timestamp: number;
-}
+export type MessagesType = Array<core.MQTTMessage>;
 
-export type MessagesType = Array<MessageType>;
-
-export type LastMessagesType = Record<string, MessageType>; // string key is topic
+export type LastMessagesType = Record<string, core.MQTTMessage>; // string key is topic
 
 // ******************************************
 // * Card

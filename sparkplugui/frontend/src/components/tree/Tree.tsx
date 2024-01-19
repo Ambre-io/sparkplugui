@@ -12,11 +12,13 @@ import {constants} from "../../utils/constants.ts";
 import {getOpenedNodes, setOpenedNodes} from "../../redux/data/openedNodesSlice.ts";
 import {getMessages} from "../../redux/data/messagesSlice.ts";
 import {initParentNodes, setParentNodes} from "../../redux/data/parentNodesSlice.ts";
-import {MessagesType, MessageType, NodeType} from "../../utils/types.ts";
+import {MessagesType, NodeType} from "../../utils/types.ts";
 import {setLastMessages} from "../../redux/data/lastMessagesSlice.ts";
 import {styles} from "../../styles/styles.ts";
 import {TreeItemRender} from "./TreeItemRender.tsx";
 import {utils} from '../../utils/utils.ts';
+
+import {core} from "../../../wailsjs/go/models.ts";
 
 
 export const Tree: React.FC = () => {
@@ -35,7 +37,7 @@ export const Tree: React.FC = () => {
         const parents: string[] = [...initParentNodes];
 
         // Loop over messages
-        messages.map((msg: MessageType) => {
+        messages.map((msg: core.MQTTMessage) => {
 
             // Split the topic: WAW/SUPER/TOPIC => [WAW, SUPER, TOPIC]
             const {topic} = msg;
