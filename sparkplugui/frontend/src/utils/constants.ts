@@ -11,7 +11,6 @@ export const constants = {
     openedNodesSlice: 'openedNodesSlice',
     customizableSlice: 'customizableSlice',
     cardSlice: 'cardSlice',
-    availableLanguages: ['fr', 'en', 'de'],
     host: 'host',
     port: 'port',
     topic: 'topic',
@@ -42,5 +41,5 @@ export const constants = {
     sm: 768,
     md: 996,
     lg: 1200,
-    xl: 1920
+    xl: 1922
 };

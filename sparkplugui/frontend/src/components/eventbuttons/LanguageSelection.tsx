@@ -3,12 +3,12 @@ import * as React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
-import {constants} from "../../utils/constants.ts";
+import {availableLanguages} from "../../i18n/i18next.ts";
 import {getLanguage, setLanguage} from "../../redux/data/languageSlice.ts";
 import {FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 
 
-const Languages = constants.availableLanguages.map((lng: string, i: number) => (
+const Languages = availableLanguages.map((lng: string, i: number) => (
     <MenuItem key={`${lng}${i}`} value={lng}>{lng}</MenuItem>
 ));
 

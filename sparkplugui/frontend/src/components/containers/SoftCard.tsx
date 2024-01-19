@@ -13,7 +13,7 @@ import {styles} from "../../styles/styles.ts";
 
 export const SoftCard: React.FC = () => (
     <Grid container sx={{height: '100%'}} justifyContent='center'>
-        <Grid item md={12} lg={11} sx={{p: 1}}>
+        <Grid item md={12} lg={10} sx={{p: 1}}>
             <Grid container sx={styles.softContainer}>
                 <Grid item xs={12} sx={{textAlign: 'center'}}>
                     <img style={styles.softLogo} alt='' src='src/assets/images/logo.svg'/>

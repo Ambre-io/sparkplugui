@@ -27,13 +27,13 @@ var xs = 480
 var sm = 768
 var md = 996
 var lg = 1200
-var xl = 1920
+var xl = 1922
 
 var popWindowWidth = 1500
 var popWindowHeight = 970
 
 var minWindowWidth = md + 1
-var minWindowHeight = 820
+var minWindowHeight = 810
 
 var maxWindowWidth = 2560
 var maxWindowHeight = 1440
