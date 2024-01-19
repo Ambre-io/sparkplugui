@@ -26,7 +26,7 @@ const mqttSetupSlice = createSlice({
 export const {setMQTTSetup} = mqttSetupSlice.actions;
 
 // Export value access (useSelector)
-export const getMQTTData = (state: RootState): MQTTSetupType => state.mqttDataSlice;
+export const getMQTTSetup = (state: RootState): MQTTSetupType => state.mqttSetupSlice;
 
 // Export reducer as default for the store
 export default mqttSetupSlice.reducer;

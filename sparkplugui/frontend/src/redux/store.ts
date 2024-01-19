@@ -5,7 +5,7 @@ import openedNodesSlice from "./data/openedNodesSlice.ts";
 import languageSlice from "./data/languageSlice.ts";
 import lastMessagesSlice from "./data/lastMessagesSlice.ts";
 import messagesSlice from "./data/messagesSlice.ts";
-import mqttDataSlice from "./data/mqttDataSlice.ts";
+import mqttSetupSlice from "./data/mqttSetupSlice.ts";
 import parentNodesSlice from "./data/parentNodesSlice.ts";
 import selectedTopicSlice from "./data/selectedTopicSlice.ts";
 import reloadEventSlice from "./events/reloadEventSlice.ts";
@@ -19,7 +19,7 @@ export const store = configureStore({
         languageSlice: languageSlice,
         lastMessagesSlice: lastMessagesSlice,
         messagesSlice: messagesSlice,
-        mqttDataSlice: mqttDataSlice,
+        mqttSetupSlice: mqttSetupSlice,
         parentNodesSlice: parentNodesSlice,
         selectedTopicSlice: selectedTopicSlice,
         // Events

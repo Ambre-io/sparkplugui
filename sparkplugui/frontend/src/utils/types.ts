@@ -19,7 +19,7 @@ export interface NodeOptionsType {
 // ******************************************
 // * MQTT Data
 // ******************************************
-export interface MQTTDataType {
+export interface MQTTSetupType {
     host: string;
     port: string;
     username: string;

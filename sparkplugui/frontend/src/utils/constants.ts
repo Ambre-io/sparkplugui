@@ -2,7 +2,7 @@
 // They are namespaced and the only source of truth, which strengthens the application overall
 
 export const constants = {
-    mqttDataSlice: 'mqttDataSlice',
+    mqttSetupSlice: 'mqttSetupSlice',
     languageSlice: 'languageSlice',
     messagesSlice: 'messagesSlice',
     selectedTopicSlice: 'lastMessageSlice',

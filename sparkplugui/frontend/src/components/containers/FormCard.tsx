@@ -8,7 +8,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {AmbreCard} from "../ambre/AmbreCard.tsx";
 import {AmbreTextField} from "../ambre/AmbreTextField.tsx";
 import {constants} from "../../utils/constants.ts";
-import {getMQTTData, setMQTTData} from "../../redux/data/mqttDataSlice.ts";
+import {getMQTTSetup, setMQTTSetup} from "../../redux/data/mqttSetupSlice.ts";
 import {styles} from "../../styles/styles.ts";
 
 
@@ -16,13 +16,13 @@ export const FormCard: React.FC = () => {
     const dispatch = useDispatch();
     const {t} = useTranslation();
 
-    const information = useSelector(getMQTTData);
+    const information = useSelector(getMQTTSetup);
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
 
     const goChange = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
         // let value: string | number = event.target.value
         // if (prop === constants.) value = event.target.valueAsNumber;
-        dispatch(setMQTTData({...information, [prop]: event.target.value}));
+        dispatch(setMQTTSetup({...information, [prop]: event.target.value}));
     };
 
     return (
