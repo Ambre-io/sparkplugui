@@ -10,7 +10,7 @@
 
 package core
 
-type MQTTClientData struct {
+type MQTTSetup struct {
 	Host     string `json:"host"`
 	Port     string `json:"port"`
 	Username string `json:"username"`
@@ -22,4 +22,11 @@ type MQTTMessage struct {
 	Topic     string `json:"topic"`
 	Payload   string `json:"payload"`
 	Timestamp int64  `json:"timestamp"`
+}
+
+type MQTTTLSCertificates struct {
+	// FQN = Fully Qualified Name, in this case I mean the path and the filename with extension
+	FQNCACrt     string `json:"fqncacrt"`
+	FQNClientCrt string `json:"fqnclientcrt"`
+	FQNClientKey string `json:"fqnclientkey"`
 }

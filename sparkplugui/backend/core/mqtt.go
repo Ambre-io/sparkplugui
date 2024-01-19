@@ -34,32 +34,21 @@ package core
 import (
 	"crypto/tls"
 	"crypto/x509"
-	"fmt"
 	"io/ioutil"
 )
 
-func NewTLSConfig() *tls.Config {
-	// Import trusted certificates from CAfile.pem.
-	// Alternatively, manually add CA certificates to
-	// default openssl CA bundle.
+func NewTLSConfig(tlsCertificates MQTTTLSCertificates) *tls.Config {
 	certpool := x509.NewCertPool()
-	pemCerts, err := ioutil.ReadFile("samplecerts/CAfile.pem")
+	pemCerts, err := ioutil.ReadFile(tlsCertificates.FQNCACrt)
 	if err == nil {
 		certpool.AppendCertsFromPEM(pemCerts)
 	}
 
 	// Import client certificate/key pair
-	cert, err := tls.LoadX509KeyPair("samplecerts/client-crt.pem", "samplecerts/client-key.pem")
+	cert, err := tls.LoadX509KeyPair(tlsCertificates.FQNClientCrt, tlsCertificates.FQNClientKey)
 	if err != nil {
 		panic(err)
 	}
-
-	// Just to print out the client certificate..
-	cert.Leaf, err = x509.ParseCertificate(cert.Certificate[0])
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(cert.Leaf)
 
 	// Create tls.Config with desired tls properties
 	return &tls.Config{

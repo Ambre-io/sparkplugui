@@ -1,10 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
-import {MQTTDataType} from "../../utils/types.ts";
+import {MQTTSetupType} from "../../utils/types.ts";
 import {constants} from "../../utils/constants.ts";
 import {RootState} from "../store.ts";
 
-export const initMQTTDataSlice: MQTTDataType = {
+export const initMQTTSetupSlice: MQTTSetupType = {
     host: '127.0.0.1',
     port: '1883',
     username: '',
@@ -12,21 +12,21 @@ export const initMQTTDataSlice: MQTTDataType = {
     topic: '#'
 }
 
-const mqttDataSlice = createSlice({
-    name: constants.mqttDataSlice,
-    initialState: initMQTTDataSlice,
+const mqttSetupSlice = createSlice({
+    name: constants.mqttSetupSlice,
+    initialState: initMQTTSetupSlice,
     reducers: {
-        setMQTTData: (state: any, action: PayloadAction<MQTTDataType>) => {
+        setMQTTSetup: (state: any, action: PayloadAction<MQTTSetupType>) => {
             Object.assign(state, action.payload);
         },
     },
 });
 
 // Export action
-export const {setMQTTData} = mqttDataSlice.actions;
+export const {setMQTTSetup} = mqttSetupSlice.actions;
 
 // Export value access (useSelector)
-export const getMQTTData = (state: RootState): MQTTDataType => state.mqttDataSlice;
+export const getMQTTData = (state: RootState): MQTTSetupType => state.mqttDataSlice;
 
 // Export reducer as default for the store
-export default mqttDataSlice.reducer;
+export default mqttSetupSlice.reducer;

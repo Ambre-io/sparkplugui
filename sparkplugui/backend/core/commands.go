@@ -15,14 +15,28 @@ import (
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 )
 
-func (a *App) CmdConnect(data MQTTClientData) bool {
+// ******************************************
+// * CONNECT
+// ******************************************
+
+func (a *App) CmdConnect(setup MQTTSetup) bool {
 
 	connected := true
 
+	isTLS := false
+	tlsCertificates := MQTTTLSCertificates{} // TODO pass it
+	tlsconfig := NewTLSConfig(tlsCertificates)
+
 	// MQTT client options
-	address := fmt.Sprintf("tcp://%s:%s", data.Host, data.Port)
-	options := MQTT.NewClientOptions().AddBroker(address).SetClientID("sparkplugui")
+	address := fmt.Sprintf("tcp://%s:%s", setup.Host, setup.Port)
+	options := MQTT.NewClientOptions()
+	options.AddBroker(address)
+	options.SetClientID("sparkplugui")
 	options.SetCleanSession(true)
+
+	if isTLS {
+		options.SetTLSConfig(tlsconfig)
+	}
 
 	// MQTT declaration
 	a.MQTTCLIENT = MQTT.NewClient(options)
@@ -31,7 +45,7 @@ func (a *App) CmdConnect(data MQTTClientData) bool {
 		fmt.Printf("Error: %s\n", token.Error())
 	}
 
-	a.MQTTCLIENT.Subscribe(data.Topic, 0, func(_ MQTT.Client, message MQTT.Message) {
+	a.MQTTCLIENT.Subscribe(setup.Topic, 0, func(_ MQTT.Client, message MQTT.Message) {
 		go func() {
 			decoded, timestamp := a.decode(message.Payload())
 			a.pushMessage(message.Topic(), decoded, timestamp)
@@ -40,6 +54,10 @@ func (a *App) CmdConnect(data MQTTClientData) bool {
 
 	return connected
 }
+
+// ******************************************
+// * DISCONNECT
+// ******************************************
 
 func (a *App) CmdDisconnect() bool {
 	a.MQTTCLIENT.Disconnect(250)
