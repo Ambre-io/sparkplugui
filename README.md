@@ -1,8 +1,8 @@
 <h1 align=center>
     <div>
-        <img src="sparkplugui/frontend/src/assets/images/logo.svg" width="140" style="filter: invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)" />
+        <img src="sparkplugui/frontend/src/assets/images/logo.svg" width="242" style="filter: invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)" />
     </div>
-    <div style="color: #55C6E7;">SparkpluGUI</div>
+    <div style="color: #55C6E7;"><h1 style="margin:0; padding: 0">SparkpluGUI</h1></div>
 </h1>
 <h3 align=center>
 <div style="color: #D724FF;">Software that displays decoded Sparkplug messages from MQTT IoT</div>
@@ -20,7 +20,7 @@ Install:
 
 Run:
 
-1. **Launch** SparkpluGUI software
+1. **Launch** the SparkpluGUI software
 2. **Type** the MQTT information in the form
 3. **Click** on the "Connect" button
 
@@ -28,7 +28,7 @@ Observe:
 
 - **Messages** shows the messages in a list
 - **Topics Tree** shows the topics has a tree
-- **Last Message** shows a payload in a JSON view
+- **Last Message** shows the payload in a JSON view
 
 ## 2. Technical stack
 
@@ -61,18 +61,51 @@ Thank you all for the beautiful technologies:
 
 Main software actions can be accessed from the top left panel. They trigger effects on other panels:
 
-### 🗣️ Language Selection
+### Select 🗣️ Language
 
-Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 
+Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿  
 
-### ☁️ Connect/Disconnect Button and MQTT Information
+### Button ☁️ Connect/Disconnect
 
-- Host (required): the broker host
-- Port (optional): the broker port
-- Topic (required): '#' is selected by default for subscribing to all topics, choose a specific one to track what you
-  need
+*Connect* the software to the defined server in the **MQTT Information** panel. After the success notification, 
+It starts to receive messages which hydrate the **Messages** and the **Topics Tree** panels.
+If you click on a tree branch, you will see the associated message in **Last Message** panel.
 
-### ↕️ Open/Close Button and Topics Tree
+Use the same button to *Disconnect* the software from the MQTT server, 
+to stop the flow or to modify the topic for instance.
 
+#### MQTT Information
 
-### 🔒 Unlock/Lock Button and Panels
+|                             Fields | Description                                                   | Required |
+|-----------------------------------:|:--------------------------------------------------------------|:--------:|
+|                               Host | MQTT server IP or domain name                                 |    x     |
+|                               Port | If you use an IP as host you maybe need the port too          |          |
+|                              Topic | Choose a generic or a specific topic to track what you need   |    x     |
+|                    Username  [TLS] | Use a valid username for the authentication                   |          |
+|                     Password [TLS] | Use a valid password for the authentication                   |          |
+| Concatenated CA certificates [TLS] | The classic TLS certificate from the trusted authority (.pem) |          |
+|           Client certificate [TLS] | Client certificate signed by the CA (.pem)                    |          |
+|                   Client key [TLS] | Keyfile for the client certificate (.pem)                     |          |
+
+💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and secure connection.
+
+### Button ↕️ Open/Close
+
+The **Topics Tree** is built over time as messages arrive. 
+You can open the entire tree for easy access to your nodes and devices, or close it by pressing this button.
+
+### Button 🔒 Unlock/Lock
+
+When you unlock, **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** panels are customizable:
+- move it by drag and drop
+- resize it from the bottom right corner
+- choose the layout you prefer
+
+Then lock it again, in order to use the software.
+
+## 4. TODO
+
+- Persistence
+    - language
+    - layout (RGL)
+- Crossplatform Build
