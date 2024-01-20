@@ -34,7 +34,7 @@ Observe:
 
 Thank you all for the beautiful technologies:
 
-- [Wails](https://wails.app/) for the Go/TypeScript bridge
+- [Wails](https://wails.app/) for the Go/TypeScript framework
 - [TypeScript](https://www.typescriptlang.org/) for the language
 - [React](https://reactjs.org/) for the composition
 - [Redux Toolkit](https://redux-toolkit.js.org/) for the state management
