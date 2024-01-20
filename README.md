@@ -1,6 +1,6 @@
 <h1 align=center>
     <div>
-        <img src="sparkplugui/frontend/src/assets/images/logo.svg" width="242" style="filter: invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)" />
+        <img src="sparkplugui/frontend/src/assets/images/logo.svg" width="180" style="filter: invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)" />
     </div>
     <font size="7" style="color: #55C6E7">SparkpluGUI</font>
 </h1>
