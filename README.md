@@ -10,7 +10,7 @@
 
 screenshot
 
-## 1. Quick start
+## 1. Quick Start
 
 Install:
 
@@ -30,7 +30,7 @@ Observe:
 - **Topics Tree** shows the topics has a tree
 - **Last Message** shows the payload in a JSON view
 
-## 2. Technical stack
+## 2. Technical Stack
 
 Thank you all for the beautiful technologies:
 
@@ -57,7 +57,7 @@ Thank you all for the beautiful technologies:
 - [JetBrains](https://www.jetbrains.com/) much love
 - and many others 🙏
 
-## 3. Usage details
+## 3. Usage Details
 
 Main software actions can be accessed from the top left panel. They trigger effects on other panels:
 
