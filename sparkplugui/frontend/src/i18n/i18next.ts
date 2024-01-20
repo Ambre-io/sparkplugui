@@ -7,9 +7,18 @@ import en from './en.json';
 import fr from './fr.json';
 import de from './de.json';
 import it from './it.json';
+import uk from './uk.json';
+import ru from './ru.json';
+import ja from './ja.json';
+import ar from './ar.json';
+import zh from './zh.json';
+import uy from './uy.json';
+import es from './es.json';
+import ku from './ku.json';
+import zu from './zu.json';
 
 
-export const availableLanguages = ['fr', 'en', 'de', 'it'].sort();
+export const availableLanguages = ['fr', 'en', 'de', 'it', 'uk', 'ru', 'ja', 'ar', 'zh', 'uy', 'es', 'ku', 'zu'].sort();
 
 i18n
     .use(initReactI18next) // passes i18n down to react-i18next
@@ -19,6 +28,15 @@ i18n
             fr: {translation: fr},
             de: {translation: de},
             it: {translation: it},
+            uk: {translation: uk},
+            ru: {translation: ru},
+            ja: {translation: ja},
+            ar: {translation: ar},
+            zh: {translation: zh},
+            uy: {translation: uy},
+            es: {translation: es},
+            ku: {translation: ku},
+            zu: {translation: zu},
         },
         lng: initLanguageSlice,
         fallbackLng: availableLanguages,
