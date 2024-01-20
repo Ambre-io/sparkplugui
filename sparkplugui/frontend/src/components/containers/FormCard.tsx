@@ -72,7 +72,7 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={t('username')}
+                        label={`[TLS] ${t('username')}`}
                         value={information.username}
                         onChange={goChange(constants.username)}
                     />
@@ -80,7 +80,7 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={t('password')}
+                        label={`[TLS] ${t('password')}`}
                         value={information.password}
                         onChange={goChange(constants.password)}
                         type={showPassword ? 'text' : 'password'}
@@ -102,7 +102,7 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={`TLS: ${t('fqncacrt')}`}
+                        label={`[TLS] ${t('fqncacrt')}`}
                         value={information.certificates.fqncacrt}
                         onChange={goChange(constants.fqncacrt)}
                         type='file'
@@ -114,7 +114,7 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={`TLS: ${t('fqnclientcrt')}`}
+                        label={`[TLS] ${t('fqnclientcrt')}`}
                         value={information.certificates.fqnclientcrt}
                         onChange={goChange(constants.fqnclientcrt)}
                         type='file'
@@ -126,7 +126,7 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={`TLS: ${t('fqnclientkey')}`}
+                        label={`[TLS] ${t('fqnclientkey')}`}
                         value={information.certificates.fqnclientkey}
                         onChange={goChange(constants.fqnclientkey)}
                         type='file'
