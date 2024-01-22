@@ -24,13 +24,7 @@ export const ConnectButton: React.FC = () => {
 
     const goClick = async () => {
         if (!connected) {
-            let mqttSetup = new core.MQTTSetup();
-            mqttSetup.host = information.host;
-            mqttSetup.port = information.port;
-            mqttSetup.username = information.username;
-            mqttSetup.password = information.password;
-            mqttSetup.topic = information.topic;
-            CmdConnect(mqttSetup).then((connected: boolean) => {
+            CmdConnect(information).then((connected: boolean) => {
                 if (connected) {
                     toast.success(`${t('successConnect')} ${constants.emojiSmile}`);
                     setConnected(true);

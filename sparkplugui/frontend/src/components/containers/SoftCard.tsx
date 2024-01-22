@@ -2,10 +2,10 @@ import * as React from 'react';
 
 import {Grid} from "@mui/material";
 
-import {ConnectButton} from "../eventbuttons/ConnectButton.tsx";
-import {CustomizableButton} from "../eventbuttons/CustomizableButton.tsx";
-import {OpenNodesButton} from "../eventbuttons/OpenNodesButton.tsx";
-import {LanguageSelection} from "../eventbuttons/LanguageSelection.tsx";
+import {ConnectButton} from "../events/ConnectButton.tsx";
+import {CustomizableButton} from "../events/CustomizableButton.tsx";
+import {OpenNodesButton} from "../events/OpenNodesButton.tsx";
+import {LanguageSelection} from "../events/LanguageSelection.tsx";
 import {primaryDark} from "../../styles/muiTheme.ts";
 import SETTINGS from '../../../../../settings.json';
 import {styles} from "../../styles/styles.ts";
