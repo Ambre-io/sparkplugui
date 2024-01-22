@@ -35,12 +35,13 @@ Observe:
 Thank you all for the beautiful technologies:
 
 - [Wails](https://wails.app/) for the Go/TypeScript framework
+- [Go](https://golang.org/) for the language
 - [TypeScript](https://www.typescriptlang.org/) for the language
 - [React](https://reactjs.org/) for the composition
 - [Redux Toolkit](https://redux-toolkit.js.org/) for the state management
 - [Material UI](https://material-ui.com/) for the UI
 - [Emotion](https://emotion.sh/docs/introduction) for the CSS
-- [React JSON View](https://raw.githack.com/uiwjs/react-json-view/v1-docs/index.html) for the JSON view
+- [React JSON View](https://raw.githack.com/uiwjs/react-json-view/v1-docs/index.html) for the JSON display
 - [React Spring](https://www.react-spring.io/) for the animations
 - [i18next](https://www.i18next.com/) for the internationalization
 - [React Grid Layout](https://github.com/react-grid-layout/react-grid-layout) for the customizable layout
@@ -48,7 +49,6 @@ Thank you all for the beautiful technologies:
 - [Vite](https://www.npmjs.com/package/@vitejs/plugin-react) for dev and build
 - [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped) for the types
 - [ESLint](https://eslint.org/) for the linting
-- [Go](https://golang.org/) for the backend
 - [Sparkplug](https://www.cirrus-link.com/) for the protocol
 - [MQTT](https://mqtt.org/) for the protocol
 - [Paho](https://github.com/eclipse/paho.mqtt.golang) for the MQTT client
@@ -59,13 +59,13 @@ Thank you all for the beautiful technologies:
 
 ## 3. Usage Details
 
-Main software actions can be accessed from the top left panel. They trigger effects on other panels:
+Main software actions can be accessed from the top left panel. They trigger effects on other panels.
 
-### Select 🗣️ Language
+### 3.1 Select 🗣️ Language
 
 Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿  
 
-### Button ☁️ Connect/Disconnect
+### 3.2 Button ☁️ Connect/Disconnect
 
 *Connect* the software to the defined server in the **MQTT Information** panel. After the success notification, 
 It starts to receive messages which hydrate the **Messages** and the **Topics Tree** panels.
@@ -89,23 +89,16 @@ to stop the flow or to modify the topic for instance.
 
 💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and secure connection.
 
-### Button ↕️ Open/Close
+### 3.3 Button ↕️ Open/Close
 
 The **Topics Tree** is built over time as messages arrive. 
 You can open the entire tree for easy access to your nodes and devices, or close it by pressing this button.
 
-### Button 🔒 Unlock/Lock
+### 3.4 Button 🔒 Unlock/Lock
 
-When you unlock, **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** panels are customizable:
+When you click the unlock button, **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** panels are customizable:
 - move it by drag and drop
 - resize it from the bottom right corner
 - choose the layout you prefer
 
 Then lock it again, in order to use the software.
-
-## 4. TODO
-
-- Persistence
-    - language
-    - layout (RGL)
-- Crossplatform Build
