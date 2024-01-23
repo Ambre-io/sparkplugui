@@ -63,40 +63,43 @@ Main software actions can be accessed from the top left panel. They trigger effe
 
 ### 3.1 Select 🗣️ Language
 
-Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿  
+Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿
 
 ### 3.2 Button ☁️ Connect/Disconnect
 
-*Connect* the software to the defined server in the **MQTT Information** panel. After the success notification, 
+*Connect* the software to the defined server in the **MQTT Information** panel. After the success notification,
 It starts to receive messages which hydrate the **Messages** and the **Topics Tree** panels.
 If you click on a tree branch, you will see the associated message in **Last Message** panel.
 
-Use the same button to *Disconnect* the software from the MQTT server, 
+Use the same button to *Disconnect* the software from the MQTT server,
 to stop the flow or to modify the topic for instance.
 
 #### MQTT Information
 
-|                             Fields | Description                                                   | Required |
-|-----------------------------------:|:--------------------------------------------------------------|:--------:|
-|                               Host | MQTT server IP or domain name                                 |    x     |
-|                               Port | If you use an IP as host you maybe need the port too          |          |
-|                              Topic | Choose a generic or a specific topic to track what you need   |    x     |
-|                    Username  [TLS] | Use a valid username for the authentication                   |          |
-|                     Password [TLS] | Use a valid password for the authentication                   |          |
-| Concatenated CA certificates [TLS] | The classic TLS certificate from the trusted authority (.pem) |          |
-|           Client certificate [TLS] | Client certificate signed by the CA (.pem)                    |          |
-|                   Client key [TLS] | Keyfile for the client certificate (.pem)                     |          |
+|                                 Fields | Description                                                   | Required |
+|---------------------------------------:|:--------------------------------------------------------------|:--------:|
+|                               **Host** | MQTT server IP or domain name                                 |    x     |
+|                               **Port** | If you use an IP as host you maybe need the port too          |          |
+|                              **Topic** | Choose a generic or a specific topic to track what you need   |    x     |
+|                    **Username  [TLS]** | Use a valid username for the authentication                   |          |
+|                     **Password [TLS]** | Use a valid password for the authentication                   |          |
+| **Concatenated CA certificates [TLS]** | The classic TLS certificate from the trusted authority (.pem) |          |
+|           **Client certificate [TLS]** | Client certificate signed by the CA (.pem)                    |          |
+|                   **Client key [TLS]** | Keyfile for the client certificate (.pem)                     |          |
 
-💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and secure connection.
+💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and 
+secure connection.
 
 ### 3.3 Button ↕️ Open/Close
 
-The **Topics Tree** is built over time as messages arrive. 
+The **Topics Tree** is built over time as messages arrive.
 You can open the entire tree for easy access to your nodes and devices, or close it by pressing this button.
 
 ### 3.4 Button 🔒 Unlock/Lock
 
-When you click the unlock button, **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** panels are customizable:
+When you click the unlock button, **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** panels are
+customizable:
+
 - move it by drag and drop
 - resize it from the bottom right corner
 - choose the layout you prefer
