@@ -37,10 +37,10 @@ const mdLayout = [
 ];
 const lgLayout = [
     {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
-    {i: constants.formCard, x: 3, y: 0, w: 3, h: 2, minW: 2, minH: 1},
-    {i: constants.treeCard, x: 0, y: 2, w: 4, h: 4, minW: 2, minH: 1},
-    {i: constants.lastMessageCard, x: 4, y: 0, w: 4, h: 4, minW: 2, minH: 1},
-    {i: constants.messagesCard, x: 8, y: 0, w: 4, h: 6, minW: 2, minH: 1}
+    {i: constants.formCard, x: 3, y: 0, w: 3, h: 2, minW: 3, minH: 1},
+    {i: constants.treeCard, x: 0, y: 2, w: 4, h: 4, minW: 3, minH: 1},
+    {i: constants.lastMessageCard, x: 4, y: 0, w: 4, h: 4, minW: 3, minH: 1},
+    {i: constants.messagesCard, x: 8, y: 0, w: 4, h: 6, minW: 3, minH: 1}
 ];
 const xlLayout = [
     {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},

@@ -38,6 +38,7 @@ export const styles: stylesType = {
         height: '100%',
         p: 1,
         userSelect: 'none',
+        overflow: 'hidden'
     },
     ambreCardTitle: {
         fontFamily: 'TitilliumWebBold',
