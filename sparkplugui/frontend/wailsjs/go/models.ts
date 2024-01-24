@@ -17,9 +17,9 @@ export namespace core {
 	    }
 	}
 	export class MQTTTLSCertificates {
-	    fqncacrt: string;
-	    fqnclientcrt: string;
-	    fqnclientkey: string;
+	    cacrt: string;
+	    clientcrt: string;
+	    clientkey: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new MQTTTLSCertificates(source);
@@ -27,9 +27,9 @@ export namespace core {
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.fqncacrt = source["fqncacrt"];
-	        this.fqnclientcrt = source["fqnclientcrt"];
-	        this.fqnclientkey = source["fqnclientkey"];
+	        this.cacrt = source["cacrt"];
+	        this.clientcrt = source["clientcrt"];
+	        this.clientkey = source["clientkey"];
 	    }
 	}
 	export class MQTTSetup {

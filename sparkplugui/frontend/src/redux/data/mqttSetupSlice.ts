@@ -13,9 +13,9 @@ export const initMQTTSetupSlice: core.MQTTSetup = {
     password: '',
     topic: '#',
     certificates: {
-        fqncacrt: '',
-        fqnclientcrt: '',
-        fqnclientkey: '',
+        cacrt: '',
+        clientcrt: '',
+        clientkey: '',
     },
 } as core.MQTTSetup;
 

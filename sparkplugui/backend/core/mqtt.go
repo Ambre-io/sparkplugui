@@ -34,20 +34,19 @@ package core
 import (
 	"crypto/tls"
 	"crypto/x509"
-	"io/ioutil"
+	"fmt"
 )
 
 func NewTLSConfig(tlsCertificates MQTTTLSCertificates) *tls.Config {
-	certpool := x509.NewCertPool()
-	pemCerts, err := ioutil.ReadFile(tlsCertificates.FQNCACrt)
-	if err == nil {
-		certpool.AppendCertsFromPEM(pemCerts)
-	} else {
-		// TODO find a way to throw error
-	}
+	
+	fmt.Printf("### NewTLSConfig => \n%+v\n\n", tlsCertificates)
 
-	// Import client certificate/key pair
-	cert, err := tls.LoadX509KeyPair(tlsCertificates.FQNClientCrt, tlsCertificates.FQNClientKey)
+	// Load certificates
+	certpool := x509.NewCertPool()
+	certpool.AppendCertsFromPEM([]byte(tlsCertificates.CACrt))
+
+	// Load client certificate and key
+	cert, err := tls.LoadX509KeyPair(tlsCertificates.ClientCrt, tlsCertificates.ClientKey)
 	if err != nil {
 		// TODO find a way to throw error
 		panic(err)
@@ -57,14 +56,11 @@ func NewTLSConfig(tlsCertificates MQTTTLSCertificates) *tls.Config {
 	return &tls.Config{
 		// RootCAs = certs used to verify server cert.
 		RootCAs: certpool,
-		// ClientAuth = whether to request cert from server.
-		// Since the server is set up for SSL, this happens
-		// anyways.
+		// ClientAuth = whether to request cert from server. Since the server is set up for SSL, this happens anyways.
 		ClientAuth: tls.NoClientCert,
 		// ClientCAs = certs used to validate client cert.
 		ClientCAs: nil,
-		// InsecureSkipVerify = verify that cert contents
-		// match server. IP matches what is in cert etc.
+		// InsecureSkipVerify = verify that cert contents match server. IP matches what is in cert etc.
 		InsecureSkipVerify: true,
 		// Certificates = list of certs client sends to server.
 		Certificates: []tls.Certificate{cert},

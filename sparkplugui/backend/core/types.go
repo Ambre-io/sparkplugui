@@ -17,10 +17,9 @@ type MQTTMessage struct {
 }
 
 type MQTTTLSCertificates struct {
-	// FQN = Fully Qualified Name, in this case I mean the path and the filename with extension
-	FQNCACrt     string `json:"fqncacrt"`
-	FQNClientCrt string `json:"fqnclientcrt"`
-	FQNClientKey string `json:"fqnclientkey"`
+	CACrt     string `json:"cacrt"`
+	ClientCrt string `json:"clientcrt"`
+	ClientKey string `json:"clientkey"`
 }
 
 type MQTTSetup struct {

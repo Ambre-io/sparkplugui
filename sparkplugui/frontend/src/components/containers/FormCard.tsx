@@ -22,24 +22,31 @@ export const FormCard: React.FC = () => {
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
 
     const goChange = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
-        // let value: string | number = event.target.value
-        // if (prop === constants.) value = event.target.valueAsNumber;
-        let setup: core.MQTTSetup;
-        if ([constants.fqncacrt, constants.fqnclientcrt, constants.fqnclientkey].in(prop)) {
-            setup = {
+        // for number: value = event.target.valueAsNumber;
+        dispatch(setMQTTSetup({...information, [prop]: event.target.value} as core.MQTTSetup));
+    };
+
+    const goLoadFile = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files !== null && event.target.files.length > 0) {
+            console.log('event.target.files length', event.target.files.length, 'first file', event.target.files[0]);
+            const file: File = event.target.files[0];
+            let fileContent: string = '';
+            file.arrayBuffer().then((fileBuffer: ArrayBuffer) => {
+                console.log('fileBuffer', fileBuffer);
+                const fileUint8Array = new Uint8Array(fileBuffer);
+                console.log('fileUint8Array', fileUint8Array);
+                fileContent = fileUint8Array.toString();
+                console.log('fileContent', fileContent);
+            });
+            console.log('before fileContent', fileContent);
+            dispatch(setMQTTSetup({
                 ...information,
                 certificates: {
                     ...information.certificates,
-                    [prop]: event.target.value
+                    [prop]: fileContent
                 }
-            } as core.MQTTSetup;
-        } else {
-            setup = {
-                ...information,
-                [prop]: event.target.value
-            } as core.MQTTSetup;
+            } as core.MQTTSetup));
         }
-        dispatch(setMQTTSetup(setup));
     };
 
     return (
@@ -102,39 +109,39 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={`[TLS] ${t('fqncacrt')}`}
-                        value={information.certificates.fqncacrt}
-                        onChange={goChange(constants.fqncacrt)}
+                        label={`[TLS] ${t('cacrt')}`}
+                        value={information.certificates.cacrt}
+                        onChange={goLoadFile(constants.cacrt)}
                         type='file'
                         InputLabelProps={{
                             shrink: true,
                         }}
                     />
-                    <FormHelperText>{t('fqncacrtHelper')}</FormHelperText>
+                    <FormHelperText>{t('cacrtHelper')}</FormHelperText>
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={`[TLS] ${t('fqnclientcrt')}`}
-                        value={information.certificates.fqnclientcrt}
-                        onChange={goChange(constants.fqnclientcrt)}
+                        label={`[TLS] ${t('clientcrt')}`}
+                        value={information.certificates.clientcrt}
+                        onChange={goLoadFile(constants.clientcrt)}
                         type='file'
                         InputLabelProps={{
                             shrink: true,
                         }}
                     />
-                    <FormHelperText>{t('fqnclientcrtHelper')}</FormHelperText>
+                    <FormHelperText>{t('clientcrtHelper')}</FormHelperText>
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={`[TLS] ${t('fqnclientkey')}`}
-                        value={information.certificates.fqnclientkey}
-                        onChange={goChange(constants.fqnclientkey)}
+                        label={`[TLS] ${t('clientkey')}`}
+                        value={information.certificates.clientkey}
+                        onChange={goLoadFile(constants.clientkey)}
                         type='file'
                         InputLabelProps={{
                             shrink: true,
                         }}
                     />
-                    <FormHelperText>{t('fqnclientkeyHelper')}</FormHelperText>
+                    <FormHelperText>{t('clientkeyHelper')}</FormHelperText>
                 </FormControl>
             </FormGroup>
         </AmbreCard>
