@@ -38,31 +38,52 @@ import (
 )
 
 func NewTLSConfig(tlsCertificates MQTTTLSCertificates) *tls.Config {
-	
-	fmt.Printf("### NewTLSConfig => \n%+v\n\n", tlsCertificates)
+
+	fmt.Printf("### NewTLSConfig => \nlen CACrt=%d, len ClientCrt=%d, len ClientKey=%d\n\n", len(tlsCertificates.CACrt), len(tlsCertificates.ClientCrt), len(tlsCertificates.ClientKey))
 
 	// Load certificates
-	certpool := x509.NewCertPool()
-	certpool.AppendCertsFromPEM([]byte(tlsCertificates.CACrt))
+	certificatepool := x509.NewCertPool()
+	//strToByte := []byte(fmt.Sprintf("[%s]", tlsCertificates.CACrt))
+	strToByte := []byte(tlsCertificates.CACrt)
+	certificatepool.AppendCertsFromPEM(strToByte)
+
+	clientByte := []byte(tlsCertificates.ClientCrt)
+	//var clientCrtFile []byte
+	//err := json.Unmarshal(clientByte, &clientCrtFile)
+	//if err != nil {
+	//	fmt.Printf("\n### CLIENT CRT UNMARSHAL PANIC\n\n")
+	//	panic(err)
+	//}
+	//clientFile, _ := os.ReadFile(clientCrtFile)
+
+	clientKeyByte := []byte(tlsCertificates.ClientKey)
+	//var clientKey []byte
+	//err = json.Unmarshal(clientKeyByte, &clientKey)
+	//if err != nil {
+	//	fmt.Printf("\n### CLIENT CRT UNMARSHAL PANIC\n\n")
+	//	panic(err)
+	//}
+	//clientKeyFile, _ := os.ReadFile(clientKey)
 
 	// Load client certificate and key
-	cert, err := tls.LoadX509KeyPair(tlsCertificates.ClientCrt, tlsCertificates.ClientKey)
+	certificate, err := tls.X509KeyPair(clientByte, clientKeyByte)
+	//certificate, err := tls.LoadX509KeyPair(tlsCertificates.ClientCrt, tlsCertificates.ClientKey)
 	if err != nil {
-		// TODO find a way to throw error
+		fmt.Printf("\n### COULD NOT LOAD KEY PAIR WITH X509KeyPair\n\n")
 		panic(err)
 	}
 
 	// Create tls.Config with desired tls properties
 	return &tls.Config{
-		// RootCAs = certs used to verify server cert.
-		RootCAs: certpool,
-		// ClientAuth = whether to request cert from server. Since the server is set up for SSL, this happens anyways.
+		// RootCAs = certificates used to verify server certificate.
+		RootCAs: certificatepool,
+		// ClientAuth = whether to request certificate from server. Since the server is set up for SSL, this happens anyways.
 		ClientAuth: tls.NoClientCert,
-		// ClientCAs = certs used to validate client cert.
+		// ClientCAs = certificates used to validate client certificate.
 		ClientCAs: nil,
-		// InsecureSkipVerify = verify that cert contents match server. IP matches what is in cert etc.
+		// InsecureSkipVerify = verify that certificate contents match server. IP matches what is in certificate etc.
 		InsecureSkipVerify: true,
-		// Certificates = list of certs client sends to server.
-		Certificates: []tls.Certificate{cert},
+		// Certificates = list of certificates client sends to server.
+		Certificates: []tls.Certificate{certificate},
 	}
 }

@@ -21,8 +21,6 @@ import (
 
 func (a *App) CmdConnect(setup MQTTSetup) bool {
 
-	fmt.Printf("### CmdConnect => \n%+v\n\n", setup)
-
 	// Check Host
 	if setup.Host == "" {
 		fmt.Printf("Error: Host is empty\n")

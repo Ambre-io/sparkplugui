@@ -21,6 +21,12 @@ export const FormCard: React.FC = () => {
     const information = useSelector(getMQTTSetup);
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
 
+    const [filenames, setFilenames] = React.useState({
+        [constants.cacrt]: '',
+        [constants.clientcrt]: '',
+        [constants.clientkey]: ''
+    })
+
     const goChange = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
         // for number: value = event.target.valueAsNumber;
         dispatch(setMQTTSetup({...information, [prop]: event.target.value} as core.MQTTSetup));
@@ -28,6 +34,7 @@ export const FormCard: React.FC = () => {
 
     const goLoadFile = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files !== null && event.target.files.length > 0) {
+            setFilenames({...filenames, [prop]: event.target.value});
             console.log('event.target.files length', event.target.files.length, 'first file', event.target.files[0]);
             const file: File = event.target.files[0];
             let fileContent: string = '';
@@ -35,17 +42,19 @@ export const FormCard: React.FC = () => {
                 console.log('fileBuffer', fileBuffer);
                 const fileUint8Array = new Uint8Array(fileBuffer);
                 console.log('fileUint8Array', fileUint8Array);
-                fileContent = fileUint8Array.toString();
+                fileContent = `[${fileUint8Array.toString()}]`;
                 console.log('fileContent', fileContent);
+                return fileContent;
+            }).then((fileContent: string) => {
+                console.log('before fileContent', fileContent);
+                dispatch(setMQTTSetup({
+                    ...information,
+                    certificates: {
+                        ...information.certificates,
+                        [prop]: fileContent
+                    }
+                } as core.MQTTSetup));
             });
-            console.log('before fileContent', fileContent);
-            dispatch(setMQTTSetup({
-                ...information,
-                certificates: {
-                    ...information.certificates,
-                    [prop]: fileContent
-                }
-            } as core.MQTTSetup));
         }
     };
 
@@ -110,7 +119,7 @@ export const FormCard: React.FC = () => {
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
                         label={`[TLS] ${t('cacrt')}`}
-                        value={information.certificates.cacrt}
+                        value={filenames.cacrt}
                         onChange={goLoadFile(constants.cacrt)}
                         type='file'
                         InputLabelProps={{
@@ -122,7 +131,7 @@ export const FormCard: React.FC = () => {
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
                         label={`[TLS] ${t('clientcrt')}`}
-                        value={information.certificates.clientcrt}
+                        value={filenames.clientcrt}
                         onChange={goLoadFile(constants.clientcrt)}
                         type='file'
                         InputLabelProps={{
@@ -134,7 +143,7 @@ export const FormCard: React.FC = () => {
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
                         label={`[TLS] ${t('clientkey')}`}
-                        value={information.certificates.clientkey}
+                        value={filenames.clientkey}
                         onChange={goLoadFile(constants.clientkey)}
                         type='file'
                         InputLabelProps={{

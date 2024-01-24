@@ -1,5 +1,5 @@
 {
-    "Lingua": "Lingua",
+    "language": "Lingua",
     "connect": "Connettiti al server MQTT",
     "disconnect": "Disconnettiti dal server MQTT",
     "open": "Aprire l'albero degli argomenti",

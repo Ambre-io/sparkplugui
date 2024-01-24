@@ -13,7 +13,7 @@
      "portHelper": "منفذ خادم MQTT",
      "topic": "الموضوع",
      "topicHelper": "يتوفر موضوع اشتراك خادم MQTT وأحرف البدل \"#\" و \"+\"",
-     "Username": "اسم المستخدم",
+     "username": "اسم المستخدم",
      "usernameHelper": "اسم المستخدم للاتصال بخادم MQTT",
      "password": "كلمة المرور",
      "passwordHelper": "كلمة المرور للاتصال بخادم MQTT",
