@@ -16,17 +16,13 @@ type MQTTMessage struct {
 	Timestamp int64  `json:"timestamp"`
 }
 
-type MQTTTLSCertificates struct {
+type MQTTSetup struct {
+	Host      string `json:"host"`
+	Port      string `json:"port"`
+	Username  string `json:"username"`
+	Password  string `json:"password"`
+	Topic     string `json:"topic"`
 	CACrt     string `json:"cacrt"`
 	ClientCrt string `json:"clientcrt"`
 	ClientKey string `json:"clientkey"`
-}
-
-type MQTTSetup struct {
-	Host         string              `json:"host"`
-	Port         string              `json:"port"`
-	Username     string              `json:"username"`
-	Password     string              `json:"password"`
-	Topic        string              `json:"topic"`
-	Certificates MQTTTLSCertificates `json:"certificates"`
 }

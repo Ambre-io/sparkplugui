@@ -37,40 +37,22 @@ import (
 	"fmt"
 )
 
-func NewTLSConfig(tlsCertificates MQTTTLSCertificates) *tls.Config {
+func NewTLSConfig(setup MQTTSetup) *tls.Config {
 
-	fmt.Printf("### NewTLSConfig => \nlen CACrt=%d, len ClientCrt=%d, len ClientKey=%d\n\n", len(tlsCertificates.CACrt), len(tlsCertificates.ClientCrt), len(tlsCertificates.ClientKey))
+	// string to byte array
+	CACrtByte := []byte(setup.CACrt)
+	ClientCrtByte := []byte(setup.ClientCrt)
+	ClientKeyByte := []byte(setup.ClientKey)
 
 	// Load certificates
 	certificatepool := x509.NewCertPool()
-	//strToByte := []byte(fmt.Sprintf("[%s]", tlsCertificates.CACrt))
-	strToByte := []byte(tlsCertificates.CACrt)
-	certificatepool.AppendCertsFromPEM(strToByte)
-
-	clientByte := []byte(tlsCertificates.ClientCrt)
-	//var clientCrtFile []byte
-	//err := json.Unmarshal(clientByte, &clientCrtFile)
-	//if err != nil {
-	//	fmt.Printf("\n### CLIENT CRT UNMARSHAL PANIC\n\n")
-	//	panic(err)
-	//}
-	//clientFile, _ := os.ReadFile(clientCrtFile)
-
-	clientKeyByte := []byte(tlsCertificates.ClientKey)
-	//var clientKey []byte
-	//err = json.Unmarshal(clientKeyByte, &clientKey)
-	//if err != nil {
-	//	fmt.Printf("\n### CLIENT CRT UNMARSHAL PANIC\n\n")
-	//	panic(err)
-	//}
-	//clientKeyFile, _ := os.ReadFile(clientKey)
+	certificatepool.AppendCertsFromPEM(CACrtByte)
 
 	// Load client certificate and key
-	certificate, err := tls.X509KeyPair(clientByte, clientKeyByte)
-	//certificate, err := tls.LoadX509KeyPair(tlsCertificates.ClientCrt, tlsCertificates.ClientKey)
+	certificate, err := tls.X509KeyPair(ClientCrtByte, ClientKeyByte)
 	if err != nil {
-		fmt.Printf("\n### COULD NOT LOAD KEY PAIR WITH X509KeyPair\n\n")
-		panic(err)
+		fmt.Printf("\n### Could not load key pair with X509KeyPair: %s\n\n", err)
+		return nil
 	}
 
 	// Create tls.Config with desired tls properties

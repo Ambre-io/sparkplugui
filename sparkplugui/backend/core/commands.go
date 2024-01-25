@@ -53,14 +53,11 @@ func (a *App) CmdConnect(setup MQTTSetup) bool {
 		options.SetPassword(setup.Password)
 	}
 
-	if setup.Certificates.CACrt != "" && setup.Certificates.ClientCrt != "" && setup.Certificates.ClientKey != "" {
-		// TODO catch error to return false
-		tlsconfig := NewTLSConfig(MQTTTLSCertificates{
-			CACrt:     setup.Certificates.CACrt,
-			ClientCrt: setup.Certificates.ClientCrt,
-			ClientKey: setup.Certificates.ClientKey,
-		})
-		options.SetTLSConfig(tlsconfig)
+	if setup.CACrt != "" && setup.ClientCrt != "" && setup.ClientKey != "" {
+		tlsconfig := NewTLSConfig(setup)
+		if tlsconfig != nil {
+			options.SetTLSConfig(tlsconfig)
+		}
 	}
 
 	// Connect client
