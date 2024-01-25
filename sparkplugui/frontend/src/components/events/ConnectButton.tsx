@@ -7,9 +7,9 @@ import {useTranslation} from "react-i18next";
 
 import {AmbreIconButton} from "../ambre/AmbreIconButton.tsx";
 import {constants} from '../../utils/constants.ts';
-import {getMQTTSetup} from "../../redux/data/mqttSetupSlice.ts";
+import {getMQTTSetup, setMQTTSetup} from "../../redux/data/mqttSetupSlice.ts";
+import {initMQTTFilenamesSlice, setMQTTFilenames} from "../../redux/data/mqttFilenamesSlice.ts";
 
-import {core} from "../../../wailsjs/go/models";
 import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/core/App";
 
 
@@ -28,6 +28,8 @@ export const ConnectButton: React.FC = () => {
                 if (connected) {
                     toast.success(`${t('successConnect')} ${constants.emojiSmile}`);
                     setConnected(true);
+                    dispatch(setMQTTFilenames(initMQTTFilenamesSlice));
+                    dispatch(setMQTTSetup({...information, cacrt: '', clientcrt: '', clientkey: ''}));
                 } else {
                     error();
                 }

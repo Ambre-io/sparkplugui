@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from "react";
+import React, {ChangeEvent, useEffect} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
@@ -8,6 +8,8 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {AmbreCard} from "../ambre/AmbreCard.tsx";
 import {AmbreTextField} from "../ambre/AmbreTextField.tsx";
 import {constants} from "../../utils/constants.ts";
+import {FilenamesType} from "../../utils/types.ts";
+import {getMQTTFilenames, setMQTTFilenames} from "../../redux/data/mqttFilenamesSlice.ts";
 import {getMQTTSetup, setMQTTSetup} from "../../redux/data/mqttSetupSlice.ts";
 import {styles} from "../../styles/styles.ts";
 
@@ -18,42 +20,24 @@ export const FormCard: React.FC = () => {
     const dispatch = useDispatch();
     const {t} = useTranslation();
 
-    const information = useSelector(getMQTTSetup);
+    const information: core.MQTTSetup = useSelector(getMQTTSetup);
+    const filenames: FilenamesType = useSelector(getMQTTFilenames);
     const [showPassword, setShowPassword] = React.useState<boolean>(false);
-
-    const [filenames, setFilenames] = React.useState({
-        [constants.cacrt]: '',
-        [constants.clientcrt]: '',
-        [constants.clientkey]: ''
-    })
 
     const goChange = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
         // for number: value = event.target.valueAsNumber;
-        dispatch(setMQTTSetup({...information, [prop]: event.target.value} as core.MQTTSetup));
+        dispatch(setMQTTSetup({...information, [prop]: event.target.value}));
     };
 
     const goLoadFile = (prop: string) => (event: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setMQTTFilenames({...filenames, [prop]: event.target.value}));
         if (event.target.files !== null && event.target.files.length > 0) {
-            setFilenames({...filenames, [prop]: event.target.value});
-            console.log('event.target.files length', event.target.files.length, 'first file', event.target.files[0]);
             const file: File = event.target.files[0];
-            let fileContent: string = '';
             file.arrayBuffer().then((fileBuffer: ArrayBuffer) => {
-                console.log('fileBuffer', fileBuffer);
-                const fileUint8Array = new Uint8Array(fileBuffer);
-                console.log('fileUint8Array', fileUint8Array);
-                fileContent = `[${fileUint8Array.toString()}]`;
-                console.log('fileContent', fileContent);
-                return fileContent;
-            }).then((fileContent: string) => {
-                console.log('before fileContent', fileContent);
-                dispatch(setMQTTSetup({
-                    ...information,
-                    certificates: {
-                        ...information.certificates,
-                        [prop]: fileContent
-                    }
-                } as core.MQTTSetup));
+                const decoder: TextDecoder = new TextDecoder("utf-8");
+                return decoder.decode(fileBuffer);
+            }).then((filecontent: string) => {
+                dispatch(setMQTTSetup({...information, [prop]: filecontent}));
             });
         }
     };

@@ -16,29 +16,15 @@ export namespace core {
 	        this.timestamp = source["timestamp"];
 	    }
 	}
-	export class MQTTTLSCertificates {
-	    cacrt: string;
-	    clientcrt: string;
-	    clientkey: string;
-	
-	    static createFrom(source: any = {}) {
-	        return new MQTTTLSCertificates(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.cacrt = source["cacrt"];
-	        this.clientcrt = source["clientcrt"];
-	        this.clientkey = source["clientkey"];
-	    }
-	}
 	export class MQTTSetup {
 	    host: string;
 	    port: string;
 	    username: string;
 	    password: string;
 	    topic: string;
-	    certificates: MQTTTLSCertificates;
+	    cacrt: string;
+	    clientcrt: string;
+	    clientkey: string;
 	
 	    static createFrom(source: any = {}) {
 	        return new MQTTSetup(source);
@@ -51,26 +37,10 @@ export namespace core {
 	        this.username = source["username"];
 	        this.password = source["password"];
 	        this.topic = source["topic"];
-	        this.certificates = this.convertValues(source["certificates"], MQTTTLSCertificates);
+	        this.cacrt = source["cacrt"];
+	        this.clientcrt = source["clientcrt"];
+	        this.clientkey = source["clientkey"];
 	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
 	}
 
 }

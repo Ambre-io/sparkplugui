@@ -3,6 +3,7 @@
 
 export const constants = {
     mqttSetupSlice: 'mqttSetupSlice',
+    mqttFilenamesSlice: 'mqttFilenamesSlice',
     languageSlice: 'languageSlice',
     messagesSlice: 'messagesSlice',
     selectedTopicSlice: 'lastMessageSlice',
@@ -41,5 +42,6 @@ export const constants = {
     sm: 768,
     md: 996,
     lg: 1200,
-    xl: 1922
+    xl: 1922,
+    filename: 'filename'
 };

@@ -12,12 +12,10 @@ export const initMQTTSetupSlice: core.MQTTSetup = {
     username: '',
     password: '',
     topic: '#',
-    certificates: {
-        cacrt: '',
-        clientcrt: '',
-        clientkey: '',
-    },
-} as core.MQTTSetup;
+    cacrt: '',
+    clientcrt: '',
+    clientkey: '',
+};
 
 const mqttSetupSlice = createSlice({
     name: constants.mqttSetupSlice,

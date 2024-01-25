@@ -35,6 +35,15 @@ export interface AmbreCardType {
 }
 
 // ******************************************
+// * Filenames
+// ******************************************
+export interface FilenamesType {
+    cacrt: string;
+    clientcrt: string;
+    clientkey: string;
+}
+
+// ******************************************
 // * Dialog
 // ******************************************
 export interface AmbreDialogType {
