@@ -13,7 +13,7 @@
     "portHelper": "MQTT サーバーのポート: ",
     "topic": "トピック",
     "topicHelper": "MQTTサーバサブスクリプショントピック,ワイルドカードが使用可能",
-    "Username": "ユーザー名",
+    "username": "ユーザー名",
     "usernameHelper": "「MQTTサーバーに接続するユーザー名",
     "password":"パスワード",
     "passwordHelper": "MQTTサーバーに接続するためのパスワード",
