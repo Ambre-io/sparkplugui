@@ -19,9 +19,9 @@ export namespace core {
 	export class MQTTSetup {
 	    host: string;
 	    port: string;
+	    topic: string;
 	    username: string;
 	    password: string;
-	    topic: string;
 	    cacrt: string;
 	    clientcrt: string;
 	    clientkey: string;
@@ -34,9 +34,9 @@ export namespace core {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.host = source["host"];
 	        this.port = source["port"];
+	        this.topic = source["topic"];
 	        this.username = source["username"];
 	        this.password = source["password"];
-	        this.topic = source["topic"];
 	        this.cacrt = source["cacrt"];
 	        this.clientcrt = source["clientcrt"];
 	        this.clientkey = source["clientkey"];

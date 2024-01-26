@@ -44,6 +44,16 @@ export interface FilenamesType {
 }
 
 // ******************************************
+// * MQTTSetup
+// ******************************************
+export interface SavedType {
+    [key: string]: string; // see: https://stackoverflow.com/a/71336466
+    host: string;
+    port: string;
+    topic: string;
+}
+
+// ******************************************
 // * Dialog
 // ******************************************
 export interface AmbreDialogType {

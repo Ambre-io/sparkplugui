@@ -9,7 +9,7 @@
  */
 import React from "react";
 
-import {Responsive, WidthProvider} from "react-grid-layout";
+import ReactGridLayout, {Responsive, WidthProvider} from "react-grid-layout";
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 import {useSelector} from 'react-redux'
@@ -55,15 +55,15 @@ const layouts = {xl: xlLayout, lg: lgLayout, md: mdLayout};
 
 export const Amain: React.FC = () => {
 
-    const customizable = useSelector(getCustomizable);
+    const customizable: boolean = useSelector(getCustomizable);
 
     const ResponsiveGridLayout = React.useMemo(() => WidthProvider(Responsive), []);
 
-    const memoSoftCard = React.useMemo(() => <SoftCard/>, []);
-    const memoFormCard = React.useMemo(() => <FormCard/>, []);
-    const memoTreeCard = React.useMemo(() => <TreeCard/>, []);
-    const memoLastMessageCard = React.useMemo(() => <LastMessageCard/>, []);
-    const memoMessagesCard = React.useMemo(() => <MessagesCard/>, []);
+    const memoSoftCard: JSX.Element = React.useMemo(() => <SoftCard/>, []);
+    const memoFormCard: JSX.Element = React.useMemo(() => <FormCard/>, []);
+    const memoTreeCard: JSX.Element = React.useMemo(() => <TreeCard/>, []);
+    const memoLastMessageCard: JSX.Element = React.useMemo(() => <LastMessageCard/>, []);
+    const memoMessagesCard: JSX.Element = React.useMemo(() => <MessagesCard/>, []);
 
     return (
         <ResponsiveGridLayout

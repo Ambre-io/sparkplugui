@@ -1,27 +1,43 @@
 import {createSlice} from '@reduxjs/toolkit'
 import type {PayloadAction} from '@reduxjs/toolkit'
+
 import {constants} from "../../utils/constants.ts";
 import {RootState} from "../store.ts";
+import {SavedType} from "../../utils/types.ts";
 
 import {core} from "../../../wailsjs/go/models.ts";
 
 
-export const initMQTTSetupSlice: core.MQTTSetup = {
+// Default saved values
+const saved: SavedType = {
     host: '127.0.0.1',
     port: '1883',
+    topic: '#',
+};
+
+// Load saved values from localStorage
+Object.keys(saved).map((k: string) => saved[k] = localStorage.getItem(k) ?? saved[k]);
+
+// Instanciate initial slice values
+export const initMQTTSetupSlice: core.MQTTSetup = {
+    host: saved.host,
+    port: saved.port,
+    topic: saved.topic,
     username: '',
     password: '',
-    topic: '#',
     cacrt: '',
     clientcrt: '',
     clientkey: '',
 };
+
 
 const mqttSetupSlice = createSlice({
     name: constants.mqttSetupSlice,
     initialState: initMQTTSetupSlice,
     reducers: {
         setMQTTSetup: (state: any, action: PayloadAction<core.MQTTSetup>) => {
+            // Set values to localStorage
+            Object.keys(saved).map((k: string) => localStorage.setItem(k, (action.payload as any)[k]));
             Object.assign(state, action.payload);
         },
     },
