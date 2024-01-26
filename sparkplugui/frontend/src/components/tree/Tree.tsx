@@ -1,5 +1,13 @@
+/*
+ * SparkpluGUI - Software that displays decoded Sparkplug messages from MQTT IoT
+ *    @author guiklimek
+ *    @site https://ambre.io/
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the GNU GENERAL PUBLIC LICENSE which is available at
+ *    https://github.com/Ambre-io/sparkplugui
+ */
 import React, {useEffect, useState} from 'react';
-
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
 import {Grid} from "@mui/material";
