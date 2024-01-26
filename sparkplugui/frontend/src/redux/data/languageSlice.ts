@@ -3,18 +3,20 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {constants} from "../../utils/constants.ts";
 import {RootState} from "../store.ts";
 
-const isBrowser = typeof window !== "undefined";
 export let initLanguageSlice: string = 'en';
-if (isBrowser) {
-    const matched = navigator.language.match(/^[a-zA-Z]{2}/);
-    if (matched !== null) initLanguageSlice = matched[0];
+const savedLanguage: string | null = localStorage.getItem(constants.languageSlice);
+if (savedLanguage !== null) {
+    initLanguageSlice = savedLanguage
 }
 
 const languageSlice = createSlice({
     name: constants.languageSlice,
     initialState: initLanguageSlice,
     reducers: {
-        setLanguage: (_: any, action: PayloadAction<string>) => action.payload
+        setLanguage: (_: any, action: PayloadAction<string>) => {
+            localStorage.setItem(constants.languageSlice, action.payload);
+            return action.payload;
+        }
     },
 });
 
