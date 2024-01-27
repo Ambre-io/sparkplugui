@@ -87,11 +87,11 @@ export const Amain: React.FC = () => {
     // RGL performance tips
     // see: https://github.com/react-grid-layout/react-grid-layout#performance
     const ResponsiveGridLayout = React.useMemo(() => WidthProvider(Responsive), []);
-    const memoSoftCard = React.useMemo(() => <SoftCard/>, []);
-    const memoFormCard = React.useMemo(() => <FormCard/>, []);
-    const memoTreeCard = React.useMemo(() => <TreeCard/>, []);
-    const memoLastMessageCard = React.useMemo(() => <LastMessageCard/>, []);
-    const memoMessagesCard = React.useMemo(() => <MessagesCard/>, []);
+    const memoSoftCard: JSX.Element = React.useMemo(() => <SoftCard/>, []);
+    const memoFormCard: JSX.Element = React.useMemo(() => <FormCard/>, []);
+    const memoTreeCard: JSX.Element = React.useMemo(() => <TreeCard/>, []);
+    const memoLastMessageCard: JSX.Element = React.useMemo(() => <LastMessageCard/>, []);
+    const memoMessagesCard: JSX.Element = React.useMemo(() => <MessagesCard/>, []);
 
     return (
         <ResponsiveGridLayout
