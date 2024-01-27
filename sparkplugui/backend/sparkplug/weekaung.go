@@ -126,7 +126,6 @@ func (p *Payload) DecodePayload(bytes []byte) error {
 		}
 
 		// Set the Value according to DataType
-
 		switch sproto.DataType(*pl.Metrics[i].Datatype) {
 
 		case sproto.DataType_Int32:
