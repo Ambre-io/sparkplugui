@@ -120,30 +120,36 @@ func (p *Payload) DecodePayload(bytes []byte) error {
 
 		// Set the Name and DataType
 		p.Metrics[i].Name = *pl.Metrics[i].Name
-		p.Metrics[i].DataType = sproto.FriendlyDataTypes[sproto.DataType(*pl.Metrics[i].Datatype)]
-		if *pl.Metrics[i].Datatype >= uint32(len(sproto.FriendlyDataTypes)) {
+		p.Metrics[i].DataType = sproto.DataType_name[int32(*pl.Metrics[i].Datatype)]
+		if *pl.Metrics[i].Datatype >= uint32(len(sproto.DataType_name)) {
 			fmt.Printf("Warning: could not find metric number=%d in sproto.FriendlyDataTypes\n", *pl.Metrics[i].Datatype)
 		}
 
 		// Set the Value according to DataType
-		currentType := sproto.DataType(*pl.Metrics[i].Datatype)
-		switch currentType {
-		case sproto.Int32:
+
+		switch sproto.DataType(*pl.Metrics[i].Datatype) {
+
+		case sproto.DataType_Int32:
 			p.Metrics[i].Value = pl.Metrics[i].GetIntValue()
-		case sproto.Int64:
+		case sproto.DataType_Int64:
 			p.Metrics[i].Value = pl.Metrics[i].GetLongValue()
-		case sproto.Float:
+		case sproto.DataType_Float:
 			// look THIS 🤓
 			// GetDoubleValue() is for float64
 			// GetFloatValue() is for float32
 			// but the distinction is not represented in the definition
 			p.Metrics[i].Value = pl.Metrics[i].GetDoubleValue()
-		case sproto.Boolean:
+		case sproto.DataType_Boolean:
 			p.Metrics[i].Value = pl.Metrics[i].GetBooleanValue()
-		case sproto.String:
+		case sproto.DataType_String:
 			p.Metrics[i].Value = pl.Metrics[i].GetStringValue()
-		case sproto.Bytes:
+		case sproto.DataType_Bytes:
 			p.Metrics[i].Value = pl.Metrics[i].GetBytesValue()
+		case sproto.DataType_DataSet:
+			p.Metrics[i].Value = pl.Metrics[i].GetDatasetValue()
+		case sproto.DataType_Template:
+			p.Metrics[i].Value = pl.Metrics[i].GetTemplateValue()
+
 		default:
 			p.Metrics[i].Value = pl.Metrics[i].GetValue()
 		}
