@@ -24,57 +24,69 @@ import {styles} from "../../styles/styles";
 import {TreeCard} from "./TreeCard";
 
 
-// RGL performance tips
-// see: https://github.com/react-grid-layout/react-grid-layout#performance
+const defaultLayouts: Layouts = {
+    md: [
+        {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
+        {i: constants.formCard, x: 3, y: 0, w: 3, h: 5, minW: 3, minH: 1},
+        {i: constants.treeCard, x: 0, y: 2, w: 3, h: 2, minW: 3, minH: 1},
+        {i: constants.lastMessageCard, x: 0, y: 0, w: 3, h: 2, minW: 3, minH: 1},
+        {i: constants.messagesCard, x: 6, y: 0, w: 4, h: 5, minW: 3, minH: 1}
+    ],
+    lg: [
+        {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
+        {i: constants.formCard, x: 3, y: 0, w: 5, h: 1, minW: 3, minH: 1},
+        {i: constants.treeCard, x: 0, y: 2, w: 4, h: 5, minW: 3, minH: 1},
+        {i: constants.lastMessageCard, x: 4, y: 0, w: 4, h: 5, minW: 3, minH: 1},
+        {i: constants.messagesCard, x: 8, y: 0, w: 4, h: 6, minW: 3, minH: 1}
+    ],
+    xl: [
+        {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},
+        {i: constants.formCard, x: 2, y: 0, w: 5, h: 2, minW: 2, minH: 1},
+        {i: constants.treeCard, x: 0, y: 2, w: 3, h: 5, minW: 2, minH: 1},
+        {i: constants.lastMessageCard, x: 3, y: 0, w: 4, h: 5, minW: 2, minH: 1},
+        {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 7, minW: 2, minH: 1}
+    ]
+};
 
-let mdLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
-    {i: constants.formCard, x: 3, y: 0, w: 3, h: 5, minW: 3, minH: 1},
-    {i: constants.treeCard, x: 0, y: 2, w: 3, h: 2, minW: 3, minH: 1},
-    {i: constants.lastMessageCard, x: 0, y: 0, w: 3, h: 2, minW: 3, minH: 1},
-    {i: constants.messagesCard, x: 6, y: 0, w: 4, h: 5, minW: 3, minH: 1}
-];
-let lgLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
-    {i: constants.formCard, x: 3, y: 0, w: 5, h: 1, minW: 3, minH: 1},
-    {i: constants.treeCard, x: 0, y: 2, w: 4, h: 5, minW: 3, minH: 1},
-    {i: constants.lastMessageCard, x: 4, y: 0, w: 4, h: 5, minW: 3, minH: 1},
-    {i: constants.messagesCard, x: 8, y: 0, w: 4, h: 6, minW: 3, minH: 1}
-];
-let xlLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},
-    {i: constants.formCard, x: 2, y: 0, w: 5, h: 2, minW: 2, minH: 1},
-    {i: constants.treeCard, x: 0, y: 2, w: 3, h: 5, minW: 2, minH: 1},
-    {i: constants.lastMessageCard, x: 3, y: 0, w: 4, h: 5, minW: 2, minH: 1},
-    {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 7, minW: 2, minH: 1}
-];
+const loadLayouts = (): Layouts => {
+    try {
+        const savedLayouts = localStorage.getItem(constants.layouts);
+        return savedLayouts ? JSON.parse(savedLayouts) : defaultLayouts;
+    } catch (e) {
+        console.log('Error: loadLayouts', e);
+        return defaultLayouts;
+    }
+};
 
-const mdSaved: string | null = localStorage.getItem(constants.md);
-if (mdSaved !== null) mdLayout = JSON.parse(mdSaved);
-const lgSaved: string | null = localStorage.getItem(constants.lg);
-if (lgSaved !== null) lgLayout = JSON.parse(lgSaved);
-const xlSaved: string | null = localStorage.getItem(constants.xl);
-if (xlSaved !== null) xlLayout = JSON.parse(xlSaved);
-
-const initLayouts: Layouts = {xl: xlLayout, lg: lgLayout, md: mdLayout};
+const saveLayouts = (layouts: Layouts) => {
+    try {
+        localStorage.setItem(constants.layouts, JSON.stringify(layouts));
+    } catch (e) {
+        console.log('Error: saveLayout', e);
+    }
+}
 
 
 export const Amain: React.FC = () => {
 
     const customizable: boolean = useSelector(getCustomizable);
 
-    const ResponsiveGridLayout = React.useMemo(() => WidthProvider(Responsive), []);
+    const [layouts, setLayouts] = React.useState<Layouts>(loadLayouts());
 
-    const [layouts, setLayouts] = React.useState<Layouts>(initLayouts);
-    const [breakpoint, setBreakpoint] = React.useState<string>(constants.md);
+    React.useEffect(() => {
+        // Save layouts on unload
+        window.addEventListener(constants.beforeunload, () => saveLayouts(layouts));
+        return () => window.removeEventListener(constants.beforeunload, () => saveLayouts(layouts));
+    }, [layouts]);
 
-    const goLayoutChange = (layout: Layout[], allLayouts: Layouts) : void => {
-        localStorage.setItem(breakpoint, JSON.stringify(layout));
+    const goLayoutChange = (_: Layout[], allLayouts: Layouts): void => {
         setLayouts(allLayouts);
+        saveLayouts(allLayouts);
     };
 
-    const goBreakpointChange = (newBreakpoint: string) => setBreakpoint(newBreakpoint);
-
+    // RGL performance tips
+    // see: https://github.com/react-grid-layout/react-grid-layout#performance
+    const ResponsiveGridLayout = React.useMemo(() => WidthProvider(Responsive), []);
     const memoSoftCard = React.useMemo(() => <SoftCard/>, []);
     const memoFormCard = React.useMemo(() => <FormCard/>, []);
     const memoTreeCard = React.useMemo(() => <TreeCard/>, []);
@@ -86,8 +98,7 @@ export const Amain: React.FC = () => {
             className="layout"
             layouts={layouts}
             onLayoutChange={goLayoutChange}
-            onBreakpointChange={goBreakpointChange}
-            breakpoints={{xl: constants.xlSize, lg: constants.lgSize, md: constants.mdSize}}
+            breakpoints={{xl: constants.xl, lg: constants.lg, md: constants.md}}
             cols={{xl: 12, lg: 12, md: 10}}
             isDraggable={customizable}
             isResizable={customizable}

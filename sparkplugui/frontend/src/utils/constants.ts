@@ -48,15 +48,12 @@ export const constants = {
     emojiSmile: '😀',
     emojiWink: '😉',
     emojiSadge: '☹️',
-    xsSize: 480,
-    smSize: 768,
-    mdSize: 996,
-    lgSize: 1200,
-    xlSize: 1922,
-    xs: 'xs',
-    sm: 'sm',
-    md: 'md',
-    lg: 'lg',
-    xl: 'xl',
-    filename: 'filename'
+    xs: 480,
+    sm: 768,
+    md: 996,
+    lg: 1200,
+    xl: 1922,
+    filename: 'filename',
+    layouts: 'layouts',
+    beforeunload: 'beforeunload'
 };
