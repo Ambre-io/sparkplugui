@@ -53,5 +53,7 @@ export const constants = {
     md: 996,
     lg: 1200,
     xl: 1922,
-    filename: 'filename'
+    filename: 'filename',
+    layouts: 'layouts',
+    beforeunload: 'beforeunload'
 };

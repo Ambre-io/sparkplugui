@@ -8,7 +8,7 @@
  *    https://github.com/Ambre-io/sparkplugui
  */
 import React from "react";
-import {Responsive, WidthProvider} from "react-grid-layout";
+import {Layout, Layouts, Responsive, WidthProvider} from "react-grid-layout";
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 import {useSelector} from 'react-redux'
@@ -24,40 +24,69 @@ import {styles} from "../../styles/styles";
 import {TreeCard} from "./TreeCard";
 
 
-// RGL performance tips
-// see: https://github.com/react-grid-layout/react-grid-layout#performance
+const defaultLayouts: Layouts = {
+    md: [
+        {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
+        {i: constants.formCard, x: 3, y: 0, w: 3, h: 5, minW: 3, minH: 1},
+        {i: constants.treeCard, x: 0, y: 2, w: 3, h: 2, minW: 3, minH: 1},
+        {i: constants.lastMessageCard, x: 0, y: 0, w: 3, h: 2, minW: 3, minH: 1},
+        {i: constants.messagesCard, x: 6, y: 0, w: 4, h: 5, minW: 3, minH: 1}
+    ],
+    lg: [
+        {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
+        {i: constants.formCard, x: 3, y: 0, w: 5, h: 1, minW: 3, minH: 1},
+        {i: constants.treeCard, x: 0, y: 2, w: 4, h: 5, minW: 3, minH: 1},
+        {i: constants.lastMessageCard, x: 4, y: 0, w: 4, h: 5, minW: 3, minH: 1},
+        {i: constants.messagesCard, x: 8, y: 0, w: 4, h: 6, minW: 3, minH: 1}
+    ],
+    xl: [
+        {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},
+        {i: constants.formCard, x: 2, y: 0, w: 5, h: 2, minW: 2, minH: 1},
+        {i: constants.treeCard, x: 0, y: 2, w: 3, h: 5, minW: 2, minH: 1},
+        {i: constants.lastMessageCard, x: 3, y: 0, w: 4, h: 5, minW: 2, minH: 1},
+        {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 7, minW: 2, minH: 1}
+    ]
+};
 
-const mdLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
-    {i: constants.formCard, x: 3, y: 0, w: 3, h: 5, minW: 3, minH: 1},
-    {i: constants.treeCard, x: 0, y: 2, w: 3, h: 2, minW: 3, minH: 1},
-    {i: constants.lastMessageCard, x: 0, y: 0, w: 3, h: 2, minW: 3, minH: 1},
-    {i: constants.messagesCard, x: 6, y: 0, w: 4, h: 5, minW: 3, minH: 1}
-];
-const lgLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
-    {i: constants.formCard, x: 3, y: 0, w: 5, h: 1, minW: 3, minH: 1},
-    {i: constants.treeCard, x: 0, y: 2, w: 4, h: 5, minW: 3, minH: 1},
-    {i: constants.lastMessageCard, x: 4, y: 0, w: 4, h: 5, minW: 3, minH: 1},
-    {i: constants.messagesCard, x: 8, y: 0, w: 4, h: 6, minW: 3, minH: 1}
-];
-const xlLayout = [
-    {i: constants.softCard, x: 0, y: 0, w: 2, h: 1, static: true},
-    {i: constants.formCard, x: 2, y: 0, w: 5, h: 2, minW: 2, minH: 1},
-    {i: constants.treeCard, x: 0, y: 2, w: 3, h: 5, minW: 2, minH: 1},
-    {i: constants.lastMessageCard, x: 3, y: 0, w: 4, h: 5, minW: 2, minH: 1},
-    {i: constants.messagesCard, x: 7, y: 0, w: 5, h: 7, minW: 2, minH: 1}
-];
+const loadLayouts = (): Layouts => {
+    try {
+        const savedLayouts = localStorage.getItem(constants.layouts);
+        return savedLayouts ? JSON.parse(savedLayouts) : defaultLayouts;
+    } catch (e) {
+        console.log('Error: loadLayouts', e);
+        return defaultLayouts;
+    }
+};
 
-const layouts = {xl: xlLayout, lg: lgLayout, md: mdLayout};
+const saveLayouts = (layouts: Layouts) => {
+    try {
+        localStorage.setItem(constants.layouts, JSON.stringify(layouts));
+    } catch (e) {
+        console.log('Error: saveLayout', e);
+    }
+}
 
 
 export const Amain: React.FC = () => {
 
     const customizable: boolean = useSelector(getCustomizable);
 
-    const ResponsiveGridLayout = React.useMemo(() => WidthProvider(Responsive), []);
+    const [layouts, setLayouts] = React.useState<Layouts>(loadLayouts());
 
+    React.useEffect(() => {
+        // Save layouts on unload
+        window.addEventListener(constants.beforeunload, () => saveLayouts(layouts));
+        return () => window.removeEventListener(constants.beforeunload, () => saveLayouts(layouts));
+    }, [layouts]);
+
+    const goLayoutChange = (_: Layout[], allLayouts: Layouts): void => {
+        setLayouts(allLayouts);
+        saveLayouts(allLayouts);
+    };
+
+    // RGL performance tips
+    // see: https://github.com/react-grid-layout/react-grid-layout#performance
+    const ResponsiveGridLayout = React.useMemo(() => WidthProvider(Responsive), []);
     const memoSoftCard: JSX.Element = React.useMemo(() => <SoftCard/>, []);
     const memoFormCard: JSX.Element = React.useMemo(() => <FormCard/>, []);
     const memoTreeCard: JSX.Element = React.useMemo(() => <TreeCard/>, []);
@@ -68,6 +97,7 @@ export const Amain: React.FC = () => {
         <ResponsiveGridLayout
             className="layout"
             layouts={layouts}
+            onLayoutChange={goLayoutChange}
             breakpoints={{xl: constants.xl, lg: constants.lg, md: constants.md}}
             cols={{xl: 12, lg: 12, md: 10}}
             isDraggable={customizable}

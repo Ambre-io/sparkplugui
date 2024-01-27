@@ -42,6 +42,9 @@ func main() {
 	app := core.NewApp()
 
 	// Create application with options
+	// TODO add options https://wails.io/docs/reference/options/#application-options
+	//	 - to build for each platform
+	// 	 - to obfuscate
 	err := wails.Run(&options.App{
 		Title:     "SparkpluGUI",
 		Width:     popWindowWidth,

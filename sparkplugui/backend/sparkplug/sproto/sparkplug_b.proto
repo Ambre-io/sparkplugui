@@ -13,8 +13,7 @@ syntax = "proto2";
 
 package org.eclipse.tahu.protobuf;
 
-option java_package         = "org.eclipse.tahu.protobuf";
-option java_outer_classname = "SparkplugBProto";
+option go_package   = "sproto";
 
 enum DataType {
     // Indexes of Data Types
