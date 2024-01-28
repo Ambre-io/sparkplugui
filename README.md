@@ -8,29 +8,69 @@
 <div style="color: #D724FF;">Software that displays decoded Sparkplug messages from MQTT IoT</div>
 </h3>
 
-screenshot
+TODO add screenshot
 
-## 1. Quick Start
+## 1. Installation
 
-Install:
+- **Windows**:
+- **MacOS**:
+- **Linux**:
 
-- **linux**:
-- **macos**:
-- **windows**:
+## 2. Usage
 
-Run:
+Prepare your server authentication with the **MQTT Information** panel. Possibly in TLS.
+Then connect, get a success notification and starts to receive messages. They hydrate the **Messages** and the **Topics Tree** panels.
+Click on a tree branch and see the message in **Last Message** panel. 
 
-1. **Launch** the SparkpluGUI software
-2. **Type** the MQTT information in the form
-3. **Click** on the "Connect" button
+💡 Use the window small for the MQTT setup mode then enlarge it in width for the reading mode.
 
-Observe:
+Main software actions can be accessed from the top left panel. They trigger effects on other panels:
 
-- **Messages** shows the messages in a list
-- **Topics Tree** shows the topics has a tree
-- **Last Message** shows the payload in a JSON view
+### 2.1 Select 🗣️ Language
 
-## 2. Technical Stack
+Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿
+
+### 2.2 Button ☁️ Connect/Disconnect
+
+*Connect* the software to the defined server in the **MQTT Information** panel and subscribe to the topic.
+
+*Disconnect* the software from the MQTT server, after unsubscribe the topic, 
+to stop the flow or to modify the topic subscription for instance.
+
+#### MQTT Information
+
+|                                 Fields | Description                                                   | Required |
+|---------------------------------------:|:--------------------------------------------------------------|:--------:|
+|                               **Host** | MQTT server IP or domain name                                 |    x     |
+|                               **Port** | If you use an IP as host you maybe need the port too          |          |
+|                              **Topic** | Choose a generic or a specific topic to track what you need   |    x     |
+|                    **Username  [TLS]** | Use a valid username for the authentication                   |          |
+|                     **Password [TLS]** | Use a valid password for the authentication                   |          |
+| **Concatenated CA certificates [TLS]** | The classic TLS certificate from the trusted authority (.pem) |          |
+|           **Client certificate [TLS]** | Client certificate signed by the CA (.pem)                    |          |
+|                   **Client key [TLS]** | Keyfile for the client certificate (.pem)                     |          |
+
+💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and 
+secure connection.
+
+### 2.3 Button ↕️ Open/Close
+
+The **Topics Tree** is built over time as messages arrive.
+You can open the entire tree for easy access to your nodes and devices, or close it by pressing this button.
+
+### 2.4 Button 🔒 Unlock/Lock
+
+When you click the unlock button, **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** panels are
+customizable:
+
+- choose the window size
+- move panels by drag and drop
+- resize panels from the bottom right corner
+- this is saved automatically for each of the 3 window sizes.
+
+Then lock it again, in order to use the software.
+
+## 3. Technical Stack
 
 Thank you all for the beautiful technologies:
 
@@ -56,52 +96,3 @@ Thank you all for the beautiful technologies:
 - [Sparkplug Client](https://github.com/weekaung/sparkplugb-client) for the code base
 - [JetBrains](https://www.jetbrains.com/) much love
 - and many others 🙏
-
-## 3. Usage Details
-
-Main software actions can be accessed from the top left panel. They trigger effects on other panels.
-
-### 3.1 Select 🗣️ Language
-
-Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿
-
-### 3.2 Button ☁️ Connect/Disconnect
-
-*Connect* the software to the defined server in the **MQTT Information** panel. After the success notification,
-It starts to receive messages which hydrate the **Messages** and the **Topics Tree** panels.
-If you click on a tree branch, you will see the associated message in **Last Message** panel.
-
-Use the same button to *Disconnect* the software from the MQTT server,
-to stop the flow or to modify the topic for instance.
-
-#### MQTT Information
-
-|                                 Fields | Description                                                   | Required |
-|---------------------------------------:|:--------------------------------------------------------------|:--------:|
-|                               **Host** | MQTT server IP or domain name                                 |    x     |
-|                               **Port** | If you use an IP as host you maybe need the port too          |          |
-|                              **Topic** | Choose a generic or a specific topic to track what you need   |    x     |
-|                    **Username  [TLS]** | Use a valid username for the authentication                   |          |
-|                     **Password [TLS]** | Use a valid password for the authentication                   |          |
-| **Concatenated CA certificates [TLS]** | The classic TLS certificate from the trusted authority (.pem) |          |
-|           **Client certificate [TLS]** | Client certificate signed by the CA (.pem)                    |          |
-|                   **Client key [TLS]** | Keyfile for the client certificate (.pem)                     |          |
-
-💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and 
-secure connection.
-
-### 3.3 Button ↕️ Open/Close
-
-The **Topics Tree** is built over time as messages arrive.
-You can open the entire tree for easy access to your nodes and devices, or close it by pressing this button.
-
-### 3.4 Button 🔒 Unlock/Lock
-
-When you click the unlock button, **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** panels are
-customizable:
-
-- move it by drag and drop
-- resize it from the bottom right corner
-- choose the layout you prefer
-
-Then lock it again, in order to use the software.
