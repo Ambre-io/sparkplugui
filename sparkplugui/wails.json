@@ -8,5 +8,6 @@
     "frontend:dev:serverUrl": "auto",
     "author": {
         "name": "Ambre.io"
-    }
+    },
+    "obfuscated": false
 }
