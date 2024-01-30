@@ -12,16 +12,22 @@
 // They are namespaced and the only source of truth, which strengthens the application overall
 
 export const constants = {
+    // Internal logic
+    rootID: '-1',
+    topicSeparator: '/',
+    // Slices
+    cardSlice: 'cardSlice',
+    customizableSlice: 'customizableSlice',
+    languageSlice: 'languageSlice',
+    lastMessagesSlice: 'lastMessagesSlice',
     mqttSetupSlice: 'mqttSetupSlice',
     mqttFilenamesSlice: 'mqttFilenamesSlice',
-    languageSlice: 'languageSlice',
     messagesSlice: 'messagesSlice',
-    selectedTopicSlice: 'lastMessageSlice',
-    lastMessagesSlice: 'lastMessagesSlice',
     parentNodesSlice: 'parentNodesSlice',
     openedNodesSlice: 'openedNodesSlice',
-    customizableSlice: 'customizableSlice',
-    cardSlice: 'cardSlice',
+    reloadEventSlice: 'reloadEventSlice',
+    selectedTopicSlice: 'selectedTopicSlice',
+    // Fields
     host: 'host',
     port: 'port',
     topic: 'topic',
@@ -30,15 +36,13 @@ export const constants = {
     cacrt: 'cacrt',
     clientcrt: 'clientcrt',
     clientkey: 'clientkey',
-    reloadEventSlice: 'reloadEventSlice',
-    rootID: '-1',
-    topicSeparator: '/',
-    label: 'label',
+    // Cards
     softCard: 'softCard',
     formCard: 'informationCard',
     messagesCard: 'messagesCard',
     treeCard: 'treeCard',
     lastMessageCard: 'lastMessageCard',
+    // Emojis
     emojiFile: '📄',
     emojiTree: '🌳',
     emojiSunglasses: '🕶️',
@@ -48,12 +52,18 @@ export const constants = {
     emojiSmile: '😀',
     emojiWink: '😉',
     emojiSadge: '☹️',
+    // Screen sizes
     xs: 480,
     sm: 768,
     md: 996,
     lg: 1200,
     xl: 1922,
-    filename: 'filename',
-    layouts: 'layouts',
-    beforeunload: 'beforeunload'
+    // LocalStorage prefixed keys (for clarity & security)
+    sparkplugui_layouts: 'sparkplugui_layouts',
+    sparkplugui_host: 'sparkplugui_host',
+    sparkplugui_port: 'sparkplugui_port',
+    sparkplugui_topic: 'sparkplugui_topic',
+    sparkplugui_language: 'sparkplugui_language',
+    // Event listener
+    beforeunload: 'beforeunload',
 };

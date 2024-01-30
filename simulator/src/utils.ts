@@ -1,6 +1,16 @@
+/*
+ * SparkpluGUI - Software that displays decoded Sparkplug messages from MQTT IoT
+ *    @author guiklimek
+ *    @site https://ambre.io/
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the GNU GENERAL PUBLIC LICENSE which is available at
+ *    https://github.com/Ambre-io/sparkplugui
+ */
+
 export const utils = {
     range: (start: number, stop?: number | undefined, step?: number | undefined): number[] => {
-        // Python range implementation based on https://stackoverflow.com/a/8273091
+        // Python range implementation in TypeScript based on https://stackoverflow.com/a/8273091
         if (stop === undefined) {
             stop = start;
             start = 0;

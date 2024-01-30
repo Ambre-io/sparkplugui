@@ -50,7 +50,7 @@ const defaultLayouts: Layouts = {
 
 const loadLayouts = (): Layouts => {
     try {
-        const savedLayouts = localStorage.getItem(constants.layouts);
+        const savedLayouts = localStorage.getItem(constants.sparkplugui_layouts);
         return savedLayouts ? JSON.parse(savedLayouts) : defaultLayouts;
     } catch (e) {
         console.log('Error: loadLayouts', e);
@@ -60,7 +60,7 @@ const loadLayouts = (): Layouts => {
 
 const saveLayouts = (layouts: Layouts) => {
     try {
-        localStorage.setItem(constants.layouts, JSON.stringify(layouts));
+        localStorage.setItem(constants.sparkplugui_layouts, JSON.stringify(layouts));
     } catch (e) {
         console.log('Error: saveLayout', e);
     }

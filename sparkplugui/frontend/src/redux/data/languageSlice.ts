@@ -13,7 +13,7 @@ import {constants} from "../../utils/constants.ts";
 import {RootState} from "../store.ts";
 
 export let initLanguageSlice: string = 'en';
-const savedLanguage: string | null = localStorage.getItem(constants.languageSlice);
+const savedLanguage: string | null = localStorage.getItem(constants.sparkplugui_language);
 if (savedLanguage !== null) {
     initLanguageSlice = savedLanguage
 }
@@ -23,7 +23,7 @@ const languageSlice = createSlice({
     initialState: initLanguageSlice,
     reducers: {
         setLanguage: (_: any, action: PayloadAction<string>) => {
-            localStorage.setItem(constants.languageSlice, action.payload);
+            localStorage.setItem(constants.sparkplugui_language, action.payload);
             return action.payload;
         }
     },
