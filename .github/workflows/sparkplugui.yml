@@ -14,17 +14,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.21'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4.0.1
-      with:
-        node-version: 'v18.19.0'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4.0.1
+        with:
+          node-version: 'v18.19.0'
 
-    - run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
-    - run: wails build -clean -platform windows/amd64,darwin/amd64,linux/amd64 # -dryrun, -obfuscated
+      - run: go install github.com/wailsapp/wails/v2/cmd/wails@latest
+      - run: export PATH=${PATH}:${HOME}/go/bin
+      - run: wails build -clean -platform windows/amd64,darwin/amd64,linux/amd64 # -dryrun, -obfuscated
