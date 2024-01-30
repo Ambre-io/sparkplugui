@@ -19,8 +19,9 @@ TODO add screenshot
 ## 2. Usage
 
 Prepare your server authentication with the **MQTT Information** panel. Possibly in TLS.
-Then connect, get a success notification and starts to receive messages. They hydrate the **Messages** and the **Topics Tree** panels.
-Click on a tree branch and see the message in **Last Message** panel. 
+Then connect, get a success notification and starts to receive messages. They hydrate the **Messages** and the **Topics
+Tree** panels.
+Click on a tree branch and see the message in **Last Message** panel.
 
 💡 Use the window small for the MQTT setup mode then enlarge it in width for the reading mode.
 
@@ -30,32 +31,33 @@ Main software actions can be accessed from the top left panel. They trigger effe
 
 Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿
 
+It's saved automatically.
+
 ### 2.2 Button ☁️ Connect/Disconnect
 
 *Connect* the software to the defined server in the **MQTT Information** panel and subscribe to the topic.
 
-*Disconnect* the software from the MQTT server, after unsubscribe the topic, 
+*Disconnect* the software from the MQTT server, after unsubscribe the topic,
 to stop the flow or to modify the topic subscription for instance.
 
 #### MQTT Information
 
-|                                 Fields | Description                                                   | Required |
-|---------------------------------------:|:--------------------------------------------------------------|:--------:|
-|                               **Host** | MQTT server IP or domain name                                 |    x     |
-|                               **Port** | If you use an IP as host you maybe need the port too          |          |
-|                              **Topic** | Choose a generic or a specific topic to track what you need   |    x     |
-|                    **Username  [TLS]** | Use a valid username for the authentication                   |          |
-|                     **Password [TLS]** | Use a valid password for the authentication                   |          |
-| **Concatenated CA certificates [TLS]** | The classic TLS certificate from the trusted authority (.pem) |          |
-|           **Client certificate [TLS]** | Client certificate signed by the CA (.pem)                    |          |
-|                   **Client key [TLS]** | Keyfile for the client certificate (.pem)                     |          |
+|                                 Fields | Description                                          | Required | Saved |
+|---------------------------------------:|:-----------------------------------------------------|:--------:|:-----:|
+|                               **Host** | MQTT server IP or domain name                        |    x     |   x   |
+|                               **Port** | MQTT server port                                     |          |   x   |
+|                              **Topic** | Choose a topic to track what you need                |    x     |   x   |
+|                    **Username  [TLS]** | Use a valid username for the authentication          |          |       |
+|                     **Password [TLS]** | Use a valid password for the authentication          |          |       |
+| **Concatenated CA certificates [TLS]** | TLS certificate from the trusted authority (CA.pem)  |          |       |
+|           **Client certificate [TLS]** | Client certificate signed by the CA (client-crt.pem) |          |       |
+|                   **Client key [TLS]** | Keyfile for the client certificate (client-key.pem)  |          |       |
 
 💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and 
 secure connection.
 
 ### 2.3 Button ↕️ Open/Close
 
-The **Topics Tree** is built over time as messages arrive.
 You can open the entire tree for easy access to your nodes and devices, or close it by pressing this button.
 
 ### 2.4 Button 🔒 Unlock/Lock
@@ -66,9 +68,8 @@ customizable:
 - choose the window size
 - move panels by drag and drop
 - resize panels from the bottom right corner
-- this is saved automatically for each of the 3 window sizes.
 
-Then lock it again, in order to use the software.
+Then lock it again, in order to use the software. It's saved automatically.
 
 ## 3. Technical Stack
 
@@ -94,5 +95,6 @@ Thank you all for the beautiful technologies:
 - [Paho](https://github.com/eclipse/paho.mqtt.golang) for the MQTT client
 - [Protobuf](https://pkg.go.dev/google.golang.org/protobuf) for the Sparkplug payloads
 - [Sparkplug Client](https://github.com/weekaung/sparkplugb-client) for the code base
-- [JetBrains](https://www.jetbrains.com/) much love
+- [GitHub](https://github.com) for the nice pace
+- [JetBrains](https://www.jetbrains.com/) for the Rock Star IDE's
 - and many others 🙏
