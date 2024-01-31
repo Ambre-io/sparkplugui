@@ -10,13 +10,13 @@
 
 TODO add screenshot
 
-## 1. Installation
+## 1. Installation ⚙️
 
 - **Windows**:
 - **MacOS**:
 - **Linux**:
 
-## 2. Usage
+## 2. Usage 📚
 
 Prepare your server authentication with the **MQTT Information** panel. Possibly in TLS.
 Then connect, get a success notification and starts to receive messages. They hydrate the **Messages** and the **Topics
@@ -71,7 +71,7 @@ customizable:
 
 Then lock it again, in order to use the software. It's saved automatically.
 
-## 3. Technical Stack
+## 3. Technical Stack 🤓
 
 Thank you all for the beautiful technologies:
 
@@ -98,3 +98,12 @@ Thank you all for the beautiful technologies:
 - [GitHub](https://github.com) for the nice pace
 - [JetBrains](https://www.jetbrains.com/) for the Rock Star IDE's
 - and many others 🙏
+
+## 4. Sponsors ❤️
+
+If you like this project or if you wish more [Ambre.io](https://ambre.io/) open sourced projects, 
+please consider:
+- Become an Ambre.io Sponsor via GitHub (demand in progress)
+- Become an Ambre.io Subscriber via [Patreon](patreon.com/user?u=117579457)
+
+Thank you for your time and your energy here. Appreciate it.

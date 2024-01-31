@@ -13,3 +13,7 @@ export function CmdDisconnect() {
 export function EvtPayload() {
   return window['go']['core']['App']['EvtPayload']();
 }
+
+export function Startup(arg1) {
+  return window['go']['core']['App']['Startup'](arg1);
+}
