@@ -16,7 +16,7 @@ import {CustomizableButton} from "../events/CustomizableButton.tsx";
 import {OpenNodesButton} from "../events/OpenNodesButton.tsx";
 import {LanguageSelection} from "../events/LanguageSelection.tsx";
 import {primaryDark} from "../../styles/muiTheme.ts";
-import SETTINGS from '../../../../../settings.json';
+import SETTINGS from '../../../../settings.json';
 import {styles} from "../../styles/styles.ts";
 
 
