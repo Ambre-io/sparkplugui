@@ -38,7 +38,7 @@ var popWindowWidth = 1500
 var popWindowHeight = 970
 
 var minWindowWidth = md + 1
-var minWindowHeight = 810
+var minWindowHeight = 830
 
 var maxWindowWidth = 2560
 var maxWindowHeight = 1440

@@ -8,22 +8,26 @@
 #    https://github.com/Ambre-io/sparkplugui
 #
 
-name: sparkplugui
+name: Linux
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - non-existent-branch-to-do-nothing-broooooooooooooooooooo
+#    tags: ['v*']
+#  pull_request:
+#    branches: [ "main" ]
 
 jobs:
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - uses: dAppServer/wails-build-action@v2.2
+      - name: Build Linux SparkpluGUI
+        uses: dAppServer/wails-build-action@v2.2
         with:
           build-name: SparkpluGUI
           build-platform: linux/amd64
