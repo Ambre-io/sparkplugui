@@ -1,39 +1,32 @@
-<h1 align=center>
-    <div>
-        <img src="frontend/src/assets/images/logo.svg" width="180" style="filter: invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)" />
-    </div>
-    <font size="7" style="color: #55C6E7">SparkpluGUI</font>
-</h1>
+<p align="center">
+    <img src="frontend/src/assets/images/appicon.png" width="200" />
+</p>
 <h3 align=center>
-<div style="color: #D724FF;">Software that displays decoded Sparkplug messages from MQTT IoT</div>
+<div style="color: #D724FF; font-size: 40px">SparkpluGUI</div>
+<div style="color: #D724FF; padding-top: 10px; font-size: 20px">Software that displays decoded Sparkplug messages from MQTT IoT</div>
+<div style="color: #D724FF; padding-top: 10px; font-size: 20px">Windows, macOS and Linux</div>
 </h3>
 
 TODO add screenshot
 
-- [Installation](#1-installation-)
-- [Get Started](#2-get-started-)
-- [Details](#3-usage-details-)
-- [Technical Stack](#4-technical-stack-)
-- [Sponsors](#5-sponsors-)
+- [Get Started](#-get-started)
+- [Details](#-usage-details)
+- [Technical Stack](#-technical-stack)
+- [Sponsors](#-sponsors)
 
-## Installation ⚙️
+## 👨‍💻 Get Started
 
-- **Windows**:
-- **MacOS**:
-- **Linux**:
-
-## Get Started 👨‍💻 
- 
-Prepare your server authentication with the **MQTT Information** panel. Possibly in TLS.
-Then connect, get a success notification and starts to receive messages. They hydrate the **Messages** and the **Topics
-Tree** panels.
-Click on a tree branch and see the message in **Last Message** panel.
+1. Download the **Windows**, **macOS** or **Linux** latest
+   release: https://github.com/Ambre-io/sparkplugui/releases/latest
+2. Launch SparkpluGUI
+3. Setup your server connection with the **MQTT Information** panel. Possibly in TLS.
+4. Connect and starts to receive messages in the **Messages** and the **Topics Tree** panels.
+5. Click on a tree branch and see the message in **Last Message** panel.
 
 💡 Use the window small for the MQTT setup mode then enlarge it in width for the reading mode.
 
-Main software actions can be accessed from the top left panel. They trigger effects on other panels:
+## 📚 Usage Details
 
-## Usage Details 📚 
 ### Select 🗣️ Language
 
 Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿
@@ -60,7 +53,7 @@ to stop the flow or to modify the topic subscription for instance.
 |           **Client certificate [TLS]** | Client certificate signed by the CA (client-crt.pem) |          |       |
 |                   **Client key [TLS]** | Keyfile for the client certificate (client-key.pem)  |          |       |
 
-💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and 
+💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and
 secure connection.
 
 ### Button ↕️ Open/Close
@@ -77,11 +70,11 @@ secure connection.
 - move panels by drag and drop
 - resize panels from the bottom right corner
 
-*Lock* the customization in order to use the software. 
+*Lock* the customization in order to use the software.
 
 It's saved automatically.
 
-## Technical Stack 🤓 
+## 🤓 Technical Stack
 
 Thank you all for the beautiful technologies:
 
@@ -109,10 +102,11 @@ Thank you all for the beautiful technologies:
 - [JetBrains](https://www.jetbrains.com/) for the Rock Star IDE's
 - and many others 🙏
 
-## Sponsors ❤️
+## ❤️ Sponsors
 
-If you like this project or if you wish more [Ambre.io](https://ambre.io/) open sourced projects, 
+If you like this project or if you wish more [Ambre.io](https://ambre.io/) open sourced projects,
 please consider:
+
 - Become an Ambre.io Sponsor via GitHub (demand in progress)
 - Become an Ambre.io Subscriber via [Patreon](patreon.com/user?u=117579457)
 

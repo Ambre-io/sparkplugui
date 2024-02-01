@@ -25,7 +25,7 @@ export const SoftCard: React.FC = () => (
         <Grid item md={12} lg={10} sx={{p: 1}}>
             <Grid container sx={styles.softContainer}>
                 <Grid item xs={12} sx={{textAlign: 'center'}}>
-                    <img style={styles.softLogo} alt='' src='src/assets/images/logo.svg'/>
+                    <img style={styles.softLogo} alt='' src={process.env.NODE_ENV === 'production' ? 'logo.svg': 'src/assets/images/logo.svg'}/>
                     <div style={styles.softTitle}>SparkpluGUI</div>
                     <div style={styles.softSubTitle}>
                         {SETTINGS.version} by <span style={styles.color(primaryDark)}>{SETTINGS.creator.name}</span>

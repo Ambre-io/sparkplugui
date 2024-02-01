@@ -2,7 +2,7 @@
 .idea
 
 # Vite
-**/build/*
+**/build/*dev*
 **/dist/*
 
 # Logs
