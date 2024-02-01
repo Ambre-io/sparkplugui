@@ -10,19 +10,19 @@
 
 TODO add screenshot
 
-- [1. Installation ⚙️](#1-installation-)
-- [2. Get Started 👨‍💻](#2-get-started-)
-- [3. Details 📚](#3-usage-details-)
-- [4. Technical Stack 🤓](#4-technical-stack-)
-- [5. Sponsors ❤️](#5-sponsors-)
+- [Installation](#1-installation-)
+- [Get Started](#2-get-started-)
+- [Details](#3-usage-details-)
+- [Technical Stack](#4-technical-stack-)
+- [Sponsors](#5-sponsors-)
 
-## 1. Installation ⚙️
+## Installation ⚙️
 
 - **Windows**:
 - **MacOS**:
 - **Linux**:
 
-## 2. Get Started 👨‍💻
+## Get Started 👨‍💻 
  
 Prepare your server authentication with the **MQTT Information** panel. Possibly in TLS.
 Then connect, get a success notification and starts to receive messages. They hydrate the **Messages** and the **Topics
@@ -33,14 +33,14 @@ Click on a tree branch and see the message in **Last Message** panel.
 
 Main software actions can be accessed from the top left panel. They trigger effects on other panels:
 
-## 3. Usage Details 📚
-### 3.1 Select 🗣️ Language
+## Usage Details 📚 
+### Select 🗣️ Language
 
 Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿
 
 It's saved automatically.
 
-### 3.2 Button ☁️ Connect/Disconnect
+### Button ☁️ Connect/Disconnect
 
 *Connect* the software to the defined server in the **MQTT Information** panel and subscribe to the topic.
 
@@ -63,13 +63,13 @@ to stop the flow or to modify the topic subscription for instance.
 💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and 
 secure connection.
 
-### 3.3 Button ↕️ Open/Close
+### Button ↕️ Open/Close
 
 *Open* the entire tree for easy access to your nodes and devices.
 
 *Close* the entire tree.
 
-### 3.4 Button 🔒 Unlock/Lock
+### Button 🔒 Unlock/Lock
 
 *Unlock* button gives access to **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** customization:
 
@@ -81,7 +81,7 @@ secure connection.
 
 It's saved automatically.
 
-## 4. Technical Stack 🤓
+## Technical Stack 🤓 
 
 Thank you all for the beautiful technologies:
 
@@ -109,7 +109,7 @@ Thank you all for the beautiful technologies:
 - [JetBrains](https://www.jetbrains.com/) for the Rock Star IDE's
 - and many others 🙏
 
-## 5. Sponsors ❤️
+## Sponsors ❤️
 
 If you like this project or if you wish more [Ambre.io](https://ambre.io/) open sourced projects, 
 please consider:

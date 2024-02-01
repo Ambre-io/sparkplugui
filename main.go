@@ -12,6 +12,7 @@ package main
 
 import (
 	"embed"
+	"github.com/wailsapp/wails/v2/pkg/logger"
 	"net/http"
 	"sparkplugui/backend/core"
 
@@ -38,7 +39,7 @@ var popWindowWidth = 1500
 var popWindowHeight = 970
 
 var minWindowWidth = md + 1
-var minWindowHeight = 830
+var minWindowHeight = 840
 
 var maxWindowWidth = 2560
 var maxWindowHeight = 1440
@@ -50,30 +51,33 @@ func main() {
 	// Create application with options
 	// see: https://wails.io/docs/reference/options/#application-options
 	err := wails.Run(&options.App{
-		Title:            "SparkpluGUI",
-		Width:            popWindowWidth,
-		Height:           popWindowHeight,
-		DisableResize:    false,
-		Fullscreen:       false,
-		WindowStartState: options.Normal,
-		Frameless:        false, // top bar disapear if true, but it's needed to drag the soft
-		MinWidth:         minWindowWidth,
-		MinHeight:        minWindowHeight,
-		MaxWidth:         maxWindowWidth,
-		MaxHeight:        maxWindowHeight,
-		StartHidden:      false,
-		//HideWindowOnClose: false,
-		//BackgroundColour:  &options.RGBA{R: 0, G: 0, B: 0, A: 255},
-		////AlwaysOnTop:       false,
+		Title:              "SparkpluGUI",
+		Width:              popWindowWidth,
+		Height:             popWindowHeight,
+		MinWidth:           minWindowWidth,
+		MinHeight:          minWindowHeight,
+		MaxWidth:           maxWindowWidth,
+		MaxHeight:          maxWindowHeight,
+		OnStartup:          app.Startup,
+		LogLevel:           logger.DEBUG,
+		LogLevelProduction: logger.ERROR,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 			//Handler:    assetsHandler,
 			//Middleware: assetsMidldeware,
 		},
+		Bind: []interface{}{
+			app,
+		},
+		//DisableResize:      false,
+		//Fullscreen:         false,
+		//WindowStartState:   options.Normal,
+		//Frameless:          false, // top bar disapear if true, but it's needed to drag the soft
+		//StartHidden:        false,
+		//HideWindowOnClose: false,
+		//BackgroundColour:  &options.RGBA{R: 0, G: 0, B: 0, A: 255},
+		////AlwaysOnTop:       false,
 		////Menu:               app.applicationMenu(),
-		//LogLevel:           logger.DEBUG,
-		//LogLevelProduction: logger.ERROR,
-		//OnStartup:          app.Startup,
 		////OnDomReady:         app.domready,
 		////OnShutdown:         app.shutdown,
 		////OnBeforeClose:      app.beforeClose,
@@ -81,9 +85,6 @@ func main() {
 		//CSSDragValue:                     "drag",
 		//EnableDefaultContextMenu:         false,
 		//EnableFraudulentWebsiteDetection: false,
-		Bind: []interface{}{
-			app,
-		},
 		////EnumBind: []interface{}{}, // A slice of Enum arrays that need to be bound to the frontend.
 		//ErrorFormatter: func(err error) any { return err.Error() },
 		//SingleInstanceLock: &options.SingleInstanceLock{
