@@ -7,8 +7,9 @@
 <p align="center">
    <span style="color: #D724FF; font-size: 20px">Windows, macOS and Linux</span>
 </p>
-
-TODO add screenshot
+<p align="center">
+   <img src="./build/sparplugui.gif" alt="SparkpluGUI GIF" width="667"/>
+</p>
 
 - [Get Started](#-get-started)
 - [Details](#-usage-details)
