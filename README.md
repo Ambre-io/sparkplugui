@@ -110,6 +110,6 @@ If you like this project or if you wish more [Ambre.io](https://ambre.io/) open 
 please consider:
 
 - Become an Ambre.io Sponsor via GitHub (demand in progress)
-- Become an Ambre.io Subscriber via [Patreon](patreon.com/user?u=117579457)
+- Become an Ambre.io Subscriber via [Patreon](https://www.patreon.com/user?u=117579457)
 
 Thank you for your time and your energy here. Appreciate it.
