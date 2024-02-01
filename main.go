@@ -25,7 +25,7 @@ import (
 //go:embed all:frontend/dist
 var assets embed.FS
 
-//go:embed all:frontend/src/assets/images/appicon.png
+//go:embed build/appicon.png
 var icon []byte
 
 var xs = 480
