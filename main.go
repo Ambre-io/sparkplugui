@@ -15,7 +15,6 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/options/linux"
 	"github.com/wailsapp/wails/v2/pkg/options/mac"
-	"net/http"
 	"sparkplugui/backend/core"
 
 	"github.com/wailsapp/wails/v2"
@@ -25,9 +24,8 @@ import (
 
 //go:embed all:frontend/dist
 var assets embed.FS
-var assetsHandler http.Handler
 
-//go:embed frontend/src/assets/images/appicon.png
+//go:embed all:frontend/src/assets/images/appicon.png
 var icon []byte
 
 var xs = 480
@@ -63,11 +61,14 @@ func main() {
 		LogLevel:           logger.DEBUG,
 		LogLevelProduction: logger.ERROR,
 		AssetServer: &assetserver.Options{
-			Assets:  assets,
-			Handler: assetsHandler,
+			Assets: assets,
 		},
 		Bind: []interface{}{
 			app,
+		},
+		SingleInstanceLock: &options.SingleInstanceLock{
+			UniqueId:               "aaa8fd93-6758-4144-87d1-34bdb0a8bd60",
+			OnSecondInstanceLaunch: func(secondInstanceData options.SecondInstanceData) {},
 		},
 		Mac: &mac.Options{
 			About: &mac.AboutInfo{
