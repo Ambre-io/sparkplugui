@@ -8,7 +8,6 @@
  *    https://github.com/Ambre-io/sparkplugui
  */
 import * as React from 'react';
-
 import {Grid} from "@mui/material";
 
 import {ConnectButton} from "../events/ConnectButton.tsx";
@@ -25,14 +24,13 @@ export const SoftCard: React.FC = () => (
         <Grid item md={12} lg={10} sx={{p: 1}}>
             <Grid container sx={styles.softContainer}>
                 <Grid item xs={12} sx={{textAlign: 'center'}}>
-                    <img style={styles.softLogo} alt='' src={process.env.NODE_ENV === 'production' ? 'logo.svg': 'src/assets/images/logo.svg'}/>
                     <div style={styles.softTitle}>SparkpluGUI</div>
                     <div style={styles.softSubTitle}>
                         {SETTINGS.version} by <span style={styles.color(primaryDark)}>{SETTINGS.creator.name}</span>
                     </div>
                 </Grid>
                 <Grid item xs={12}>
-                    <Grid container alignItems='center' justifyContent="center" sx={styles.softActions} wrap="nowrap">
+                    <Grid container alignItems='center' justifyContent='center' wrap='nowrap'>
                         <Grid item sx={styles.paddingLeft(1)}>
                             <LanguageSelection/>
                         </Grid>

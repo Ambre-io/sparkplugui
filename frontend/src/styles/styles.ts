@@ -106,24 +106,17 @@ export const styles: stylesType = {
         height: '100%',
         userSelect: 'none',
     },
-    softLogo: {
-        width: 100,
-        filter: 'invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)'
-    },
     softTitle: {
         fontFamily: 'TitilliumWebBold',
-        fontSize: 26,
-        marginTop: -20,
+        fontSize: 28,
         color: primaryMain,
+        paddingTop: 5,
     },
     softSubTitle: {
         fontFamily: 'TitilliumWebBold',
         fontSize: 11,
         color: primaryLight,
         marginTop: -7
-    },
-    softActions: {
-        marginTop: '-5px'
     },
     formCardFirstInput: {
         marginBottom: 1,
@@ -156,6 +149,9 @@ export const styles: stylesType = {
         paddingBottom: 1,
         color: primaryDark
     },
+    // svgColor: {
+    //     filter: 'invert(78%) sepia(95%) saturate(1004%) hue-rotate(339deg) brightness(101%) contrast(101%)'
+    // },
     // spinOnClick: {
     //     padding: '6px',
     //     minWidth: '20px',
