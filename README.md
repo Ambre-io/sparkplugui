@@ -2,10 +2,11 @@
     <img src="frontend/src/assets/images/appicon.png" width="200" />
 </p>
 <h3 align=center>
-<div style="color: #D724FF; font-size: 40px">SparkpluGUI</div>
-<div style="color: #D724FF; padding-top: 10px; font-size: 20px">Software that displays decoded Sparkplug messages from MQTT IoT</div>
-<div style="color: #D724FF; padding-top: 10px; font-size: 20px">Windows, macOS and Linux</div>
+   <div style="color: #D724FF; padding-top: 10px; font-size: 20px">Software that displays decoded Sparkplug messages from MQTT IoT</div>
 </h3>
+<p align="center">
+   <span style="color: #D724FF; font-size: 20px">Windows, macOS and Linux</span>
+</p>
 
 TODO add screenshot
 
@@ -14,7 +15,7 @@ TODO add screenshot
 - [Technical Stack](#-technical-stack)
 - [Sponsors](#-sponsors)
 
-## 👨‍💻 Get Started
+## ☀️ Get Started
 
 1. Download the **Windows**, **macOS** or **Linux** latest
    release: https://github.com/Ambre-io/sparkplugui/releases/latest
