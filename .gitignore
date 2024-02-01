@@ -3,6 +3,7 @@
 
 # Vite
 **/build/*dev*
+**/build/*bin
 **/dist/*
 
 # Logs
