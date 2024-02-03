@@ -12,7 +12,7 @@
 </p>
 
 - [Get Started](#-get-started)
-- [Details](#-usage-details)
+- [Usage Details](#-usage-details)
 - [Technical Stack](#-technical-stack)
 - [Sponsors](#-sponsors)
 
