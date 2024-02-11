@@ -20,7 +20,7 @@ import {core} from "../../../wailsjs/go/models.ts";
 const saved: Record<string, string> = {
     [constants.sparkplugui_host]: '127.0.0.1',
     [constants.sparkplugui_port]: '1883',
-    [constants.sparkplugui_topic]: '#',
+    [constants.sparkplugui_topic]: 'spBv1.0/GROUPID/DEVICE/#',
 };
 
 // Load saved values from localStorage

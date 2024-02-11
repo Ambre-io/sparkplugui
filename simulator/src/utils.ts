@@ -21,9 +21,7 @@ export const utils = {
         if ((step > 0 && start >= stop) || (step < 0 && start <= stop)) return [];
 
         const result: number[] = [];
-        for (let i: number = start; step > 0 ? i < stop : i > stop; i += step) {
-            result.push(i);
-        }
+        for (let i: number = start; step > 0 ? i < stop : i > stop; i += step) result.push(i);
 
         return result;
     },

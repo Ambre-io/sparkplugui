@@ -55,6 +55,8 @@ to stop the flow or to modify the topic subscription for instance.
 |           **Client certificate [TLS]** | Client certificate signed by the CA (client-crt.pem) |          |       |
 |                   **Client key [TLS]** | Keyfile for the client certificate (client-key.pem)  |          |       |
 
+💡 In order to use the software in the best conditions please restrict your search to a specific topic.
+
 💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and
 secure connection.
 

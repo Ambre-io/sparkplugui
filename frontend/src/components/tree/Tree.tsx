@@ -57,7 +57,7 @@ export const Tree: React.FC = () => {
 
                 // Create a tree node using the topic
                 const lastNodeTopic = lastNode.options?.nodeID ?? '';
-                const nodeID = `${lastNodeTopic}${lastNodeTopic === '' ? '' : '/'}${subTopic}`;
+                const nodeID = `${lastNodeTopic}${lastNodeTopic === '' ? '' : constants.topicSeparator}${subTopic}`;
                 let node: NodeType = utils.createNode(nodeID, subTopic, [], {nodeID});
 
                 // Update current node reference if exists or add it to the tree
@@ -65,7 +65,9 @@ export const Tree: React.FC = () => {
                 if (inTreeNode !== undefined) {
                     node = inTreeNode;
                 } else {
-                    if (!lastNode.subnodes.in(node, 'id')) lastNode.subnodes.push(node);
+                    if (!lastNode.subnodes.in(node, 'id')) {
+                        lastNode.subnodes.push(node); // Push it
+                    }
                 }
 
                 // Leaf or Parent
