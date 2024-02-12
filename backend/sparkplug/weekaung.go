@@ -128,19 +128,17 @@ func (p *Payload) DecodePayload(bytes []byte) error {
 		// Set the Value according to DataType
 		switch sproto.DataType(*pl.Metrics[i].Datatype) {
 
-		case sproto.DataType_Int32:
+		case sproto.DataType_Int8, sproto.DataType_UInt8,
+			sproto.DataType_Int16, sproto.DataType_UInt16,
+			sproto.DataType_Int32, sproto.DataType_UInt32:
 			p.Metrics[i].Value = pl.Metrics[i].GetIntValue()
-		case sproto.DataType_Int64:
+		case sproto.DataType_Int64, sproto.DataType_UInt64:
 			p.Metrics[i].Value = pl.Metrics[i].GetLongValue()
-		case sproto.DataType_Float:
-			// look THIS 🤓
-			// GetDoubleValue() is for float64
-			// GetFloatValue() is for float32
-			// but the distinction is not represented in the definition
+		case sproto.DataType_Float, sproto.DataType_Double:
 			p.Metrics[i].Value = pl.Metrics[i].GetDoubleValue()
 		case sproto.DataType_Boolean:
 			p.Metrics[i].Value = pl.Metrics[i].GetBooleanValue()
-		case sproto.DataType_String:
+		case sproto.DataType_String, sproto.DataType_Text:
 			p.Metrics[i].Value = pl.Metrics[i].GetStringValue()
 		case sproto.DataType_Bytes:
 			p.Metrics[i].Value = pl.Metrics[i].GetBytesValue()
