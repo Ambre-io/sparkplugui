@@ -9,12 +9,14 @@
 </p>
 <p align="center">
    <img src="./build/sparplugui.gif" alt="SparkpluGUI GIF" width="667"/>
+    <br/>
+    Made with ❤️ by <a href="https://ambre.io/">Ambre.io</a>
 </p>
 
 - [Get Started](#-get-started)
 - [Usage Details](#-usage-details)
 - [Technical Stack](#-technical-stack)
-- [Sponsors](#-sponsors)
+- [Development](#-development)
 
 ## ☀️ Get Started
 
@@ -106,12 +108,14 @@ Thank you all for the beautiful technologies:
 - [JetBrains](https://www.jetbrains.com/) for the Rock Star IDE's
 - and many others 🙏
 
-## ❤️ Sponsors
+## 👨‍💻 Development
 
-If you like this project or if you wish more [Ambre.io](https://ambre.io/) open sourced projects,
-please consider:
-
-- Become an Ambre.io Sponsor via GitHub
-- Become an Ambre.io Subscriber via [Patreon](https://www.patreon.com/user?u=117579457)
-
-Thank you for your time and your energy here. Appreciate it.
+| Step              | Action                                                   |
+|:------------------|:---------------------------------------------------------| 
+| install go        | https://go.dev/doc/install                               |
+| update your path  | export PATH="\$PATH:$HOME/go/bin"                        |
+| install wails     | go install github.com/wailsapp/wails/v2/cmd/wails@latest |
+| install required  | `sudo apt install libgtk-3-dev libwebkit2gtk-4.1-dev`    |
+| run dev           | `wails dev -tags webkit2_41`                             |
+| run build         | `wails build -tags webkit2_41`                           |
+| helper for errors | `wails doctor`                                           |
