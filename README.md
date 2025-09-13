@@ -2,7 +2,7 @@
     <img src="frontend/src/assets/images/appicon.png" width="200" />
 </p>
 <h3 align=center>
-   <div style="color: #D724FF; padding-top: 10px; font-size: 20px">Software that displays decoded Sparkplug messages from MQTT IoT</div>
+   <div style="color: #D724FF; padding-top: 10px; font-size: 20px">Displays decoded Sparkplug messages from MQTT IoT</div>
 </h3>
 <p align="center">
    <span style="color: #D724FF; font-size: 20px">Windows, macOS and Linux</span>
