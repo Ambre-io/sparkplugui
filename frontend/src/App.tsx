@@ -34,21 +34,22 @@ export const App = () => (
                 style={styles.toastContainer}
                 transition={Slide}
             />
-            <ul className="circles">
-                <main className="resetCircles">
-                    <Amain/>
-                </main>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
+            <Amain/>
+            {/*<ul className="circles">*/}
+            {/*    <main className="resetCircles">*/}
+            {/*        <Amain/>*/}
+            {/*    </main>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*    <li></li>*/}
+            {/*</ul>*/}
         </ThemeProvider>
     </Provider>
 );

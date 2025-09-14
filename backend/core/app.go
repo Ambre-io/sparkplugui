@@ -13,16 +13,22 @@ package core
 import (
 	"context"
 	"encoding/json"
-	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"sparkplugui/backend/sparkplug"
+	"sync/atomic"
 	"time"
+
+	MQTT "github.com/eclipse/paho.mqtt.golang"
 )
 
 // App struct
 type App struct {
-	context    context.Context
-	MQTTCLIENT MQTT.Client
-	QUEUE      chan MQTTMessage
+	context     context.Context
+	MQTTCLIENT  MQTT.Client
+	QUEUE       chan MQTTMessage
+	DROPCOUNT   int64
+	RAWMESSAGES chan MQTT.Message
+	stop        context.CancelFunc
+	lastTopic   string
 }
 
 // NewApp creates a new App application struct
@@ -34,12 +40,36 @@ func NewApp() *App {
 func (a *App) Startup(context context.Context) {
 	a.context = context
 	a.MQTTCLIENT = MQTT.NewClient(MQTT.NewClientOptions())
-	a.QUEUE = make(chan MQTTMessage)
+	a.init()
+}
+
+// ******************************************
+// * PUBLIC METHODS
+// ******************************************
+
+func (a *App) GetDroppedCount() int64 {
+	return atomic.LoadInt64(&a.DROPCOUNT)
+}
+
+func (a *App) TryPopMessage() *MQTTMessage {
+	select {
+	case p := <-a.QUEUE:
+		return &p
+	default:
+		return nil
+	}
 }
 
 // ******************************************
 // * PRIVATE METHODS
 // ******************************************
+
+func (a *App) init() {
+	a.QUEUE = make(chan MQTTMessage, 2000)
+	a.RAWMESSAGES = make(chan MQTT.Message, 1000)
+	a.DROPCOUNT = 0
+	a.lastTopic = ""
+}
 
 func (a *App) decode(payload []byte) (string, int64) {
 	decoded := ""
@@ -61,14 +91,81 @@ func (a *App) decode(payload []byte) (string, int64) {
 }
 
 func (a *App) pushMessage(topic string, payload string, timestamp int64) {
-	a.QUEUE <- MQTTMessage{
-		Topic:     topic,
-		Payload:   payload,
-		Timestamp: timestamp,
+	message := MQTTMessage{Topic: topic, Payload: payload, Timestamp: timestamp}
+	// Try non-blocking send first.
+	select {
+	case a.QUEUE <- message:
+		// ok
+		return
+	default:
+		// queue full: apply "drop oldest, keep latest"
+	}
+
+	// Remove one oldest item to make room (non-blocking).
+	select {
+	case <-a.QUEUE:
+		// freed one slot
+	default:
+		// nothing freed (race), will try to send anyway
+	}
+
+	// Try to enqueue the new (fresh) message.
+	select {
+	case a.QUEUE <- message:
+		// ok after dropping one old item
+		atomic.AddInt64(&a.DROPCOUNT, 1)
+		return
+	default:
+		// still full: drop the new message (very rare if above succeeded)
+		atomic.AddInt64(&a.DROPCOUNT, 1)
+		return
 	}
 }
 
-func (a *App) popMessage() *MQTTMessage {
-	p := <-a.QUEUE
-	return &p
+func (a *App) startWorker() {
+	ctx, cancel := context.WithCancel(context.Background())
+	a.stop = cancel
+
+	go func() {
+		ticker := time.NewTicker(100 * time.Millisecond) // batch UI
+		defer ticker.Stop()
+
+		type item struct {
+			topic   string
+			decoded string
+			ts      int64
+		}
+		batch := make([]item, 0, 200)
+
+		for {
+			select {
+			case <-ctx.Done():
+				if len(batch) > 0 {
+					for _, it := range batch {
+						a.pushMessage(it.topic, it.decoded, it.ts)
+					}
+					batch = batch[:0]
+				}
+				return
+			case m := <-a.RAWMESSAGES:
+				decoded, ts := a.decode(m.Payload())
+				batch = append(batch, item{m.Topic(), decoded, ts})
+			case <-ticker.C:
+				if len(batch) > 0 {
+					// push par lots pour soulager l’UI
+					for _, it := range batch {
+						a.pushMessage(it.topic, it.decoded, it.ts)
+					}
+					batch = batch[:0]
+				}
+			}
+		}
+	}()
+}
+
+func (a *App) stopWorker() {
+	if a.stop != nil {
+		a.stop()
+		a.stop = nil
+	}
 }

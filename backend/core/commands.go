@@ -12,6 +12,8 @@ package core
 
 import (
 	"fmt"
+	"time"
+
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 )
 
@@ -43,8 +45,10 @@ func (a *App) CmdConnect(setup MQTTSetup) bool {
 	// Build options
 	options := MQTT.NewClientOptions()
 	options.AddBroker(address)
-	options.SetClientID("SparkpluGUI")
+	options.SetClientID(fmt.Sprintf("SparkpluGUI-%d", time.Now().UnixNano()))
 	options.SetCleanSession(true)
+	options.SetOrderMatters(false)       // allow out-of-order callback delivery
+	options.SetMessageChannelDepth(1024) // bump internal inbound buffer (Paho)
 
 	if setup.Username != "" {
 		options.SetUsername(setup.Username)
@@ -67,13 +71,24 @@ func (a *App) CmdConnect(setup MQTTSetup) bool {
 		return false
 	}
 
+	// Launch it
+	a.init()
+	a.stopWorker() // no-op if nil; ensures only one worker ever runs per connection
+	a.startWorker()
+
 	// Subscribe client
-	a.MQTTCLIENT.Subscribe(setup.Topic, 0, func(_ MQTT.Client, message MQTT.Message) {
-		go func() {
-			decoded, timestamp := a.decode(message.Payload())
-			a.pushMessage(message.Topic(), decoded, timestamp)
-		}()
+	token := a.MQTTCLIENT.Subscribe(setup.Topic, 0, func(_ MQTT.Client, message MQTT.Message) {
+		select {
+		case a.RAWMESSAGES <- message: // ok
+		default: // FIFO full => drop
+		}
 	})
+	if token.Wait() && token.Error() != nil {
+		fmt.Printf("Subscribe error: %s\n", token.Error())
+		return false
+	}
+
+	a.lastTopic = setup.Topic
 
 	return true
 }
@@ -83,6 +98,14 @@ func (a *App) CmdConnect(setup MQTTSetup) bool {
 // ******************************************
 
 func (a *App) CmdDisconnect() bool {
+	if a.lastTopic != "" {
+		a.MQTTCLIENT.Unsubscribe(a.lastTopic)
+	}
+
+	// Clean worker stop
+	a.stopWorker()
+
+	// Disconnect client
 	a.MQTTCLIENT.Disconnect(250)
 	return true
 }

@@ -13,3 +13,11 @@ export function CmdDisconnect() {
 export function EvtPayload() {
   return window['go']['core']['App']['EvtPayload']();
 }
+
+export function GetDroppedCount() {
+  return window['go']['core']['App']['GetDroppedCount']();
+}
+
+export function TryPopMessage() {
+  return window['go']['core']['App']['TryPopMessage']();
+}
