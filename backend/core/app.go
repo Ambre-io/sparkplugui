@@ -51,15 +51,6 @@ func (a *App) GetDroppedCount() int64 {
 	return atomic.LoadInt64(&a.DROPCOUNT)
 }
 
-func (a *App) TryPopMessage() *MQTTMessage {
-	select {
-	case p := <-a.QUEUE:
-		return &p
-	default:
-		return nil
-	}
-}
-
 // ******************************************
 // * PRIVATE METHODS
 // ******************************************
@@ -119,6 +110,15 @@ func (a *App) pushMessage(topic string, payload string, timestamp int64) {
 		// still full: drop the new message (very rare if above succeeded)
 		atomic.AddInt64(&a.DROPCOUNT, 1)
 		return
+	}
+}
+
+func (a *App) popMessage() *MQTTMessage {
+	select {
+	case p := <-a.QUEUE:
+		return &p
+	default:
+		return nil
 	}
 }
 

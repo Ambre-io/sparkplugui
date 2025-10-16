@@ -9,5 +9,3 @@ export function CmdDisconnect():Promise<boolean>;
 export function EvtPayload():Promise<core.MQTTMessage>;
 
 export function GetDroppedCount():Promise<number>;
-
-export function TryPopMessage():Promise<core.MQTTMessage>;

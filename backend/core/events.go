@@ -11,5 +11,5 @@
 package core
 
 func (a *App) EvtPayload() *MQTTMessage {
-	return a.TryPopMessage()
+	return a.popMessage()
 }
