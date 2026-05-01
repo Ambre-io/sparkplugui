@@ -28,14 +28,11 @@ export const AmbreCard = (props: AmbreCardType) => {
 
     // Reaching the absolute bottom
     useEffect(() => {
-        if (stickToBottom && scrollToBottomRef !== null && scrollToBottomRef.current !== null) {
-            scrollToBottomRef.current.addEventListener('DOMNodeInserted', scrollToBottom);
-            return () => {
-                if (stickToBottom && scrollToBottomRef !== null && scrollToBottomRef.current !== null) {
-                    scrollToBottomRef.current.removeEventListener('DOMNodeInserted', scrollToBottom);
-                }
-            };
-        }
+        if (!stickToBottom || !scrollToBottomRef.current) return;
+        const el = scrollToBottomRef.current;
+        const observer = new MutationObserver(scrollToBottom);
+        observer.observe(el, {childList: true, subtree: true});
+        return () => observer.disconnect();
     }, []);
 
     return (

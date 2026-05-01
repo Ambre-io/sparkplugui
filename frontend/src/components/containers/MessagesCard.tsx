@@ -7,7 +7,7 @@
  * terms of the GNU GENERAL PUBLIC LICENSE which is available at
  *    https://github.com/Ambre-io/sparkplugui
  */
-import React from 'react';
+import React, {useEffect} from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
@@ -32,11 +32,20 @@ export const MessagesCard: React.FC = () => {
 
     const messages: MessagesType = useSelector(getMessages);
 
-    EvtPayload().then((message: core.MQTTMessage) => {
-        dispatch(setMessages(message));
-    }).catch(e => {
-        console.debug('Error: fail to get MQTT Payload:', e);
-    });
+    useEffect(() => {
+        let active = true;
+        const poll = () => {
+            if (!active) return;
+            EvtPayload()
+                .then((message: core.MQTTMessage | null) => {
+                    if (message?.topic) dispatch(setMessages(message));
+                })
+                .catch(e => console.debug('Error: fail to get MQTT Payload:', e))
+                .finally(() => { if (active) setTimeout(poll, 30); });
+        };
+        poll();
+        return () => { active = false; };
+    }, [dispatch]);
 
     return (
         <AmbreCard title={`${constants.emojiEnvelop} ${t('mqttMessagesTitle')}`} stickToBottom>

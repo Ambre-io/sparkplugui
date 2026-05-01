@@ -7,7 +7,7 @@
  * terms of the GNU GENERAL PUBLIC LICENSE which is available at
  *    https://github.com/Ambre-io/sparkplugui
  */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined";
 import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefaultOutlined";
 import {Grid} from "@mui/material";
@@ -37,61 +37,48 @@ export const Tree: React.FC = () => {
 
     const openedNodes = useSelector(getOpenedNodes);
 
-    let nodeRoot: NodeType = utils.createNode(constants.rootID, t('root'), [], {nodeID: ''});
-    const [tree, setTree] = useState<NodeType>(nodeRoot);
+    const treeRef = useRef<NodeType>(utils.createNode(constants.rootID, t('root'), [], {nodeID: ''}));
+    const accParentsRef = useRef<string[]>([...initParentNodes]);
+    const processedRef = useRef(0);
+    const [tree, setTree] = useState<NodeType>(treeRef.current);
 
     useEffect(() => {
-        // Create tree
-        const parents: string[] = [...initParentNodes];
+        const newMsgs = messages.slice(processedRef.current);
+        if (newMsgs.length === 0) return;
 
-        // Loop over messages
-        messages.map((msg: core.MQTTMessage) => {
-
-            // Split the topic: WAW/SUPER/TOPIC => [WAW, SUPER, TOPIC]
+        newMsgs.forEach((msg: core.MQTTMessage) => {
             const {topic} = msg;
             const splitedTopic = topic.split(constants.topicSeparator);
-            let lastNode: NodeType = nodeRoot;
+            let lastNode: NodeType = treeRef.current;
 
-            // Loop over the topic parts
-            splitedTopic.map((subTopic: string, i: number) => {
-
-                // Create a tree node using the topic
+            splitedTopic.forEach((subTopic: string, i: number) => {
                 const lastNodeTopic = lastNode.options?.nodeID ?? '';
                 const nodeID = `${lastNodeTopic}${lastNodeTopic === '' ? '' : constants.topicSeparator}${subTopic}`;
                 let node: NodeType = utils.createNode(nodeID, subTopic, [], {nodeID});
 
-                // Update current node reference if exists or add it to the tree
                 const inTreeNode = lastNode.subnodes.find((n: NodeType) => n.id === nodeID);
                 if (inTreeNode !== undefined) {
                     node = inTreeNode;
                 } else {
                     if (!lastNode.subnodes.in(node, 'id')) {
-                        lastNode.subnodes.push(node); // Push it
+                        lastNode.subnodes.push(node);
                     }
                 }
 
-                // Leaf or Parent
                 if (splitedTopic.length - 1 === i) { // Leaf
-                    // Update the last message
                     dispatch(setLastMessages({[topic]: msg}));
-                    // Add the file emoji
                     if (!node.label.includes(constants.emojiFile)) node.label = `${node.label} ${constants.emojiFile}`;
-
                 } else { // Parent
-                    parents.push(node.id);
+                    accParentsRef.current.push(node.id);
                 }
 
-                // update last node reference
                 lastNode = node;
             });
         });
 
-        // Update the tree state
-        setTree(nodeRoot);
-
-        // Update parents for open/close button
-        dispatch(setParentNodes(parents));
-
+        processedRef.current = messages.length;
+        setTree({...treeRef.current, subnodes: [...treeRef.current.subnodes]});
+        dispatch(setParentNodes([...accParentsRef.current]));
     }, [messages]);
 
     // Node toggle handler rebind to work with the open handler (should be fixed one day)
