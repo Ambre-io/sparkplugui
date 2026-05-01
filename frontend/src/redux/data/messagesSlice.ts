@@ -27,11 +27,12 @@ const messagesSlice = createSlice({
             state.push(action.payload);
             if (state.length > MAX_MESSAGES) state.splice(0, 1);
         },
+        clearMessages: () => [],
     },
 });
 
 // Export action
-export const {setMessages} = messagesSlice.actions;
+export const {setMessages, clearMessages} = messagesSlice.actions;
 
 // Export value access (useSelector)
 export const getMessages = (state: RootState): MessagesType => state.messagesSlice;

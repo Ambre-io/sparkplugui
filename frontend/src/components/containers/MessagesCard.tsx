@@ -7,7 +7,7 @@
  * terms of the GNU GENERAL PUBLIC LICENSE which is available at
  *    https://github.com/Ambre-io/sparkplugui
  */
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Grid from "@mui/material/Unstable_Grid2";
 import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
@@ -15,6 +15,7 @@ import {useTranslation} from "react-i18next";
 import {AmbreCard} from "../ambre/AmbreCard.tsx";
 import {AppDispatch} from "../../redux/store.ts";
 import {constants} from '../../utils/constants.ts';
+import {getConnected} from "../../redux/events/connectedSlice.ts";
 import {getMessages, setMessages} from "../../redux/data/messagesSlice.ts";
 import {MessagesType} from "../../utils/types.ts";
 import {styles} from "../../styles/styles.ts";
@@ -25,10 +26,14 @@ import {core} from "../../../wailsjs/go/models.ts";
 import {EvtPayload} from "../../../wailsjs/go/core/App";
 
 
-export const MessagesCard: React.FC = () => {
+const MessagesCardComponent: React.FC = () => {
 
     const dispatch: AppDispatch = useDispatch();
     const {t} = useTranslation();
+
+    const connected = useSelector(getConnected);
+    const connectedRef = useRef(connected);
+    useEffect(() => { connectedRef.current = connected; }, [connected]);
 
     const messages: MessagesType = useSelector(getMessages);
 
@@ -41,7 +46,7 @@ export const MessagesCard: React.FC = () => {
                     if (message?.topic) dispatch(setMessages(message));
                 })
                 .catch(e => console.debug('Error: fail to get MQTT Payload:', e))
-                .finally(() => { if (active) setTimeout(poll, 30); });
+                .finally(() => { if (active) setTimeout(poll, connectedRef.current ? 30 : 500); });
         };
         poll();
         return () => { active = false; };
@@ -50,7 +55,7 @@ export const MessagesCard: React.FC = () => {
     return (
         <AmbreCard title={`${constants.emojiEnvelop} ${t('mqttMessagesTitle')}`} stickToBottom>
             <Grid container>
-                {messages.map(({topic, payload, timestamp}, i) => (
+                {messages.slice(-200).map(({topic, payload, timestamp}, i) => (
                     <Grid key={`to${i}to`} xs={12} sx={styles.mqttMessages}>
                         <span style={styles.messageDateTime}>{utils.locale(timestamp)}</span>
                         <div style={styles.mqttTopic}>{topic}</div>
@@ -61,3 +66,5 @@ export const MessagesCard: React.FC = () => {
         </AmbreCard>
     );
 };
+
+export const MessagesCard = React.memo(MessagesCardComponent);

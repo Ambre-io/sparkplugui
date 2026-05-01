@@ -17,6 +17,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants.ts";
+import {getConnected} from "../../redux/events/connectedSlice.ts";
 import {getOpenedNodes, setOpenedNodes} from "../../redux/data/openedNodesSlice.ts";
 import {getMessages} from "../../redux/data/messagesSlice.ts";
 import {initParentNodes, setParentNodes} from "../../redux/data/parentNodesSlice.ts";
@@ -33,6 +34,7 @@ export const Tree: React.FC = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
 
+    const connected = useSelector(getConnected);
     const messages: MessagesType = useSelector(getMessages);
 
     const openedNodes = useSelector(getOpenedNodes);
@@ -41,6 +43,16 @@ export const Tree: React.FC = () => {
     const accParentsRef = useRef<string[]>([...initParentNodes]);
     const processedRef = useRef(0);
     const [tree, setTree] = useState<NodeType>(treeRef.current);
+
+    // Reset tree on each new connection (not on disconnect — tree stays visible for inspection)
+    useEffect(() => {
+        if (!connected) return;
+        treeRef.current = utils.createNode(constants.rootID, t('root'), [], {nodeID: ''});
+        accParentsRef.current = [...initParentNodes];
+        processedRef.current = 0;
+        setTree(treeRef.current);
+        dispatch(setParentNodes([...initParentNodes]));
+    }, [connected]);
 
     useEffect(() => {
         const newMsgs = messages.slice(processedRef.current);
@@ -82,7 +94,7 @@ export const Tree: React.FC = () => {
     }, [messages]);
 
     // Node toggle handler rebind to work with the open handler (should be fixed one day)
-    const goToggle = (event: React.SyntheticEvent, nodeIds: string[]) => {
+    const goToggle = (_event: React.SyntheticEvent, nodeIds: string[]) => {
         dispatch(setOpenedNodes(nodeIds));
     };
 

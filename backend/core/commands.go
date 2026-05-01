@@ -102,8 +102,9 @@ func (a *App) CmdDisconnect() bool {
 		a.MQTTCLIENT.Unsubscribe(a.lastTopic)
 	}
 
-	// Clean worker stop
+	// Clean worker stop then flush all pending messages
 	a.stopWorker()
+	a.init()
 
 	// Disconnect client
 	a.MQTTCLIENT.Disconnect(250)

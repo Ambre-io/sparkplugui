@@ -22,12 +22,13 @@ const lastMessagesSlice = createSlice({
     reducers: {
         setLastMessages: (state: any, action: PayloadAction<LastMessagesType>) => {
             Object.assign(state, action.payload);
-        }
+        },
+        clearLastMessages: () => ({}),
     },
 });
 
 // Export action
-export const {setLastMessages} = lastMessagesSlice.actions;
+export const {setLastMessages, clearLastMessages} = lastMessagesSlice.actions;
 
 // Export value access (useSelector)
 export const getLastMessages = (state: RootState): LastMessagesType => state.lastMessagesSlice;

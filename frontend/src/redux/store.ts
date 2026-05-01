@@ -18,6 +18,7 @@ import mqttFilenamesSlice from "./data/mqttFilenamesSlice.ts";
 import mqttSetupSlice from "./data/mqttSetupSlice.ts";
 import parentNodesSlice from "./data/parentNodesSlice.ts";
 import selectedTopicSlice from "./data/selectedTopicSlice.ts";
+import connectedSlice from "./events/connectedSlice.ts";
 import reloadEventSlice from "./events/reloadEventSlice.ts";
 
 
@@ -34,6 +35,7 @@ export const store = configureStore({
         parentNodesSlice: parentNodesSlice,
         selectedTopicSlice: selectedTopicSlice,
         // Events
+        connectedSlice: connectedSlice,
         reloadEventSlice: reloadEventSlice
     },
 });

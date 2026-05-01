@@ -16,7 +16,7 @@ import {constants} from "../../utils/constants.ts";
 import {Tree} from "../tree/Tree.tsx";
 
 
-export const TreeCard: React.FC = () => {
+const TreeCardComponent: React.FC = () => {
     const {t} = useTranslation();
 
     return (
@@ -25,3 +25,5 @@ export const TreeCard: React.FC = () => {
         </AmbreCard>
     );
 };
+
+export const TreeCard = React.memo(TreeCardComponent);

@@ -8,7 +8,8 @@
  *    https://github.com/Ambre-io/sparkplugui
  */
 import React from "react";
-import {Layout, Layouts, Responsive, WidthProvider} from "react-grid-layout";
+import {Layout, ResponsiveLayouts} from "react-grid-layout";
+import {Responsive, WidthProvider} from "react-grid-layout/legacy";
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 import {useSelector} from 'react-redux'
@@ -24,7 +25,7 @@ import {styles} from "../../styles/styles";
 import {TreeCard} from "./TreeCard";
 
 
-const defaultLayouts: Layouts = {
+const defaultResponsiveLayouts: ResponsiveLayouts = {
     md: [
         {i: constants.softCard, x: 0, y: 0, w: 3, h: 1, static: true},
         {i: constants.formCard, x: 3, y: 0, w: 3, h: 5, minW: 3, minH: 1},
@@ -48,17 +49,17 @@ const defaultLayouts: Layouts = {
     ]
 };
 
-const loadLayouts = (): Layouts => {
+const loadResponsiveLayouts = (): ResponsiveLayouts => {
     try {
-        const savedLayouts = localStorage.getItem(constants.sparkplugui_layouts);
-        return savedLayouts ? JSON.parse(savedLayouts) : defaultLayouts;
+        const savedResponsiveLayouts = localStorage.getItem(constants.sparkplugui_layouts);
+        return savedResponsiveLayouts ? JSON.parse(savedResponsiveLayouts) : defaultResponsiveLayouts;
     } catch (e) {
-        console.log('Error: loadLayouts', e);
-        return defaultLayouts;
+        console.log('Error: loadResponsiveLayouts', e);
+        return defaultResponsiveLayouts;
     }
 };
 
-const saveLayouts = (layouts: Layouts) => {
+const saveResponsiveLayouts = (layouts: ResponsiveLayouts) => {
     try {
         localStorage.setItem(constants.sparkplugui_layouts, JSON.stringify(layouts));
     } catch (e) {
@@ -71,17 +72,17 @@ export const Amain: React.FC = () => {
 
     const customizable: boolean = useSelector(getCustomizable);
 
-    const [layouts, setLayouts] = React.useState<Layouts>(loadLayouts());
+    const [layouts, setResponsiveLayouts] = React.useState<ResponsiveLayouts>(loadResponsiveLayouts());
 
     React.useEffect(() => {
         // Save layouts on unload
-        window.addEventListener(constants.beforeunload, () => saveLayouts(layouts));
-        return () => window.removeEventListener(constants.beforeunload, () => saveLayouts(layouts));
+        window.addEventListener(constants.beforeunload, () => saveResponsiveLayouts(layouts));
+        return () => window.removeEventListener(constants.beforeunload, () => saveResponsiveLayouts(layouts));
     }, [layouts]);
 
-    const goLayoutChange = (_: Layout[], allLayouts: Layouts): void => {
-        setLayouts(allLayouts);
-        saveLayouts(allLayouts);
+    const goLayoutChange = (_: Layout, allResponsiveLayouts: ResponsiveLayouts): void => {
+        setResponsiveLayouts(allResponsiveLayouts);
+        saveResponsiveLayouts(allResponsiveLayouts);
     };
 
     // RGL performance tips

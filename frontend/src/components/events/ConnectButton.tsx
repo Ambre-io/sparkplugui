@@ -18,6 +18,9 @@ import {AmbreIconButton} from "../ambre/AmbreIconButton.tsx";
 import {constants} from '../../utils/constants.ts';
 import {getMQTTSetup, setMQTTSetup} from "../../redux/data/mqttSetupSlice.ts";
 import {initMQTTFilenamesSlice, setMQTTFilenames} from "../../redux/data/mqttFilenamesSlice.ts";
+import {clearMessages} from "../../redux/data/messagesSlice.ts";
+import {clearLastMessages} from "../../redux/data/lastMessagesSlice.ts";
+import {getConnected, setConnected} from "../../redux/events/connectedSlice.ts";
 
 import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/core/App";
 
@@ -27,16 +30,18 @@ export const ConnectButton: React.FC = () => {
     const {t} = useTranslation();
 
     const information = useSelector(getMQTTSetup);
-    const [connected, setConnected] = React.useState<boolean>(false);
+    const connected = useSelector(getConnected);
 
     const error = () => toast.error(`${t('error')} ${constants.emojiSadge}`);
 
     const goClick = async () => {
         if (!connected) {
-            CmdConnect(information).then((connected: boolean) => {
-                if (connected) {
+            CmdConnect(information).then((ok: boolean) => {
+                if (ok) {
                     toast.success(`${t('successConnect')} ${constants.emojiSmile}`);
-                    setConnected(true);
+                    dispatch(setConnected(true));
+                    dispatch(clearMessages());
+                    dispatch(clearLastMessages());
                     dispatch(setMQTTFilenames(initMQTTFilenamesSlice));
                     dispatch(setMQTTSetup({...information, cacrt: '', clientcrt: '', clientkey: ''}));
                 } else {
@@ -47,10 +52,12 @@ export const ConnectButton: React.FC = () => {
                 error();
             });
         } else {
-            CmdDisconnect().then((disconnected) => {
-                if (disconnected) {
+            CmdDisconnect().then((ok) => {
+                if (ok) {
                     toast.success(`${t('successDisconnect')} ${constants.emojiWink}`);
-                    setConnected(false);
+                    dispatch(setConnected(false));
+                    dispatch(clearMessages());
+                    // tree and lastMessages kept intentionally for inspection after disconnect
                 } else {
                     error();
                 }
