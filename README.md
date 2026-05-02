@@ -116,7 +116,7 @@ Thank you all for the beautiful technologies:
 | Update your path | `export PATH="\$PATH:$HOME/go/bin"`                        |
 | Install wails    | `go install github.com/wailsapp/wails/v2/cmd/wails@latest` |
 | Install required | `sudo apt install libgtk-3-dev libwebkit2gtk-4.1-dev`      |
-| Run dev          | `wails dev -tags webkit2_41`                               |
-| Run build        | `wails build -tags webkit2_41`                             |
+| Run dev          | `make dev`                                                 |
+| Run build        | `make build`                                               |
 | Helper           | `wails doctor`                                             |
 | Golang config    | Settings > Go > Go Modules > Enable Go modules integration |

@@ -8,8 +8,7 @@
  *    https://github.com/Ambre-io/sparkplugui
  */
 import React from "react";
-import {Layout, ResponsiveLayouts} from "react-grid-layout";
-import {Responsive, WidthProvider} from "react-grid-layout/legacy";
+import {Layout, LayoutItem, ResponsiveGridLayout, ResponsiveLayouts, useContainerWidth} from "react-grid-layout";
 import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 import {useSelector} from 'react-redux'
@@ -85,9 +84,24 @@ export const Amain: React.FC = () => {
         saveResponsiveLayouts(allResponsiveLayouts);
     };
 
+    const {width, containerRef} = useContainerWidth({initialWidth: 1280});
+
+    // Control drag/resize via `static` per item — grid-level config never changes,
+    // so the grid never re-initializes when customizable toggles (avoids freeze).
+    const effectiveLayouts = React.useMemo((): ResponsiveLayouts => {
+        const result: ResponsiveLayouts = {};
+        for (const [bp, items] of Object.entries(layouts)) {
+            result[bp] = (items as Layout).map((item: LayoutItem) =>
+                item.i === constants.softCard
+                    ? item
+                    : {...item, static: !customizable}
+            );
+        }
+        return result;
+    }, [layouts, customizable]);
+
     // RGL performance tips
     // see: https://github.com/react-grid-layout/react-grid-layout#performance
-    const ResponsiveGridLayout = React.useMemo(() => WidthProvider(Responsive), []);
     const memoSoftCard: JSX.Element = React.useMemo(() => <SoftCard/>, []);
     const memoFormCard: JSX.Element = React.useMemo(() => <FormCard/>, []);
     const memoTreeCard: JSX.Element = React.useMemo(() => <TreeCard/>, []);
@@ -95,30 +109,33 @@ export const Amain: React.FC = () => {
     const memoMessagesCard: JSX.Element = React.useMemo(() => <MessagesCard/>, []);
 
     return (
-        <ResponsiveGridLayout
-            className="layout"
-            layouts={layouts}
-            onLayoutChange={goLayoutChange}
-            breakpoints={{xl: constants.xl, lg: constants.lg, md: constants.md}}
-            cols={{xl: 12, lg: 12, md: 10}}
-            isDraggable={customizable}
-            isResizable={customizable}
-        >
-            <div key={constants.softCard} style={styles.RGLContainer}>
-                {memoSoftCard}
-            </div>
-            <div key={constants.formCard} style={styles.RGLContainer}>
-                {memoFormCard}
-            </div>
-            <div key={constants.treeCard} style={styles.RGLContainer}>
-                {memoTreeCard}
-            </div>
-            <div key={constants.lastMessageCard} style={styles.RGLContainer}>
-                {memoLastMessageCard}
-            </div>
-            <div key={constants.messagesCard} style={styles.RGLContainer}>
-                {memoMessagesCard}
-            </div>
-        </ResponsiveGridLayout>
+        <div ref={containerRef as React.RefObject<HTMLDivElement>} style={{width: '100%', height: '100%'}}>
+            <ResponsiveGridLayout
+                width={width}
+                className="layout"
+                layouts={effectiveLayouts}
+                onLayoutChange={goLayoutChange}
+                breakpoints={{xl: constants.xl, lg: constants.lg, md: constants.md}}
+                cols={{xl: 12, lg: 12, md: 10}}
+                dragConfig={{enabled: true}}
+                resizeConfig={{enabled: true}}
+            >
+                <div key={constants.softCard} style={styles.RGLContainer}>
+                    {memoSoftCard}
+                </div>
+                <div key={constants.formCard} style={styles.RGLContainer}>
+                    {memoFormCard}
+                </div>
+                <div key={constants.treeCard} style={styles.RGLContainer}>
+                    {memoTreeCard}
+                </div>
+                <div key={constants.lastMessageCard} style={styles.RGLContainer}>
+                    {memoLastMessageCard}
+                </div>
+                <div key={constants.messagesCard} style={styles.RGLContainer}>
+                    {memoMessagesCard}
+                </div>
+            </ResponsiveGridLayout>
+        </div>
     );
 };

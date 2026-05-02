@@ -20,6 +20,7 @@ import parentNodesSlice from "./data/parentNodesSlice.ts";
 import selectedTopicSlice from "./data/selectedTopicSlice.ts";
 import connectedSlice from "./events/connectedSlice.ts";
 import reloadEventSlice from "./events/reloadEventSlice.ts";
+import treeResetSlice from "./events/treeResetSlice.ts";
 
 
 export const store = configureStore({
@@ -36,7 +37,8 @@ export const store = configureStore({
         selectedTopicSlice: selectedTopicSlice,
         // Events
         connectedSlice: connectedSlice,
-        reloadEventSlice: reloadEventSlice
+        reloadEventSlice: reloadEventSlice,
+        treeResetSlice: treeResetSlice
     },
 });
 

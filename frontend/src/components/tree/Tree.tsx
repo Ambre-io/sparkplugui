@@ -17,7 +17,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants.ts";
-import {getConnected} from "../../redux/events/connectedSlice.ts";
+import {getTreeReset} from "../../redux/events/treeResetSlice.ts";
 import {getOpenedNodes, setOpenedNodes} from "../../redux/data/openedNodesSlice.ts";
 import {getMessages} from "../../redux/data/messagesSlice.ts";
 import {initParentNodes, setParentNodes} from "../../redux/data/parentNodesSlice.ts";
@@ -34,7 +34,7 @@ export const Tree: React.FC = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
 
-    const connected = useSelector(getConnected);
+    const treeReset = useSelector(getTreeReset);
     const messages: MessagesType = useSelector(getMessages);
 
     const openedNodes = useSelector(getOpenedNodes);
@@ -44,15 +44,15 @@ export const Tree: React.FC = () => {
     const processedRef = useRef(0);
     const [tree, setTree] = useState<NodeType>(treeRef.current);
 
-    // Reset tree on each new connection (not on disconnect — tree stays visible for inspection)
+    // Reset tree only when topic changes (treeReset counter increments)
     useEffect(() => {
-        if (!connected) return;
+        if (treeReset === 0) return;
         treeRef.current = utils.createNode(constants.rootID, t('root'), [], {nodeID: ''});
         accParentsRef.current = [...initParentNodes];
         processedRef.current = 0;
         setTree(treeRef.current);
         dispatch(setParentNodes([...initParentNodes]));
-    }, [connected]);
+    }, [treeReset]);
 
     useEffect(() => {
         const newMsgs = messages.slice(processedRef.current);

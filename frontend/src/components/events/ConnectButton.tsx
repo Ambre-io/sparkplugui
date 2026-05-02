@@ -7,7 +7,7 @@
  * terms of the GNU GENERAL PUBLIC LICENSE which is available at
  *    https://github.com/Ambre-io/sparkplugui
  */
-import React from 'react';
+import React, {useRef} from 'react';
 import CloudOffOutlinedIcon from "@mui/icons-material/CloudOffOutlined";
 import CloudOutlinedIcon from "@mui/icons-material/CloudOutlined";
 import {toast} from "react-toastify";
@@ -21,6 +21,7 @@ import {initMQTTFilenamesSlice, setMQTTFilenames} from "../../redux/data/mqttFil
 import {clearMessages} from "../../redux/data/messagesSlice.ts";
 import {clearLastMessages} from "../../redux/data/lastMessagesSlice.ts";
 import {getConnected, setConnected} from "../../redux/events/connectedSlice.ts";
+import {incrementTreeReset} from "../../redux/events/treeResetSlice.ts";
 
 import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/core/App";
 
@@ -31,6 +32,7 @@ export const ConnectButton: React.FC = () => {
 
     const information = useSelector(getMQTTSetup);
     const connected = useSelector(getConnected);
+    const lastTopicRef = useRef<string>('');
 
     const error = () => toast.error(`${t('error')} ${constants.emojiSadge}`);
 
@@ -41,7 +43,11 @@ export const ConnectButton: React.FC = () => {
                     toast.success(`${t('successConnect')} ${constants.emojiSmile}`);
                     dispatch(setConnected(true));
                     dispatch(clearMessages());
-                    dispatch(clearLastMessages());
+                    if (information.topic !== lastTopicRef.current) {
+                        dispatch(clearLastMessages());
+                        dispatch(incrementTreeReset());
+                        lastTopicRef.current = information.topic;
+                    }
                     dispatch(setMQTTFilenames(initMQTTFilenamesSlice));
                     dispatch(setMQTTSetup({...information, cacrt: '', clientcrt: '', clientkey: ''}));
                 } else {
