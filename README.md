@@ -21,7 +21,7 @@
 ## ☀️ Get Started
 
 1. Download the **Windows**, **macOS** or **Linux** latest
-   release: https://github.com/Ambre-io/sparkplugui/releases/latest
+   release: <https://github.com/Ambre-io/sparkplugui/releases/latest>
 2. Launch SparkpluGUI
 3. Setup your server connection with the **MQTT Information** panel. Possibly in TLS.
 4. Connect and starts to receive messages in the **Messages** and the **Topics Tree** panels.
@@ -33,25 +33,25 @@
 
 ### Select 🗣️ Language
 
-Choose your favorite language:  🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿
+Choose your favorite language: 🇺🇸 🇩🇪 🇫🇷 🇮🇹 🇹🇳 🇯🇵 🇺🇦 🇷🇺 🇪🇸 🇨🇳 🏴󠁣󠁮󠀶󠀵󠁿 🏴󠁺󠁡󠁮󠁬󠁿 🏴󠁩󠁲󠀱󠀶󠁿
 
 It's saved automatically.
 
 ### Button ☁️ Connect/Disconnect
 
-*Connect* the software to the defined server in the **MQTT Information** panel and subscribe to the topic.
+_Connect_ the software to the defined server in the **MQTT Information** panel and subscribe to the topic.
 
-*Disconnect* the software from the MQTT server, after unsubscribe the topic,
+_Disconnect_ the software from the MQTT server, after unsubscribe the topic,
 to stop the flow or to modify the topic subscription for instance.
 
 #### MQTT Information
 
 |                                 Fields | Description                                          | Required | Saved |
-|---------------------------------------:|:-----------------------------------------------------|:--------:|:-----:|
+| -------------------------------------: | :--------------------------------------------------- | :------: | :---: |
 |                               **Host** | MQTT server IP or domain name                        |    x     |   x   |
 |                               **Port** | MQTT server port                                     |          |   x   |
 |                              **Topic** | Choose a topic to track what you need                |    x     |   x   |
-|                    **Username  [TLS]** | Use a valid username for the authentication          |          |       |
+|                     **Username [TLS]** | Use a valid username for the authentication          |          |       |
 |                     **Password [TLS]** | Use a valid password for the authentication          |          |       |
 | **Concatenated CA certificates [TLS]** | TLS certificate from the trusted authority (CA.pem)  |          |       |
 |           **Client certificate [TLS]** | Client certificate signed by the CA (client-crt.pem) |          |       |
@@ -64,19 +64,19 @@ secure connection.
 
 ### Button ↕️ Open/Close
 
-*Open* the entire tree for easy access to your nodes and devices.
+_Open_ the entire tree for easy access to your nodes and devices.
 
-*Close* the entire tree.
+_Close_ the entire tree.
 
 ### Button 🔒 Unlock/Lock
 
-*Unlock* button gives access to **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** customization:
+_Unlock_ button gives access to **MQTT Information**, **Messages**, **Topics Tree** and **Last Message** customization:
 
 - choose the window size
 - move panels by drag and drop
 - resize panels from the bottom right corner
 
-*Lock* the customization in order to use the software.
+_Lock_ the customization in order to use the software.
 
 It's saved automatically.
 
@@ -110,13 +110,16 @@ Thank you all for the beautiful technologies:
 
 ## 👨‍💻 Development
 
-| Step             | Action                                                     |
-|:-----------------|:-----------------------------------------------------------| 
-| Install go       | https://go.dev/doc/install                                 |
-| Update your path | `export PATH="\$PATH:$HOME/go/bin"`                        |
-| Install wails    | `go install github.com/wailsapp/wails/v2/cmd/wails@latest` |
-| Install required | `sudo apt install libgtk-3-dev libwebkit2gtk-4.1-dev`      |
-| Run dev          | `make dev`                                                 |
-| Run build        | `make build`                                               |
-| Helper           | `wails doctor`                                             |
-| Golang config    | Settings > Go > Go Modules > Enable Go modules integration |
+| Step                   | Action                                                     |
+| :--------------------- | :--------------------------------------------------------- |
+| Install go             | <https://go.dev/doc/install>                               |
+| Update your path       | `export PATH="\$PATH:$HOME/go/bin"`                        |
+| Install wails          | `go install github.com/wailsapp/wails/v2/cmd/wails@latest` |
+| Install required       | `sudo apt install libgtk-3-dev libwebkit2gtk-4.1-dev`      |
+| Run dev                | `make dev`                                                 |
+| Run build              | `make build`                                               |
+| Build linux/amd64      | `wails build -tags webkit2_41 -platform linux/amd64`       |
+| Build windows/amd64    | `wails build -tags webkit2_41 -platform windows/amd64`     |
+| Build darwin/universal | `wails build -tags webkit2_41 -platform darwin/universal`  |
+| Helper                 | `wails doctor`                                             |
+| Golang config          | Settings > Go > Go Modules > Enable Go modules integration |
