@@ -30,6 +30,7 @@ Object.keys(saved).map((k: string) => saved[k] = localStorage.getItem(k) ?? save
 export const initMQTTSetupSlice: core.MQTTSetup = {
     host: saved[constants.sparkplugui_host],
     port: saved[constants.sparkplugui_port],
+    protocol: 'tcp',
     topic: saved[constants.sparkplugui_topic],
     username: '',
     password: '',

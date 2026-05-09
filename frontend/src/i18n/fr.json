@@ -30,5 +30,17 @@
     "tree": "Arbre des Topics",
     "lastMessage": "Dernier Message",
     "root": "Racine",
-    "setting": "Paramètrage"
+    "setting": "Paramètrage",
+    "protocol": "Protocole",
+    "protocolHelper": "Protocole de connexion : TCP (simple), SSL/TLS, WS (WebSocket), WSS (WebSocket sécurisé)",
+    "errHostEmpty": "L'hôte est requis",
+    "errTopicEmpty": "Le topic est requis",
+    "errTLSConfig": "Erreur de certificat TLS : vérifiez vos fichiers CA / certificat client",
+    "errProtocolMismatch": "Protocole incorrect : essayez WS ou WSS pour les brokers WebSocket uniquement",
+    "errConnectionRefused": "Connexion refusée : vérifiez l'hôte et le port",
+    "errAuthFailed": "Authentification échouée : nom d'utilisateur ou mot de passe incorrect",
+    "errTimeout": "Délai de connexion dépassé",
+    "errTLSHandshake": "Échec du handshake TLS : erreur de vérification du certificat",
+    "errSubscribe": "Échec de l'abonnement",
+    "errNetwork": "Erreur réseau"
 }

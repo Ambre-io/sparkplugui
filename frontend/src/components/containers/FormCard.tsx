@@ -14,6 +14,8 @@ import {useTranslation} from "react-i18next";
 import {FormControl, FormGroup, FormHelperText, IconButton, InputAdornment} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
+import {MenuItem} from "@mui/material";
+
 import {AmbreCard} from "../ambre/AmbreCard.tsx";
 import {AmbreTextField} from "../ambre/AmbreTextField.tsx";
 import {constants} from "../../utils/constants.ts";
@@ -70,6 +72,19 @@ export const FormCard: React.FC = () => {
                         type="number"
                     />
                     <FormHelperText>{t('portHelper')}</FormHelperText>
+                </FormControl>
+                <FormControl sx={styles.paddingBottom(1)} fullWidth>
+                    <AmbreTextField
+                        select
+                        label={t('protocol')}
+                        value={information.protocol || 'tcp'}
+                        onChange={goChange(constants.protocol)}
+                    >
+                        {constants.protocols.map((p) => (
+                            <MenuItem key={p} value={p}>{p.toUpperCase()}</MenuItem>
+                        ))}
+                    </AmbreTextField>
+                    <FormHelperText>{t('protocolHelper')}</FormHelperText>
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField

@@ -24,6 +24,7 @@ import {getConnected, setConnected} from "../../redux/events/connectedSlice.ts";
 import {incrementTreeReset} from "../../redux/events/treeResetSlice.ts";
 
 import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/core/App";
+import {core} from "../../../wailsjs/go/models.ts";
 
 
 export const ConnectButton: React.FC = () => {
@@ -34,13 +35,17 @@ export const ConnectButton: React.FC = () => {
     const connected = useSelector(getConnected);
     const lastTopicRef = useRef<string>('');
 
-    const error = () => toast.error(`${t('error')} ${constants.emojiSadge}`);
+    const showError = (errorCode: string) => {
+        // Use the translated error key if it exists, otherwise fall back to generic "error"
+        const message = t(errorCode, {defaultValue: ''}) || t('error');
+        toast.error(`${message}`);
+    };
 
     const goClick = async () => {
         if (!connected) {
-            CmdConnect(information).then((ok: boolean) => {
-                if (ok) {
-                    toast.success(`${t('successConnect')} ${constants.emojiSmile}`);
+            CmdConnect(information).then((result: core.ConnectResult) => {
+                if (result.ok) {
+                    toast.success(`${t('successConnect')}`);
                     dispatch(setConnected(true));
                     dispatch(clearMessages());
                     if (information.topic !== lastTopicRef.current) {
@@ -51,25 +56,24 @@ export const ConnectButton: React.FC = () => {
                     dispatch(setMQTTFilenames(initMQTTFilenamesSlice));
                     dispatch(setMQTTSetup({...information, cacrt: '', clientcrt: '', clientkey: ''}));
                 } else {
-                    error();
+                    showError(result.errorCode);
                 }
             }).catch(e => {
                 console.debug('Error: fail to connect:', e);
-                error();
+                showError(constants.errNetwork);
             });
         } else {
             CmdDisconnect().then((ok) => {
                 if (ok) {
-                    toast.success(`${t('successDisconnect')} ${constants.emojiWink}`);
+                    toast.success(`${t('successDisconnect')}`);
                     dispatch(setConnected(false));
                     dispatch(clearMessages());
-                    // tree and lastMessages kept intentionally for inspection after disconnect
                 } else {
-                    error();
+                    showError(constants.errNetwork);
                 }
             }).catch(e => {
                 console.debug('Error: fail to disconnect', e);
-                error();
+                showError(constants.errNetwork);
             });
         }
     };

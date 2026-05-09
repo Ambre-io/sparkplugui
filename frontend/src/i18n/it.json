@@ -30,5 +30,17 @@
     "tree": "albero degli topics",
     "lastMessage": "Ultimo messaggio",
     "root": "Radice",
-    "setting": "Impostazione"
+    "setting": "Impostazione",
+    "protocol": "Protocollo",
+    "protocolHelper": "Protocollo di connessione: TCP (normale), SSL/TLS, WS (WebSocket), WSS (WebSocket sicuro)",
+    "errHostEmpty": "L'host è obbligatorio",
+    "errTopicEmpty": "Il topic è obbligatorio",
+    "errTLSConfig": "Errore certificato TLS: verifica i file CA / certificato client",
+    "errProtocolMismatch": "Protocollo errato: prova WS o WSS per broker WebSocket",
+    "errConnectionRefused": "Connessione rifiutata: verifica host e porta",
+    "errAuthFailed": "Autenticazione fallita: nome utente o password errati",
+    "errTimeout": "Timeout connessione",
+    "errTLSHandshake": "TLS handshake fallito: errore verifica certificato",
+    "errSubscribe": "Sottoscrizione fallita",
+    "errNetwork": "Errore di rete"
 }

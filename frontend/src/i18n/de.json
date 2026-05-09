@@ -30,5 +30,17 @@
     "tree": "Themenbaum",
     "lastMessage": "Letzte Nachricht",
     "root": "Wurzel",
-    "setting": "Einstellung"
+    "setting": "Einstellung",
+    "protocol": "Protokoll",
+    "protocolHelper": "Verbindungsprotokoll: TCP (unverschlüsselt), SSL/TLS, WS (WebSocket), WSS (WebSocket sicher)",
+    "errHostEmpty": "Host ist erforderlich",
+    "errTopicEmpty": "Topic ist erforderlich",
+    "errTLSConfig": "TLS-Zertifikatsfehler: Überprüfen Sie Ihre CA- / Client-Zertifikatdateien",
+    "errProtocolMismatch": "Protokollfehler: Versuchen Sie WS oder WSS für WebSocket-Broker",
+    "errConnectionRefused": "Verbindung abgelehnt: Überprüfen Sie Host und Port",
+    "errAuthFailed": "Authentifizierung fehlgeschlagen: Falscher Benutzername oder Passwort",
+    "errTimeout": "Verbindungszeit überschritten",
+    "errTLSHandshake": "TLS-Handshake fehlgeschlagen: Zertifikatsfehler",
+    "errSubscribe": "Abonnieren fehlgeschlagen",
+    "errNetwork": "Netzwerkfehler"
 }
