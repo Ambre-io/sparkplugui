@@ -16,7 +16,7 @@ import {useEffect, useRef} from "react";
 
 export const AmbreCard = (props: AmbreCardType) => {
 
-    const {title, children, stickToBottom = false} = props;
+    const {title, children, stickToBottom = false, action} = props;
 
      // Auto scroll to the bottom
     const scrollToBottomRef = useRef<HTMLDivElement>(null);
@@ -37,8 +37,9 @@ export const AmbreCard = (props: AmbreCardType) => {
 
     return (
         <Grid container id={title} sx={styles.ambreCard}>
-            <Grid item xs={12} sx={styles.ambreCardTitle}>
-                {title}
+            <Grid item xs={12} sx={{...styles.ambreCardTitle, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <span>{title}</span>
+                {action}
             </Grid>
             <Grid ref={scrollToBottomRef} item xs={12} sx={styles.ambreCardContentContainer}>
                 <Grid container sx={styles.ambreCardContent}>

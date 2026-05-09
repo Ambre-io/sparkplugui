@@ -41,6 +41,7 @@ export interface AmbreCardType {
     title: string,
     stickToBottom?: boolean,
     children?: any,
+    action?: React.ReactNode,
 }
 
 // ******************************************
