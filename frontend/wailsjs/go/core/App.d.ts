@@ -7,3 +7,5 @@ export function CmdConnect(arg1:core.MQTTSetup):Promise<boolean>;
 export function CmdDisconnect():Promise<boolean>;
 
 export function EvtPayload():Promise<core.MQTTMessage>;
+
+export function GetDroppedCount():Promise<number>;

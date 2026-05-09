@@ -13,7 +13,7 @@ package main
 import (
 	"embed"
 	"sparkplugui/backend/core"
-	
+
 	"github.com/wailsapp/wails/v2/pkg/logger"
 	"github.com/wailsapp/wails/v2/pkg/options/linux"
 	"github.com/wailsapp/wails/v2/pkg/options/mac"
@@ -35,8 +35,8 @@ var md = 996
 var lg = 1200
 var xl = 1922
 
-var popWindowWidth = 1500
-var popWindowHeight = 970
+var popWindowWidth = 1000
+var popWindowHeight = 900
 
 var minWindowWidth = md + 1
 var minWindowHeight = 840

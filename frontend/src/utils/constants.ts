@@ -25,6 +25,7 @@ export const constants = {
     messagesSlice: 'messagesSlice',
     parentNodesSlice: 'parentNodesSlice',
     openedNodesSlice: 'openedNodesSlice',
+    connectedSlice: 'connectedSlice',
     reloadEventSlice: 'reloadEventSlice',
     selectedTopicSlice: 'selectedTopicSlice',
     // Fields

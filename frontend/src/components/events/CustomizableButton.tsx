@@ -29,9 +29,10 @@ export const CustomizableButton: React.FC = () => {
         dispatch(setCustomizable(!customizable));
     };
 
+    // TODO find a good weding between wails/webkit and react-grid-layout
     return customizable ? (
-        <AmbreIconButton onClick={goClick} icon={<LockOpenOutlinedIcon/>} tooltipTitle={t('lock')}/>
+        <AmbreIconButton disabled onClick={goClick} icon={<LockOpenOutlinedIcon/>} tooltipTitle={t('lock')}/>
     ) : (
-        <AmbreIconButton onClick={goClick} icon={<LockOutlinedIcon/>} tooltipTitle={t('unlock')}/>
+        <AmbreIconButton disabled onClick={goClick} icon={<LockOutlinedIcon/>} tooltipTitle={t('unlock')}/>
     );
 };

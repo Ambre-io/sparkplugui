@@ -15,18 +15,24 @@ import {RootState} from "../store.ts";
 
 import {core} from "../../../wailsjs/go/models.ts";
 
+const MAX_MESSAGES = 2000;
+
 const initMessagesSlice: MessagesType = [];
 
 const messagesSlice = createSlice({
     name: constants.messagesSlice,
     initialState: initMessagesSlice,
     reducers: {
-        setMessages: (state: any, action: PayloadAction<core.MQTTMessage>) => [...state, action.payload]
+        setMessages: (state: any, action: PayloadAction<core.MQTTMessage>) => {
+            state.push(action.payload);
+            if (state.length > MAX_MESSAGES) state.splice(0, 1);
+        },
+        clearMessages: () => [],
     },
 });
 
 // Export action
-export const {setMessages} = messagesSlice.actions;
+export const {setMessages, clearMessages} = messagesSlice.actions;
 
 // Export value access (useSelector)
 export const getMessages = (state: RootState): MessagesType => state.messagesSlice;

@@ -16,7 +16,7 @@ import {useEffect, useRef} from "react";
 
 export const AmbreCard = (props: AmbreCardType) => {
 
-    const {title, children, stickToBottom = false} = props;
+    const {title, children, stickToBottom = false, action} = props;
 
      // Auto scroll to the bottom
     const scrollToBottomRef = useRef<HTMLDivElement>(null);
@@ -28,20 +28,18 @@ export const AmbreCard = (props: AmbreCardType) => {
 
     // Reaching the absolute bottom
     useEffect(() => {
-        if (stickToBottom && scrollToBottomRef !== null && scrollToBottomRef.current !== null) {
-            scrollToBottomRef.current.addEventListener('DOMNodeInserted', scrollToBottom);
-            return () => {
-                if (stickToBottom && scrollToBottomRef !== null && scrollToBottomRef.current !== null) {
-                    scrollToBottomRef.current.removeEventListener('DOMNodeInserted', scrollToBottom);
-                }
-            };
-        }
+        if (!stickToBottom || !scrollToBottomRef.current) return;
+        const el = scrollToBottomRef.current;
+        const observer = new MutationObserver(scrollToBottom);
+        observer.observe(el, {childList: true, subtree: true});
+        return () => observer.disconnect();
     }, []);
 
     return (
         <Grid container id={title} sx={styles.ambreCard}>
-            <Grid item xs={12} sx={styles.ambreCardTitle}>
-                {title}
+            <Grid item xs={12} sx={{...styles.ambreCardTitle, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <span>{title}</span>
+                {action}
             </Grid>
             <Grid ref={scrollToBottomRef} item xs={12} sx={styles.ambreCardContentContainer}>
                 <Grid container sx={styles.ambreCardContent}>
