@@ -7,7 +7,8 @@
  * terms of the GNU GENERAL PUBLIC LICENSE which is available at
  *    https://github.com/Ambre-io/sparkplugui
  */
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import CircularProgress from "@mui/material/CircularProgress";
 import CloudOffOutlinedIcon from "@mui/icons-material/CloudOffOutlined";
 import CloudOutlinedIcon from "@mui/icons-material/CloudOutlined";
 import {toast} from "react-toastify";
@@ -25,6 +26,7 @@ import {incrementTreeReset} from "../../redux/events/treeResetSlice.ts";
 
 import {CmdConnect, CmdDisconnect} from "../../../wailsjs/go/core/App";
 import {core} from "../../../wailsjs/go/models.ts";
+import {EventsOn} from "../../../wailsjs/runtime/runtime";
 
 
 export const ConnectButton: React.FC = () => {
@@ -34,15 +36,28 @@ export const ConnectButton: React.FC = () => {
     const information = useSelector(getMQTTSetup);
     const connected = useSelector(getConnected);
     const lastTopicRef = useRef<string>('');
+    const [connecting, setConnecting] = useState(false);
 
     const showError = (errorCode: string) => {
-        // Use the translated error key if it exists, otherwise fall back to generic "error"
         const message = t(errorCode, {defaultValue: ''}) || t('error');
         toast.error(`${message}`);
     };
 
+    // Listen for broker-initiated disconnections (e.g. keepalive timeout, server restart).
+    // The backend emits "connectionLost" with the classified error code when paho fires its
+    // connection-lost callback, so we can flip the UI state without the user having to
+    // manually press Disconnect.
+    useEffect(() => {
+        const unsubscribe = EventsOn('connectionLost', (errorCode: string) => {
+            dispatch(setConnected(false));
+            showError(errorCode || constants.errNetwork);
+        });
+        return unsubscribe;
+    }, []);
+
     const goClick = async () => {
         if (!connected) {
+            setConnecting(true);
             CmdConnect(information).then((result: core.ConnectResult) => {
                 if (result.ok) {
                     toast.success(`${t('successConnect')}`);
@@ -61,6 +76,8 @@ export const ConnectButton: React.FC = () => {
             }).catch(e => {
                 console.debug('Error: fail to connect:', e);
                 showError(constants.errNetwork);
+            }).finally(() => {
+                setConnecting(false);
             });
         } else {
             CmdDisconnect().then((ok) => {
@@ -68,7 +85,6 @@ export const ConnectButton: React.FC = () => {
                     toast.success(`${t('successDisconnect')}`);
                     dispatch(setConnected(false));
                     // messages and tree kept intentionally for inspection after disconnect
-                    // dispatch(clearMessages());
                 } else {
                     showError(constants.errNetwork);
                 }
@@ -79,9 +95,16 @@ export const ConnectButton: React.FC = () => {
         }
     };
 
-    return connected ? (
-        <AmbreIconButton onClick={goClick} icon={<CloudOffOutlinedIcon/>} tooltipTitle={t('disconnect')}/>
-    ) : (
-        <AmbreIconButton onClick={goClick} icon={<CloudOutlinedIcon/>} tooltipTitle={t('connect')}/>
+    const icon = connecting
+        ? <CircularProgress size={20} color="inherit"/>
+        : connected ? <CloudOffOutlinedIcon/> : <CloudOutlinedIcon/>;
+
+    return (
+        <AmbreIconButton
+            onClick={goClick}
+            icon={icon}
+            tooltipTitle={t(connecting ? 'connecting' : connected ? 'disconnect' : 'connect')}
+            disabled={connecting}
+        />
     );
 };

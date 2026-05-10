@@ -2,6 +2,7 @@
     "language": "Lingua",
     "connect": "Connettiti al server MQTT",
     "disconnect": "Disconnettiti dal server MQTT",
+    "connecting": "Connessione in corso...",
     "open": "Aprire l'albero degli argomenti",
     "Chiudi": "Chiudi l'albero degli argomenti",
     "Blocca": "Blocca la personalizzazione",

@@ -2,6 +2,7 @@
     "language": "Sprache",
     "connect": "Mit dem MQTT-Server verbinden.",
     "disconnect": "Verbindung zum MQTT-Server trennen.",
+    "connecting": "Verbinden...",
     "open": "Themenbaum öffnen.",
     "close": "Themenbaum schließen.",
     "lock": "Personalisierung sperren.",

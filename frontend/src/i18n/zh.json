@@ -2,6 +2,7 @@
     "language": "语言",
     "connect": "连接到 MQTT 服务器",
     "disconnect": "断开与 MQTT 服务器的连接",
+    "connecting": "正在连接...",
     "open": "打开主题树",
     "close": "关闭主题树",
     "lock": "锁定制",

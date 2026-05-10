@@ -2,6 +2,7 @@
     "language": "Ulimi",
     "connect": "Xhuma kuseva ye-MQTT",
     "disconnect": "Nqamula kuseva ye-MQTT",
+    "connecting": "Iyaxhuma...",
     "open": "Vula isihlahla sesihloko",
     "close": "Vala isihlahla sesihloko",
     "lock": "Khiya ngokwezifiso",

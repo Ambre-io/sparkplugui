@@ -2,6 +2,7 @@
     "language": "Ziman",
     "connect": "Girêdana servera MQTT",
     "disconnect": "Ji pêşkêşkara MQTT veqetîne",
+    "connecting": "Girêdayî dibe...",
     "open": "Dara mijarê veke",
     "close": "Dara mijarê bigire",
     "lock": "Pêşkêşkirina kilît",

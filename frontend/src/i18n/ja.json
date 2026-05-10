@@ -2,6 +2,7 @@
     "language": "言語",
     "connect": "「MQTTサーバーに接続する",
     "disconnect": "MQTTサーバーからの切断",
+    "connecting": "接続中...",
     "open": "トピックツリーを開く",
     "close": "トピックツリーを閉じる",
     "lock": "カスタマイズをロックする",

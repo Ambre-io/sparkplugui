@@ -16,7 +16,10 @@ import (
 	"time"
 
 	MQTT "github.com/eclipse/paho.mqtt.golang"
+	wailsRuntime "github.com/wailsapp/wails/v2/pkg/runtime"
 )
+
+const connectTimeout = 30 * time.Second
 
 // ******************************************
 // * CONNECT
@@ -64,8 +67,14 @@ func (a *App) CmdConnect(setup MQTTSetup) ConnectResult {
 	options.AddBroker(address)
 	options.SetClientID(fmt.Sprintf("SparkpluGUI-%d", time.Now().UnixNano()))
 	options.SetCleanSession(true)
-	options.SetOrderMatters(false)
+	options.SetOrderMatters(true) // single dispatch goroutine — prevents goroutine explosion on busy wildcard topics
 	options.SetMessageChannelDepth(1024)
+	options.SetConnectTimeout(connectTimeout)
+	// Disable auto-reconnect: if the broker drops us, we notify the frontend
+	// and let the user decide to reconnect. Auto-reconnect causes paho to start
+	// background goroutines that can panic against gorilla/websocket v1.5.3.
+	options.SetAutoReconnect(false)
+	options.SetConnectionLostHandler(a.onConnectionLost)
 
 	if setup.Username != "" {
 		options.SetUsername(setup.Username)
@@ -88,10 +97,21 @@ func (a *App) CmdConnect(setup MQTTSetup) ConnectResult {
 		fmt.Printf("### Connect: TLS enabled (proto=%s)\n", proto)
 	}
 
-	// Connect
+	// Tear down any previous connection before creating a new client.
+	// Without this, old paho goroutines leak every time the user reconnects.
+	a.stopWorker()
+	if a.MQTTCLIENT != nil {
+		a.MQTTCLIENT.Disconnect(0)
+	}
+
+	// Connect with a hard timeout so CmdConnect never blocks indefinitely
 	a.MQTTCLIENT = MQTT.NewClient(options)
 	token := a.MQTTCLIENT.Connect()
-	token.Wait()
+	if !token.WaitTimeout(connectTimeout) {
+		fmt.Println("### Connect: timed out waiting for CONNACK")
+		a.MQTTCLIENT.Disconnect(0)
+		return ConnectResult{Ok: false, ErrorCode: ErrTimeout}
+	}
 	if err := token.Error(); err != nil {
 		errCode := classifyConnectError(err)
 		fmt.Printf("### Connect: failed [%s]: %s\n", errCode, err)
@@ -110,7 +130,11 @@ func (a *App) CmdConnect(setup MQTTSetup) ConnectResult {
 		default:
 		}
 	})
-	subToken.Wait()
+	if !subToken.WaitTimeout(connectTimeout) {
+		fmt.Println("### Connect: timed out waiting for SUBACK")
+		a.MQTTCLIENT.Disconnect(0)
+		return ConnectResult{Ok: false, ErrorCode: ErrSubscribe}
+	}
 	if err := subToken.Error(); err != nil {
 		fmt.Printf("### Connect: subscribe failed: %s\n", err)
 		a.MQTTCLIENT.Disconnect(250)
@@ -134,6 +158,20 @@ func (a *App) CmdDisconnect() bool {
 	a.init()
 	a.MQTTCLIENT.Disconnect(250)
 	return true
+}
+
+// ******************************************
+// * CONNECTION LOST
+// ******************************************
+
+// onConnectionLost is called by paho when the broker drops the connection.
+// It runs in a paho-internal goroutine.
+func (a *App) onConnectionLost(_ MQTT.Client, err error) {
+	errCode := classifyConnectError(err)
+	fmt.Printf("### Connection lost [%s]: %s\n", errCode, err)
+	a.stopWorker()
+	// Notify the frontend so it can flip the connected toggle and show a toast.
+	wailsRuntime.EventsEmit(a.context, "connectionLost", errCode)
 }
 
 // ******************************************

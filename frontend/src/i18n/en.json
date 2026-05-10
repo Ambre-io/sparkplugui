@@ -2,6 +2,7 @@
     "language": "Language",
     "connect": "Connect to the MQTT server",
     "disconnect": "Disconnect from the MQTT server",
+    "connecting": "Connecting...",
     "open": "Open the topic tree",
     "close": "Close the topic tree",
     "lock": "Lock customization",
