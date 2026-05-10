@@ -93,7 +93,7 @@ export const Tree: React.FC = () => {
         dispatch(setParentNodes([...accParentsRef.current]));
     }, [messages]);
 
-    // Node toggle handler rebind to work with the open handler (should be fixed one day)
+    // TODO @@@ Node toggle handler rebind to work with the open handler (should be fixed one day)
     const goToggle = (_event: React.SyntheticEvent, nodeIds: string[]) => {
         dispatch(setOpenedNodes(nodeIds));
     };

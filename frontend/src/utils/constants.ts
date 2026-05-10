@@ -74,6 +74,8 @@ export const constants = {
     sparkplugui_layouts: 'sparkplugui_layouts',
     sparkplugui_host: 'sparkplugui_host',
     sparkplugui_port: 'sparkplugui_port',
+    sparkplugui_protocol: 'sparkplugui_protocol',
+    sparkplugui_wspath: 'sparkplugui_wspath',
     sparkplugui_topic: 'sparkplugui_topic',
     sparkplugui_language: 'sparkplugui_language',
     // Event listener
