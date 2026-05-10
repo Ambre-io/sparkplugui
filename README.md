@@ -61,15 +61,15 @@ to stop the flow or to modify the topic subscription for instance.
 
 #### Connection Examples
 
+The **Topic** column uses standard MQTT wildcards: `+` matches one level, `#` matches everything below.
+
+Sparkplug B topics follow the pattern `spBv1.0/<group>/<message-type>/<node>[/<device>]` — subscribing to `spBv1.0/#` captures all groups and nodes.
+
 |               Host | Port | Protocol | WS Path | Topic       | Notes                                   |
 | -----------------: | :--: | :------: | :-----: | :---------- | :-------------------------------------- |
 |          127.0.0.1 | 1883 |   tcp    |         | #           | Local broker, plain MQTT, all topics    |
 | mqtt-dashboard.com | 8884 |   wss    |  /mqtt  | spBv1.0/#   | Public broker, all Sparkplug B messages |
 | mqtt-dashboard.com | 8884 |   wss    |  /mqtt  | testtopic/# | Public broker, plain MQTT demo topic    |
-
-The **Topic** column uses standard MQTT wildcards: `+` matches one level, `#` matches everything below.
-
-Sparkplug B topics follow the pattern `spBv1.0/<group>/<message-type>/<node>[/<device>]` — subscribing to `spBv1.0/#` captures all groups and nodes.
 
 ### Button ↕️ Open/Close
 
