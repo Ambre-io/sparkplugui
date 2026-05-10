@@ -62,23 +62,24 @@ func (a *App) init() {
 	a.lastTopic = ""
 }
 
-func (a *App) decode(payload []byte) (string, int64) {
-	decoded := ""
-	timestamp := int64(0)
-
+func (a *App) decode(topic string, payload []byte) (string, int64) {
 	p := sparkplug.Payload{}
 	err := p.DecodePayload(payload)
 
-	if err == nil { // sparkplug
+	// Use the Sparkplug result when:
+	//   • the topic is a known Sparkplug namespace (always trust it), OR
+	//   • parsing succeeded AND the payload looks like real Sparkplug data
+	//     (proto.Unmarshal is permissive — it can silently "succeed" on plain text).
+	if err == nil && (p.IsSparkplugTopic(topic) || p.LooksValid()) {
 		pjson, _ := json.Marshal(p.Metrics)
-		decoded = string(pjson)
-		timestamp = p.Timestamp.Unix()
-	} else {
-		decoded = string(payload)
-		timestamp = time.Now().Unix()
+		ts := p.Timestamp.Unix()
+		if p.Timestamp.IsZero() {
+			ts = time.Now().Unix()
+		}
+		return string(pjson), ts
 	}
 
-	return decoded, timestamp
+	return string(payload), time.Now().Unix()
 }
 
 func (a *App) pushMessage(topic string, payload string, timestamp int64) {
@@ -148,7 +149,7 @@ func (a *App) startWorker() {
 				}
 				return
 			case m := <-a.RAWMESSAGES:
-				decoded, ts := a.decode(m.Payload())
+				decoded, ts := a.decode(m.Topic(), m.Payload())
 				batch = append(batch, item{m.Topic(), decoded, ts})
 			case <-ticker.C:
 				if len(batch) > 0 {
