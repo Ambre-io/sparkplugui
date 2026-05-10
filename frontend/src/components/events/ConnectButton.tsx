@@ -67,7 +67,8 @@ export const ConnectButton: React.FC = () => {
                 if (ok) {
                     toast.success(`${t('successDisconnect')}`);
                     dispatch(setConnected(false));
-                    dispatch(clearMessages());
+                    // messages and tree kept intentionally for inspection after disconnect
+                    // dispatch(clearMessages());
                 } else {
                     showError(constants.errNetwork);
                 }
