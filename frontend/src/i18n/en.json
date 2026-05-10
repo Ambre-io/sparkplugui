@@ -2,6 +2,7 @@
     "language": "Language",
     "connect": "Connect to the MQTT server",
     "disconnect": "Disconnect from the MQTT server",
+    "connecting": "Connecting...",
     "open": "Open the topic tree",
     "close": "Close the topic tree",
     "lock": "Lock customization",
@@ -30,5 +31,19 @@
     "tree": "Topics Tree",
     "lastMessage": "Last Message",
     "root": "Root",
-    "setting": "Setting"
+    "setting": "Setting",
+    "protocol": "Protocol",
+    "protocolHelper": "Connection protocol: TCP (plain), SSL/TLS, WS (WebSocket), WSS (WebSocket Secure)",
+    "errHostEmpty": "Host is required",
+    "errTopicEmpty": "Topic is required",
+    "errTLSConfig": "TLS certificate error: check your CA / client cert files",
+    "errProtocolMismatch": "Protocol mismatch: try WS or WSS for WebSocket-only brokers",
+    "errConnectionRefused": "Connection refused: check host and port",
+    "errAuthFailed": "Authentication failed: wrong username or password",
+    "errTimeout": "Connection timed out",
+    "errTLSHandshake": "TLS handshake failed: certificate verification error",
+    "errSubscribe": "Subscription failed",
+    "errNetwork": "Network error",
+    "wspath": "WebSocket Path",
+    "wspathHelper": "WebSocket endpoint path, usually /mqtt"
 }

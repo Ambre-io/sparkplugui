@@ -2,6 +2,7 @@
     "language": "Язык",
     "connect": "Подключиться к серверу MQTT",
     "disconnect": "Отключиться от сервера MQTT",
+    "connecting": "Подключение...",
     "open": "Открыть дерево тем",
     "close": "Закрыть дерево тем",
     "lock": "Заблокировать настройку",
@@ -30,5 +31,19 @@
     "tree": "Дерево тем",
     "lastMessage": "Последнее сообщение",
     "root": "Корень",
-    "setting": "Параметр"
+    "setting": "Параметр",
+    "protocol": "Протокол",
+    "protocolHelper": "Протокол подключения: TCP (обычный), SSL/TLS, WS (WebSocket), WSS (WebSocket защищённый)",
+    "errHostEmpty": "Хост обязателен",
+    "errTopicEmpty": "Топик обязателен",
+    "errTLSConfig": "Ошибка сертификата TLS: проверьте файлы CA / клиентского сертификата",
+    "errProtocolMismatch": "Несоответствие протокола: попробуйте WS или WSS для WebSocket-брокеров",
+    "errConnectionRefused": "Подключение отклонено: проверьте хост и порт",
+    "errAuthFailed": "Ошибка аутентификации: неверное имя пользователя или пароль",
+    "errTimeout": "Время подключения истекло",
+    "errTLSHandshake": "Ошибка TLS-рукопожатия: ошибка проверки сертификата",
+    "errSubscribe": "Ошибка подписки",
+    "errNetwork": "Ошибка сети",
+    "wspath": "Путь WebSocket",
+    "wspathHelper": "Путь конечной точки WebSocket, обычно /mqtt"
 }

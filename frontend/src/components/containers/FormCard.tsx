@@ -14,6 +14,8 @@ import {useTranslation} from "react-i18next";
 import {FormControl, FormGroup, FormHelperText, IconButton, InputAdornment} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
+import {MenuItem} from "@mui/material";
+
 import {AmbreCard} from "../ambre/AmbreCard.tsx";
 import {AmbreTextField} from "../ambre/AmbreTextField.tsx";
 import {constants} from "../../utils/constants.ts";
@@ -81,7 +83,31 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={`[TLS] ${t('username')}`}
+                        select
+                        label={t('protocol')}
+                        value={information.protocol || 'tcp'}
+                        onChange={goChange(constants.protocol)}
+                    >
+                        {constants.protocols.map((p) => (
+                            <MenuItem key={p} value={p}>{p.toUpperCase()}</MenuItem>
+                        ))}
+                    </AmbreTextField>
+                    <FormHelperText>{t('protocolHelper')}</FormHelperText>
+                </FormControl>
+                {(information.protocol === 'ws' || information.protocol === 'wss') && (
+                    <FormControl sx={styles.paddingBottom(1)} fullWidth>
+                        <AmbreTextField
+                            label={t('wspath')}
+                            value={information.wspath}
+                            onChange={goChange(constants.wspath)}
+                            placeholder="/mqtt"
+                        />
+                        <FormHelperText>{t('wspathHelper')}</FormHelperText>
+                    </FormControl>
+                )}
+                <FormControl sx={styles.paddingBottom(1)} fullWidth>
+                    <AmbreTextField
+                        label={t('username')}
                         value={information.username}
                         onChange={goChange(constants.username)}
                     />
@@ -89,7 +115,7 @@ export const FormCard: React.FC = () => {
                 </FormControl>
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
-                        label={`[TLS] ${t('password')}`}
+                        label={t('password')}
                         value={information.password}
                         onChange={goChange(constants.password)}
                         type={showPassword ? 'text' : 'password'}
@@ -109,42 +135,38 @@ export const FormCard: React.FC = () => {
                     />
                     <FormHelperText>{t('passwordHelper')}</FormHelperText>
                 </FormControl>
-                <FormControl sx={styles.paddingBottom(1)} fullWidth>
-                    <AmbreTextField
-                        label={`[TLS] ${t('cacrt')}`}
-                        value={filenames.cacrt}
-                        onChange={goLoadFile(constants.cacrt)}
-                        type='file'
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <FormHelperText>{t('cacrtHelper')}</FormHelperText>
-                </FormControl>
-                <FormControl sx={styles.paddingBottom(1)} fullWidth>
-                    <AmbreTextField
-                        label={`[TLS] ${t('clientcrt')}`}
-                        value={filenames.clientcrt}
-                        onChange={goLoadFile(constants.clientcrt)}
-                        type='file'
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <FormHelperText>{t('clientcrtHelper')}</FormHelperText>
-                </FormControl>
-                <FormControl sx={styles.paddingBottom(1)} fullWidth>
-                    <AmbreTextField
-                        label={`[TLS] ${t('clientkey')}`}
-                        value={filenames.clientkey}
-                        onChange={goLoadFile(constants.clientkey)}
-                        type='file'
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                    />
-                    <FormHelperText>{t('clientkeyHelper')}</FormHelperText>
-                </FormControl>
+                {(information.protocol === 'ssl' || information.protocol === 'wss') && (<>
+                    <FormControl sx={styles.paddingBottom(1)} fullWidth>
+                        <AmbreTextField
+                            label={t('cacrt')}
+                            value={filenames.cacrt}
+                            onChange={goLoadFile(constants.cacrt)}
+                            type='file'
+                            InputLabelProps={{shrink: true}}
+                        />
+                        <FormHelperText>{t('cacrtHelper')}</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={styles.paddingBottom(1)} fullWidth>
+                        <AmbreTextField
+                            label={t('clientcrt')}
+                            value={filenames.clientcrt}
+                            onChange={goLoadFile(constants.clientcrt)}
+                            type='file'
+                            InputLabelProps={{shrink: true}}
+                        />
+                        <FormHelperText>{t('clientcrtHelper')}</FormHelperText>
+                    </FormControl>
+                    <FormControl sx={styles.paddingBottom(1)} fullWidth>
+                        <AmbreTextField
+                            label={t('clientkey')}
+                            value={filenames.clientkey}
+                            onChange={goLoadFile(constants.clientkey)}
+                            type='file'
+                            InputLabelProps={{shrink: true}}
+                        />
+                        <FormHelperText>{t('clientkeyHelper')}</FormHelperText>
+                    </FormControl>
+                </>)}
             </FormGroup>
         </AmbreCard>
     )

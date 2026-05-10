@@ -20,7 +20,9 @@ import {core} from "../../../wailsjs/go/models.ts";
 const saved: Record<string, string> = {
     [constants.sparkplugui_host]: '127.0.0.1',
     [constants.sparkplugui_port]: '1883',
-    [constants.sparkplugui_topic]: 'spBv1.0/GROUPID/DEVICE/#',
+    [constants.sparkplugui_protocol]: 'tcp',
+    [constants.sparkplugui_wspath]: '/mqtt',
+    [constants.sparkplugui_topic]: 'spBv1.0/#',
 };
 
 // Load saved values from localStorage
@@ -30,6 +32,8 @@ Object.keys(saved).map((k: string) => saved[k] = localStorage.getItem(k) ?? save
 export const initMQTTSetupSlice: core.MQTTSetup = {
     host: saved[constants.sparkplugui_host],
     port: saved[constants.sparkplugui_port],
+    protocol: saved[constants.sparkplugui_protocol],
+    wspath: saved[constants.sparkplugui_wspath],
     topic: saved[constants.sparkplugui_topic],
     username: '',
     password: '',

@@ -46,21 +46,30 @@ to stop the flow or to modify the topic subscription for instance.
 
 #### MQTT Information
 
-|                                 Fields | Description                                          | Required | Saved |
-| -------------------------------------: | :--------------------------------------------------- | :------: | :---: |
-|                               **Host** | MQTT server IP or domain name                        |    x     |   x   |
-|                               **Port** | MQTT server port                                     |          |   x   |
-|                              **Topic** | Choose a topic to track what you need                |    x     |   x   |
-|                     **Username [TLS]** | Use a valid username for the authentication          |          |       |
-|                     **Password [TLS]** | Use a valid password for the authentication          |          |       |
-| **Concatenated CA certificates [TLS]** | TLS certificate from the trusted authority (CA.pem)  |          |       |
-|           **Client certificate [TLS]** | Client certificate signed by the CA (client-crt.pem) |          |       |
-|                   **Client key [TLS]** | Keyfile for the client certificate (client-key.pem)  |          |       |
+|                            Field | Description                                          | Required | Saved |
+| -------------------------------: | :--------------------------------------------------- | :------: | :---: |
+|                         **Host** | MQTT server IP or domain name                        |    x     |   x   |
+|                         **Port** | MQTT server port                                     |          |   x   |
+|                        **Topic** | MQTT topic filter to subscribe to                    |    x     |   x   |
+|                     **Protocol** | Transport: `tcp`, `ssl`, `ws`, `wss`                 |          |   x   |
+|                      **WS Path** | WebSocket mount path (ws / wss only), e.g. `/mqtt`   |          |   x   |
+|                     **Username** | Username for broker authentication                   |          |       |
+|                     **Password** | Password for broker authentication                   |          |       |
+| **Concatenated CA certificates** | TLS certificate from the trusted authority (CA.pem)  |          |       |
+|           **Client certificate** | Client certificate signed by the CA (client-crt.pem) |          |       |
+|                   **Client key** | Keyfile for the client certificate (client-key.pem)  |          |       |
 
-💡 In order to use the software in the best conditions please restrict your search to a specific topic.
+#### Connection Examples
 
-💡 If you need to authenticate the software to the MQTT server, please fill the 5 TLS fields to use an optimal and
-secure connection.
+The **Topic** column uses standard MQTT wildcards: `+` matches one level, `#` matches everything below.
+
+Sparkplug B topics follow the pattern `spBv1.0/<group>/<message-type>/<node>[/<device>]` — subscribing to `spBv1.0/#` captures all groups and nodes.
+
+|               Host | Port | Protocol | WS Path | Topic       | Notes                                   |
+| -----------------: | :--: | :------: | :-----: | :---------- | :-------------------------------------- |
+|          127.0.0.1 | 1883 |   tcp    |         | #           | Local broker, plain MQTT, all topics    |
+| mqtt-dashboard.com | 8884 |   wss    |  /mqtt  | spBv1.0/#   | Public broker, all Sparkplug B messages |
+| mqtt-dashboard.com | 8884 |   wss    |  /mqtt  | testtopic/# | Public broker, plain MQTT demo topic    |
 
 ### Button ↕️ Open/Close
 
@@ -118,8 +127,9 @@ Thank you all for the beautiful technologies:
 | Install required       | `sudo apt install libgtk-3-dev libwebkit2gtk-4.1-dev`      |
 | Run dev                | `make dev`                                                 |
 | Run build              | `make build`                                               |
+| Run Simulator          | `make sim`                                                 |
 | Build linux/amd64      | `wails build -tags webkit2_41 -platform linux/amd64`       |
 | Build windows/amd64    | `wails build -tags webkit2_41 -platform windows/amd64`     |
 | Build darwin/universal | `wails build -tags webkit2_41 -platform darwin/universal`  |
 | Helper                 | `wails doctor`                                             |
-| Golang config          | Settings > Go > Go Modules > Enable Go modules integration |
+| Goland config          | Settings > Go > Go Modules > Enable Go modules integration |

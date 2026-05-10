@@ -1,5 +1,19 @@
 export namespace core {
 	
+	export class ConnectResult {
+	    ok: boolean;
+	    errorCode: string;
+	
+	    static createFrom(source: any = {}) {
+	        return new ConnectResult(source);
+	    }
+	
+	    constructor(source: any = {}) {
+	        if ('string' === typeof source) source = JSON.parse(source);
+	        this.ok = source["ok"];
+	        this.errorCode = source["errorCode"];
+	    }
+	}
 	export class MQTTMessage {
 	    topic: string;
 	    payload: string;
@@ -19,6 +33,8 @@ export namespace core {
 	export class MQTTSetup {
 	    host: string;
 	    port: string;
+	    protocol: string;
+	    wspath: string;
 	    topic: string;
 	    username: string;
 	    password: string;
@@ -34,6 +50,8 @@ export namespace core {
 	        if ('string' === typeof source) source = JSON.parse(source);
 	        this.host = source["host"];
 	        this.port = source["port"];
+	        this.protocol = source["protocol"];
+	        this.wspath = source["wspath"];
 	        this.topic = source["topic"];
 	        this.username = source["username"];
 	        this.password = source["password"];

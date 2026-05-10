@@ -1,17 +1,4 @@
 /*
-Sparkplug 3.0.0
-Note: Complies to v3.0.0 of the Sparkplug specification
-      to the extent needed for Winsonic DataIO and other industrial 4.0 products.
-Copyright (c) 2023 Winsonic Electronics, Taiwan
-@author David Lee
-@repository https://github.com/weekaung/sparkplugb-client
-
-* This program and the accompanying materials are made available under the
-* terms of the Eclipse Public License 2.0 which is available at
-* http://www.eclipse.org/legal/epl-2.0.
-*/
-
-/*
  * SparkpluGUI - Software that displays decoded Sparkplug messages from MQTT IoT
  *    @author guiklimek
  *    @site https://ambre.io/
@@ -25,9 +12,11 @@ package sparkplug
 
 import (
 	"fmt"
-	"google.golang.org/protobuf/proto"
 	"sparkplugui/backend/sparkplug/sproto"
+	"strings"
 	"time"
+
+	"google.golang.org/protobuf/proto"
 )
 
 // see the JavaScipt version to be inspired:
@@ -101,56 +90,84 @@ type Payload struct {
 //	return proto.Marshal(&sp)
 //}
 
-func (p *Payload) DecodePayload(bytes []byte) error {
-
+func (p *Payload) DecodePayload(data []byte) error {
 	pl := sproto.Payload{}
-	err := proto.Unmarshal(bytes, &pl)
-
-	if err != nil {
+	if err := proto.Unmarshal(data, &pl); err != nil {
 		return err
 	}
 
 	if pl.Timestamp != nil {
 		p.Timestamp = time.UnixMilli(int64(*pl.Timestamp))
 	}
+	p.Seq = pl.GetSeq()
 
 	p.Metrics = make([]Metric, len(pl.Metrics))
 
-	for i := range pl.Metrics {
-
-		// Set the Name and DataType
-		p.Metrics[i].Name = *pl.Metrics[i].Name
-		p.Metrics[i].DataType = sproto.DataType_name[int32(*pl.Metrics[i].Datatype)]
-		if *pl.Metrics[i].Datatype >= uint32(len(sproto.DataType_name)) {
-			fmt.Printf("Warning: could not find metric number=%d in sproto.FriendlyDataTypes\n", *pl.Metrics[i].Datatype)
+	for i, m := range pl.Metrics {
+		// Name is optional in NDATA/DDATA — metrics may be alias-only.
+		if m.Name != nil {
+			p.Metrics[i].Name = *m.Name
+		} else if m.Alias != nil {
+			p.Metrics[i].Name = fmt.Sprintf("alias:%d", *m.Alias)
 		}
 
-		// Set the Value according to DataType
-		switch sproto.DataType(*pl.Metrics[i].Datatype) {
+		// Datatype is optional; skip value extraction if absent.
+		if m.Datatype == nil {
+			p.Metrics[i].DataType = "Unknown"
+			p.Metrics[i].Value = m.GetValue()
+			continue
+		}
 
-		case sproto.DataType_Int8, sproto.DataType_UInt8,
-			sproto.DataType_Int16, sproto.DataType_UInt16,
-			sproto.DataType_Int32, sproto.DataType_UInt32:
-			p.Metrics[i].Value = pl.Metrics[i].GetIntValue()
-		case sproto.DataType_Int64, sproto.DataType_UInt64:
-			p.Metrics[i].Value = pl.Metrics[i].GetLongValue()
-		case sproto.DataType_Float, sproto.DataType_Double:
-			p.Metrics[i].Value = pl.Metrics[i].GetDoubleValue()
+		dt := sproto.DataType(*m.Datatype)
+		if name, ok := sproto.DataType_name[int32(*m.Datatype)]; ok {
+			p.Metrics[i].DataType = name
+		} else {
+			p.Metrics[i].DataType = fmt.Sprintf("Unknown(%d)", *m.Datatype)
+		}
+
+		switch dt {
+		case sproto.DataType_Int8:
+			p.Metrics[i].Value = int8(m.GetIntValue())
+		case sproto.DataType_Int16:
+			p.Metrics[i].Value = int16(m.GetIntValue())
+		case sproto.DataType_Int32:
+			p.Metrics[i].Value = int32(m.GetIntValue())
+		case sproto.DataType_UInt8, sproto.DataType_UInt16, sproto.DataType_UInt32:
+			p.Metrics[i].Value = m.GetIntValue()
+		case sproto.DataType_Int64:
+			p.Metrics[i].Value = int64(m.GetLongValue())
+		case sproto.DataType_UInt64:
+			p.Metrics[i].Value = m.GetLongValue()
+		case sproto.DataType_Float:
+			p.Metrics[i].Value = m.GetFloatValue()
+		case sproto.DataType_Double:
+			p.Metrics[i].Value = m.GetDoubleValue()
 		case sproto.DataType_Boolean:
-			p.Metrics[i].Value = pl.Metrics[i].GetBooleanValue()
+			p.Metrics[i].Value = m.GetBooleanValue()
 		case sproto.DataType_String, sproto.DataType_Text:
-			p.Metrics[i].Value = pl.Metrics[i].GetStringValue()
+			p.Metrics[i].Value = m.GetStringValue()
 		case sproto.DataType_Bytes:
-			p.Metrics[i].Value = pl.Metrics[i].GetBytesValue()
+			p.Metrics[i].Value = m.GetBytesValue()
 		case sproto.DataType_DataSet:
-			p.Metrics[i].Value = pl.Metrics[i].GetDatasetValue()
+			p.Metrics[i].Value = m.GetDatasetValue()
 		case sproto.DataType_Template:
-			p.Metrics[i].Value = pl.Metrics[i].GetTemplateValue()
-
+			p.Metrics[i].Value = m.GetTemplateValue()
 		default:
-			p.Metrics[i].Value = pl.Metrics[i].GetValue()
+			p.Metrics[i].Value = m.GetValue()
 		}
 	}
 
 	return nil
+}
+
+// LooksValid returns true if the decoded payload has a plausible Sparkplug shape.
+// proto.Unmarshal is permissive and can "succeed" on arbitrary bytes — a payload
+// that has neither a timestamp nor any metrics is almost certainly not Sparkplug.
+func (p *Payload) LooksValid() bool {
+	return !p.Timestamp.IsZero() || len(p.Metrics) > 0
+}
+
+// isSparkplugTopic returns true for topics that follow the spBv1.0 / spAv1.0 namespace.
+func (p *Payload) IsSparkplugTopic(topic string) bool {
+	return strings.HasPrefix(topic, "spBv1.0/") || strings.HasPrefix(topic, "spAv1.0/")
 }

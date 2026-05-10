@@ -31,12 +31,27 @@ export const constants = {
     // Fields
     host: 'host',
     port: 'port',
+    protocol: 'protocol',
+    wspath: 'wspath',
     topic: 'topic',
     username: 'username',
     password: 'password',
     cacrt: 'cacrt',
     clientcrt: 'clientcrt',
     clientkey: 'clientkey',
+    // Protocols
+    protocols: ['tcp', 'ssl', 'ws', 'wss'] as const,
+    // Error codes (must match backend core/types.go Err* constants)
+    errHostEmpty: 'errHostEmpty',
+    errTopicEmpty: 'errTopicEmpty',
+    errTLSConfig: 'errTLSConfig',
+    errProtocolMismatch: 'errProtocolMismatch',
+    errConnectionRefused: 'errConnectionRefused',
+    errAuthFailed: 'errAuthFailed',
+    errTimeout: 'errTimeout',
+    errTLSHandshake: 'errTLSHandshake',
+    errSubscribe: 'errSubscribe',
+    errNetwork: 'errNetwork',
     // Cards
     softCard: 'softCard',
     formCard: 'informationCard',
@@ -49,10 +64,6 @@ export const constants = {
     emojiSunglasses: '🕶️',
     emojiConnection: '📡',
     emojiEnvelop: '📨',
-    emojiOkg: '👌',
-    emojiSmile: '😀',
-    emojiWink: '😉',
-    emojiSadge: '☹️',
     // Screen sizes
     xs: 480,
     sm: 768,
@@ -63,6 +74,8 @@ export const constants = {
     sparkplugui_layouts: 'sparkplugui_layouts',
     sparkplugui_host: 'sparkplugui_host',
     sparkplugui_port: 'sparkplugui_port',
+    sparkplugui_protocol: 'sparkplugui_protocol',
+    sparkplugui_wspath: 'sparkplugui_wspath',
     sparkplugui_topic: 'sparkplugui_topic',
     sparkplugui_language: 'sparkplugui_language',
     // Event listener

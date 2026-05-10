@@ -37,35 +37,48 @@ import (
 	"fmt"
 )
 
-func NewTLSConfig(setup MQTTSetup) *tls.Config {
+// NewTLSConfig builds a *tls.Config from the setup fields.
+//
+// Three modes:
+//   - No certs at all  → use system cert pool (valid for public brokers like HiveMQ / mosquitto).
+//   - CA cert only     → custom CA pool, no client cert (server-side TLS verification).
+//   - CA + client cert + key → mutual TLS.
+//
+// Returns (nil, errCode) on certificate parsing failure.
+func NewTLSConfig(setup MQTTSetup) (*tls.Config, string) {
+	hasCA := setup.CACrt != ""
+	hasClientCert := setup.ClientCrt != "" && setup.ClientKey != ""
 
-	// string to byte array
-	CACrtByte := []byte(setup.CACrt)
-	ClientCrtByte := []byte(setup.ClientCrt)
-	ClientKeyByte := []byte(setup.ClientKey)
-
-	// Load certificates
-	certificatepool := x509.NewCertPool()
-	certificatepool.AppendCertsFromPEM(CACrtByte)
-
-	// Load client certificate and key
-	certificate, err := tls.X509KeyPair(ClientCrtByte, ClientKeyByte)
-	if err != nil {
-		fmt.Printf("\n### Could not load key pair with X509KeyPair: %s\n\n", err)
-		return nil
-	}
-
-	// Create tls.Config with desired tls properties
-	return &tls.Config{
-		// RootCAs = certificates used to verify server certificate.
-		RootCAs: certificatepool,
-		// ClientAuth = whether to request certificate from server. Since the server is set up for SSL, this happens anyways.
+	cfg := &tls.Config{
 		ClientAuth: tls.NoClientCert,
-		// ClientCAs = certificates used to validate client certificate.
-		ClientCAs: nil,
-		// InsecureSkipVerify = verify that certificate contents match server. IP matches what is in certificate etc.
-		InsecureSkipVerify: true,
-		// Certificates = list of certificates client sends to server.
-		Certificates: []tls.Certificate{certificate},
 	}
+
+	if !hasCA && !hasClientCert {
+		// Use the system cert pool — works for brokers with valid public CAs.
+		cfg.RootCAs = nil
+		fmt.Println("### TLS: using system cert pool (no custom CA provided)")
+		return cfg, ""
+	}
+
+	if hasCA {
+		pool := x509.NewCertPool()
+		if ok := pool.AppendCertsFromPEM([]byte(setup.CACrt)); !ok {
+			fmt.Println("### TLS: failed to parse CA certificate PEM")
+			return nil, ErrTLSConfig
+		}
+		cfg.RootCAs = pool
+		fmt.Println("### TLS: custom CA certificate loaded")
+	}
+
+	if hasClientCert {
+		cert, err := tls.X509KeyPair([]byte(setup.ClientCrt), []byte(setup.ClientKey))
+		if err != nil {
+			fmt.Printf("### TLS: failed to parse client cert/key pair: %s\n", err)
+			return nil, ErrTLSConfig
+		}
+		cfg.Certificates = []tls.Certificate{cert}
+		fmt.Println("### TLS: client certificate loaded (mutual TLS)")
+	}
+
+	return cfg, ""
 }
