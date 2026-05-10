@@ -86,6 +86,17 @@ export const FormCard: React.FC = () => {
                     </AmbreTextField>
                     <FormHelperText>{t('protocolHelper')}</FormHelperText>
                 </FormControl>
+                {(information.protocol === 'ws' || information.protocol === 'wss') && (
+                    <FormControl sx={styles.paddingBottom(1)} fullWidth>
+                        <AmbreTextField
+                            label={t('wspath')}
+                            value={information.wspath}
+                            onChange={goChange(constants.wspath)}
+                            placeholder="/mqtt"
+                        />
+                        <FormHelperText>{t('wspathHelper')}</FormHelperText>
+                    </FormControl>
+                )}
                 <FormControl sx={styles.paddingBottom(1)} fullWidth>
                     <AmbreTextField
                         label={`${t('topic')} *`}

@@ -42,5 +42,7 @@
     "errTimeout": "接続タイムアウト",
     "errTLSHandshake": "TLSハンドシェイク失敗：証明書の検証エラー",
     "errSubscribe": "サブスクリプション失敗",
-    "errNetwork": "ネットワークエラー"
+    "errNetwork": "ネットワークエラー",
+    "wspath": "WebSocketパス",
+    "wspathHelper": "WebSocketエンドポイントのパス（通常は /mqtt）"
 }

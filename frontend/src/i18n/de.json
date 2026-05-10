@@ -42,5 +42,7 @@
     "errTimeout": "Verbindungszeit überschritten",
     "errTLSHandshake": "TLS-Handshake fehlgeschlagen: Zertifikatsfehler",
     "errSubscribe": "Abonnieren fehlgeschlagen",
-    "errNetwork": "Netzwerkfehler"
+    "errNetwork": "Netzwerkfehler",
+    "wspath": "WebSocket-Pfad",
+    "wspathHelper": "WebSocket-Endpunkt, meistens /mqtt"
 }

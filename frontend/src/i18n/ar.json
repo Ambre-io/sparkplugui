@@ -42,5 +42,7 @@
     "errTimeout": "انتهت مهلة الاتصال",
     "errTLSHandshake": "فشل مصافحة TLS: خطأ في التحقق من الشهادة",
     "errSubscribe": "فشل الاشتراك",
-    "errNetwork": "خطأ في الشبكة"
+    "errNetwork": "خطأ في الشبكة",
+    "wspath": "مسار WebSocket",
+    "wspathHelper": "مسار نقطة نهاية WebSocket، عادةً /mqtt"
 }

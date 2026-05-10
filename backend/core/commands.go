@@ -47,6 +47,16 @@ func (a *App) CmdConnect(setup MQTTSetup) ConnectResult {
 	} else {
 		address = fmt.Sprintf("%s://%s", proto, setup.Host)
 	}
+	// Append WebSocket path for ws/wss (most brokers require /mqtt)
+	if proto == "ws" || proto == "wss" {
+		wsPath := strings.TrimSpace(setup.WsPath)
+		if wsPath == "" {
+			wsPath = "/"
+		} else if !strings.HasPrefix(wsPath, "/") {
+			wsPath = "/" + wsPath
+		}
+		address += wsPath
+	}
 	fmt.Printf("### Connect: broker address = %s\n", address)
 
 	// Build options

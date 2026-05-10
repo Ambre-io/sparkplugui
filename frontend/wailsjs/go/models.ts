@@ -34,6 +34,7 @@ export namespace core {
 	    host: string;
 	    port: string;
 	    protocol: string;
+	    wspath: string;
 	    topic: string;
 	    username: string;
 	    password: string;
@@ -50,6 +51,7 @@ export namespace core {
 	        this.host = source["host"];
 	        this.port = source["port"];
 	        this.protocol = source["protocol"];
+	        this.wspath = source["wspath"];
 	        this.topic = source["topic"];
 	        this.username = source["username"];
 	        this.password = source["password"];

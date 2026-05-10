@@ -42,5 +42,7 @@
     "errTimeout": "Dema girêdanê derbas bû",
     "errTLSHandshake": "TLS handshake şikest: çewtiya verastkirina sertîfîkayê",
     "errSubscribe": "Abonebûn şikest",
-    "errNetwork": "Çewtiya torê"
+    "errNetwork": "Çewtiya torê",
+    "wspath": "Rêça WebSocket",
+    "wspathHelper": "Rêça xalê dawî ya WebSocket, bi gelemperî /mqtt"
 }

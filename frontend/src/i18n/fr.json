@@ -42,5 +42,7 @@
     "errTimeout": "Délai de connexion dépassé",
     "errTLSHandshake": "Échec du handshake TLS : erreur de vérification du certificat",
     "errSubscribe": "Échec de l'abonnement",
-    "errNetwork": "Erreur réseau"
+    "errNetwork": "Erreur réseau",
+    "wspath": "Chemin WebSocket",
+    "wspathHelper": "Chemin de l'endpoint WebSocket, généralement /mqtt"
 }

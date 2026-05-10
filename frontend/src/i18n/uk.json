@@ -42,5 +42,7 @@
     "errTimeout": "Час з'єднання вичерпано",
     "errTLSHandshake": "Помилка TLS-рукостискання: помилка перевірки сертифіката",
     "errSubscribe": "Помилка підписки",
-    "errNetwork": "Мережева помилка"
+    "errNetwork": "Мережева помилка",
+    "wspath": "Шлях WebSocket",
+    "wspathHelper": "Шлях кінцевої точки WebSocket, зазвичай /mqtt"
 }

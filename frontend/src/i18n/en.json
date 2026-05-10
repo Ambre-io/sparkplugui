@@ -42,5 +42,7 @@
     "errTimeout": "Connection timed out",
     "errTLSHandshake": "TLS handshake failed: certificate verification error",
     "errSubscribe": "Subscription failed",
-    "errNetwork": "Network error"
+    "errNetwork": "Network error",
+    "wspath": "WebSocket Path",
+    "wspathHelper": "WebSocket endpoint path, usually /mqtt"
 }

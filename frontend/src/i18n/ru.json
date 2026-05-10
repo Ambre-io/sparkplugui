@@ -42,5 +42,7 @@
     "errTimeout": "Время подключения истекло",
     "errTLSHandshake": "Ошибка TLS-рукопожатия: ошибка проверки сертификата",
     "errSubscribe": "Ошибка подписки",
-    "errNetwork": "Ошибка сети"
+    "errNetwork": "Ошибка сети",
+    "wspath": "Путь WebSocket",
+    "wspathHelper": "Путь конечной точки WebSocket, обычно /mqtt"
 }

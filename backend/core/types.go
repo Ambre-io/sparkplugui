@@ -35,6 +35,7 @@ type MQTTSetup struct {
 	Host      string `json:"host"`
 	Port      string `json:"port"`
 	Protocol  string `json:"protocol"`
+	WsPath    string `json:"wspath"` // WebSocket path, e.g. "/mqtt" — only used for ws/wss
 	Topic     string `json:"topic"`
 	Username  string `json:"username"`
 	Password  string `json:"password"`

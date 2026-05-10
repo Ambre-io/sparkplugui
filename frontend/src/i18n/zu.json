@@ -42,5 +42,7 @@
     "errTimeout": "Isikhathi sokuxhuma siphelile",
     "errTLSHandshake": "I-TLS handshake yehlulekile: iphutha lokuqinisekisa isitifiketi",
     "errSubscribe": "Ukubhalisela kwehlulekile",
-    "errNetwork": "Iphutha lenethiwekhi"
+    "errNetwork": "Iphutha lenethiwekhi",
+    "wspath": "Indlela ye-WebSocket",
+    "wspathHelper": "Indlela ye-endpoint ye-WebSocket, ngokuvamile /mqtt"
 }

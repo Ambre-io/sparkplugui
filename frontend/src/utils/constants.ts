@@ -32,6 +32,7 @@ export const constants = {
     host: 'host',
     port: 'port',
     protocol: 'protocol',
+    wspath: 'wspath',
     topic: 'topic',
     username: 'username',
     password: 'password',

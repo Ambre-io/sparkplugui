@@ -42,5 +42,7 @@
     "errTimeout": "ئۇلىنىش ۋاقتى ئېشىپ كەتتى",
     "errTLSHandshake": "TLS قول سىقىشىش مەغلۇپ بولدى: گۇۋاھنامە دەلىللەش خاتالىقى",
     "errSubscribe": "مۇشتەرى بولۇش مەغلۇپ بولدى",
-    "errNetwork": "تور خاتالىقى"
+    "errNetwork": "تور خاتالىقى",
+    "wspath": "WebSocket يولى",
+    "wspathHelper": "WebSocket ئۇچ نۇقتا يولى، ئادەتتە /mqtt"
 }

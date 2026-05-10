@@ -42,5 +42,7 @@
     "errTimeout": "连接超时",
     "errTLSHandshake": "TLS握手失败：证书验证错误",
     "errSubscribe": "订阅失败",
-    "errNetwork": "网络错误"
+    "errNetwork": "网络错误",
+    "wspath": "WebSocket路径",
+    "wspathHelper": "WebSocket端点路径，通常为 /mqtt"
 }

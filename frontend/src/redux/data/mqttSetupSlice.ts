@@ -31,6 +31,7 @@ export const initMQTTSetupSlice: core.MQTTSetup = {
     host: saved[constants.sparkplugui_host],
     port: saved[constants.sparkplugui_port],
     protocol: 'tcp',
+    wspath: '',
     topic: saved[constants.sparkplugui_topic],
     username: '',
     password: '',
