@@ -13,7 +13,7 @@ import DisabledByDefaultOutlinedIcon from "@mui/icons-material/DisabledByDefault
 import {Grid} from "@mui/material";
 import IndeterminateCheckBoxOutlinedIcon from "@mui/icons-material/IndeterminateCheckBoxOutlined";
 import {TreeView} from "@mui/x-tree-view";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector, useStore} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import {constants} from "../../utils/constants.ts";
@@ -21,7 +21,7 @@ import {getTreeReset} from "../../redux/events/treeResetSlice.ts";
 import {getOpenedNodes, setOpenedNodes} from "../../redux/data/openedNodesSlice.ts";
 import {getMessages} from "../../redux/data/messagesSlice.ts";
 import {initParentNodes, setParentNodes} from "../../redux/data/parentNodesSlice.ts";
-import {MessagesType, NodeType} from "../../utils/types.ts";
+import {NodeType} from "../../utils/types.ts";
 import {setLastMessages} from "../../redux/data/lastMessagesSlice.ts";
 import {styles} from "../../styles/styles.ts";
 import {TreeItemRender} from "./TreeItemRender.tsx";
@@ -33,67 +33,89 @@ import {core} from "../../../wailsjs/go/models.ts";
 export const Tree: React.FC = () => {
     const {t} = useTranslation();
     const dispatch = useDispatch();
+    const store = useStore();
 
     const treeReset = useSelector(getTreeReset);
-    const messages: MessagesType = useSelector(getMessages);
-
     const openedNodes = useSelector(getOpenedNodes);
 
     const treeRef = useRef<NodeType>(utils.createNode(constants.rootID, t('root'), [], {nodeID: ''}));
-    const accParentsRef = useRef<string[]>([...initParentNodes]);
+    // Flat map nodeID → node for O(1) lookup instead of O(n) find() per segment
+    const nodeMapRef = useRef<Map<string, NodeType>>(new Map([[constants.rootID, treeRef.current]]));
+    // Set of known leaf topics: skips tree-walking entirely for already-seen topics
+    const knownLeafsRef = useRef<Set<string>>(new Set());
+    // Set instead of array: no duplicates, no unbounded growth
+    const accParentsRef = useRef<Set<string>>(new Set(initParentNodes));
     const processedRef = useRef(0);
     const [tree, setTree] = useState<NodeType>(treeRef.current);
 
-    // Reset tree only when topic changes (treeReset counter increments)
+    // Reset tree when topic/host changes
     useEffect(() => {
         if (treeReset === 0) return;
         treeRef.current = utils.createNode(constants.rootID, t('root'), [], {nodeID: ''});
-        accParentsRef.current = [...initParentNodes];
+        nodeMapRef.current = new Map([[constants.rootID, treeRef.current]]);
+        knownLeafsRef.current = new Set();
+        accParentsRef.current = new Set(initParentNodes);
         processedRef.current = 0;
         setTree(treeRef.current);
         dispatch(setParentNodes([...initParentNodes]));
     }, [treeReset]);
 
+    // Subscribe directly to the Redux store instead of useSelector(getMessages).
+    // This decouples Tree rendering from message frequency: the component only
+    // re-renders (via setTree) when new topics are discovered, not on every message.
     useEffect(() => {
-        const newMsgs = messages.slice(processedRef.current);
-        if (newMsgs.length === 0) return;
+        return store.subscribe(() => {
+            const messages = getMessages((store as any).getState());
+            const newMsgs = messages.slice(processedRef.current);
+            if (newMsgs.length === 0) return;
+            processedRef.current = messages.length;
 
-        newMsgs.forEach((msg: core.MQTTMessage) => {
-            const {topic} = msg;
-            const splitedTopic = topic.split(constants.topicSeparator);
-            let lastNode: NodeType = treeRef.current;
+            let treeChanged = false;
+            const newLastMessages: Record<string, core.MQTTMessage> = {};
 
-            splitedTopic.forEach((subTopic: string, i: number) => {
-                const lastNodeTopic = lastNode.options?.nodeID ?? '';
-                const nodeID = `${lastNodeTopic}${lastNodeTopic === '' ? '' : constants.topicSeparator}${subTopic}`;
-                let node: NodeType = utils.createNode(nodeID, subTopic, [], {nodeID});
+            newMsgs.forEach((msg: core.MQTTMessage) => {
+                const {topic} = msg;
+                newLastMessages[topic] = msg;
 
-                const inTreeNode = lastNode.subnodes.find((n: NodeType) => n.id === nodeID);
-                if (inTreeNode !== undefined) {
-                    node = inTreeNode;
-                } else {
-                    if (!lastNode.subnodes.in(node, 'id')) {
+                if (knownLeafsRef.current.has(topic)) return; // known topic — skip tree walk
+                knownLeafsRef.current.add(topic);
+                treeChanged = true;
+
+                const parts = topic.split(constants.topicSeparator);
+                let lastNode = treeRef.current;
+                let nodeID = '';
+
+                parts.forEach((subTopic: string, i: number) => {
+                    nodeID = nodeID === '' ? subTopic : `${nodeID}${constants.topicSeparator}${subTopic}`;
+
+                    const existing = nodeMapRef.current.get(nodeID);
+                    const node: NodeType = existing ?? utils.createNode(nodeID, subTopic, [], {nodeID});
+                    if (!existing) {
                         lastNode.subnodes.push(node);
+                        nodeMapRef.current.set(nodeID, node);
                     }
-                }
 
-                if (splitedTopic.length - 1 === i) { // Leaf
-                    dispatch(setLastMessages({[topic]: msg}));
-                    if (!node.label.includes(constants.emojiFile)) node.label = `${node.label} ${constants.emojiFile}`;
-                } else { // Parent
-                    accParentsRef.current.push(node.id);
-                }
+                    if (i === parts.length - 1) { // leaf
+                        if (!node.label.includes(constants.emojiFile)) {
+                            node.label = `${node.label} ${constants.emojiFile}`;
+                        }
+                    } else { // parent
+                        accParentsRef.current.add(nodeID);
+                    }
 
-                lastNode = node;
+                    lastNode = node;
+                });
             });
+
+            dispatch(setLastMessages(newLastMessages));
+
+            if (treeChanged) {
+                setTree({...treeRef.current, subnodes: [...treeRef.current.subnodes]});
+                dispatch(setParentNodes([...accParentsRef.current]));
+            }
         });
+    }, []);
 
-        processedRef.current = messages.length;
-        setTree({...treeRef.current, subnodes: [...treeRef.current.subnodes]});
-        dispatch(setParentNodes([...accParentsRef.current]));
-    }, [messages]);
-
-    // TODO @@@ Node toggle handler rebind to work with the open handler (should be fixed one day)
     const goToggle = (_event: React.SyntheticEvent, nodeIds: string[]) => {
         dispatch(setOpenedNodes(nodeIds));
     };
@@ -108,7 +130,7 @@ export const Tree: React.FC = () => {
                     expanded={openedNodes}
                     onNodeToggle={goToggle}
                 >
-                    {(tree.subnodes.length > 0) && (<TreeItemRender key="pouet" node={tree}/>)}
+                    {(tree.subnodes.length > 0) && (<TreeItemRender key="root" node={tree}/>)}
                 </TreeView>
             </Grid>
         </Grid>

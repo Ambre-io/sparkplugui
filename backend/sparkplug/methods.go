@@ -11,7 +11,11 @@
 package sparkplug
 
 import (
+	"bytes"
+	"compress/gzip"
+	"compress/zlib"
 	"fmt"
+	"io"
 	"sparkplugui/backend/sparkplug/sproto"
 	"strings"
 	"time"
@@ -22,8 +26,55 @@ import (
 // see the JavaScipt version to be inspired:
 // https://github.com/eclipse/tahu/blob/master/javascript/core/sparkplug-payload/lib/sparkplugbpayload.ts
 
+// tryDecompress attempts GZIP then zlib (DEFLATE) decompression using magic-byte detection.
+// Returns the original bytes unchanged if neither format is detected or decompression fails.
+func TryDecompress(data []byte) []byte {
+	if len(data) < 2 {
+		return data
+	}
+	// GZIP: magic 0x1f 0x8b
+	if data[0] == 0x1f && data[1] == 0x8b {
+		if r, err := gzip.NewReader(bytes.NewReader(data)); err == nil {
+			out, err := io.ReadAll(r)
+			r.Close()
+			if err == nil {
+				return out
+			}
+		}
+	}
+	// zlib (DEFLATE with wrapper): first byte 0x78
+	if data[0] == 0x78 {
+		if r, err := zlib.NewReader(bytes.NewReader(data)); err == nil {
+			out, err := io.ReadAll(r)
+			r.Close()
+			if err == nil {
+				return out
+			}
+		}
+	}
+	return data
+}
+
+// ParseSparkplugTopic splits a Sparkplug B/A topic into its components.
+// Topic format: spBv1.0/{group}/{messageType}/{nodeID}[/{deviceID}]
+// Returns empty strings for all fields if the topic is not a Sparkplug topic.
+func ParseSparkplugTopic(topic string) (group, messageType, nodeID, deviceID string) {
+	parts := strings.SplitN(topic[8:], "/", 4)
+	if len(parts) < 3 {
+		return
+	}
+	group = parts[0]
+	messageType = parts[1]
+	nodeID = parts[2]
+	if len(parts) == 4 {
+		deviceID = parts[3]
+	}
+	return
+}
+
 type Metric struct {
 	Name     string
+	Alias    uint64 `json:",omitempty"`
 	DataType string
 	Value    any
 }
@@ -90,7 +141,10 @@ type Payload struct {
 //	return proto.Marshal(&sp)
 //}
 
-func (p *Payload) DecodePayload(data []byte) error {
+// DecodePayload decodes a (possibly compressed) Sparkplug protobuf payload.
+// aliasLookup, when non-nil, is used to resolve alias-only metrics (NDATA/DDATA) back
+// to their original metric names registered from a prior birth message.
+func (p *Payload) DecodePayload(data []byte, aliasLookup map[uint64]string) error {
 	pl := sproto.Payload{}
 	if err := proto.Unmarshal(data, &pl); err != nil {
 		return err
@@ -104,11 +158,23 @@ func (p *Payload) DecodePayload(data []byte) error {
 	p.Metrics = make([]Metric, len(pl.Metrics))
 
 	for i, m := range pl.Metrics {
+		if m.Alias != nil {
+			p.Metrics[i].Alias = *m.Alias
+		}
+
 		// Name is optional in NDATA/DDATA — metrics may be alias-only.
 		if m.Name != nil {
 			p.Metrics[i].Name = *m.Name
 		} else if m.Alias != nil {
-			p.Metrics[i].Name = fmt.Sprintf("alias:%d", *m.Alias)
+			if aliasLookup != nil {
+				if name, ok := aliasLookup[*m.Alias]; ok {
+					p.Metrics[i].Name = name
+				} else {
+					p.Metrics[i].Name = fmt.Sprintf("alias:%d", *m.Alias)
+				}
+			} else {
+				p.Metrics[i].Name = fmt.Sprintf("alias:%d", *m.Alias)
+			}
 		}
 
 		// Datatype is optional; skip value extraction if absent.
@@ -167,7 +233,19 @@ func (p *Payload) LooksValid() bool {
 	return !p.Timestamp.IsZero() || len(p.Metrics) > 0
 }
 
-// isSparkplugTopic returns true for topics that follow the spBv1.0 / spAv1.0 namespace.
-func (p *Payload) IsSparkplugTopic(topic string) bool {
+// IsSparkplugTopic returns true for topics that follow the spBv1.0 / spAv1.0 namespace.
+func IsSparkplugTopic(topic string) bool {
 	return strings.HasPrefix(topic, "spBv1.0/") || strings.HasPrefix(topic, "spAv1.0/")
+}
+
+// ExtractAliases returns a map of alias → metric name for all metrics that carry both.
+// Call this after decoding a birth message (NBIRTH / DBIRTH) to populate the alias registry.
+func (p *Payload) ExtractAliases() map[uint64]string {
+	result := make(map[uint64]string)
+	for _, m := range p.Metrics {
+		if m.Alias != 0 && m.Name != "" && !strings.HasPrefix(m.Name, "alias:") {
+			result[m.Alias] = m.Name
+		}
+	}
+	return result
 }
