@@ -69,13 +69,11 @@ func (a *App) newPayload(payload []byte) (string, int64) {
 }
 
 func (a *App) decode(topic string, payload []byte) (string, int64) {
-
-	p := sparkplug.Payload{}
-
-	// not Sparkplug
-	if !p.IsSparkplugTopic(topic) {
+	if !sparkplug.IsSparkplugTopic(topic) {
 		return a.newPayload(payload)
 	}
+
+	var p sparkplug.Payload
 
 	group, msgType, nodeID, deviceID := sparkplug.ParseSparkplugTopic(topic)
 

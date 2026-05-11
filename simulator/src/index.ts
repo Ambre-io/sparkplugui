@@ -64,42 +64,47 @@ function rawPublisher(client: MqttClient, topic: string, intervalMs: number, gen
 }
 
 // ── Sparkplug B publisher ─────────────────────────────────────────────────────
-type SpbMetric = {name: string; type: string; value: unknown};
-const rJson = (): string => {
-    const keys = ['temp','pressure','humidity','rpm','voltage','current','power','flow','torque','vibration'];
-    const out: Record<string, unknown> = {ts: Date.now(), seq: ri(0, 999999), ok: rb()};
-    for (let i = 0; i < ri(2, 6); i++) out[keys[ri(0, keys.length - 1)]] = rf();
-    return JSON.stringify(out);
-};
+// Fixed metric catalogue: each entry has a stable alias so NBIRTH declares name+alias
+// and NDATA/DDATA sends alias-only — exercising the alias registry in the backend.
+type SpbMetricDef = {name: string; type: string; alias: number; generate: () => unknown};
 
-const SPB_GENERATORS: Array<() => SpbMetric> = [
-    () => ({name: 'Temperature', type: 'Float',   value: rf(-40, 150)}),
-    () => ({name: 'Pressure',    type: 'Int32',   value: ri(0, 10000)}),
-    () => ({name: 'Active',      type: 'Boolean', value: rb()}),
-    () => ({name: 'JSONPayload', type: 'String',  value: rJson()}),
-    () => ({name: 'Voltage',     type: 'Double',  value: rf(0, 480)}),
-    () => ({name: 'Current',     type: 'Float',   value: rf(0, 100)}),
-    () => ({name: 'ErrorCode',   type: 'Int32',   value: ri(0, 255)}),
-    () => ({name: 'Label',       type: 'String',  value: `unit_${ri(1000, 9999)}`}),
-    () => ({name: 'Enabled',     type: 'Boolean', value: rb()}),
-    () => ({name: 'RPM',         type: 'Float',   value: rf(0, 3600)}),
-    () => ({name: 'FlowRate',    type: 'Double',  value: rf(0, 500)}),
-    () => ({name: 'Counter',     type: 'Int32',   value: ri(0, 2147483647)}),
+const SPB_METRIC_DEFS: SpbMetricDef[] = [
+    {name: 'Temperature', type: 'Float',   alias: 1,  generate: () => rf(-40, 150)},
+    {name: 'Pressure',    type: 'Int32',   alias: 2,  generate: () => ri(0, 10000)},
+    {name: 'Active',      type: 'Boolean', alias: 3,  generate: () => rb()},
+    {name: 'Voltage',     type: 'Double',  alias: 4,  generate: () => rf(0, 480)},
+    {name: 'Current',     type: 'Float',   alias: 5,  generate: () => rf(0, 100)},
+    {name: 'ErrorCode',   type: 'Int32',   alias: 6,  generate: () => ri(0, 255)},
+    {name: 'RPM',         type: 'Float',   alias: 7,  generate: () => rf(0, 3600)},
+    {name: 'FlowRate',    type: 'Double',  alias: 8,  generate: () => rf(0, 500)},
+    {name: 'Counter',     type: 'Int32',   alias: 9,  generate: () => ri(0, 2147483647)},
+    {name: 'Enabled',     type: 'Boolean', alias: 10, generate: () => rb()},
+    {name: 'Label',       type: 'String',  alias: 11, generate: () => `unit_${ri(1000, 9999)}`},
 ];
 
 let globalSeq = 0;
-function spbPayload(metricsCount: number): Buffer {
-    const metrics = Array.from({length: metricsCount}, (_, i) => SPB_GENERATORS[i % SPB_GENERATORS.length]());
+
+// Birth: full name + alias + value (defines the alias mapping)
+function spbBirthPayload(defs: SpbMetricDef[]): Buffer {
+    const metrics = defs.map(d => ({name: d.name, alias: d.alias, type: d.type, value: d.generate()}));
+    const payload: UPayload = {timestamp: Date.now(), seq: globalSeq++ % 256, metrics: metrics as any};
+    return Buffer.from(encodePayload(payload));
+}
+
+// Data: alias + value only — name intentionally omitted to test registry resolution
+function spbDataPayload(defs: SpbMetricDef[]): Buffer {
+    const metrics = defs.map(d => ({alias: d.alias, type: d.type, value: d.generate()}));
     const payload: UPayload = {timestamp: Date.now(), seq: globalSeq++ % 256, metrics: metrics as any};
     return Buffer.from(encodePayload(payload));
 }
 
 function spbPublisher(client: MqttClient, birthTopic: string, dataTopic: string, intervalMs: number, metricsCount: number): void {
     topicCount++;
-    client.publish(birthTopic, spbPayload(metricsCount));
+    const defs = SPB_METRIC_DEFS.slice(0, Math.min(metricsCount, SPB_METRIC_DEFS.length));
+    client.publish(birthTopic, spbBirthPayload(defs));
     totalPublished++;
     const tick = () => {
-        client.publish(dataTopic, spbPayload(metricsCount));
+        client.publish(dataTopic, spbDataPayload(defs));
         totalPublished++;
         const jitter = (Math.random() - 0.5) * intervalMs * 0.4;
         setTimeout(tick, Math.max(20, intervalMs + jitter));

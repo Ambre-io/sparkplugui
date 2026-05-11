@@ -35,7 +35,7 @@ export const ConnectButton: React.FC = () => {
 
     const information = useSelector(getMQTTSetup);
     const connected = useSelector(getConnected);
-    const lastTopicRef = useRef<string>('');
+    const lastConnectionRef = useRef<string>('');
     const [connecting, setConnecting] = useState(false);
 
     const showError = (errorCode: string) => {
@@ -63,10 +63,11 @@ export const ConnectButton: React.FC = () => {
                     toast.success(`${t('successConnect')}`);
                     dispatch(setConnected(true));
                     dispatch(clearMessages());
-                    if (information.topic !== lastTopicRef.current) {
+                    const connectionKey = `${information.host}:${information.port ?? ''}/${information.topic}`;
+                    if (connectionKey !== lastConnectionRef.current) {
                         dispatch(clearLastMessages());
                         dispatch(incrementTreeReset());
-                        lastTopicRef.current = information.topic;
+                        lastConnectionRef.current = connectionKey;
                     }
                     dispatch(setMQTTFilenames(initMQTTFilenamesSlice));
                     dispatch(setMQTTSetup({...information, cacrt: '', clientcrt: '', clientkey: ''}));

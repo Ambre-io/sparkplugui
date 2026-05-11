@@ -35,8 +35,9 @@ func TryDecompress(data []byte) []byte {
 	// GZIP: magic 0x1f 0x8b
 	if data[0] == 0x1f && data[1] == 0x8b {
 		if r, err := gzip.NewReader(bytes.NewReader(data)); err == nil {
-			defer r.Close()
-			if out, err := io.ReadAll(r); err == nil {
+			out, err := io.ReadAll(r)
+			r.Close()
+			if err == nil {
 				return out
 			}
 		}
@@ -44,8 +45,9 @@ func TryDecompress(data []byte) []byte {
 	// zlib (DEFLATE with wrapper): first byte 0x78
 	if data[0] == 0x78 {
 		if r, err := zlib.NewReader(bytes.NewReader(data)); err == nil {
-			defer r.Close()
-			if out, err := io.ReadAll(r); err == nil {
+			out, err := io.ReadAll(r)
+			r.Close()
+			if err == nil {
 				return out
 			}
 		}
@@ -231,8 +233,8 @@ func (p *Payload) LooksValid() bool {
 	return !p.Timestamp.IsZero() || len(p.Metrics) > 0
 }
 
-// isSparkplugTopic returns true for topics that follow the spBv1.0 / spAv1.0 namespace.
-func (p *Payload) IsSparkplugTopic(topic string) bool {
+// IsSparkplugTopic returns true for topics that follow the spBv1.0 / spAv1.0 namespace.
+func IsSparkplugTopic(topic string) bool {
 	return strings.HasPrefix(topic, "spBv1.0/") || strings.HasPrefix(topic, "spAv1.0/")
 }
 
