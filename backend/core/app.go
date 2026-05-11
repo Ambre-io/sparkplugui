@@ -22,13 +22,14 @@ import (
 
 // App struct
 type App struct {
-	context     context.Context
-	MQTTCLIENT  MQTT.Client
-	QUEUE       chan MQTTMessage
-	DROPCOUNT   int64
-	RAWMESSAGES chan MQTT.Message
-	stop        context.CancelFunc
-	lastTopic   string
+	context       context.Context
+	MQTTCLIENT    MQTT.Client
+	QUEUE         chan MQTTMessage
+	DROPCOUNT     int64
+	RAWMESSAGES   chan MQTT.Message
+	stop          context.CancelFunc
+	lastTopic     string
+	aliasRegistry map[string]map[uint64]string
 }
 
 // NewApp creates a new App application struct
@@ -60,26 +61,58 @@ func (a *App) init() {
 	a.RAWMESSAGES = make(chan MQTT.Message, 1000)
 	a.DROPCOUNT = 0
 	a.lastTopic = ""
+	a.aliasRegistry = make(map[string]map[uint64]string)
+}
+
+func (a *App) newPayload(payload []byte) (string, int64) {
+	return string(payload), time.Now().Unix()
 }
 
 func (a *App) decode(topic string, payload []byte) (string, int64) {
-	p := sparkplug.Payload{}
-	err := p.DecodePayload(payload)
 
-	// Use the Sparkplug result when:
-	//   • the topic is a known Sparkplug namespace (always trust it), OR
-	//   • parsing succeeded AND the payload looks like real Sparkplug data
-	//     (proto.Unmarshal is permissive — it can silently "succeed" on plain text).
-	if err == nil && (p.IsSparkplugTopic(topic) || p.LooksValid()) {
-		pjson, _ := json.Marshal(p.Metrics)
-		ts := p.Timestamp.Unix()
-		if p.Timestamp.IsZero() {
-			ts = time.Now().Unix()
-		}
-		return string(pjson), ts
+	p := sparkplug.Payload{}
+
+	// not Sparkplug
+	if !p.IsSparkplugTopic(topic) {
+		return a.newPayload(payload)
 	}
 
-	return string(payload), time.Now().Unix()
+	group, msgType, nodeID, deviceID := sparkplug.ParseSparkplugTopic(topic)
+
+	// Build the registry key scoped to the edge node (NBIRTH/NDATA) or device (DBIRTH/DDATA).
+	var registryKey string
+	if group != "" {
+		registryKey = group + "/" + nodeID
+		if deviceID != "" {
+			registryKey += "/" + deviceID
+		}
+	}
+
+	payload = sparkplug.TryDecompress(payload)
+
+	// For data messages, pass the cached alias map so alias-only metrics resolve to names.
+	var aliasLookup map[uint64]string
+	if (msgType == "NDATA" || msgType == "DDATA") && registryKey != "" {
+		aliasLookup = a.aliasRegistry[registryKey]
+	}
+
+	if err := p.DecodePayload(payload, aliasLookup); err != nil || !p.LooksValid() {
+		return a.newPayload(payload)
+	}
+
+	// Populate the alias registry from birth messages so subsequent data messages resolve cleanly.
+	if (msgType == "NBIRTH" || msgType == "DBIRTH") && registryKey != "" {
+		if aliases := p.ExtractAliases(); len(aliases) > 0 {
+			a.aliasRegistry[registryKey] = aliases
+		}
+	}
+
+	pjson, _ := json.Marshal(p.Metrics)
+	ts := p.Timestamp.Unix()
+	if p.Timestamp.IsZero() {
+		ts = time.Now().Unix()
+	}
+	return string(pjson), ts
 }
 
 func (a *App) pushMessage(topic string, payload string, timestamp int64) {
