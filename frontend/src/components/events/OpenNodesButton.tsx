@@ -17,6 +17,7 @@ import VerticalAlignCenterOutlinedIcon from "@mui/icons-material/VerticalAlignCe
 import {AmbreIconButton} from "../ambre/AmbreIconButton.tsx";
 import {getParentNodes} from "../../redux/data/parentNodesSlice.ts";
 import {getOpenedNodes, initOpenedNodes, setOpenedNodes} from "../../redux/data/openedNodesSlice.ts";
+import {getConnected} from "../../redux/events/connectedSlice.ts";
 
 
 export const OpenNodesButton: React.FC = () => {
@@ -25,13 +26,14 @@ export const OpenNodesButton: React.FC = () => {
 
     const parents = useSelector(getParentNodes);
     const openedNodes = useSelector(getOpenedNodes);
+    const connected = useSelector(getConnected);
     const closed = openedNodes.length === initOpenedNodes.length;
 
     const goClick = () => dispatch(setOpenedNodes(closed ? parents : initOpenedNodes));
 
     return closed ? (
-        <AmbreIconButton onClick={goClick} icon={<ExpandOutlinedIcon/>} tooltipTitle={t('open')}/>
+        <AmbreIconButton onClick={goClick} icon={<ExpandOutlinedIcon/>} tooltipTitle={t('open')} disabled={connected}/>
     ) : (
-        <AmbreIconButton onClick={goClick} icon={<VerticalAlignCenterOutlinedIcon/>} tooltipTitle={t('close')}/>
+        <AmbreIconButton onClick={goClick} icon={<VerticalAlignCenterOutlinedIcon/>} tooltipTitle={t('close')} disabled={connected}/>
     );
 };
