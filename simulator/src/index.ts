@@ -7,6 +7,7 @@
  * terms of the GNU GENERAL PUBLIC LICENSE which is available at
  *    https://github.com/Ambre-io/sparkplugui
  */
+import {gzipSync} from 'zlib';
 import {connectAsync, MqttClient} from 'mqtt';
 import {encodePayload, UPayload} from 'sparkplug-payload/lib/sparkplugbpayload';
 
@@ -82,34 +83,50 @@ const SPB_METRIC_DEFS: SpbMetricDef[] = [
     {name: 'Label',       type: 'String',  alias: 11, generate: () => `unit_${ri(1000, 9999)}`},
 ];
 
+const gzip = (buf: Buffer): Buffer => gzipSync(new Uint8Array(buf)) as Buffer;
+
 let globalSeq = 0;
 
 // Birth: full name + alias + value (defines the alias mapping)
-function spbBirthPayload(defs: SpbMetricDef[]): Buffer {
+function spbBirthPayload(defs: SpbMetricDef[], compress = false): Buffer {
     const metrics = defs.map(d => ({name: d.name, alias: d.alias, type: d.type, value: d.generate()}));
     const payload: UPayload = {timestamp: Date.now(), seq: globalSeq++ % 256, metrics: metrics as any};
-    return Buffer.from(encodePayload(payload));
+    const buf = Buffer.from(encodePayload(payload));
+    return compress ? gzip(buf) : buf;
 }
 
 // Data: alias + value only — name intentionally omitted to test registry resolution
-function spbDataPayload(defs: SpbMetricDef[]): Buffer {
+function spbDataPayload(defs: SpbMetricDef[], compress = false): Buffer {
     const metrics = defs.map(d => ({alias: d.alias, type: d.type, value: d.generate()}));
     const payload: UPayload = {timestamp: Date.now(), seq: globalSeq++ % 256, metrics: metrics as any};
-    return Buffer.from(encodePayload(payload));
+    const buf = Buffer.from(encodePayload(payload));
+    return compress ? gzip(buf) : buf;
 }
 
-function spbPublisher(client: MqttClient, birthTopic: string, dataTopic: string, intervalMs: number, metricsCount: number): void {
+function spbPublisher(client: MqttClient, birthTopic: string, dataTopic: string, intervalMs: number, metricsCount: number, compress = false): void {
     topicCount++;
     const defs = SPB_METRIC_DEFS.slice(0, Math.min(metricsCount, SPB_METRIC_DEFS.length));
-    client.publish(birthTopic, spbBirthPayload(defs));
+    client.publish(birthTopic, spbBirthPayload(defs, compress));
     totalPublished++;
     const tick = () => {
-        client.publish(dataTopic, spbDataPayload(defs));
+        client.publish(dataTopic, spbDataPayload(defs, compress));
         totalPublished++;
         const jitter = (Math.random() - 0.5) * intervalMs * 0.4;
         setTimeout(tick, Math.max(20, intervalMs + jitter));
     };
     setTimeout(tick, ri(0, intervalMs));
+}
+
+// Dedicated GZIP test node — publishes compressed Sparkplug B on spBv1.0/test/
+function spawnGzipTest(client: MqttClient): void {
+    spbPublisher(client,
+        `${TOPIC_BASE}/test/NBIRTH/gzip_node`,
+        `${TOPIC_BASE}/test/NDATA/gzip_node`,
+        500, SPB_METRIC_DEFS.length, true);
+    spbPublisher(client,
+        `${TOPIC_BASE}/test/DBIRTH/gzip_node/gzip_device`,
+        `${TOPIC_BASE}/test/DDATA/gzip_node/gzip_device`,
+        500, SPB_METRIC_DEFS.length, true);
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -498,6 +515,7 @@ function spawnMisc(client: MqttClient): void {
     spawnAlerts(client);
     spawnFiles(client);
     spawnMisc(client);
+    spawnGzipTest(client);
 
     console.log(`\n${topicCount} publishers running across all topic families.`);
     console.log(`Press Ctrl+C to stop.\n`);
